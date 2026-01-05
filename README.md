@@ -1,4 +1,3 @@
-<<<<<<< copilot/outline-earth-mars-topology
 # AETHERIX - Mars Interplanetary Network Architecture
 
 ## Overview
@@ -456,3 +455,4 @@ This project is part of the AETHERIX platform for space communications research.
 
 </div>
 >>>>>>> main
+
