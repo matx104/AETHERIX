@@ -14,14 +14,40 @@ AETHERIX (Autonomous Extraterrestrial High-throughput Enhancing Routing and Inte
 
 ## Commands
 
-### Running Tests
+### Quick Start
+```bash
+# Initialize the development environment
+./scripts/init.sh
+
+# Run all tests
+./scripts/run_tests.sh
+
+# Run interactive demos
+./scripts/run_demos.sh
+```
+
+### Available Scripts
+| Script | Description |
+|--------|-------------|
+| `./scripts/init.sh` | Set up virtual environment and install dependencies |
+| `./scripts/init.sh --dev` | Include development tools (linting, formatting) |
+| `./scripts/run_tests.sh` | Run the test suite |
+| `./scripts/run_tests.sh -v` | Run tests with verbose output |
+| `./scripts/run_demos.sh` | Interactive demo menu |
+| `./scripts/run_demos.sh 1-6` | Run specific demo |
+| `./scripts/link_budget_demo.sh` | Run link budget demo |
+| `./scripts/lint.sh` | Run code quality checks |
+| `./scripts/lint.sh --fix` | Auto-fix code style issues |
+| `./scripts/clean.sh` | Clean up build artifacts and caches |
+
+### Running Tests (Manual)
 ```bash
 python -m pytest tests/
 # or
 python -m unittest discover tests/
 ```
 
-### Running the Link Budget Demo
+### Running the Link Budget Demo (Manual)
 ```bash
 python src/infrastructure/link_budget.py
 ```
@@ -29,23 +55,31 @@ python src/infrastructure/link_budget.py
 ### Future Commands (Not Yet Implemented)
 ```bash
 # When implemented:
-pip install -r requirements.txt
 ./scripts/setup-ion-dtn.sh
-python src/link-budget/calculator.py --scenario mars-average
 python src/routing/train_agent.py --config config/training.yaml
 python src/simulation/run_scenario.py --config config/earth-mars-baseline.yaml
 ```
 
 ## Architecture
 
-### Source Code Structure
+### Project Structure
 ```
-src/
-├── infrastructure/    # Link budget calculations (IMPLEMENTED)
-│   └── link_budget.py # OpticalLinkBudget dataclass + LinkBudgetCalculator
-├── routing/          # RL-based DTN routing (PLANNED - AETHERIX Relay)
-├── security/         # QKD protocols (PLANNED - AETHERIX Quantum)
-└── simulation/       # ns-3/OMNeT++ simulation APIs (PLANNED - AETHERIX Sim)
+AETHERIX/
+├── scripts/           # Shell scripts for development tasks
+│   ├── init.sh        # Environment setup
+│   ├── run_tests.sh   # Test runner
+│   ├── run_demos.sh   # Demo runner
+│   ├── lint.sh        # Code quality checks
+│   └── clean.sh       # Cleanup script
+├── src/
+│   ├── infrastructure/    # Link budget calculations (IMPLEMENTED)
+│   │   └── link_budget.py # OpticalLinkBudget dataclass + LinkBudgetCalculator
+│   ├── routing/          # RL-based DTN routing (IMPLEMENTED - Demo)
+│   ├── security/         # QKD protocols (IMPLEMENTED - Demo)
+│   └── simulation/       # ns-3/OMNeT++ simulation APIs (PLANNED)
+├── tests/             # Test suite
+├── demos/             # Interactive demonstrations
+└── requirements.txt   # Python dependencies
 ```
 
 ### Network Topology (5 Tiers)
