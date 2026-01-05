@@ -1,0 +1,23 @@
+# AETHERIX Requirements
+# =====================
+# Core dependencies for the AETHERIX interplanetary communication platform
+
+# Testing
+pytest>=7.0.0
+
+# Note: The core implementation currently uses only Python standard library:
+# - math
+# - dataclasses
+# - typing
+# - enum
+# - time
+# - uuid
+# - random
+
+# Future dependencies (uncomment when needed):
+# numpy>=1.24.0           # For advanced numerical calculations
+# matplotlib>=3.7.0       # For visualizations
+# gymnasium>=0.29.0       # For RL agent training (OpenAI Gym successor)
+# torch>=2.0.0            # For Deep Q-Network implementation
+# astropy>=5.0.0          # For precise orbital calculations
+# jplephem>=2.18          # For JPL ephemeris data
