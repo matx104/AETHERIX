@@ -359,7 +359,7 @@ AETHERIX/
 
 <div align="center">
 
-![CCSDS](https://img.shields.io/badge/CCSDS-734.2--B--1-blue?style=flat-square) 
+![CCSDS](https://img.shields.io/badge/CCSDS-734.2--B--1-blue?style=flat-square)
 ![RFC](https://img.shields.io/badge/RFC-9171-green?style=flat-square)
 ![LNIS](https://img.shields.io/badge/LNIS-v5-orange?style=flat-square)
 
