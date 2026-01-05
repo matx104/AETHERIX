@@ -9,6 +9,7 @@ Requirements:
 
 import sys
 import os
+import math
 
 # Try to import visualization libraries
 try:
@@ -321,8 +322,6 @@ def generate_qkd_performance_chart(output_dir: str):
         print("Skipping QKD performance chart (matplotlib not installed)")
         return
 
-    import math
-
     # Distance ranges (in km)
     distances_leo = np.linspace(400, 2000, 20)  # LEO satellites
     distances_geo = np.linspace(2000, 40000, 20)  # GEO range
@@ -424,8 +423,6 @@ def generate_contact_windows_chart(output_dir: str):
     if not HAS_MATPLOTLIB:
         print("Skipping contact windows chart (matplotlib not installed)")
         return
-
-    import math
 
     # Simulate contact windows over synodic period (780 days)
     days = np.arange(0, 780, 1)
