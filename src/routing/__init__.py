@@ -1,6 +1,22 @@
 """
 AETHERIX Routing Module
 
-Provides AI-driven routing capabilities for Delay-Tolerant Networking (DTN)
-in deep-space communication networks.
+Provides DTN routing capabilities including:
+- Bundle Protocol v7 data structures
+- RL-based routing agent
+- Contact graph routing (baseline)
 """
+
+from .bundle import Bundle, BundlePriority, EndpointID, create_science_bundle
+from .rl_agent import RLRoutingAgent, RoutingAction, NetworkState, RoutingDecision
+
+__all__ = [
+    'Bundle',
+    'BundlePriority',
+    'EndpointID',
+    'create_science_bundle',
+    'RLRoutingAgent',
+    'RoutingAction',
+    'NetworkState',
+    'RoutingDecision',
+]
