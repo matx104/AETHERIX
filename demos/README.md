@@ -14,6 +14,7 @@ python demos/02_dtn_routing_demo/run_demo.py
 python demos/03_orbital_mechanics_demo/run_demo.py
 python demos/04_quantum_key_demo/run_demo.py
 python demos/05_mars_mission_scenario/run_demo.py
+python demos/06_integrated_demo/presentation_demo.py
 ```
 
 ## Demo Overview
