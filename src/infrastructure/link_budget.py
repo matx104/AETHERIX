@@ -144,13 +144,17 @@ class LinkBudgetCalculator:
         Calculate free space path loss for optical link.
         
         The free space path loss is calculated using:
-        FSPL = 20*log10(4*π*d/λ)
+        FSPL = -10*log10((4*π*d/λ)²) = -20*log10(4*π*d/λ)
+        
+        Note: Returns a negative value representing the loss in dB.
+        This is equivalent to FSPL = 20*log10(4*π*d/λ) as a positive
+        magnitude, but expressed as a loss (negative dB).
         
         Args:
             distance_km: Distance in kilometers
             
         Returns:
-            Free space path loss in dB (negative value)
+            Free space path loss in dB (negative value representing loss)
         """
         distance_m = distance_km * 1000
         fspl = (4 * math.pi * distance_m / self.wavelength_m) ** 2
