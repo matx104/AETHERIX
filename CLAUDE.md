@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-AETHERIX (Autonomous Extraterrestrial High-throughput Enhancing Routing and Inter-planetary eXchange) is an architecture for delay-tolerant networking (DTN) between Earth and Mars. The project is currently in the **Initial Architecture Design phase** with completed topology and link budget analysis.
+AETHERIX (Autonomous Extraterrestrial High-throughput Enhancing Routing and Inter-planetary eXchange) is an architecture for delay-tolerant networking (DTN) between Earth and Mars. The project is currently in the **Demo/Proof-of-Concept phase** with working implementations of core modules.
 
 **Key Technologies:**
 - Bundle Protocol v7 (BPv7) via ION-DTN
@@ -40,16 +40,22 @@ AETHERIX (Autonomous Extraterrestrial High-throughput Enhancing Routing and Inte
 | `./scripts/lint.sh --fix` | Auto-fix code style issues |
 | `./scripts/clean.sh` | Clean up build artifacts and caches |
 
-### Running Tests (Manual)
+### Running Individual Modules
 ```bash
-python -m pytest tests/
-# or
-python -m unittest discover tests/
-```
-
-### Running the Link Budget Demo (Manual)
-```bash
+# Link budget calculations
 python src/infrastructure/link_budget.py
+
+# RL routing agent demo
+python src/routing/rl_agent.py
+
+# QKD protocol simulation
+python src/security/qkd.py
+
+# Orbital mechanics / contact windows
+python src/orbital/contact_windows.py
+
+# Bundle protocol demo
+python src/routing/bundle.py
 ```
 
 ### Future Commands (Not Yet Implemented)
@@ -72,13 +78,28 @@ AETHERIX/
 │   ├── lint.sh        # Code quality checks
 │   └── clean.sh       # Cleanup script
 ├── src/
-│   ├── infrastructure/    # Link budget calculations (IMPLEMENTED)
-│   │   └── link_budget.py # OpticalLinkBudget dataclass + LinkBudgetCalculator
-│   ├── routing/          # RL-based DTN routing (IMPLEMENTED - Demo)
-│   ├── security/         # QKD protocols (IMPLEMENTED - Demo)
-│   └── simulation/       # ns-3/OMNeT++ simulation APIs (PLANNED)
+│   ├── infrastructure/    # Link budget calculations
+│   │   └── link_budget.py # OpticalLinkBudget + LinkBudgetCalculator
+│   ├── routing/           # RL-based DTN routing
+│   │   ├── rl_agent.py    # RLRoutingAgent, NetworkState, RoutingDecision
+│   │   └── bundle.py      # BPv7 Bundle, EndpointID, BundlePriority
+│   ├── security/          # QKD protocols
+│   │   └── qkd.py         # BB84Protocol, E91Protocol, QuantumRepeater
+│   ├── orbital/           # Orbital mechanics
+│   │   └── contact_windows.py # Contact prediction, distance calculations
+│   └── simulation/        # ns-3/OMNeT++ simulation APIs (PLANNED)
+├── demos/             # Interactive demonstrations (6 demos)
+│   ├── 01_link_budget_demo/
+│   ├── 02_dtn_routing_demo/
+│   ├── 03_orbital_mechanics_demo/
+│   ├── 04_quantum_key_demo/
+│   ├── 05_mars_mission_scenario/
+│   └── 06_integrated_demo/
 ├── tests/             # Test suite
-├── demos/             # Interactive demonstrations
+├── visualizations/    # Charts and visualization scripts
+├── docs/              # Documentation
+├── presentation/      # Presentation materials
+├── interview_prep/    # Interview preparation materials
 └── requirements.txt   # Python dependencies
 ```
 
@@ -105,21 +126,59 @@ The project follows these standards:
 - **RFC 9171**: Bundle Protocol Version 7
 - **RFC 5326**: Licklider Transmission Protocol (LTP)
 
-## Development Notes
+## Implemented Modules
 
-### Current Implementation
-Only `src/infrastructure/link_budget.py` is implemented. It provides:
-- `LinkBudgetCalculator` - calculates optical link budgets
+### Infrastructure (`src/infrastructure/link_budget.py`)
+Full implementation of optical link budget calculations:
 - `OpticalLinkBudget` - dataclass for link budget results
+- `LinkBudgetCalculator` - calculates free-space loss, EIRP, received power, link margin
 - `calculate_mars_earth_link(scenario)` - convenience method for "minimum", "average", "maximum" scenarios
 
-### Planned RL Agent Architecture
-State space includes: node position/velocity, link quality, bundle metadata, buffer occupancy
-Action space: forward/store/drop/split decisions
-Reward: delivery success - delay - hops - energy consumption
+### Routing (`src/routing/`)
+Demo-level implementations:
+- **`rl_agent.py`**: Q-learning based routing agent
+  - `RLRoutingAgent` - epsilon-greedy policy with Q-table
+  - `NetworkState` - state representation (node, neighbors, link quality, buffer)
+  - `RoutingAction` - forward/store/drop/split actions
+  - Reward function: R = α(delivery) - β(delay) - γ(hops) - δ(drops) - ε(energy)
+- **`bundle.py`**: BPv7 bundle protocol implementation
+  - `Bundle` - full bundle with primary block, lifetime, custody tracking
+  - `EndpointID` - DTN endpoint identifiers (scheme://node/service)
+  - `BundlePriority` - 5 priority levels (EMERGENCY to BULK)
 
-### Prerequisites (for future implementation)
+### Security (`src/security/qkd.py`)
+QKD protocol simulations:
+- `BB84Protocol` - Bennett-Brassard 1984 protocol with QBER detection
+- `E91Protocol` - Entanglement-based protocol (Ekert 1991)
+- `QuantumRepeater` - entanglement swapping for extended range
+- Security threshold: QBER < 11% indicates no eavesdropper
+
+### Orbital (`src/orbital/contact_windows.py`)
+Orbital mechanics calculations:
+- `calculate_earth_mars_distance()` - distance from true anomaly
+- `calculate_light_time()` - one-way light delay
+- `predict_contact_windows()` - communication opportunity prediction
+- `get_distance_timeline()` - synodic period distance variation
+- Handles solar conjunction blackouts
+
+## Development Notes
+
+### Test Coverage
+Currently only `tests/test_link_budget.py` exists. Tests needed for:
+- RL routing agent
+- QKD protocols
+- Orbital mechanics
+- Bundle protocol
+
+### Production Upgrades Needed
+The current implementations are demo-level. Production would require:
+- **RL Agent**: Replace Q-table with Deep Q-Network (DQN), experience replay, neural network weights
+- **QKD**: Actual photon counting, detector modeling, privacy amplification
+- **Orbital**: JPL Horizons API integration for precise ephemeris
+- **Simulation**: Integration with ns-3 or OMNeT++ for network simulation
+
+### Prerequisites
 - Python 3.9+
-- ns-3.38+ or OMNeT++ 6.0+
-- ION-DTN 4.1.2+
-- JPL Horizons API access
+- For future simulation: ns-3.38+ or OMNeT++ 6.0+
+- For DTN integration: ION-DTN 4.1.2+
+- For precise ephemeris: JPL Horizons API access
