@@ -94,10 +94,11 @@ if python -c "import black" 2>/dev/null; then
             EXIT_CODE=1
         fi
     else
-        if python -m black src/ tests/ --line-length=100 --check --diff; then
+        if python -m black src/ tests/ --line-length=100 --check --diff 2>/dev/null; then
             echo -e "${GREEN}✓ black check passed${NC}"
         else
             echo -e "${YELLOW}⚠ black found formatting issues (run with --fix to apply)${NC}"
+            EXIT_CODE=1
         fi
     fi
 else
@@ -115,10 +116,11 @@ if python -c "import isort" 2>/dev/null; then
             EXIT_CODE=1
         fi
     else
-        if python -m isort src/ tests/ --check-only --diff; then
+        if python -m isort src/ tests/ --check-only --diff 2>/dev/null; then
             echo -e "${GREEN}✓ isort check passed${NC}"
         else
             echo -e "${YELLOW}⚠ isort found import ordering issues (run with --fix to apply)${NC}"
+            EXIT_CODE=1
         fi
     fi
 else

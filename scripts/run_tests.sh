@@ -37,7 +37,6 @@ show_help() {
     echo "Options:"
     echo "  --verbose, -v    Verbose output"
     echo "  --coverage       Run with coverage reporting"
-    echo "  --unit           Run only unit tests"
     echo "  --help, -h       Show this help message"
     exit 0
 }

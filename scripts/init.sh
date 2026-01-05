@@ -103,11 +103,28 @@ echo -e "${GREEN}✓ PYTHONPATH configured${NC}"
 
 # Verify installation
 echo -e "\n${YELLOW}Verifying installation...${NC}"
-$PYTHON_CMD -c "from infrastructure.link_budget import LinkBudgetCalculator; print('  ✓ Link Budget Calculator')"
-$PYTHON_CMD -c "from routing.rl_agent import RLRoutingAgent; print('  ✓ RL Routing Agent')"
-$PYTHON_CMD -c "from routing.bundle import Bundle; print('  ✓ Bundle Protocol')"
-$PYTHON_CMD -c "from security.qkd import BB84Protocol; print('  ✓ QKD Protocols')"
-$PYTHON_CMD -c "from orbital.contact_windows import calculate_earth_mars_distance; print('  ✓ Orbital Mechanics')"
+VERIFY_FAILED=false
+
+verify_import() {
+    local module=$1
+    local name=$2
+    if $PYTHON_CMD -c "from $module import $name" 2>/dev/null; then
+        echo -e "  ${GREEN}✓${NC} $name"
+    else
+        echo -e "  ${RED}✗${NC} $name (import failed)"
+        VERIFY_FAILED=true
+    fi
+}
+
+verify_import "infrastructure.link_budget" "LinkBudgetCalculator"
+verify_import "routing.rl_agent" "RLRoutingAgent"
+verify_import "routing.bundle" "Bundle"
+verify_import "security.qkd" "BB84Protocol"
+verify_import "orbital.contact_windows" "calculate_earth_mars_distance"
+
+if [ "$VERIFY_FAILED" = true ]; then
+    echo -e "\n${YELLOW}⚠ Some modules failed to import. Check for syntax errors.${NC}"
+fi
 
 echo -e "\n${GREEN}"
 echo "╔══════════════════════════════════════════════════════════════════════════════╗"
