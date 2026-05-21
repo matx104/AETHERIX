@@ -58,6 +58,10 @@
           <li class="topnav-dropdown-item" data-route="journey-to-mars" tabindex="0">&#128640; Journey to Mars</li>
           <li class="topnav-dropdown-item" data-route="the-network" tabindex="0">&#127760; The Network</li>
           <li class="topnav-dropdown-item" data-route="space-security" tabindex="0">&#128274; Space Security</li>
+          <li class="topnav-dropdown-item" data-route="optical-comms" tabindex="0">&#128161; Optical Communications</li>
+          <li class="topnav-dropdown-item" data-route="deep-space-standards" tabindex="0">&#128218; Deep Space Standards</li>
+          <li class="topnav-dropdown-item" data-route="qkd-science" tabindex="0">&#10023; Science Behind QKD</li>
+          <li class="topnav-dropdown-item" data-route="reinforcement-learning" tabindex="0">&#129302; Reinforcement Learning</li>
           <li class="topnav-dropdown-item" data-route="why-it-matters" tabindex="0">&#127919; Why It Matters</li>
         </ul>
       </li>
@@ -94,6 +98,10 @@
     <div class="topnav-mobile-link" data-route="journey-to-mars">&#128640; Journey to Mars</div>
     <div class="topnav-mobile-link" data-route="the-network">&#127760; The Network</div>
     <div class="topnav-mobile-link" data-route="space-security">&#128274; Space Security</div>
+    <div class="topnav-mobile-link" data-route="optical-comms">&#128161; Optical Communications</div>
+    <div class="topnav-mobile-link" data-route="deep-space-standards">&#128218; Deep Space Standards</div>
+    <div class="topnav-mobile-link" data-route="qkd-science">&#10023; Science Behind QKD</div>
+    <div class="topnav-mobile-link" data-route="reinforcement-learning">&#129302; Reinforcement Learning</div>
     <div class="topnav-mobile-link" data-route="why-it-matters">&#127919; Why It Matters</div>
     <div class="topnav-mobile-section">Demo</div>
     <div class="topnav-mobile-link" data-route="dashboard">&#9672; Mission Control</div>
@@ -1121,6 +1129,413 @@
       </div>
     </section>
 
+    <section id="optical-comms" class="tab" aria-label="Optical Communications">
+      <div class="page-header">
+        <h1>Optical Communications in Deep Space</h1>
+        <p>How infrared lasers deliver 10&#8211;100&#215; faster data rates than radio for interplanetary communication &#8212; and why pointing a beam at a target 400 million kilometers away is harder than it sounds.</p>
+        <div class="header-badges">
+          <span class="badge accent">1550 nm Near-IR</span>
+          <span class="badge mars">2&#8211;200 Mbps</span>
+          <span class="badge success">CCSDS 141.0-B-1</span>
+        </div>
+      </div>
+
+      <div class="callout callout-tip" style="margin-top:20px">
+        <div class="callout-icon">&#127919;</div>
+        <div>
+          <div class="callout-title">The Analogy</div>
+          <div class="callout-text">Imagine shining a laser pointer at a wall across the street. Now imagine that wall is on Mars &#8212; 400 million kilometers away &#8212; and the beam has to hit a receiver the size of a dinner plate. That&#8217;s deep-space optical communication. The beam divergence is only ~5 microradians (0.0003 degrees), requiring pointing accuracy equivalent to hitting a coin from 4 km away.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128207;</span> Why Optical Beats Radio</header>
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Shorter Wavelength = Narrower Beam</div>
+          <p style="line-height:1.7">Radio antennas spread their signal across a wide cone &#8212; like a floodlight. Optical lasers concentrate energy into a tight beam &#8212; like a laser pointer. At 1550 nm (infrared), the wavelength is 10,000&#215; shorter than Ka-band radio, so the beam stays concentrated over interplanetary distances.</p>
+          <div class="callout callout-fact" style="margin-top:12px">
+            <div class="callout-icon">&#128207;</div>
+            <div>
+              <div class="callout-title">Beam Divergence</div>
+              <div class="callout-text"><strong>Optical (1550nm):</strong> ~5 &#956;rad &#8594; spot size ~2,000 km at Mars distance<br><strong>Ka-band RF:</strong> ~0.5 mrad &#8594; spot size ~200,000 km at Mars distance<br>The optical beam is <strong>100&#215; narrower</strong>, concentrating 10,000&#215; more energy on the receiver.</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--mars)"></span> Higher Frequency = More Bandwidth</div>
+          <p style="line-height:1.7">Data rate scales with frequency. Optical at 193 THz (1550nm) can modulate information far faster than Ka-band at 26.5 GHz. The theoretical Shannon limit for optical is orders of magnitude higher than RF.</p>
+          <div class="callout callout-fact" style="margin-top:12px">
+            <div class="callout-icon">&#128207;</div>
+            <div>
+              <div class="callout-title">Real-World Data Rates</div>
+              <div class="callout-text"><strong>Mars Reconnaissance Orbiter (X-band):</strong> ~6 Mbps<br><strong>DSOC / AETHERIX (Optical):</strong> 2&#8211;200 Mbps (distance-dependent)<br>At opposition (55M km), optical can achieve <strong>200 Mbps</strong> &#8212; enough for streaming HD video from Mars.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#9888;</span> The Challenges</header>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> Cloud Cover</div>
+          <p style="line-height:1.7">Optical signals can&#8217;t penetrate clouds. This is why AETHERIX uses <strong>hybrid optical/RF</strong> &#8212; when clouds block the laser at a DSN site, the system falls back to Ka-band radio. Sites like Goldstone (California desert) were chosen for their clear skies.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Pointing Accuracy</div>
+          <p style="line-height:1.7">A 5 &#956;rad beam at 225M km produces a ~1,100 km spot. The receiver must be within that spot. Spacecraft vibration, thermal deformation, and orbital motion all affect pointing. Requires sub-microradian pointing stability &#8212; achieved with fine-steering mirrors.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> Background Noise</div>
+          <p style="line-height:1.7">The Sun is an intense infrared source. When Mars is near solar conjunction, sunlight swamps the optical receiver. This creates the same ~2-week blackout as RF, but the effect is more severe for optical. Lagrange-point relays help maintain partial connectivity.</p>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:20px">
+        <div class="info-bubble-icon">&#128161;</div>
+        <div>
+          <div class="info-bubble-title">Why 1550 nm?</div>
+          <div class="info-bubble-text">The 1550 nm wavelength sits in the <strong>C-band of the near-infrared spectrum</strong> &#8212; the same band used by terrestrial fiber-optic internet. This is not a coincidence: decades of telecom investment have produced cheap, reliable, high-power lasers and sensitive detectors at this wavelength. It also happens to have low atmospheric absorption, passing through clear air with minimal loss. NASA&#8217;s DSOC (Deep Space Optical Communications) demonstration in 2023 used exactly this band.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128200;</span> Optical vs RF Comparison</header>
+      <div class="card">
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Property</th><th>Optical (1550nm)</th><th>Ka-band (26.5 GHz)</th><th>X-band (8.4 GHz)</th></tr></thead>
+            <tbody>
+              <tr><td>Wavelength</td><td>1550 nm</td><td>11.3 mm</td><td>35.7 mm</td></tr>
+              <tr><td>Frequency</td><td>193 THz</td><td>26.5 GHz</td><td>8.4 GHz</td></tr>
+              <tr><td>Beam Divergence</td><td>~5 &#956;rad</td><td>~0.5 mrad</td><td>~1.5 mrad</td></tr>
+              <tr><td>Max Data Rate</td><td>200 Mbps</td><td>50 Mbps</td><td>6 Mbps</td></tr>
+              <tr><td>Weather Immunity</td><td>Low (clouds block)</td><td>Moderate (rain fade)</td><td>High</td></tr>
+              <tr><td>Power Efficiency</td><td>Very high</td><td>Moderate</td><td>Moderate</td></tr>
+              <tr><td>Best For</td><td>Bulk science downlink</td><td>High-rate backup</td><td>Reliable command/telemetry</td></tr>
+              <tr><td>Heritage</td><td>DSOC (2023)</td><td>MRO, Mars Express</td><td>Viking, MGS, MRO</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div style="margin-top:24px;text-align:center;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-sm btn-primary" onclick="Router.navigate('link-budget')">Try Optical Link Budget &#8594;</button>
+        <button class="btn btn-sm btn-mars" onclick="Router.navigate('rf-budget')">Try RF Link Budget &#8594;</button>
+        <button class="btn btn-sm btn-quantum" onclick="Router.navigate('the-network')">The 5-Tier Network &#8594;</button>
+      </div>
+    </section>
+
+    <section id="deep-space-standards" class="tab" aria-label="Deep Space Communication Standards">
+      <div class="page-header">
+        <h1>Deep Space Communication Standards</h1>
+        <p>The international standards that make interplanetary networking possible &#8212; from the IETF&#8217;s Bundle Protocol to CCSDS&#8217;s space link specifications.</p>
+        <div class="header-badges">
+          <span class="badge accent">RFC 9171</span>
+          <span class="badge quantum">CCSDS 735.1-B-1</span>
+          <span class="badge nebula">RFC 5326</span>
+        </div>
+      </div>
+
+      <div class="callout callout-tip" style="margin-top:20px">
+        <div class="callout-icon">&#127919;</div>
+        <div>
+          <div class="callout-title">Why Standards Matter in Space</div>
+          <div class="callout-text">When NASA&#8217;s Mars Reconnaissance Orbiter talks to ESA&#8217;s ExoMars orbiter, they need a common language. When a future Chinese Mars relay forwards data to a NASA ground station, the protocols must interoperate. Standards ensure that hardware built by different agencies, in different decades, can communicate. Without them, every mission would be an isolated island.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128218;</span> The Three Standards Bodies</header>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> IETF (Internet Engineering Task Force)</div>
+          <p style="line-height:1.7">Creates the internet standards (RFCs) that DTN builds on. Key RFCs include <strong>RFC 9171</strong> (Bundle Protocol v7), <strong>RFC 5326</strong> (LTP), <strong>RFC 4838</strong> (DTN Architecture), and <strong>RFC 7242</strong> (TCPCL). Open, community-driven process.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> CCSDS (Consultative Committee for Space Data Systems)</div>
+          <p style="line-height:1.7">The space agency consortium (NASA, ESA, JAXA, CSA, etc.) that defines space-specific protocols. <strong>CCSDS 735.1-B-1</strong> adapts BPv7 for space. <strong>CCSDS 734.2-B-1</strong> defines the DTN architecture. <strong>CCSDS 141.0-B-1</strong> covers optical links.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> NIST (National Institute of Standards and Technology)</div>
+          <p style="line-height:1.7">Defines cryptographic standards. For AETHERIX, the key standards are <strong>FIPS 203</strong> (ML-KEM / CRYSTALS-Kyber for key encapsulation) and <strong>FIPS 204</strong> (ML-DSA / CRYSTALS-Dilithium for digital signatures) &#8212; the new post-quantum cryptography standards finalized in 2024.</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#9881;</span> The Protocol Stack</header>
+      <div class="card">
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Layer</th><th>Protocol</th><th>Standard</th><th>Purpose</th></tr></thead>
+            <tbody>
+              <tr><td>Application</td><td>Bundle Protocol v7</td><td>RFC 9171 / CCSDS 735.1-B-1</td><td>End-to-end messaging with custody transfer</td></tr>
+              <tr><td>Transport</td><td>LTP (Licklider)</td><td>RFC 5326</td><td>Reliable segmentation over long-delay links</td></tr>
+              <tr><td>Transport</td><td>TCPCL</td><td>RFC 7242</td><td>TCP convergence layer for Earth segment</td></tr>
+              <tr><td>Transport</td><td>UDPCL</td><td>RFC 7122</td><td>UDP convergence for optical inter-satellite links</td></tr>
+              <tr><td>Network</td><td>Contact Graph Routing</td><td>CCSDS 734.2-B-1</td><td>Static routing based on contact schedules</td></tr>
+              <tr><td>Network</td><td>RL Routing (AETHERIX)</td><td>Research</td><td>Adaptive routing via reinforcement learning</td></tr>
+              <tr><td>Security</td><td>BPSec</td><td>RFC 9172</td><td>Bundle security (integrity + confidentiality)</td></tr>
+              <tr><td>Physical</td><td>Optical (1550nm)</td><td>CCSDS 141.0-B-1</td><td>Laser communication physical layer</td></tr>
+              <tr><td>Physical</td><td>RF (Ka/X/S/UHF)</td><td>CCSDS 401.0-B-30</td><td>Radio frequency physical layer</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128230;</span> Convergence Layers Explained</header>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> TCPCL (RFC 7242)</div>
+          <p style="line-height:1.7"><strong>TCP Convergence Layer.</strong> Used on Earth where TCP works &#8212; between DSN ground stations and mission control, between data centers. Reliable, ordered delivery. Segments bundles into TCP-friendly frames.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> LTP (RFC 5326)</div>
+          <p style="line-height:1.7"><strong>Licklider Transmission Protocol.</strong> The deep-space workhorse. Designed for links with 3&#8211;22 minute delays. Segments data, selectively retransmits only lost segments (not the whole payload). Report-based ACK instead of per-packet ACK.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--nebula)"></span> UDPCL (RFC 7122)</div>
+          <p style="line-height:1.7"><strong>UDP Convergence Layer.</strong> Used for high-speed optical inter-satellite links where reliability is handled by LTP above. Fire-and-forget with optional fragmentation. Best for LEO mesh laser links with low latency.</p>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:20px">
+        <div class="info-bubble-icon">&#128161;</div>
+        <div>
+          <div class="info-bubble-title">AETHERIX vs CGR</div>
+          <div class="info-bubble-text">Traditional DTN uses <strong>Contact Graph Routing (CGR)</strong> &#8212; a static algorithm that computes paths from pre-planned contact schedules. AETHERIX replaces this with <strong>reinforcement learning routing</strong> that adapts in real time to changing conditions (node failures, buffer overflows, link degradation). CGR is deterministic but brittle; RL is probabilistic but resilient. Learn more on the <strong>Reinforcement Learning</strong> page.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:24px;text-align:center;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-sm btn-primary" onclick="Router.navigate('bundle')">Bundle Protocol Demo &#8594;</button>
+        <button class="btn btn-sm btn-mars" onclick="Router.navigate('dtn-engine')">DTN Engine Demo &#8594;</button>
+        <button class="btn btn-sm btn-quantum" onclick="Router.navigate('reinforcement-learning')">RL Routing &#8594;</button>
+      </div>
+    </section>
+
+    <section id="qkd-science" class="tab" aria-label="The Science Behind QKD">
+      <div class="page-header">
+        <h1>The Science Behind Quantum Key Distribution</h1>
+        <p>How the fundamental laws of quantum physics &#8212; superposition, entanglement, and the no-cloning theorem &#8212; enable encryption that is provably unbreakable.</p>
+        <div class="header-badges">
+          <span class="badge quantum">Quantum Mechanics</span>
+          <span class="badge nebula">No-Cloning Theorem</span>
+          <span class="badge accent">Heisenberg Uncertainty</span>
+        </div>
+      </div>
+
+      <div class="callout callout-tip" style="margin-top:20px">
+        <div class="callout-icon">&#127919;</div>
+        <div>
+          <div class="callout-title">Why This Is Different from Regular Encryption</div>
+          <div class="callout-text">Today&#8217;s encryption (RSA, AES) relies on mathematical problems that are hard to solve &#8212; but not impossible. A future quantum computer could break RSA in hours. QKD is different: its security comes from <strong>laws of physics</strong>, not computational difficulty. Even an infinitely powerful computer cannot break it, because doing so would violate quantum mechanics.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128300;</span> Three Quantum Principles</header>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> Superposition</div>
+          <p style="line-height:1.7">A quantum bit (qubit) doesn&#8217;t have a definite value until you measure it. Think of a coin spinning in the air &#8212; it&#8217;s neither heads nor tails until it lands. In BB84, Alice encodes bits in the polarization of photons. A photon polarized at 45&#176; is in a superposition of horizontal (0) and vertical (1).</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> No-Cloning Theorem</div>
+          <p style="line-height:1.7">It is <strong>physically impossible</strong> to make an identical copy of an unknown quantum state. This is the mathematical proof (Wootters &amp; Zurek, 1982) that makes QKD secure. Eve cannot intercept a photon, copy it, and send the original on to Bob &#8212; the universe forbids it.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--mars)"></span> Measurement Disturbance</div>
+          <p style="line-height:1.7">Measuring a quantum system <strong>changes it irreversibly</strong> (wavefunction collapse). When Eve measures a photon in the wrong basis, she gets a random result &#8212; and the photon&#8217;s original state is destroyed. Bob&#8217;s subsequent measurement will disagree with Alice&#8217;s, revealing Eve&#8217;s presence as an elevated QBER.</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128272;</span> BB84 Protocol Walkthrough</header>
+      <div class="card">
+        <div class="card-title"><span class="ct-dot"></span> Step-by-Step: How Alice and Bob Create a Shared Secret</div>
+        <div style="display:grid;gap:16px;margin-top:14px">
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <span class="badge accent" style="min-width:28px;text-align:center">1</span>
+            <div><strong>Preparation:</strong> Alice generates random bits and randomly chooses a measurement basis for each bit: <strong>Z-basis</strong> (0&#176;/90&#176; polarization, representing 0/1) or <strong>X-basis</strong> (45&#176;/135&#176; polarization, also representing 0/1). She sends one photon per bit to Bob.</div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <span class="badge accent" style="min-width:28px;text-align:center">2</span>
+            <div><strong>Measurement:</strong> Bob randomly chooses Z-basis or X-basis for each arriving photon. When Bob&#8217;s basis matches Alice&#8217;s, he gets the correct bit (~100% of the time). When it doesn&#8217;t match, he gets a random result (50/50).</div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <span class="badge accent" style="min-width:28px;text-align:center">3</span>
+            <div><strong>Sifting:</strong> Over a classical (public) channel, Alice and Bob announce which basis they used for each photon &#8212; but <strong>not the bit values</strong>. They discard all bits where bases didn&#8217;t match. About 50% survive, forming the <strong>sifted key</strong>.</div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <span class="badge accent" style="min-width:28px;text-align:center">4</span>
+            <div><strong>Error Estimation:</strong> They publicly compare a random subset of the sifted key. The error rate (QBER) reveals if Eve was listening. Natural noise: 1&#8211;5%. With Eve: <strong>&gt;11%</strong> (she disturbs ~25% of bits). If QBER &gt; 11%, they abort.</div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <span class="badge accent" style="min-width:28px;text-align:center">5</span>
+            <div><strong>Error Correction:</strong> They use classical error-correcting codes (CASCADE protocol) to fix any remaining discrepancies, making their keys identical.</div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <span class="badge success" style="min-width:28px;text-align:center">6</span>
+            <div><strong>Privacy Amplification:</strong> They apply a hash function to compress the corrected key, eliminating any partial information Eve might have gained. The result is a provably secure shared secret key.</div>
+          </div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#10023;</span> BB84 vs E91</header>
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> BB84 (Prepare-and-Measure)</div>
+          <p style="line-height:1.7">Named after <strong>Charles Bennett and Gilles Brassard</strong> (1984). Alice <em>prepares</em> photons in specific states and Bob <em>measures</em> them. Simpler to implement. Used by China&#8217;s Micius satellite (2016) for the first satellite-to-ground QKD. Security relies on the no-cloning theorem.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--nebula)"></span> E91 (Entanglement-Based)</div>
+          <p style="line-height:1.7">Named after <strong>Artur Ekert</strong> (1991). A source creates <em>entangled</em> photon pairs &#8212; sending one to Alice and one to Bob. Their measurements are correlated even across vast distances (Einstein&#8217;s &#8220;spooky action at a distance&#8221;). Security is verified via <strong>Bell inequality</strong> violations &#8212; if the inequality holds, no eavesdropper is present.</p>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:20px">
+        <div class="info-bubble-icon">&#128161;</div>
+        <div>
+          <div class="info-bubble-title">The 11% Threshold</div>
+          <div class="info-bubble-text">The QBER security threshold of <strong>11%</strong> comes from the Csisz&#225;r-K&#246;rner theorem (1978), which proves that secure key extraction is possible as long as the mutual information between Alice and Bob exceeds the mutual information between Alice and Eve. For BB84 with one-way reconciliation, this translates to QBER &lt; 11%. Below this threshold, privacy amplification can distill a perfectly secure key regardless of Eve&#8217;s computing power.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:24px;text-align:center;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-sm btn-quantum" onclick="Router.navigate('qkd')">Try QKD Simulation &#8594;</button>
+        <button class="btn btn-sm btn-primary" onclick="Router.navigate('space-security')">Space Security &#8594;</button>
+      </div>
+    </section>
+
+    <section id="reinforcement-learning" class="tab" aria-label="Reinforcement Learning Routing">
+      <div class="page-header">
+        <h1>Reinforcement Learning for Space Routing</h1>
+        <p>How an AI agent learns to route data through the interplanetary network by trial and error &#8212; discovering strategies that outperform traditional static routing tables.</p>
+        <div class="header-badges">
+          <span class="badge mars">Q-Learning</span>
+          <span class="badge accent">Epsilon-Greedy</span>
+          <span class="badge quantum">Multi-Agent</span>
+        </div>
+      </div>
+
+      <div class="callout callout-tip" style="margin-top:20px">
+        <div class="callout-icon">&#127919;</div>
+        <div>
+          <div class="callout-title">The Analogy</div>
+          <div class="callout-text">Imagine you&#8217;re navigating a new city without a map. At first you try random streets &#8212; some lead to dead ends, others get you closer to your destination. Over time, you learn which routes work. That&#8217;s reinforcement learning. The <strong>agent</strong> is the navigator, the <strong>actions</strong> are street choices, the <strong>reward</strong> is arriving at the destination quickly, and the learned &#8220;map&#8221; is the Q-table.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128207;</span> Core Concepts</header>
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> State, Action, Reward</div>
+          <p style="line-height:1.7">The agent observes the network <strong>state</strong> (current node, neighbors, link quality, buffer occupancy), chooses an <strong>action</strong> (forward to neighbor X, store, drop, or split), and receives a <strong>reward</strong> based on the outcome:</p>
+          <div class="callout callout-fact" style="margin-top:12px">
+            <div class="callout-icon">&#128202;</div>
+            <div>
+              <div class="callout-title">Reward Function</div>
+              <div class="callout-text"><strong>R = &#945;(delivery) &#8722; &#946;(delay) &#8722; &#947;(hops) &#8722; &#948;(drops) &#8722; &#949;(energy)</strong><br>High reward for fast delivery to the correct destination. Penalty for delays, extra hops, dropped bundles, and wasted energy. The agent maximizes cumulative reward over time.</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> Q-Table: The Learned Map</div>
+          <p style="line-height:1.7">The agent maintains a <strong>Q-table</strong> &#8212; a lookup table that maps every (state, action) pair to an expected reward. After thousands of simulated routing decisions, the Q-table encodes the best action for every situation the agent has encountered. A high Q-value means &#8220;I&#8217;ve learned this action works well in this state.&#8221;</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#129302;</span> How Q-Learning Works</header>
+      <div class="card">
+        <div class="card-title"><span class="ct-dot"></span> The Learning Loop</div>
+        <div style="display:grid;gap:16px;margin-top:14px">
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <span class="badge accent" style="min-width:28px;text-align:center">1</span>
+            <div><strong>Observe State:</strong> The agent reads the current network conditions &#8212; which node it&#8217;s at, buffer fullness at neighbors, link quality to each neighbor, the bundle&#8217;s priority and destination tier.</div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <span class="badge accent" style="min-width:28px;text-align:center">2</span>
+            <div><strong>Choose Action:</strong> With probability &#949; (epsilon), the agent picks a <strong>random</strong> action (exploration). Otherwise, it picks the action with the highest Q-value for this state (exploitation). Early in training, &#949; is high (mostly random). Over time, &#949; decays (mostly exploiting learned knowledge).</div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <span class="badge accent" style="min-width:28px;text-align:center">3</span>
+            <div><strong>Execute &amp; Observe Reward:</strong> The action is executed in the simulation. If the bundle is delivered, the agent gets a positive reward. If it&#8217;s dropped or delayed, the reward is negative.</div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <span class="badge success" style="min-width:28px;text-align:center">4</span>
+            <div><strong>Update Q-Table:</strong> The Bellman equation updates the Q-value: <strong>Q(s,a) &#8592; Q(s,a) + &#945;[r + &#947; max Q(s&#8217;,a&#8217;) &#8722; Q(s,a)]</strong>. The learning rate &#945; controls how fast new experiences override old ones. The discount factor &#947; controls how much future rewards matter vs. immediate ones.</div>
+          </div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#9881;</span> Exploration vs Exploitation</header>
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--nebula)"></span> Exploration (&#949; high)</div>
+          <p style="line-height:1.7">The agent tries random actions, including bad ones. This is essential &#8212; without exploration, the agent might never discover that a non-obvious route (through a Lagrange relay during conjunction) is actually the best strategy. Too much exploration wastes time on known-bad choices.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> Exploitation (&#949; low)</div>
+          <p style="line-height:1.7">The agent uses its Q-table to pick the best-known action. This is efficient &#8212; it takes the routes it has already learned work well. But without occasional exploration, it can&#8217;t adapt when network conditions change (e.g., a node fails or a new link becomes available).</p>
+        </div>
+      </div>
+
+      <div class="callout callout-fact" style="margin-top:20px">
+        <div class="callout-icon">&#128202;</div>
+        <div>
+          <div class="callout-title">Epsilon Decay Schedule</div>
+          <div class="callout-text">AETHERIX starts with &#949; = 1.0 (fully random) and decays by 0.5% each episode: &#949; &#8592; &#949; &#215; 0.995. After 500 episodes, &#949; &#8776; 0.08 (92% exploitation). After 1000 episodes, &#949; &#8776; 0.007 (99.3% exploitation). This is the <strong>epsilon-greedy strategy</strong> &#8212; the standard approach that balances learning new routes with using known-good ones.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#127760;</span> Multi-Agent Federated Learning</header>
+      <div class="card">
+        <div class="card-title"><span class="ct-dot"></span> Why One Agent Isn&#8217;t Enough</div>
+        <p style="line-height:1.7">In the real network, every node runs its own RL agent &#8212; each one learning from local observations. The challenge: a single agent at one node only sees a small part of the network. Multi-agent federated learning solves this by periodically <strong>aggregating Q-tables</strong> across nodes:</p>
+        <div class="grid grid-3" style="margin-top:14px">
+          <div style="padding:12px;border-radius:12px;background:var(--bg-input)">
+            <div style="font-weight:600;color:var(--accent);margin-bottom:6px">Local Training</div>
+            <div style="font-size:0.85rem;color:var(--text-secondary)">Each node trains its Q-table from local routing experiences. Mars surface agents learn about Mars-orbiter links; Earth agents learn about DSN schedules.</div>
+          </div>
+          <div style="padding:12px;border-radius:12px;background:var(--bg-input)">
+            <div style="font-weight:600;color:var(--quantum);margin-bottom:6px">Q-Table Aggregation</div>
+            <div style="font-size:0.85rem;color:var(--text-secondary)">Periodically, nodes share their Q-tables (not raw data). A weighted average combines knowledge: nodes with more experience in a given state contribute more to the consensus Q-values.</div>
+          </div>
+          <div style="padding:12px;border-radius:12px;background:var(--bg-input)">
+            <div style="font-weight:600;color:var(--success);margin-bottom:6px">Global Improvement</div>
+            <div style="font-size:0.85rem;color:var(--text-secondary)">Every node benefits from every other node&#8217;s experience. A relay node that discovered a great conjunction-time route shares that knowledge with all other nodes in the federation.</div>
+          </div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128200;</span> RL vs CGR: A Comparison</header>
+      <div class="card">
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Property</th><th>Contact Graph Routing (CGR)</th><th>RL Routing (AETHERIX)</th></tr></thead>
+            <tbody>
+              <tr><td>Approach</td><td>Deterministic graph search</td><td>Probabilistic learning</td></tr>
+              <tr><td>Adaptability</td><td>Static &#8212; needs updated contact plans</td><td>Dynamic &#8212; adapts in real time</td></tr>
+              <tr><td>Node Failures</td><td>Requires re-computation</td><td>Automatically reroutes</td></tr>
+              <tr><td>Knowledge</td><td>Requires perfect schedule knowledge</td><td>Learns from experience</td></tr>
+              <tr><td>Overhead</td><td>None after computation</td><td>Q-table memory + training</td></tr>
+              <tr><td>Convergence</td><td>Instant (deterministic)</td><td>~500&#8211;1000 episodes</td></tr>
+              <tr><td>Robustness</td><td>Brittle under uncertainty</td><td>Resilient to surprises</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:20px">
+        <div class="info-bubble-icon">&#128161;</div>
+        <div>
+          <div class="info-bubble-title">Production Upgrade: From Q-Table to DQN</div>
+          <div class="info-bubble-text">The current demo uses a Q-table &#8212; fine for small state spaces but it can&#8217;t generalize to unseen states. A production system would use a <strong>Deep Q-Network (DQN)</strong> &#8212; a neural network that approximates the Q-function, enabling the agent to handle the full 241-node, 5-tier topology with continuous state variables. The training principles remain identical.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:24px;text-align:center;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-sm btn-primary" onclick="Router.navigate('routing')">Try RL Routing Demo &#8594;</button>
+        <button class="btn btn-sm btn-mars" onclick="Router.navigate('simulation')">Run Simulation &#8594;</button>
+        <button class="btn btn-sm btn-quantum" onclick="Router.navigate('how-it-works')">How It Works &#8594;</button>
+      </div>
+    </section>
+
     <section id="why-it-matters" class="tab" aria-label="Why AETHERIX Matters">
       <div class="page-header">
         <h1>Why AETHERIX Matters</h1>
@@ -1675,7 +2090,24 @@
       <header class="section-title" style="margin-top:28px"><span class="section-icon">&#9788;</span> Earth&#8211;Mars Distance Over Synodic Period</header>
       <div class="card"><div class="chart-container"><canvas id="dashTimelineChart"></canvas></div></div>
       <header class="section-title" style="margin-top:28px"><span class="section-icon">&#10070;</span> Network Topology</header>
-      <div class="card"><canvas id="topologyCanvas" class="topology-canvas"></canvas></div>
+      <div class="info-bubble" style="margin-bottom:14px">
+        <div class="info-bubble-icon">&#128250;</div>
+        <div>
+          <div class="info-bubble-title">Reading the Topology Map</div>
+          <div class="info-bubble-text">Nodes are color-coded by network tier. <strong>Cyan particles</strong> flowing along edges represent data bundles being forwarded in real time. The 5-tier architecture routes data from Mars surface assets through orbital relays and Lagrange-point transit nodes to Earth ground stations.</div>
+        </div>
+      </div>
+      <div class="card" style="position:relative">
+        <div style="display:flex;flex-wrap:wrap;gap:14px;padding:10px 14px;border-bottom:1px solid var(--border);font-size:0.8rem">
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#ff6b35;display:inline-block"></span> Mars Surface</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#ff8855;display:inline-block"></span> Mars Orbital</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#7c5cf7;display:inline-block"></span> Deep Space Transit</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#00d4ff;display:inline-block"></span> Earth Orbital</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:#00b894;display:inline-block"></span> Earth Ground</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#00d4ff;box-shadow:0 0 6px #00d4ff;display:inline-block"></span> Data Bundle</span>
+        </div>
+        <canvas id="topologyCanvas" class="topology-canvas"></canvas>
+      </div>
       <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128218;</span> Preparation &amp; Research</header>
       <div class="grid grid-4" id="dashboard-study-stats"></div>
     </section>
