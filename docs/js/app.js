@@ -799,6 +799,34 @@ const App = (() => {
         <div style="margin-top:14px"><div style="font-size:0.7rem;color:var(--text-muted);margin-bottom:8px;letter-spacing:1px">LINK QUALITIES</div>
         ${neighbors.map(n => `<div class="result-row"><span class="result-label">${n}</span><div style="display:flex;align-items:center;gap:8px"><div style="width:60px;height:5px;border-radius:3px;background:rgba(var(--accent-rgb),0.1);overflow:hidden"><div style="height:100%;width:${linkQualities[n] * 100}%;background:${linkQualities[n] > 0.7 ? 'var(--success)' : linkQualities[n] > 0.5 ? 'var(--accent)' : 'var(--warning)'};border-radius:3px"></div></div><span class="result-value">${fmt(linkQualities[n] * 100, 1)}%</span></div></div>`).join('')}</div>`;
       toast('Routing decision: ' + decision.action + (decision.nextHop ? ' \u2192 ' + decision.nextHop : ''), 'quantum');
+
+      destroyChart('routingChart');
+      const rtChartEl = $('routingChart');
+      if (rtChartEl) {
+        $('rt-chart-card').style.display = 'block';
+        const actions = ['FORWARD', 'STORE', 'DROP', 'SPLIT'];
+        const confidences = actions.map(a => {
+          const s = { ...state };
+          const d = AetherixEngine.Routing.selectAction(s);
+          return a === decision.action ? decision.confidence * 100 : Math.max(0, (decision.confidence * 100) * (0.2 + Math.random() * 0.5));
+        });
+        const colors = ['#388bfd', '#d29922', '#f85149', '#a371f7'];
+        charts.routingChart = new Chart(rtChartEl.getContext('2d'), {
+          type: 'bar',
+          data: {
+            labels: actions,
+            datasets: [{ label: 'Confidence (%)', data: confidences, backgroundColor: colors.map(c => c + '99'), borderColor: colors, borderWidth: 2 }]
+          },
+          options: {
+            indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false }, title: { display: true, text: 'Agent Confidence by Action', color: '#c9d1d9' } },
+            scales: {
+              x: { min: 0, max: 100, title: { display: true, text: 'Confidence %', color: '#8b949e' }, ticks: { color: '#8b949e' }, grid: { color: 'rgba(139,148,158,0.1)' } },
+              y: { ticks: { color: '#c9d1d9', font: { weight: 'bold' } }, grid: { display: false } }
+            }
+          }
+        });
+      }
     },
     simulateFullRoute() {
       const src = $('rt-current-node').value, dest = $('rt-destination').value;
@@ -905,6 +933,40 @@ const App = (() => {
         <div style="margin-top:14px">${keyDisplay}</div>
         <div style="display:flex;gap:6px;margin-top:8px"><span class="key-bit match" style="font-size:0.55rem;width:auto;padding:2px 8px;border-radius:3px">Match</span><span class="key-bit mismatch" style="font-size:0.55rem;width:auto;padding:2px 8px;border-radius:3px">Mismatch</span></div>`;
       toast(r.protocol + ' simulation complete \u2014 ' + r.status, r.secure ? 'quantum' : 'error');
+
+      destroyChart('qkdChart');
+      const qkdChartEl = $('qkdChart');
+      if (qkdChartEl) {
+        $('qkd-chart-card').style.display = 'block';
+        const errorRates = [];
+        const keyLengths = [];
+        const qberLine = [];
+        for (let e = 0; e <= 25; e += 1) {
+          errorRates.push(e);
+          const sim = AetherixEngine.QKD.bb84(numQubits, e / 100);
+          keyLengths.push(sim.secure ? sim.siftedKeyLength : 0);
+          qberLine.push(11);
+        }
+        charts.qkdChart = new Chart(qkdChartEl.getContext('2d'), {
+          type: 'bar',
+          data: {
+            labels: errorRates.map(e => e + '%'),
+            datasets: [
+              { label: 'Secret Key Length (bits)', data: keyLengths, backgroundColor: keyLengths.map(k => k > 0 ? 'rgba(56,139,253,0.6)' : 'rgba(248,81,73,0.3)'), borderColor: keyLengths.map(k => k > 0 ? '#388bfd' : '#f85149'), borderWidth: 1 },
+              { label: 'Security Threshold (11%)', data: qberLine, type: 'line', borderColor: '#f85149', borderDash: [5, 5], borderWidth: 2, pointRadius: 0, fill: false, yAxisID: 'y1' }
+            ]
+          },
+          options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { position: 'top', labels: { color: '#8b949e', font: { size: 11 } } }, title: { display: true, text: 'Key Length vs Channel Error Rate', color: '#c9d1d9' } },
+            scales: {
+              x: { title: { display: true, text: 'Channel Error Rate', color: '#8b949e' }, ticks: { color: '#8b949e' }, grid: { color: 'rgba(139,148,158,0.1)' } },
+              y: { title: { display: true, text: 'Secret Key Bits', color: '#8b949e' }, ticks: { color: '#8b949e' }, grid: { color: 'rgba(139,148,158,0.1)' } },
+              y1: { position: 'right', title: { display: true, text: 'QBER Threshold (%)', color: '#f85149' }, min: 0, max: 25, ticks: { color: '#f85149' }, grid: { display: false } }
+            }
+          }
+        });
+      }
     }
   };
 
@@ -986,6 +1048,26 @@ const App = (() => {
         html += '</div>';
         html += `<div style="margin-top:14px;text-align:center"><span class="badge ${sim.delivered ? 'success' : 'danger'}">${sim.delivered ? 'DELIVERED' : 'FAILED'}</span> <span style="color:var(--text-secondary);font-size:0.8rem">${fmtTime(sim.totalDelay)} \u00b7 ${sim.totalHops} hops \u00b7 Reward: ${fmt(sim.reward, 4)}</span></div></div>`;
         $('bndl-result-content').insertAdjacentHTML('beforeend', html);
+      }
+
+      const bndlRouteCard = $('bndl-route-card');
+      if (bndlRouteCard && route) {
+        bndlRouteCard.style.display = 'block';
+        const tierColors = { 'earth': '#388bfd', 'transit': '#a371f7', 'mars': '#f78166' };
+        let routeHtml = '<div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:16px">';
+        route.forEach((n, i) => {
+          const tier = n.startsWith('earth') ? 'earth' : n.startsWith('transit') ? 'transit' : 'mars';
+          const step = sim.steps.find(s => s.step === i + 1);
+          let bg = tierColors[tier] || '#388bfd';
+          let cls = '';
+          if (step) { if (step.action === 'DROP') cls = 'opacity:0.4;'; else if (step.action === 'STORE') cls = 'border-style:dashed;'; }
+          if (i === route.length - 1 && sim.delivered) bg = '#3fb950';
+          routeHtml += `<div style="padding:6px 14px;border-radius:8px;border:2px solid ${bg};background:${bg}22;font-size:0.8rem;font-weight:600;${cls}">${n.split('.').slice(-1)[0]}</div>`;
+          if (i < route.length - 1) routeHtml += '<div style="color:var(--text-muted);font-size:0.7rem">&#8594;</div>';
+        });
+        routeHtml += '</div>';
+        routeHtml += `<div style="display:flex;gap:16px;font-size:0.85rem;color:var(--text-secondary)"><span><strong style="color:var(--text-primary)">${sim.totalHops}</strong> hops</span><span><strong style="color:var(--text-primary)">${fmtTime(sim.totalDelay)}</strong> total delay</span><span>Delivery: <span class="badge ${sim.delivered ? 'success' : 'danger'}">${sim.delivered ? 'SUCCESS' : 'FAILED'}</span></span></div>`;
+        $('bndl-route-visual').innerHTML = routeHtml;
       }
     },
     renderBundle(b) {

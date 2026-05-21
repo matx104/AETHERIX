@@ -761,6 +761,139 @@
         </div>
       </div>
 
+      <header class="section-title" style="margin-top:36px"><span class="section-icon">&#128225;</span> Deep Dive: Key Infrastructure</header>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> LEO &#8212; Low Earth Orbit Satellites</div>
+          <p style="line-height:1.7"><strong>Altitude:</strong> 160&#8211;2,000 km. <strong>Orbital period:</strong> 90&#8211;120 minutes. <strong>Role:</strong> Rapid-response relay mesh.</p>
+          <p style="line-height:1.7;margin-top:10px">AETHERIX deploys <strong>48 LEO satellites</strong> in a Walker constellation at &#8776;550 km altitude (similar orbital shell to Starlink). Each satellite carries a 1550nm optical terminal for inter-satellite links (ISL) and a Ka-band transceiver for ground uplink.</p>
+          <div class="callout callout-fact" style="margin-top:12px">
+            <div class="callout-icon">&#128300;</div>
+            <div>
+              <div class="callout-title">Technical Detail</div>
+              <div class="callout-text">Each LEO node maintains 4 laser ISL links (2 intra-plane, 2 inter-plane) at 10 Gbps per link. The mesh topology means any ground station can reach any other via at most 6 inter-satellite hops with &lt;2 ms latency. The constellation provides continuous coverage between 65&#176;N and 65&#176;S latitude.</div>
+            </div>
+          </div>
+          <div class="info-bubble" style="margin-top:12px;padding:12px 16px">
+            <div class="info-bubble-icon">&#128161;</div>
+            <div>
+              <div class="info-bubble-title">Why Not Just Use GEO for Everything?</div>
+              <div class="info-bubble-text">GEO satellites at 35,786 km introduce &#8776;240 ms round-trip latency and require enormous launch vehicles. LEO satellites are cheaper to build and launch, and their laser mesh provides lower latency and higher aggregate bandwidth. The trade-off: LEO satellites move fast across the sky, so you need many of them for continuous coverage.</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> GEO &#8212; Geostationary Earth Orbit Satellites</div>
+          <p style="line-height:1.7"><strong>Altitude:</strong> 35,786 km (exactly). <strong>Orbital period:</strong> 23h 56m 4s (matches Earth&#8217;s rotation). <strong>Role:</strong> Persistent relay over fixed ground stations.</p>
+          <p style="line-height:1.7;margin-top:10px">AETHERIX uses <strong>3 GEO relay satellites</strong> positioned over the Americas, Europe/Africa, and Asia/Pacific. Each GEO satellite maintains a permanent optical downlink to its regional DSN station and a Ka-band uplink to the LEO mesh.</p>
+          <div class="callout callout-fact" style="margin-top:12px">
+            <div class="callout-icon">&#128300;</div>
+            <div>
+              <div class="callout-title">Technical Detail</div>
+              <div class="callout-text">GEO relay terminals use 0.5m aperture telescopes with &lt;1 &#956;rad pointing accuracy for the deep-space optical link. The Ka-band feeder link to ground operates at 500 Mbps. Each GEO satellite carries a 10 kW solar array and has a 15-year design life. They serve as the primary aggregation point for Mars-bound traffic from the LEO mesh.</div>
+            </div>
+          </div>
+          <div class="info-bubble" style="margin-top:12px;padding:12px 16px">
+            <div class="info-bubble-icon">&#128161;</div>
+            <div>
+              <div class="info-bubble-title">Why Geostationary?</div>
+              <div class="info-bubble-text">A satellite in GEO appears stationary from the ground &#8212; no tracking antenna needed. This simplifies ground station design enormously: a fixed dish always points at the same satellite. For AETHERIX, this means DSN stations maintain a permanent, high-bandwidth link to their regional GEO relay without any antenna steering.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-2" style="margin-top:18px">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--mars)"></span> DSN &#8212; Deep Space Network Sites</div>
+          <p style="line-height:1.7">NASA&#8217;s Deep Space Network is the backbone of all interplanetary communication. Three complexes spaced &#8776;120&#176; apart ensure 24/7 coverage of the solar system.</p>
+          <div style="margin-top:12px;display:flex;flex-direction:column;gap:12px">
+            <div style="padding:10px 14px;border-radius:8px;background:rgba(var(--accent-rgb),0.06)">
+              <strong style="color:var(--accent)">Goldstone</strong> (California, USA)<br>
+              <span style="color:var(--text-secondary);font-size:0.9em">35&#176;N latitude. 70m + 34m antennas. Primary downlink for Mars missions. Houses the Signal Processing Center that demodulates deep-space signals as weak as 10&#8722;&#178;&#185; watts.</span>
+            </div>
+            <div style="padding:10px 14px;border-radius:8px;background:rgba(var(--quantum-rgb),0.06)">
+              <strong style="color:var(--quantum)">Madrid</strong> (Robledo, Spain)<br>
+              <span style="color:var(--text-secondary);font-size:0.9em">40&#176;N latitude. 70m + 34m antennas. European node, provides overlap coverage with both Goldstone and Canberra during orbit shifts.</span>
+            </div>
+            <div style="padding:10px 14px;border-radius:8px;background:rgba(var(--mars-rgb),0.06)">
+              <strong style="color:var(--mars)">Canberra</strong> (Australia)<br>
+              <span style="color:var(--text-secondary);font-size:0.9em">35&#176;S latitude. 70m + 34m antennas. Southern hemisphere coverage essential for Mars observations during certain orbital geometries.</span>
+            </div>
+          </div>
+          <div class="info-bubble" style="margin-top:12px;padding:12px 16px">
+            <div class="info-bubble-icon">&#128225;</div>
+            <div>
+              <div class="info-bubble-title">Why 120&#176; Apart?</div>
+              <div class="info-bubble-text">Earth rotates once every 24 hours. With 3 stations at 120&#176; intervals, as Earth turns one station out of view, the next station rotates into view. At least one station always has line-of-sight to any spacecraft in the solar system. Without this spacing, there would be communication gaps of several hours per day.</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--nebula)"></span> Lagrange Points L4 &amp; L5</div>
+          <p style="line-height:1.7"><strong>Lagrange points</strong> are positions in a two-body orbital system where a smaller object can maintain a stable position relative to the two larger bodies, balanced by their gravitational pulls.</p>
+          <div style="margin-top:12px;display:flex;flex-direction:column;gap:12px">
+            <div style="padding:10px 14px;border-radius:8px;background:rgba(var(--accent-rgb),0.06)">
+              <strong style="color:var(--accent)">L4</strong> &#8212; 60&#176; ahead of Earth in its orbit<br>
+              <span style="color:var(--text-secondary);font-size:0.9em">A relay satellite here trails Earth by 60&#176; (&#8776;150M km ahead). It can see Mars even when Earth can&#8217;t &#8212; during solar conjunction, L4 has an unobstructed view of both planets from a different angle.</span>
+            </div>
+            <div style="padding:10px 14px;border-radius:8px;background:rgba(var(--quantum-rgb),0.06)">
+              <strong style="color:var(--quantum)">L5</strong> &#8212; 60&#176; behind Earth in its orbit<br>
+              <span style="color:var(--text-secondary);font-size:0.9em">Trails Earth by 60&#176; (&#8776;150M km behind). Provides a second relay path independent of L4. If one relay fails, the other maintains service.</span>
+            </div>
+          </div>
+          <div class="callout callout-fact" style="margin-top:12px">
+            <div class="callout-icon">&#128300;</div>
+            <div>
+              <div class="callout-title">Why L4/L5 and not L1/L2?</div>
+              <div class="callout-text">L1 and L2 (between Earth-Sun and beyond Earth) are <em>meta-stable</em> &#8212; satellites drift away and need constant station-keeping fuel. L4 and L5 are <em>gravitationally stable</em> &#8212; objects naturally remain there with zero fuel. This is critical for relay stations meant to operate for 15+ years without refueling. The Trojan asteroids at Jupiter&#8217;s L4/L5 prove these points are naturally stable over billions of years.</div>
+            </div>
+          </div>
+          <div class="info-bubble" style="margin-top:12px;padding:12px 16px">
+            <div class="info-bubble-icon">&#128736;</div>
+            <div>
+              <div class="info-bubble-title">Eliminating the Blackout</div>
+              <div class="info-bubble-text">During solar conjunction, Mars is behind the Sun from Earth&#8217;s view &#8212; a &#8776;2&#176; exclusion zone means no direct communication for ~14 days. But L4 and L5 are offset by 60&#176;, so they <em>always</em> have some visibility to both planets. The relay path Earth &#8594; L4 &#8594; Mars is longer (adding &#8776;25% distance) but it&#8217;s always available. This is how AETHERIX achieves &gt;95% availability versus current 60&#8211;75%.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-2" style="margin-top:18px">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> Areostationary Orbiters</div>
+          <p style="line-height:1.7">Mars&#8217; equivalent of Earth&#8217;s geostationary satellites. The term comes from <strong>Ares</strong> (Greek name for Mars) + <strong>stationary</strong>.</p>
+          <p style="line-height:1.7;margin-top:10px"><strong>Altitude:</strong> 17,032 km above Mars&#8217; equator. <strong>Orbital period:</strong> 24h 37m (matches Mars&#8217; sidereal rotation). A satellite at this altitude appears stationary from a fixed point on the Martian surface.</p>
+          <div class="callout callout-fact" style="margin-top:12px">
+            <div class="callout-icon">&#128300;</div>
+            <div>
+              <div class="callout-title">Technical Detail</div>
+              <div class="callout-text">Mars&#8217; gravitational parameter (&#956; = 4.283&#215;10&#185;&#179; m&#179;/s&#178;) and rotation rate (&#969; = 7.088&#215;10&#8315;&#8309; rad/s) yield the areostationary radius r = (&#956;/&#969;&#178;)&#185;&#8260;&#179; = 20,429 km from Mars&#8217; center (17,032 km altitude). AETHERIX places 2 areostationary orbiters: one over Jezero Crater (primary base) and one over Olympus Mons (secondary base). Each carries a 5W optical terminal for the deep-space link and a UHF transceiver for surface coverage.</div>
+            </div>
+          </div>
+          <div class="info-bubble" style="margin-top:12px;padding:12px 16px">
+            <div class="info-bubble-icon">&#128225;</div>
+            <div>
+              <div class="info-bubble-title">Areostationary vs Geostationary</div>
+              <div class="info-bubble-text">The concept is identical &#8212; orbit at the same rate the planet rotates &#8212; but the numbers differ. Earth&#8217;s GEO is at 35,786 km; Mars&#8217; areostationary orbit is at 17,032 km (lower because Mars is smaller and rotates slower). Both provide the same benefit: a permanent, fixed relay overhead for surface assets.</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> Polar Orbiters</div>
+          <p style="line-height:1.7">AETHERIX deploys <strong>2 polar orbiters</strong> in sun-synchronous orbits around Mars at &#8776;300&#8211;400 km altitude, similar to Mars Reconnaissance Orbiter (MRO).</p>
+          <p style="line-height:1.7;margin-top:10px"><strong>Role:</strong> Complement the areostationary orbiters by covering the Martian poles (which areostationary satellites cannot see from the equatorial plane) and providing redundant relay paths for high-latitude surface assets.</p>
+          <div class="callout callout-fact" style="margin-top:12px">
+            <div class="callout-icon">&#128300;</div>
+            <div>
+              <div class="callout-title">Technical Detail</div>
+              <div class="callout-text">Polar orbiters complete one orbit every &#8776;2 hours, passing over every point on Mars twice per sol (Martian day). They carry both UHF (for surface relay) and optical terminals (for the deep-space link back to Earth via Lagrange relays). During the &#8776;10-minute communication window per pass, a polar orbiter can relay &#8776;1&#8211;5 GB of data from surface assets.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="info-bubble" style="margin-top:20px">
         <div class="info-bubble-icon">&#128273;</div>
         <div>
@@ -870,6 +1003,85 @@
             <h3>Privacy Amplification</h3>
             <p>They apply a mathematical function to the sifted key that compresses it, removing any partial information an eavesdropper might have gained. The result is a shared secret key that is provably secure.</p>
           </div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:36px"><span class="section-icon">&#128300;</span> Technical Deep Dive: BB84 Protocol</header>
+      <div class="callout callout-fact" style="margin-bottom:16px">
+        <div class="callout-icon">&#128218;</div>
+        <div>
+          <div class="callout-title">What Does BB84 Stand For?</div>
+          <div class="callout-text"><strong>BB84</strong> = <strong>B</strong>ennett + <strong>B</strong>rassard, published in <strong>1984</strong>. Charles Bennett (IBM Research) and Gilles Brassard (Universit&#233; de Montr&#233;al) proposed this protocol at the IEEE International Conference on Computers, Systems and Signal Processing in Bangalore, India. It was the first practical quantum key distribution scheme and remains the most widely studied.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> BB84: How It Actually Works (Technical)</div>
+        <p style="line-height:1.7;margin-top:8px">The protocol uses two conjugate bases for encoding classical bits into quantum states:</p>
+        <div style="margin-top:12px;display:flex;flex-direction:column;gap:10px">
+          <div style="padding:10px 14px;border-radius:8px;background:rgba(var(--accent-rgb),0.06)">
+            <strong style="color:var(--accent)">Rectilinear Basis (Z-basis, |+&#10217; / |&#8722;&#10217;)</strong><br>
+            <span style="color:var(--text-secondary);font-size:0.9em">Bit 0 &#8594; |0&#10217; (vertical polarization). Bit 1 &#8594; |1&#10217; (horizontal polarization). Measured with a vertical/horizontal polarizer.</span>
+          </div>
+          <div style="padding:10px 14px;border-radius:8px;background:rgba(var(--quantum-rgb),0.06)">
+            <strong style="color:var(--quantum)">Diagonal Basis (X-basis, |+&#10217; / |&#8722;&#10217;)</strong><br>
+            <span style="color:var(--text-secondary);font-size:0.9em">Bit 0 &#8594; |+&#10217; (+45&#176; polarization). Bit 1 &#8594; |&#8722;&#10217; (&#8722;45&#176; polarization). Measured with a diagonal/anti-diagonal polarizer.</span>
+          </div>
+        </div>
+        <p style="line-height:1.7;margin-top:14px"><strong>Protocol execution (N photons):</strong></p>
+        <ol style="padding-left:20px;display:flex;flex-direction:column;gap:8px;color:var(--text-secondary)">
+          <li><strong>Transmission:</strong> Alice generates N random bits and N random bases. For each bit i, she prepares photon i in the state |&#968;&#10217; corresponding to her random bit value in her random basis.</li>
+          <li><strong>Measurement:</strong> Bob independently chooses N random bases and measures each photon. If his basis matches Alice&#8217;s, he gets the correct bit with certainty. If it doesn&#8217;t match, quantum mechanics dictates he gets a random result (50/50 chance of either bit).</li>
+          <li><strong>Sifting (public channel):</strong> Alice and Bob publicly announce their basis choices (not the bit values). They discard all bits where bases didn&#8217;t match &#8212; roughly 50%. The remaining &#8776;N/2 bits form the <em>sifted key</em>.</li>
+          <li><strong>QBER estimation:</strong> They publicly compare a random subset (&#8776;25%) of the sifted key to estimate the Quantum Bit Error Rate. In the absence of eavesdropping, QBER comes only from channel noise (typically 1&#8211;4%).</li>
+          <li><strong>Eavesdropper detection:</strong> If Eve intercepts and measures a photon, she must choose a basis. When she guesses wrong (&#8776;50% of the time), her measurement disturbs the quantum state. This introduces a &#8776;25% error rate in the sifted key &#8212; well above the 11% security threshold.</li>
+          <li><strong>Privacy amplification:</strong> If QBER &lt; 11%, Alice and Bob apply a universal hash function (e.g., based on Toeplitz matrices) to compress the sifted key. The result is a shorter key about which Eve has negligible information (&lt;2&#8315;&#8319;&#8312; bits).</li>
+        </ol>
+        <div class="callout callout-tip" style="margin-top:14px">
+          <div class="callout-icon">&#128202;</div>
+          <div>
+            <div class="callout-title">Key Rate Calculation</div>
+            <div class="callout-text">For BB84 with an ideal single-photon source: <strong>Key Rate = &#189; &#215; N &#215; (1 &#8722; QBER) &#215; f(EC)</strong>, where N = raw qubits, the &#189; factor comes from sifting, and f(EC) accounts for bits consumed during error correction. With 1000 photons at 3% QBER, expect &#8776;400&#8211;450 final secret key bits.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-2" style="margin-top:20px">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> QKD &#8212; Quantum Key Distribution</div>
+          <p style="line-height:1.7"><strong>QKD</strong> = <strong>Q</strong>uantum <strong>K</strong>ey <strong>D</strong>istribution. A family of protocols that use quantum mechanical phenomena (superposition, entanglement, measurement disturbance) to establish a shared secret key between two parties with <em>information-theoretic security</em>.</p>
+          <p style="line-height:1.7;margin-top:10px"><strong>Security guarantee:</strong> Unlike classical key exchange (Diffie-Hellman, RSA), QKD&#8217;s security does not depend on computational assumptions. It is provably secure against an adversary with unlimited computing power, including quantum computers.</p>
+          <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+            <span class="badge quantum">BB84 (1984)</span>
+            <span class="badge nebula">E91 (1991)</span>
+            <span class="badge accent">B92 (1992)</span>
+            <span class="badge success">SARG04 (2004)</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> PQC &#8212; Post-Quantum Cryptography</div>
+          <p style="line-height:1.7"><strong>PQC</strong> = <strong>P</strong>ost-<strong>Q</strong>uantum <strong>C</strong>ryptography. Classical cryptographic algorithms designed to resist attacks by quantum computers. Unlike QKD (which uses physics), PQC relies on mathematical problems believed to be hard for both classical and quantum computers.</p>
+          <p style="line-height:1.7;margin-top:10px"><strong>NIST Standards (2024):</strong></p>
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px">
+            <li style="display:flex;gap:8px;align-items:flex-start"><span style="color:var(--success)">&#10003;</span> <span style="color:var(--text-secondary)"><strong>ML-KEM (FIPS 203)</strong> &#8212; Key encapsulation, based on CRYSTALS-Kyber. Replaces RSA key exchange.</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><span style="color:var(--success)">&#10003;</span> <span style="color:var(--text-secondary)"><strong>ML-DSA (FIPS 204)</strong> &#8212; Digital signatures, based on CRYSTALS-Dilithium. Replaces RSA/ECDSA signatures.</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><span style="color:var(--success)">&#10003;</span> <span style="color:var(--text-secondary)"><strong>SLH-DSA (FIPS 205)</strong> &#8212; Hash-based signatures. Backup with minimal security assumptions.</span></li>
+          </ul>
+          <div class="info-bubble" style="margin-top:12px;padding:12px 16px">
+            <div class="info-bubble-icon">&#128272;</div>
+            <div>
+              <div class="info-bubble-title">QKD + PQC: Defense in Depth</div>
+              <div class="info-bubble-text">AETHERIX uses both. QKD provides the primary key exchange (information-theoretic security). PQC provides a computational fallback layer for cases where QKD isn&#8217;t available (e.g., during solar conjunction when the quantum channel is too lossy). Together they guarantee that even if one layer is compromised, the other maintains security.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:20px">
+        <div class="info-bubble-icon">&#128300;</div>
+        <div>
+          <div class="info-bubble-title">E91 Protocol (Ekert 1991) &#8212; The Entanglement Approach</div>
+          <div class="info-bubble-text">Artur Ekert&#8217;s protocol uses entangled photon pairs instead of Alice preparing and sending states. A source (which could be a satellite) generates pairs of entangled photons in the Bell state |&#934;&#8314;&#10217; = (&#189;&#8730;2)(|00&#10217; + |11&#10217;). One photon goes to Alice, the other to Bob. Each measures independently in randomly chosen bases. Entanglement ensures their results are correlated when bases match. Security comes from testing Bell inequality violations &#8212; if the correlation exceeds the classical limit, no eavesdropper was present. E91 is more robust against photon-number-splitting attacks but harder to implement than BB84.</div>
         </div>
       </div>
 
@@ -1698,6 +1910,11 @@
             <div class="card-title"><span class="ct-dot"></span> Route Simulation</div>
             <div id="rt-route-content"></div>
           </div>
+          <div class="card" id="rt-chart-card" style="display:none;margin-top:18px">
+            <div class="card-title"><span class="ct-dot"></span> Q-Value Confidence by Action</div>
+            <div class="chart-container"><canvas id="routingChart"></canvas></div>
+            <p style="font-size:0.85em;color:var(--text-secondary);margin-top:8px">Shows the agent&#8217;s confidence (Q-value) for each possible routing action in the current state. Higher bars indicate actions the agent has learned work well in similar situations.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -1798,6 +2015,11 @@
             <div class="card-title"><span class="ct-dot"></span> Simulation Results</div>
             <div id="qkd-result-content"></div>
           </div>
+          <div class="card" id="qkd-chart-card" style="display:none;margin-top:18px">
+            <div class="card-title"><span class="ct-dot"></span> QBER &amp; Key Rate Visualization</div>
+            <div class="chart-container"><canvas id="qkdChart"></canvas></div>
+            <p style="font-size:0.85em;color:var(--text-secondary);margin-top:8px">This chart shows how QBER (error rate) and final key length vary with channel noise. The red dashed line marks the 11% security threshold &#8212; above this, the key is discarded.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -1874,6 +2096,15 @@
             </div>
             <div class="btn-group" style="margin-top:14px">
               <button class="btn btn-primary" onclick="App.orbital.calculate()">&#9788; Calculate</button>
+            </div>
+            <div style="margin-top:12px">
+              <div style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:8px">Quick presets:</div>
+              <div class="btn-group" style="flex-wrap:wrap">
+                <button class="btn btn-sm" onclick="document.getElementById('orb-start-day').value='0';document.getElementById('orb-duration').value='90'" title="Mars at closest approach &#8212; best communication window">&#127919; Opposition (best case)</button>
+                <button class="btn btn-sm" onclick="document.getElementById('orb-start-day').value='195';document.getElementById('orb-duration').value='90'" title="Mars moving away &#8212; average conditions">&#8960; Mid-way (average)</button>
+                <button class="btn btn-sm" onclick="document.getElementById('orb-start-day').value='370';document.getElementById('orb-duration').value='60'" title="Mars behind the Sun &#8212; communication blackout period">&#9888; Conjunction (worst case)</button>
+                <button class="btn btn-sm" onclick="document.getElementById('orb-start-day').value='0';document.getElementById('orb-duration').value='780'" title="Full 780-day cycle showing distance variation over entire synodic period">&#128200; Full Synodic Period</button>
+              </div>
             </div>
           </div>
           <div class="card" style="margin-top:18px" id="orb-stats">
@@ -2003,6 +2234,10 @@
           <div class="card" id="bndl-result" style="display:none">
             <div class="card-title"><span class="ct-dot"></span> Bundle Details</div>
             <div id="bndl-result-content"></div>
+          </div>
+          <div class="card" id="bndl-route-card" style="display:none;margin-top:18px">
+            <div class="card-title"><span class="ct-dot"></span> Route Visualization</div>
+            <div id="bndl-route-visual"></div>
           </div>
           <div class="card" style="margin-top:18px">
             <div class="card-title"><span class="ct-dot"></span> Active Bundles</div>
