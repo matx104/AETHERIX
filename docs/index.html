@@ -1836,18 +1836,21 @@
           <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Node: mars.surface.rover-01, Dest: earth.control.moc, Priority: EMERGENCY, Buffer: 35%</p>
           <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Action: <strong>FORWARD</strong> immediately, even on marginal links. The agent prioritizes emergency delivery above all else &#8212; it will use any available path.</p>
           <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> Priority 0 overrides buffer and link quality concerns. Emergency data (solar flare alerts, system failures) cannot wait.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('rt-current-node').value='mars.surface.rover-01';document.getElementById('rt-destination').value='earth.control.moc';document.getElementById('rt-priority').value='0';document.getElementById('rt-buffer').value='35';document.getElementById('rt-buffer-val').textContent='35%';App.routing.decide()">Run Emergency &#8594;</button></div>
         </div>
         <div class="card" style="border-color:rgba(var(--accent-rgb),0.25)">
           <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Standard at High Buffer</div>
           <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Node: transit.esl4.relay, Dest: earth.control.moc, Priority: STANDARD, Buffer: 90%</p>
           <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Action: <strong>STORE</strong> or cautious forward. With buffer nearly full, the agent may prefer to wait rather than risk a drop if the next hop can&#8217;t accept the bundle.</p>
           <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> At 90% buffer, the risk of overflow is high. Standard priority data can afford to wait for a cleaner transmission window.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('rt-current-node').value='transit.esl4.relay';document.getElementById('rt-destination').value='earth.control.moc';document.getElementById('rt-priority').value='2';document.getElementById('rt-buffer').value='90';document.getElementById('rt-buffer-val').textContent='90%';App.routing.decide()">Run High Buffer &#8594;</button></div>
         </div>
         <div class="card" style="border-color:rgba(var(--nebula-rgb),0.25)">
           <div class="card-title"><span class="ct-dot" style="background:var(--nebula)"></span> Bulk Through LEO Mesh</div>
           <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Node: earth.leo.constellation, Dest: earth.control.moc, Priority: BULK, Buffer: 35%</p>
           <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Action: <strong>FORWARD</strong> or <strong>SPLIT</strong>. Low buffer pressure and proximity to destination allow the agent to route freely, potentially splitting for multipath delivery.</p>
           <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> LEO mesh has many paths to Earth ground. Bulk data benefits from multipath delivery &#8212; even if some fragments are lost, the total throughput is higher.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('rt-current-node').value='earth.leo.constellation';document.getElementById('rt-destination').value='earth.control.moc';document.getElementById('rt-priority').value='4';document.getElementById('rt-buffer').value='35';document.getElementById('rt-buffer-val').textContent='35%';App.routing.decide()">Run Bulk &#8594;</button></div>
         </div>
       </div>
 
@@ -1967,12 +1970,14 @@
           <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> BB84, 1000 qubits, 8% error</p>
           <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> QBER &#8776;8%, Secure: <strong>Yes</strong> (barely). Key is kept because QBER is below 11%, but some bits will be discarded during privacy amplification.</p>
           <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> 8% is high for natural noise &#8212; approaching the security threshold. The protocol remains secure but the final key is shorter after error correction and privacy amplification.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('qkd-protocol').value='bb84';document.getElementById('qkd-num-qubits').value='1000';document.getElementById('qkd-error').value='8';document.getElementById('qkd-error-val').textContent='8%';App.qkd.run()">Run Noisy &#8594;</button></div>
         </div>
         <div class="card" style="border-color:rgba(var(--danger-rgb),0.25)">
           <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> Eavesdropper Detected</div>
           <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> BB84, 1000 qubits, click &#8220;Simulate Eavesdropper&#8221;</p>
           <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> QBER <strong>&gt;11%</strong>, Secure: <strong>No</strong>. The key is discarded entirely. Eve&#8217;s measurements disturbed the quantum states.</p>
           <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> The no-cloning theorem means Eve can&#8217;t copy qubits &#8212; she must measure them, which collapses their quantum state. When she guesses the wrong basis (&#8776;50% of the time), she introduces errors that Alice and Bob detect.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('qkd-protocol').value='bb84';document.getElementById('qkd-num-qubits').value='1000';document.getElementById('qkd-error').value='0';document.getElementById('qkd-error-val').textContent='0%';App.qkd.runEavesdropper()">Run Eavesdropper &#8594;</button></div>
         </div>
       </div>
 
@@ -2166,18 +2171,21 @@
           <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Rover &#8594; Earth MOC, EMERGENCY, 1 MB, 4h deadline</p>
           <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Immediate forwarding through all hops. Custody transfer at every node. Priority 0 means it jumps to the front of every queue.</p>
           <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> Small payload + highest priority + short deadline = fastest possible delivery. Think solar flare warning or system failure alert.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('bndl-source').value='mars.surface.rover-01';document.getElementById('bndl-dest').value='earth.control.moc';document.getElementById('bndl-priority').value='0';document.getElementById('bndl-size').value='1';document.getElementById('bndl-deadline').value='4';document.getElementById('bndl-lifetime').value='1';App.bundle.createAndRoute()">Run Emergency &#8594;</button></div>
         </div>
         <div class="card" style="border-color:rgba(var(--accent-rgb),0.25)">
           <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Science Data Dump</div>
           <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Rover &#8594; Earth MOC, STANDARD, 500 MB, 168h deadline</p>
           <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Standard queuing at each hop. May be stored at intermediate nodes during unfavorable contact windows. 7-day deadline allows flexible routing.</p>
           <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> 500 MB of science data can tolerate delays. The routing agent will choose energy-efficient paths and wait for good contact windows.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('bndl-source').value='mars.surface.rover-01';document.getElementById('bndl-dest').value='earth.control.moc';document.getElementById('bndl-priority').value='2';document.getElementById('bndl-size').value='500';document.getElementById('bndl-deadline').value='168';document.getElementById('bndl-lifetime').value='7';App.bundle.createAndRoute()">Run Science &#8594;</button></div>
         </div>
         <div class="card" style="border-color:rgba(var(--nebula-rgb),0.25)">
           <div class="card-title"><span class="ct-dot" style="background:var(--nebula)"></span> Bulk Software Update</div>
           <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Earth DSN &#8594; Mars Areo, BULK, 2000 MB, 720h deadline</p>
           <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Lowest priority in every queue. Sent during off-peak windows when no higher-priority data is waiting. 30-day lifetime accommodates slow delivery.</p>
           <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> Software updates are large but not time-critical. The network fills spare capacity with bulk data, maximizing throughput without impacting operations.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('bndl-source').value='earth.dsn.goldstone';document.getElementById('bndl-dest').value='mars.areo.alpha';document.getElementById('bndl-priority').value='4';document.getElementById('bndl-size').value='2000';document.getElementById('bndl-deadline').value='720';document.getElementById('bndl-lifetime').value='30';App.bundle.createAndRoute()">Run Bulk &#8594;</button></div>
         </div>
       </div>
 
@@ -2288,18 +2296,21 @@
           <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> 10000 bytes, 1400 MTU, 0% loss</p>
           <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> 8 segments sent, 8 received. Zero retransmissions. Total transfer time = 1 round trip.</p>
           <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> With no loss, LTP is a simple segmentation protocol &#8212; split, send, acknowledge. The ideal baseline case.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('ltp-payload').value='10000';document.getElementById('ltp-mtu').value='1400';document.getElementById('ltp-loss').value='0';document.getElementById('ltp-loss-val').textContent='0%';App.dtnEngine.runLTP()">Run Clean Link &#8594;</button></div>
         </div>
         <div class="card" style="border-color:rgba(var(--accent-rgb),0.25)">
           <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Moderate Loss</div>
           <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> 10000 bytes, 1400 MTU, 5% loss</p>
           <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> &#8776;1 segment lost on average. LTP retransmits only the lost segment. Total transfer time &#8776;2 round trips.</p>
           <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> At 5% loss, roughly 1 in 20 segments is lost. LTP&#8217;s selective retransmission is far more efficient than TCP&#8217;s go-back-N approach over 20-minute-delay links.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('ltp-payload').value='10000';document.getElementById('ltp-mtu').value='1400';document.getElementById('ltp-loss').value='5';document.getElementById('ltp-loss-val').textContent='5%';App.dtnEngine.runLTP()">Run Moderate Loss &#8594;</button></div>
         </div>
         <div class="card" style="border-color:rgba(var(--danger-rgb),0.25)">
           <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> Heavy Loss</div>
           <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> 100000 bytes, 1400 MTU, 20% loss</p>
           <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> &#8776;72 segments, &#8776;14 lost. Multiple retransmission rounds required. Transfer time &#8776;3&#8211;4 round trips.</p>
           <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> At 20% loss, the link is severely degraded (solar storm scenario). LTP still delivers &#8212; eventually &#8212; because each retransmission round only resends what was lost, not everything.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('ltp-payload').value='100000';document.getElementById('ltp-mtu').value='1400';document.getElementById('ltp-loss').value='20';document.getElementById('ltp-loss-val').textContent='20%';App.dtnEngine.runLTP()">Run Heavy Loss &#8594;</button></div>
         </div>
       </div>
 
@@ -2332,6 +2343,12 @@
             <div class="card-title"><span class="ct-dot"></span> LTP Transfer Results</div>
             <div id="ltp-result-content"></div>
           </div>
+        </div>
+      </div>
+      <div id="ltp-charts" style="display:none;margin-top:18px">
+        <div class="grid grid-2">
+          <div class="card"><div class="card-title"><span class="ct-dot"></span> Segment Transfer Breakdown</div><div class="chart-container"><canvas id="ltpChart"></canvas></div></div>
+          <div class="card"><div class="card-title"><span class="ct-dot"></span> Transfer Efficiency</div><div class="chart-container"><canvas id="ltpEffChart"></canvas></div></div>
         </div>
       </div>
       <header class="section-title" style="margin-top:28px"><span class="section-icon">&#9881;</span> Routing Policies</header>
@@ -2402,6 +2419,31 @@
         </div>
       </div>
 
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128200;</span> Preset RF Scenarios</header>
+      <div class="grid grid-3">
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> Mars Relay (Ka-band)</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Ka-band, 225M km, 20W, 3m/34m dishes, 1 Mbps</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Link margin +2 to +6 dB. Reliable high-rate downlink for bulk science data at average distance.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> This is the baseline Ka-band scenario for Mars relay operations, representing typical operating conditions.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('rf-band').value='Ka-band';document.getElementById('rf-distance').value='225';document.getElementById('rf-tx-power').value='20';document.getElementById('rf-tx-dish').value='3';document.getElementById('rf-rx-dish').value='34';document.getElementById('rf-rate').value='1000000';App.rfBudget.calculate()">Run Mars Relay &#8594;</button></div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--accent-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Safe Mode (X-band)</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> X-band, 225M km, 10W, 2m/34m dishes, 256 kbps</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Link margin +8 to +15 dB. Very robust link for commanding, telemetry, and safe-mode operations.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> X-band is the reliable fallback when Ka-band is weather-impacted or during safe-mode. Lower data rate but very high margin.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('rf-band').value='X-band';document.getElementById('rf-distance').value='225';document.getElementById('rf-tx-power').value='10';document.getElementById('rf-tx-dish').value='2';document.getElementById('rf-rx-dish').value='34';document.getElementById('rf-rate').value='256000';App.rfBudget.calculate()">Run Safe Mode &#8594;</button></div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--danger-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> Mars Surface (UHF)</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> UHF, 0.02M km (20km), 5W, 0.1m/0.5m antennas, 128 kbps</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Link margin +15 to +25 dB. Short-range surface-to-orbiter link for rover and habitat communications.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> UHF fills the last-mile gap on Mars &#8212; connecting surface assets to orbiting relays. Very short range but sufficient for local networks.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('rf-band').value='UHF';document.getElementById('rf-distance').value='0.02';document.getElementById('rf-tx-power').value='5';document.getElementById('rf-tx-dish').value='0.1';document.getElementById('rf-rx-dish').value='0.5';document.getElementById('rf-rate').value='128000';App.rfBudget.calculate()">Run Surface Link &#8594;</button></div>
+        </div>
+      </div>
+
       <div class="info-bubble" style="margin-top:20px">
         <div class="info-bubble-icon">&#128161;</div>
         <div>
@@ -2441,6 +2483,12 @@
             <div class="card-title"><span class="ct-dot"></span> RF Link Budget Results</div>
             <div id="rf-result-content"></div>
           </div>
+        </div>
+      </div>
+      <div id="rf-charts" style="display:none;margin-top:18px">
+        <div class="grid grid-2">
+          <div class="card"><div class="card-title"><span class="ct-dot"></span> Link Budget Waterfall</div><div class="chart-container"><canvas id="rfChart"></canvas></div></div>
+          <div class="card"><div class="card-title"><span class="ct-dot"></span> Margin Assessment</div><div class="chart-container"><canvas id="rfMarginChart"></canvas></div></div>
         </div>
       </div>
     </section>
@@ -2497,12 +2545,14 @@
           <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> 168h, 3600s step, 50 bundles/h, seed 42</p>
           <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Delivery ratio drops to 60&#8211;75%. More drops and expired bundles. Buffer overflows at intermediate nodes. Emergency delivery stays &gt;90%.</p>
           <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> 50 bundles/hour overwhelms the network&#8217;s capacity. This tests the priority queuing &#8212; emergency traffic should still get through while bulk data suffers.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('sim-duration').value='168';document.getElementById('sim-step').value='3600';document.getElementById('sim-rate').value='50';document.getElementById('sim-seed').value='42';App.simulation.run()">Run Stress Test &#8594;</button></div>
         </div>
         <div class="card" style="border-color:rgba(var(--accent-rgb),0.25)">
           <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Long Duration</div>
           <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> 720h (30 days), 7200s step, 10 bundles/h, seed 42</p>
           <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong>; Shows long-term trends, orbital effects on delivery, and buffer utilization patterns over the synodic period.</p>
           <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> A month-long simulation reveals how changing Earth&#8211;Mars distance affects throughput over time and tests the routing agent&#8217;s adaptability.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('sim-duration').value='720';document.getElementById('sim-step').value='7200';document.getElementById('sim-rate').value='10';document.getElementById('sim-seed').value='42';App.simulation.run()">Run Long Duration &#8594;</button></div>
         </div>
       </div>
 
@@ -2594,6 +2644,7 @@
           <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Start Day 0, 365 days, 15 bundles/type</p>
           <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong>; Shows the full performance envelope &#8212; from peak throughput at opposition through the conjunction bottleneck and back. Reveals seasonal patterns in delivery statistics.</p>
           <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> A full year captures the complete range of operating conditions. This is the scenario used for long-term mission planning and infrastructure sizing.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('msn-start').value='0';document.getElementById('msn-duration').value='365';document.getElementById('msn-bundles').value='15';App.mission.run()">Run Full Year &#8594;</button></div>
         </div>
       </div>
 

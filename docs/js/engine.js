@@ -593,23 +593,42 @@ const AetherixEngine = (() => {
       const steps = Math.floor(config.duration_hours * 3600 / (config.step_seconds || 3600));
       let total=0, delivered=0, dropped=0, stored=0;
       const delays = [];
+      const priorityCounts = [0, 0, 0, 0, 0];
+      const priorityDelivered = [0, 0, 0, 0, 0];
+      const timeline = [];
+      let cumDelivered = 0, cumDropped = 0, cumTotal = 0;
+      const labelInterval = Math.max(1, Math.floor(steps / 30));
       for (let t = 0; t < steps; t++) {
         if (Math.random() < (config.bundle_rate || 10) / 3600 * (config.step_seconds || 3600)) {
           total++;
+          cumTotal++;
           const priority = [0,0,1,1,2,2,2,3,3,4][Math.floor(Math.random()*10)];
+          priorityCounts[priority]++;
           const hops = 3 + Math.floor(Math.random() * 4);
           const delayPerHop = 300 + Math.random() * 1200;
           const totalDelay = hops * delayPerHop;
           const deliverable = priority <= 2 || Math.random() > 0.3;
-          if (deliverable) { delivered++; delays.push(totalDelay); }
-          else if (Math.random() < 0.2) dropped++;
+          if (deliverable) { delivered++; cumDelivered++; delays.push(totalDelay); priorityDelivered[priority]++; }
+          else if (Math.random() < 0.2) { dropped++; cumDropped++; }
           else stored++;
+        }
+        if (t % labelInterval === 0 || t === steps - 1) {
+          timeline.push({
+            step: t,
+            hour: (t * (config.step_seconds || 3600) / 3600).toFixed(0),
+            deliveryRatio: cumTotal ? cumDelivered / cumTotal : 0,
+            delivered: cumDelivered,
+            dropped: cumDropped,
+            total: cumTotal
+          });
         }
       }
       const avgDelay = delays.length ? delays.reduce((a,b)=>a+b,0)/delays.length : 0;
       return { total, delivered, dropped, stored, deliveryRatio: total ? delivered/total : 0,
                avgDelaySeconds: avgDelay, avgDelayMinutes: avgDelay/60,
-               avgHops: delivered ? 3 + Math.random()*2 : 0, steps };
+               avgHops: delivered ? 3 + Math.random()*2 : 0, steps, timeline,
+               priorityCounts, priorityDelivered,
+               priorityNames: ['EMERGENCY', 'HIGH_SCIENCE', 'STANDARD', 'HOUSEKEEPING', 'BULK'] };
     }
   };
 

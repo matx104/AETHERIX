@@ -154,7 +154,7 @@ const App = (() => {
     particles = [];
     blackHole = null;
 
-    const starCount = isDark ? 1000 : 600;
+    const starCount = isDark ? 1000 : 800;
     for (let i = 0; i < starCount; i++) {
       const colorRoll = Math.random();
       let sr, sg, sb;
@@ -164,16 +164,18 @@ const App = (() => {
         else if (colorRoll < 0.25) { sr = 255; sg = 180; sb = 180; }
         else { sr = 200; sg = 210; sb = 240; }
       } else {
-        if (colorRoll < 0.1) { sr = 50; sg = 70; sb = 190; }
-        else if (colorRoll < 0.2) { sr = 170; sg = 130; sb = 40; }
-        else if (colorRoll < 0.25) { sr = 190; sg = 60; sb = 60; }
-        else { sr = 70; sg = 90; sb = 170; }
+        if (colorRoll < 0.1) { sr = 30; sg = 50; sb = 160; }
+        else if (colorRoll < 0.2) { sr = 160; sg = 110; sb = 20; }
+        else if (colorRoll < 0.25) { sr = 180; sg = 40; sb = 40; }
+        else if (colorRoll < 0.35) { sr = 0; sg = 140; sb = 180; }
+        else if (colorRoll < 0.45) { sr = 100; sg = 60; sb = 200; }
+        else { sr = 40; sg = 60; sb = 140; }
       }
       stars.push({
         x: Math.random() * w,
         y: Math.random() * h,
-        r: Math.random() * (isDark ? 1.8 : 1.5) + 0.3,
-        a: Math.random() * (isDark ? 0.7 : 0.5) + (isDark ? 0.15 : 0.25),
+        r: Math.random() * (isDark ? 1.8 : 2.2) + (isDark ? 0.3 : 0.5),
+        a: Math.random() * (isDark ? 0.7 : 0.85) + (isDark ? 0.15 : 0.35),
         speed: Math.random() * 0.0008 + 0.0001,
         phase: Math.random() * Math.PI * 2,
         cr: sr, cg: sg, cb: sb
@@ -192,7 +194,7 @@ const App = (() => {
         y: Math.random() * h,
         r: 120 + Math.random() * 350,
         color: nebulaColors[i % nebulaColors.length],
-        alpha: (isDark ? 0.02 : 0.018) + Math.random() * (isDark ? 0.025 : 0.022),
+        alpha: (isDark ? 0.02 : 0.04) + Math.random() * (isDark ? 0.025 : 0.04),
         dx: (Math.random() - 0.5) * 0.2,
         dy: (Math.random() - 0.5) * 0.12,
         pulse: Math.random() * Math.PI * 2,
@@ -233,7 +235,7 @@ const App = (() => {
       });
     });
 
-    const particleCount = isDark ? 160 : 80;
+    const particleCount = isDark ? 160 : 120;
     for (let i = 0; i < particleCount; i++) {
       const hue = Math.random();
       let pr, pg, pb;
@@ -293,9 +295,9 @@ const App = (() => {
 
     if (!isDark) {
       const bgGrad = cosmosCtx.createLinearGradient(0, 0, 0, h);
-      bgGrad.addColorStop(0, 'rgba(10, 15, 30, 0.12)');
-      bgGrad.addColorStop(0.5, 'rgba(15, 20, 40, 0.08)');
-      bgGrad.addColorStop(1, 'rgba(10, 15, 30, 0.12)');
+      bgGrad.addColorStop(0, 'rgba(15, 25, 60, 0.18)');
+      bgGrad.addColorStop(0.5, 'rgba(20, 30, 70, 0.12)');
+      bgGrad.addColorStop(1, 'rgba(15, 25, 60, 0.18)');
       cosmosCtx.fillStyle = bgGrad;
       cosmosCtx.fillRect(0, 0, w, h);
     }
@@ -1180,6 +1182,24 @@ const App = (() => {
           LTP segments payload into ${mtu}-byte blocks. Checkpoint at offset 0 enables report-based retransmission.
           Loss rate ${Math.round(loss * 100)}% resulted in ${result.retransmitted} retransmissions.
         </div>`;
+      $('ltp-charts').style.display = 'block';
+      destroyChart('ltpChart');
+      destroyChart('ltpEffChart');
+      charts.ltpChart = new Chart($('ltpChart').getContext('2d'), {
+        type: 'bar',
+        data: { labels: ['Original', 'Sent (incl. retrans)', 'Lost', 'Retransmitted', 'Received'],
+          datasets: [{ label: 'Segments', data: [result.segments, result.sent, result.lost, result.retransmitted, result.segments],
+            backgroundColor: ['rgba(0,212,255,0.7)', 'rgba(0,184,148,0.7)', 'rgba(255,107,53,0.7)', 'rgba(255,80,120,0.7)', 'rgba(63,185,80,0.7)'],
+            borderColor: ['#00d4ff', '#00b894', '#ff6b35', '#ff5078', '#3fb950'], borderWidth: 1 }] },
+        options: { ...chartTheme, plugins: { ...chartTheme.plugins, legend: { display: false } } }
+      });
+      charts.ltpEffChart = new Chart($('ltpEffChart').getContext('2d'), {
+        type: 'doughnut',
+        data: { labels: ['Useful Data', 'Overhead (Retrans)'],
+          datasets: [{ data: [parseFloat(result.efficiency), Math.max(0, 100 - parseFloat(result.efficiency))],
+            backgroundColor: ['rgba(0,212,170,0.8)', 'rgba(255,107,53,0.6)'], borderColor: ['#00d4aa', '#ff6b35'], borderWidth: 2 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#8892aa', font: { size: 11 }, padding: 12, usePointStyle: true } } } }
+      });
     },
     loadPolicies() {
       const grid = $('policy-grid');
@@ -1241,6 +1261,33 @@ const App = (() => {
         <div style="margin-top:14px;font-size:0.85rem;color:var(--text-secondary)">
           ${r.margin_db > 3 ? '\u2713 Link CLOSED with comfortable margin.' : r.margin_db > 0 ? '\u26A0 Link marginally closed \u2014 consider lower data rate.' : '\u2717 Link NOT closed \u2014 insufficient margin. Reduce data rate or increase power/aperture.'}
         </div>`;
+      $('rf-charts').style.display = 'block';
+      destroyChart('rfChart');
+      destroyChart('rfMarginChart');
+      charts.rfChart = new Chart($('rfChart').getContext('2d'), {
+        type: 'bar',
+        data: { labels: ['Tx Power', 'Tx Gain', 'FSPL', 'Rx Gain', 'Rx Power', 'Eb/N0', 'Margin'],
+          datasets: [{
+            label: 'dB / dBm',
+            data: [10 * Math.log10(txPower * 1000), r.eirp_dbm - 10 * Math.log10(txPower * 1000), -r.fspl_db,
+              r.rx_power_dbm - r.eirp_dbm + r.fspl_db, r.rx_power_dbm, r.eb_n0_db, r.margin_db],
+            backgroundColor: ['rgba(0,212,255,0.7)', 'rgba(0,184,148,0.7)', 'rgba(255,107,53,0.7)',
+              'rgba(0,184,148,0.7)', 'rgba(0,212,255,0.7)', 'rgba(124,92,247,0.7)',
+              r.margin_db > 3 ? 'rgba(63,185,80,0.7)' : r.margin_db > 0 ? 'rgba(210,153,34,0.7)' : 'rgba(255,80,120,0.7)'],
+            borderColor: ['#00d4ff', '#00b894', '#ff6b35', '#00b894', '#00d4ff', '#7c5cf7',
+              r.margin_db > 3 ? '#3fb950' : r.margin_db > 0 ? '#d29922' : '#ff5078'], borderWidth: 1
+          }] },
+        options: { ...chartTheme, plugins: { ...chartTheme.plugins, legend: { display: false } },
+          scales: { ...chartTheme.scales, y: { ...chartTheme.scales.y, title: { display: true, text: 'dB', color: '#4a5270' } } } }
+      });
+      charts.rfMarginChart = new Chart($('rfMarginChart').getContext('2d'), {
+        type: 'doughnut',
+        data: { labels: ['Required Eb/N0', 'Margin'],
+          datasets: [{ data: [Math.max(0, r.eb_n0_db - r.margin_db), Math.max(0, r.margin_db)],
+            backgroundColor: ['rgba(124,92,247,0.7)', r.margin_db > 3 ? 'rgba(63,185,80,0.8)' : r.margin_db > 0 ? 'rgba(210,153,34,0.8)' : 'rgba(255,80,120,0.8)'],
+            borderColor: ['#7c5cf7', r.margin_db > 3 ? '#3fb950' : r.margin_db > 0 ? '#d29922' : '#ff5078'], borderWidth: 2 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#8892aa', font: { size: 11 }, padding: 12, usePointStyle: true } } } }
+      });
     }
   };
 
@@ -1268,6 +1315,34 @@ const App = (() => {
           <div class="result-item"><span class="result-label">Avg Delay</span><span class="result-value">${result.avgDelayMinutes.toFixed(1)} min</span></div>
           <div class="result-item"><span class="result-label">Avg Hops</span><span class="result-value">${result.avgHops.toFixed(1)}</span></div>
         </div>`;
+      destroyChart('simChart');
+      destroyChart('simPriorityChart');
+      charts.simChart = new Chart($('simChart').getContext('2d'), {
+        type: 'line',
+        data: { labels: result.timeline.map(t => t.hour + 'h'),
+          datasets: [
+            { label: 'Delivery Ratio', data: result.timeline.map(t => (t.deliveryRatio * 100).toFixed(1)),
+              borderColor: '#00d4ff', tension: 0.4, pointRadius: 1, borderWidth: 2, fill: true,
+              backgroundColor: 'rgba(0,212,255,0.08)' },
+            { label: 'Delivered', data: result.timeline.map(t => t.delivered),
+              borderColor: '#3fb950', tension: 0.4, pointRadius: 0, borderWidth: 1.5 },
+            { label: 'Dropped', data: result.timeline.map(t => t.dropped),
+              borderColor: '#ff6b35', tension: 0.4, pointRadius: 0, borderWidth: 1.5 }
+          ] },
+        options: { ...chartTheme, scales: { ...chartTheme.scales,
+          x: { ...chartTheme.scales.x, title: { display: true, text: 'Time (hours)', color: '#4a5270' } },
+          y: { ...chartTheme.scales.y, title: { display: true, text: 'Count / %', color: '#4a5270' } } } }
+      });
+      charts.simPriorityChart = new Chart($('simPriorityChart').getContext('2d'), {
+        type: 'bar',
+        data: { labels: result.priorityNames,
+          datasets: [
+            { label: 'Generated', data: result.priorityCounts, backgroundColor: 'rgba(0,212,255,0.5)', borderColor: '#00d4ff', borderWidth: 1 },
+            { label: 'Delivered', data: result.priorityDelivered, backgroundColor: 'rgba(63,185,80,0.6)', borderColor: '#3fb950', borderWidth: 1 }
+          ] },
+        options: { ...chartTheme, scales: { ...chartTheme.scales,
+          x: { ...chartTheme.scales.x }, y: { ...chartTheme.scales.y, title: { display: true, text: 'Bundles', color: '#4a5270' } } } }
+      });
     }
   };
 
