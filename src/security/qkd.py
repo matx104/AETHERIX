@@ -7,11 +7,11 @@ Reference:
 - Ekert (1991) - E91 Protocol
 """
 
-import random
 import math
+import random
 from dataclasses import dataclass, field
-from typing import List, Tuple, Optional
 from enum import Enum
+from typing import List, Optional, Tuple
 
 
 class Basis(Enum):

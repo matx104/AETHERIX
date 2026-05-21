@@ -9,9 +9,8 @@ Reference:
 
 import math
 from dataclasses import dataclass
-from typing import List, Tuple, Optional
 from enum import Enum
-
+from typing import List, Optional, Tuple
 
 # Physical Constants
 AU_KM = 149_597_870.7        # 1 AU in km

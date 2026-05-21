@@ -9,7 +9,7 @@ import time
 import uuid
 from dataclasses import dataclass, field
 from enum import IntEnum
-from typing import Optional, List, Dict, Any
+from typing import Any, Dict, List, Optional
 
 
 class BundlePriority(IntEnum):

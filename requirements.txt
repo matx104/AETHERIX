@@ -1,23 +1,25 @@
 # AETHERIX Requirements
 # =====================
-# Core dependencies for the AETHERIX interplanetary communication platform
+# Dependencies for the AETHERIX interplanetary DTN simulation platform
+#
+# Core modules (src/) use only the Python standard library:
+#   dataclasses, enum, math, random, time, uuid, typing, collections
 
-# Testing
+# --- Testing ---
 pytest>=7.0.0
 
-# Note: The core implementation currently uses only Python standard library:
-# - math
-# - dataclasses
-# - typing
-# - enum
-# - time
-# - uuid
-# - random
+# --- Development (pip install -r requirements.txt --group dev) ---
+# Uncomment or install individually:
+# flake8>=6.0.0            # PEP 8 linting
+# isort>=5.12.0            # Import ordering
+# black>=23.0.0            # Code formatting
+# mypy>=1.4.0              # Static type checking
+# pytest-cov>=4.0.0        # Coverage reporting
 
-# Future dependencies (uncomment when needed):
-# numpy>=1.24.0           # For advanced numerical calculations
-# matplotlib>=3.7.0       # For visualizations
-# gymnasium>=0.29.0       # For RL agent training (OpenAI Gym successor)
-# torch>=2.0.0            # For Deep Q-Network implementation
-# astropy>=5.0.0          # For precise orbital calculations
-# jplephem>=2.18          # For JPL ephemeris data
+# --- Future Production Dependencies ---
+# numpy>=1.24.0            # Advanced numerical calculations
+# matplotlib>=3.7.0        # Chart generation
+# gymnasium>=0.29.0        # RL agent training environment
+# torch>=2.0.0             # Deep Q-Network weights
+# astropy>=5.3.0           # Precise orbital ephemeris
+# jplephem>=2.22           # JPL Horizons ephemeris data

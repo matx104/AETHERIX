@@ -1,62 +1,100 @@
-# AETHERIX - One Page Summary
+# AETHERIX — One-Page Examiner Handout
+
 ## Interplanetary Communication Network for Mars Mission Support
 
-**Student**: Muhammad Abdullah Tariq | **Topic 59** | **EduQual Level 6**
+**Student**: Muhammad Abdullah Tariq | **Programme**: EduQual Level 6 Diploma in AI Operations | **Topic 59**
+
+**Live Demo**: [matx104.github.io/AETHERIX](https://matx104.github.io/AETHERIX/) | **Repository**: [github.com/matx104/AETHERIX](https://github.com/matx104/AETHERIX)
 
 ---
 
 ## The Challenge
+
 | Problem | Impact |
 |---------|--------|
-| Distance: 54.6M - 401M km | 3-22 min one-way light time |
-| Current RF: 0.5-6 Mbps | Limited science data return |
-| Solar conjunction | 2-week complete blackout |
-| TCP/IP fails | Requires 6-44 min RTT |
+| Earth-Mars distance: 54.6M — 401M km | 3 — 22 min one-way light-time |
+| Current RF data rates: 0.5 — 6 Mbps | Severely limited science data return |
+| Solar conjunction (every 780 days) | 2-week complete communication blackout |
+| TCP/IP requires low-latency RTT | Fails at 6 — 44 min round-trip times |
 
 ## The Solution: AETHERIX Architecture
 
-### 5-Tier Network (232 nodes)
-1. **Earth Ground**: DSN stations (Goldstone, Madrid, Canberra)
-2. **Earth Orbital**: GEO relays + 48 LEO laser satellites
-3. **Deep Space**: Lagrange point relays (ES-L4, ES-L5)
-4. **Mars Orbital**: 2 Areostationary + 2 Polar orbiters
-5. **Mars Surface**: Bases, rovers, drones, sensors
+### Five-Tier Network (232 nodes)
 
-### Key Technologies
-| Technology | Function |
-|------------|----------|
-| **Bundle Protocol v7** | Store-and-forward DTN |
-| **RL Routing** | AI replaces static CGR |
-| **Optical Links** | 2-200 Mbps (10-100x improvement) |
-| **QKD Security** | Quantum-secure communications |
+1. **Earth Ground** (6 nodes) — DSN stations: Goldstone, Madrid, Canberra + control centers
+2. **Earth Orbital** (51 nodes) — 3 GEO relays + 48 LEO laser satellites
+3. **Deep Space Transit** (4 nodes) — Lagrange point relays (ES-L4, ES-L5) + transfer orbit sats
+4. **Mars Orbital** (4 nodes) — 2 areostationary + 2 polar orbiters
+5. **Mars Surface** (167 nodes) — Bases, rovers, drones, sensor networks
+
+### Core Technologies
+
+| Technology | Function | Standard |
+|------------|----------|----------|
+| **Bundle Protocol v7** | Store-and-forward delay-tolerant networking | RFC 9171, CCSDS 735.1-B-1 |
+| **RL Routing** | Q-learning agents replace static Contact Graph Routing | Custom (demo implementation) |
+| **Optical Links** (1550 nm) | 2 — 200 Mbps data rates (10-100× over RF) | CCSDS 141.0-B-1 |
+| **QKD Security** | BB84/E91 quantum key distribution + post-quantum crypto | ETSI QKD, NIST FIPS 203/204 |
+
+### Key Innovations
+
+1. **RL-based autonomous routing** — Agents learn optimal forwarding from experience, adapt to link failures in seconds (vs hours for manual replanning)
+2. **Lagrange relay constellation** — Maintains 50-70% availability during solar conjunction blackouts
+3. **Hybrid optical/RF** — Optical primary for throughput (200 Mbps peak), RF backup for reliability (>99% combined availability)
+4. **Quantum-secured links** — QKD for key exchange (information-theoretic security) + CRYSTALS-Kyber/Dilithium for post-quantum signatures
 
 ## Performance Comparison
 
 | Metric | Current (MRO) | AETHERIX | Improvement |
-|--------|---------------|----------|-------------|
-| Downlink | 0.5-6 Mbps | 2-200 Mbps | **10-100x** |
-| Daily Data | 5-10 GB | 50-100 GB | **10-20x** |
-| Availability | 60-75% | >95% | **+20-35%** |
-| Routing | Static | AI-Adaptive | **Autonomous** |
-
-## Standards Compliance
-- CCSDS 734.2-B-1 (DTN) | CCSDS 735.1-B-1 (Bundle Protocol)
-- CCSDS 141.0-B-1 (Optical) | RFC 9171 (BPv7) | RFC 5326 (LTP)
+|--------|:------------:|:--------:|:-----------:|
+| Downlink rate | 0.5 — 6 Mbps | 2 — 200 Mbps | **10-100×** |
+| Daily data volume | 5 — 10 GB | 50 — 100 GB | **10-20×** |
+| Availability | 60 — 75% | > 95% | **+20-35%** |
+| Routing | Static (CGR) | RL-adaptive | **Autonomous** |
+| Security | AES-256 (classical) | QKD + PQC | **Future-proof** |
+| Cost per MB | ~$0.10 | ~$0.01 | **10×** |
 
 ## Key Equations
-- **FSPL**: 20 × log₁₀(4π × d / λ) dB
-- **Light Time**: t = d / c (299,792 km/s)
-- **RL Reward**: R = α(delivered) - β(delay) - γ(hops) - δ(drops)
 
-## Critical Constants
-| Parameter | Value |
-|-----------|-------|
-| Mars perihelion | 54.6M km (3 min light-time) |
-| Mars aphelion | 401M km (22 min light-time) |
-| Synodic period | 779.94 days |
-| Optical wavelength | 1550 nm |
-| QKD threshold | QBER < 11% |
+- **Free-Space Path Loss**: FSPL = 20 × log₁₀(4πd/λ) dB
+- **Link Budget**: Pr = Pt + Gt + Gr − FSPL − Latm − Lpoint
+- **RL Reward**: R = α(delivery) − β(delay) − γ(hops) − δ(drops) − ε(energy)
+- **QBER Threshold**: QBER < 11% → secure; QBER ≥ 11% → abort
+
+## Standards Compliance
+
+| Standard | Description |
+|----------|-------------|
+| CCSDS 734.2-B-1 | DTN Architecture |
+| CCSDS 735.1-B-1 | Bundle Protocol Specification |
+| CCSDS 735.2-B-1 | Bundle Protocol Security (BPSec) |
+| CCSDS 141.0-B-1 | Optical Communications Physical Layer |
+| CCSDS 142.0-B-2 | Space Link Identification (LNIS v5) |
+| RFC 9171 | Bundle Protocol Version 7 |
+| RFC 5326 | Licklider Transmission Protocol |
+
+## Implementation Status
+
+| Component | Location | Lines | Status |
+|-----------|----------|:-----:|--------|
+| Optical Link Budget Calculator | `src/infrastructure/link_budget.py` | 395 | Complete |
+| RL Routing Agent (Q-learning) | `src/routing/rl_agent.py` | ~300 | Demo |
+| BPv7 Bundle Protocol Structures | `src/routing/bundle.py` | ~250 | Demo |
+| BB84/E91 QKD Simulation | `src/security/qkd.py` | ~350 | Demo |
+| Orbital Mechanics / Contact Windows | `src/orbital/contact_windows.py` | ~300 | Demo |
+| Interactive Web Platform | `docs/` (static SPA) | ~2000+ | Live |
+| Test Suite | `tests/` | Ongoing | In progress |
+
+## References (64 total, IEEE format)
+
+Full list in `references/REFERENCES.md` — foundational papers include:
+
+1. Burleigh et al. (2003) — DTN for Interplanetary Internet
+2. Bennett & Brassard (1984) — BB84 Quantum Key Distribution
+3. Boroson et al. (2014) — Lunar Laser Communication Demonstration
+4. Mnih et al. (2015) — Deep Q-Network (DQN)
+5. Vallado (2013) — Fundamentals of Astrodynamics
 
 ---
 
-**Repository**: github.com/matx104/AETHERIX | **Contact**: muhammad.atx@gmail.com
+*64 academic references | 6 interactive demos | Live web platform | Docker-ready*

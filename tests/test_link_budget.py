@@ -6,9 +6,9 @@ Mars-Earth interplanetary communication.
 """
 
 import math
-import unittest
-import sys
 import os
+import sys
+import unittest
 
 # Add src directory to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))

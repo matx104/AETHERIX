@@ -7,7 +7,8 @@ Provides quantum security capabilities including:
 - Quantum repeater modeling
 """
 
-from .qkd import BB84Protocol, E91Protocol, QKDResult, QuantumRepeater, calculate_key_rate
+from .qkd import (BB84Protocol, E91Protocol, QKDResult, QuantumRepeater,
+                  calculate_key_rate)
 
 __all__ = [
     'BB84Protocol',

@@ -8,8 +8,8 @@ In production, this would use a full Deep Q-Network (DQN) implementation.
 
 import random
 from dataclasses import dataclass
-from typing import List, Dict, Tuple, Optional
 from enum import Enum
+from typing import Dict, List, Optional, Tuple
 
 
 class RoutingAction(Enum):

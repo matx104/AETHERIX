@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AETHERIX — Interplanetary Delay-Tolerant Networking Platform</title>
+  <meta name="description" content="AETHERIX: Autonomous Extraterrestrial High-throughput Enhancing Routing and Inter-planetary eXchange. A live simulation platform for Earth-Mars delay-tolerant networking using Bundle Protocol v7, quantum key distribution, reinforcement learning routing, and optical communications.">
+  <meta name="keywords" content="AETHERIX, DTN, delay-tolerant networking, interplanetary communication, Bundle Protocol v7, RFC 9171, quantum key distribution, BB84, E91, reinforcement learning routing, optical communications, Mars mission, CCSDS, deep space, space exploration, QKD">
+  <meta name="author" content="Muhammad Abdullah Tariq">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://matx104.github.io/AETHERIX/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AETHERIX — Interplanetary DTN Platform">
+  <meta property="og:description" content="Live simulation platform for Earth-Mars delay-tolerant networking with quantum key distribution, RL routing, and optical link budgets.">
+  <meta property="og:url" content="https://matx104.github.io/AETHERIX/">
+  <meta property="og:image" content="https://matx104.github.io/AETHERIX/og-image.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="AETHERIX">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AETHERIX — Interplanetary DTN Platform">
+  <meta name="twitter:description" content="Earth-Mars delay-tolerant networking simulation with QKD, RL routing, and optical communications.">
+  <meta name="twitter:image" content="https://matx104.github.io/AETHERIX/og-image.svg">
+
+  <meta name="theme-color" content="#050a14">
+  <meta name="msapplication-TileColor" content="#050a14">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="favicon.svg">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "AETHERIX",
+    "description": "Autonomous Extraterrestrial High-throughput Enhancing Routing and Inter-planetary eXchange — a delay-tolerant networking simulation platform for Earth-Mars communication.",
+    "url": "https://matx104.github.io/AETHERIX/",
+    "applicationCategory": "ScientificApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "Muhammad Abdullah Tariq" },
+    "keywords": ["DTN", "interplanetary communication", "Bundle Protocol", "quantum key distribution", "reinforcement learning", "optical communications", "Mars"]
+  }
+  </script>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="cosmos-canvas" aria-hidden="true"></canvas>
+  <div class="toast-container" id="toast-container" role="status" aria-live="polite"></div>
+
+  <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')" aria-label="Toggle navigation">&#9776;</button>
+
+  <nav class="sidebar" role="navigation" aria-label="Main navigation">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">AETHERIX</div>
+      <div class="sidebar-subtitle">Interplanetary DTN Platform</div>
+      <div class="sidebar-status"><span class="status-dot"></span> Systems Nominal — All Networks Online</div>
+    </div>
+    <ul class="nav-links" role="menubar">
+      <li class="active" data-route="dashboard" role="menuitem" tabindex="0"><span class="nav-icon">&#9672;</span> Mission Control</li>
+      <li data-route="link-budget" role="menuitem" tabindex="0"><span class="nav-icon">&#9733;</span> Link Budget</li>
+      <li data-route="routing" role="menuitem" tabindex="0"><span class="nav-icon">&#10070;</span> RL Routing</li>
+      <li data-route="qkd" role="menuitem" tabindex="0"><span class="nav-icon">&#10023;</span> QKD Protocol</li>
+      <li data-route="orbital" role="menuitem" tabindex="0"><span class="nav-icon">&#9788;</span> Orbital Mechanics</li>
+      <li data-route="bundle" role="menuitem" tabindex="0"><span class="nav-icon">&#9638;</span> Bundle Protocol</li>
+      <li data-route="mission" role="menuitem" tabindex="0"><span class="nav-icon">&#9883;</span> Mars Mission</li>
+      <li data-route="study" role="menuitem" tabindex="0"><span class="nav-icon">&#128218;</span> Study Resources</li>
+      <li data-route="presentation" role="menuitem" tabindex="0" class="nav-presentation"><span class="nav-icon">&#9654;</span> Presentation</li>
+    </ul>
+    <div class="sidebar-footer">
+      AETHERIX v1.0<br>
+      RFC 9171 · CCSDS 735.1-B-1 · CCSDS 141.0-B-1
+    </div>
+  </nav>
+
+  <main class="main-content" role="main">
+    <div class="live-ticker" id="live-ticker" aria-label="Live telemetry"></div>
+
+    <section id="dashboard" class="tab active" aria-label="Mission Control Dashboard">
+      <div class="hero-section">
+        <div class="quantum-grid-bg"></div>
+        <div class="hero-title">AETHERIX</div>
+        <div class="hero-subtitle">Autonomous Extraterrestrial High-throughput Enhancing Routing and Inter-planetary eXchange — a delay-tolerant networking simulation platform for Earth-Mars communication</div>
+        <div class="hero-badge-row">
+          <span class="hero-badge hb-quantum">BPv7 · RFC 9171</span>
+          <span class="hero-badge hb-nebula">QKD · BB84 / E91</span>
+          <span class="hero-badge hb-accent">1550nm Optical</span>
+          <span class="hero-badge hb-mars">RL Routing</span>
+          <span class="hero-badge hb-success">5-Tier Architecture</span>
+        </div>
+        <div class="metrics-bar">
+          <div class="metric-item"><div class="metric-value" style="color:var(--accent)" id="mv-tiers">5</div><div class="metric-label">Network Tiers</div></div>
+          <div class="metric-item"><div class="metric-value" style="color:var(--mars)" id="mv-nodes">232</div><div class="metric-label">Nodes</div></div>
+          <div class="metric-item"><div class="metric-value" style="color:var(--success)" id="mv-rate">200</div><div class="metric-label">Max Mbps</div></div>
+          <div class="metric-item"><div class="metric-value" style="color:var(--quantum)" id="mv-wavelength">1550</div><div class="metric-label">nm Wavelength</div></div>
+          <div class="metric-item"><div class="metric-value" style="color:var(--nebula)" id="mv-synodic">780</div><div class="metric-label">Day Synodic Period</div></div>
+        </div>
+      </div>
+
+      <header class="section-title"><span class="section-icon">&#9733;</span> Link Budget — Quick Scenarios</header>
+      <div class="grid grid-3" id="dashboard-scenarios"></div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#9788;</span> Earth–Mars Distance Over Synodic Period</header>
+      <div class="card">
+        <div class="chart-container"><canvas id="dashTimelineChart"></canvas></div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#10070;</span> Network Topology</header>
+      <div class="card">
+        <canvas id="topologyCanvas" class="topology-canvas"></canvas>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128218;</span> Preparation & Research</header>
+      <div class="grid grid-4" id="dashboard-study-stats"></div>
+    </section>
+
+    <section id="link-budget" class="tab" aria-label="Optical Link Budget Calculator">
+      <div class="page-header">
+        <h1>Optical Link Budget Calculator</h1>
+        <p>CCSDS 141.0-B-1 compliant deep-space optical link analysis at 1550 nm with free-space loss, antenna gain, and atmospheric attenuation modeling.</p>
+        <div class="header-badges">
+          <span class="badge accent">CCSDS 141.0-B-1</span>
+          <span class="badge quantum">1550nm Near-IR</span>
+        </div>
+      </div>
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Link Parameters</div>
+          <div class="form-group">
+            <label>Scenario Preset</label>
+            <div class="btn-group">
+              <button class="btn btn-sm" onclick="App.linkBudget.loadScenario('minimum')">Min 55M km</button>
+              <button class="btn btn-sm" onclick="App.linkBudget.loadScenario('average')">Avg 225M km</button>
+              <button class="btn btn-sm" onclick="App.linkBudget.loadScenario('maximum')">Max 390M km</button>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Distance (M km)</label><input type="number" id="lb-distance" value="225" min="54" max="401" step="1"></div>
+            <div class="form-group"><label>Tx Power (W)</label><input type="number" id="lb-tx-power" value="5" min="0.1" max="50" step="0.1"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Tx Aperture (m)</label><input type="number" id="lb-tx-aperture" value="0.22" min="0.05" max="5" step="0.01"></div>
+            <div class="form-group"><label>Rx Aperture (m)</label><input type="number" id="lb-rx-aperture" value="1.0" min="0.1" max="10" step="0.1"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Data Rate (Mbps)</label><input type="number" id="lb-data-rate" value="10" min="0.1" max="500" step="0.1"></div>
+            <div class="form-group"><label>Required SNR (dB)</label><input type="number" id="lb-snr" value="10" min="1" max="30" step="0.5"></div>
+          </div>
+          <div class="btn-group" style="margin-top:14px">
+            <button class="btn btn-primary" onclick="App.linkBudget.calculate()">&#9889; Calculate</button>
+          </div>
+        </div>
+        <div>
+          <div class="card" id="lb-result" style="display:none">
+            <div class="card-title"><span class="ct-dot"></span> Link Budget Results</div>
+            <div id="lb-result-content"></div>
+          </div>
+          <div class="card" id="lb-chart-card" style="display:none;margin-top:18px">
+            <div class="card-title"><span class="ct-dot"></span> Link Margin vs Distance</div>
+            <div class="chart-container"><canvas id="lbChart"></canvas></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="routing" class="tab" aria-label="Reinforcement Learning Routing Agent">
+      <div class="page-header">
+        <h1>Reinforcement Learning Routing Agent</h1>
+        <p>Q-learning based DTN routing with epsilon-greedy policy across a multi-tier interplanetary network topology.</p>
+        <div class="header-badges">
+          <span class="badge quantum">Q-Learning</span>
+          <span class="badge accent">Epsilon-Greedy</span>
+          <span class="badge nebula">Multi-Hop DTN</span>
+        </div>
+      </div>
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Network State</div>
+          <div class="form-row">
+            <div class="form-group"><label>Current Node</label>
+              <select id="rt-current-node">
+                <option value="mars.surface.rover-01">mars.surface.rover-01</option>
+                <option value="mars.areo.alpha">mars.areo.alpha</option>
+                <option value="mars.polar.gamma">mars.polar.gamma</option>
+                <option value="transit.esl4.relay">transit.esl4.relay</option>
+                <option value="earth.leo.constellation">earth.leo.constellation</option>
+                <option value="earth.dsn.goldstone">earth.dsn.goldstone</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Destination</label>
+              <select id="rt-destination">
+                <option value="earth.control.moc">earth.control.moc</option>
+                <option value="mars.surface.rover-01">mars.surface.rover-01</option>
+                <option value="earth.dsn.goldstone">earth.dsn.goldstone</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Bundle Priority</label>
+              <select id="rt-priority">
+                <option value="0">0 — EMERGENCY</option>
+                <option value="1">1 — HIGH_SCIENCE</option>
+                <option value="2" selected>2 — STANDARD</option>
+                <option value="3">3 — HOUSEKEEPING</option>
+                <option value="4">4 — BULK</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Buffer Occupancy</label>
+              <input type="range" id="rt-buffer" min="0" max="100" value="35">
+              <span id="rt-buffer-val" style="font-family:var(--font-mono);font-size:0.8rem;color:var(--accent)">35%</span>
+            </div>
+          </div>
+          <div class="btn-group" style="margin-top:14px">
+            <button class="btn btn-primary" onclick="App.routing.decide()">&#10070; Get Decision</button>
+            <button class="btn btn-quantum" onclick="App.routing.simulateFullRoute()">&#9883; Simulate Route</button>
+          </div>
+        </div>
+        <div>
+          <div class="card" id="rt-result" style="display:none">
+            <div class="card-title"><span class="ct-dot"></span> Routing Decision</div>
+            <div id="rt-result-content"></div>
+          </div>
+          <div class="card" id="rt-route-visual" style="display:none;margin-top:18px">
+            <div class="card-title"><span class="ct-dot"></span> Route Simulation</div>
+            <div id="rt-route-content"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="qkd" class="tab" aria-label="Quantum Key Distribution Simulation">
+      <div class="page-header">
+        <h1>Quantum Key Distribution</h1>
+        <p>BB84 and E91 protocol simulations with eavesdropper detection via Quantum Bit Error Rate analysis and Bell inequality testing.</p>
+        <div class="header-badges">
+          <span class="badge nebula">BB84 · Bennett-Brassard 1984</span>
+          <span class="badge quantum">E91 · Ekert 1991</span>
+          <span class="badge accent">QBER &lt; 11%</span>
+        </div>
+      </div>
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Protocol Configuration</div>
+          <div class="form-row">
+            <div class="form-group"><label>Protocol</label>
+              <select id="qkd-protocol">
+                <option value="bb84">BB84 (Prepare-and-Measure)</option>
+                <option value="e91">E91 (Entanglement-Based)</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Qubits / Pairs</label><input type="number" id="qkd-num-qubits" value="1000" min="100" max="10000" step="100"></div>
+          </div>
+          <div class="form-group">
+            <label>Channel Error Rate</label>
+            <input type="range" id="qkd-error" min="0" max="50" value="0">
+            <span id="qkd-error-val" style="font-family:var(--font-mono);font-size:0.8rem;color:var(--quantum)">0%</span>
+          </div>
+          <div class="btn-group" style="margin-top:14px">
+            <button class="btn btn-primary" onclick="App.qkd.run()">&#10023; Run Simulation</button>
+            <button class="btn btn-quantum" onclick="App.qkd.runEavesdropper()">&#9888; Simulate Eavesdropper</button>
+          </div>
+          <div style="margin-top:24px">
+            <div class="card-title"><span class="ct-dot"></span> Key Rate Estimates by Distance</div>
+            <div id="qkd-key-rates"></div>
+          </div>
+        </div>
+        <div>
+          <div class="card" id="qkd-result" style="display:none">
+            <div class="card-title"><span class="ct-dot"></span> Simulation Results</div>
+            <div id="qkd-result-content"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="orbital" class="tab" aria-label="Orbital Mechanics and Contact Windows">
+      <div class="page-header">
+        <h1>Orbital Mechanics & Contact Windows</h1>
+        <p>Keplerian orbital element propagation, Earth-Mars distance prediction, and communication window scheduling over the 780-day synodic period.</p>
+        <div class="header-badges">
+          <span class="badge accent">Keplerian Elements</span>
+          <span class="badge mars">J2000 Epoch</span>
+        </div>
+      </div>
+      <div class="grid grid-2">
+        <div>
+          <div class="card">
+            <div class="card-title"><span class="ct-dot"></span> Configuration</div>
+            <div class="form-row">
+              <div class="form-group"><label>Start Day (0 = Opposition)</label><input type="number" id="orb-start-day" value="0" min="0" max="779"></div>
+              <div class="form-group"><label>Duration (days)</label><input type="number" id="orb-duration" value="90" min="1" max="780"></div>
+            </div>
+            <div class="btn-group" style="margin-top:14px">
+              <button class="btn btn-primary" onclick="App.orbital.calculate()">&#9788; Calculate</button>
+            </div>
+          </div>
+          <div class="card" style="margin-top:18px" id="orb-stats">
+            <div class="card-title"><span class="ct-dot"></span> Summary</div>
+            <div id="orb-stats-content"></div>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <div class="card-title"><span class="ct-dot"></span> Distance Timeline</div>
+            <div class="chart-container"><canvas id="orbTimelineChart"></canvas></div>
+          </div>
+          <div class="card" style="margin-top:18px">
+            <div class="card-title"><span class="ct-dot"></span> Contact Windows</div>
+            <div id="orb-windows-content"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="bundle" class="tab" aria-label="Bundle Protocol v7">
+      <div class="page-header">
+        <h1>Bundle Protocol v7</h1>
+        <p>RFC 9171 / CCSDS 735.1-B-1 compliant bundle creation, custody transfer, and multi-hop DTN routing visualization.</p>
+        <div class="header-badges">
+          <span class="badge accent">RFC 9171</span>
+          <span class="badge quantum">CCSDS 735.1-B-1</span>
+          <span class="badge nebula">Custody Transfer</span>
+        </div>
+      </div>
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Create Bundle</div>
+          <div class="form-row">
+            <div class="form-group"><label>Source Node</label>
+              <select id="bndl-source">
+                <option value="mars.surface.rover-01">mars.surface.rover-01</option>
+                <option value="mars.surface.base-alpha">mars.surface.base-alpha</option>
+                <option value="mars.areo.alpha">mars.areo.alpha</option>
+                <option value="earth.dsn.goldstone">earth.dsn.goldstone</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Destination</label>
+              <select id="bndl-dest">
+                <option value="earth.control.moc">earth.control.moc</option>
+                <option value="mars.surface.rover-01">mars.surface.rover-01</option>
+                <option value="mars.areo.alpha">mars.areo.alpha</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Priority</label>
+              <select id="bndl-priority">
+                <option value="0">EMERGENCY</option>
+                <option value="1">HIGH_SCIENCE</option>
+                <option value="2" selected>STANDARD</option>
+                <option value="3">HOUSEKEEPING</option>
+                <option value="4">BULK</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Payload Size (MB)</label><input type="number" id="bndl-size" value="500" min="1" max="10000"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Deadline (hours)</label><input type="number" id="bndl-deadline" value="168" min="1" max="8760"></div>
+            <div class="form-group"><label>Lifetime (days)</label><input type="number" id="bndl-lifetime" value="7" min="1" max="365"></div>
+          </div>
+          <div class="btn-group" style="margin-top:14px">
+            <button class="btn btn-primary" onclick="App.bundle.create()">&#9638; Create Bundle</button>
+            <button class="btn btn-quantum" onclick="App.bundle.createAndRoute()">&#9883; Create & Route</button>
+          </div>
+        </div>
+        <div>
+          <div class="card" id="bndl-result" style="display:none">
+            <div class="card-title"><span class="ct-dot"></span> Bundle Details</div>
+            <div id="bndl-result-content"></div>
+          </div>
+          <div class="card" style="margin-top:18px">
+            <div class="card-title"><span class="ct-dot"></span> Active Bundles</div>
+            <div id="bndl-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="mission" class="tab" aria-label="Integrated Mars Mission Simulation">
+      <div class="page-header">
+        <h1>Integrated Mars Mission Scenario</h1>
+        <p>End-to-end simulation combining link budget analysis, RL routing, quantum key distribution, orbital mechanics, and bundle protocol in a single mission scenario.</p>
+        <div class="header-badges">
+          <span class="badge mars">Mars Mission</span>
+          <span class="badge quantum">Full Integration</span>
+          <span class="badge accent">Live Simulation</span>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:18px">
+        <div class="card-title"><span class="ct-dot"></span> Scenario Configuration</div>
+        <div class="form-row">
+          <div class="form-group"><label>Start Day</label><input type="number" id="msn-start" value="0" min="0" max="779"></div>
+          <div class="form-group"><label>Duration (days)</label><input type="number" id="msn-duration" value="30" min="7" max="365"></div>
+          <div class="form-group"><label>Bundles per Type</label><input type="number" id="msn-bundles" value="25" min="1" max="100"></div>
+        </div>
+        <div class="btn-group" style="margin-top:14px">
+          <button class="btn btn-primary" onclick="App.mission.run()">&#9883; Run Full Simulation</button>
+        </div>
+      </div>
+      <div id="msn-results" style="display:none">
+        <div class="grid grid-4" id="msn-stats"></div>
+        <div class="grid grid-2" style="margin-top:18px">
+          <div class="card"><div class="card-title"><span class="ct-dot"></span> Data Transfer Timeline</div><div class="chart-container"><canvas id="msnChart"></canvas></div></div>
+          <div class="card"><div class="card-title"><span class="ct-dot"></span> Bundle Traffic Mix</div><div class="chart-container"><canvas id="msnBundleChart"></canvas></div></div>
+        </div>
+        <div class="grid grid-2" style="margin-top:18px">
+          <div class="card"><div class="card-title"><span class="ct-dot"></span> Routing Simulation</div><div id="msn-routing"></div></div>
+          <div class="card"><div class="card-title"><span class="ct-dot"></span> QKD Security Assessment</div><div id="msn-qkd"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="study" class="tab" aria-label="Study Resources">
+      <div class="page-header">
+        <h1>Study Resources & Preparation</h1>
+        <p>Curated learning materials used to prepare for this presentation, organized by the six EduQual Level 6 learning objectives. All resources are free and publicly accessible.</p>
+        <div class="header-badges">
+          <span class="badge success">64 Academic References</span>
+          <span class="badge accent">7 CCSDS Standards</span>
+          <span class="badge quantum">Free Courses & MOOCs</span>
+        </div>
+      </div>
+
+      <div id="study-lo-grid" class="grid grid-2"></div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#127891;</span> Free Courses & Certificates</header>
+      <div class="card">
+        <div id="study-courses-content"></div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128736;</span> Tools & Software Used</header>
+      <div class="card">
+        <div id="study-tools-content"></div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128214;</span> Key References (IEEE Format)</header>
+      <div class="card">
+        <div id="study-refs-content"></div>
+      </div>
+    </section>
+
+    <section id="presentation" class="tab presentation-mode" aria-label="Presentation">
+      <div class="pres-overlay" id="pres-overlay">
+        <div class="pres-progress-bar"><div class="pres-progress-fill" id="pres-progress"></div></div>
+        <div class="pres-slide-container">
+          <div class="pres-slide" id="pres-slide-content"></div>
+        </div>
+        <div class="pres-controls">
+          <div class="pres-controls-left">
+            <button class="pres-btn" id="pres-prev" title="Previous (Left Arrow)">&#9664; Prev</button>
+            <span class="pres-counter" id="pres-counter">1 / 13</span>
+            <button class="pres-btn" id="pres-next" title="Next (Right Arrow / Space)">Next &#9654;</button>
+          </div>
+          <div class="pres-controls-right">
+            <span class="pres-timer" id="pres-timer">00:00</span>
+            <button class="pres-btn" id="pres-fullscreen" title="Toggle Fullscreen (F)">&#9974;</button>
+            <button class="pres-btn" id="pres-exit" title="Exit Presentation (Esc)">&#10005; Exit</button>
+          </div>
+        </div>
+        <div class="pres-shortcuts" id="pres-shortcuts">
+          <div class="pres-shortcuts-title">Keyboard Shortcuts</div>
+          <div class="pres-shortcuts-grid">
+            <span>&#8592; / &#8594;</span><span>Navigate slides</span>
+            <span>Space</span><span>Next slide</span>
+            <span>Home / End</span><span>First / Last slide</span>
+            <span>F</span><span>Toggle fullscreen</span>
+            <span>T</span><span>Toggle timer</span>
+            <span>S</span><span>Speaker notes</span>
+            <span>Esc</span><span>Exit presentation</span>
+            <span>?</span><span>Show shortcuts</span>
+          </div>
+        </div>
+        <div class="pres-speaker-notes" id="pres-speaker-notes" style="display:none"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="display:none">
+    <span>AETHERIX — Interplanetary DTN Platform</span>
+    <span>RFC 9171 · CCSDS 735.1-B-1 · CCSDS 141.0-B-1</span>
+  </footer>
+
+  <script src="js/engine.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

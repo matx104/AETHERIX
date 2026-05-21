@@ -9,10 +9,11 @@
 
 <br/>
 
+[![Live Demo](https://img.shields.io/badge/LIVE_DEMO-GitHub_Pages-00d4aa?style=for-the-badge&logo=github&logoColor=white)](https://matx104.github.io/AETHERIX/)
 [![Python](https://img.shields.io/badge/Python-3.9+-3776ab?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![License](https://img.shields.io/badge/License-Research-00d4aa?style=for-the-badge)](LICENSE)
-[![Status](https://img.shields.io/badge/Status-Active_Development-ff6b6b?style=for-the-badge)](https://github.com/matx104/AETHERIX)
 [![DTN](https://img.shields.io/badge/Protocol-Bundle_v7-f9ca24?style=for-the-badge)](https://www.rfc-editor.org/rfc/rfc9171.html)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/)
 
 <br/>
 
@@ -202,6 +203,40 @@ The AETHERIX network implements a **5-tier hierarchical, delay-tolerant architec
 
 ---
 
+## 🌐 Live Web Demo
+
+> **Try it now: [matx104.github.io/AETHERIX](https://matx104.github.io/AETHERIX/)**
+
+The interactive web demo runs entirely client-side — no backend required. All simulations (link budget, QKD, RL routing, orbital mechanics, bundle protocol, Mars mission) execute in the browser via JavaScript ports of the Python modules.
+
+| Tab | What It Does |
+|:----|:-------------|
+| **Dashboard** | System overview with live telemetry ticker and network topology visualization |
+| **Link Budget** | Calculate optical link performance for any Earth-Mars distance scenario |
+| **RL Routing** | Train and visualize a Q-learning routing agent across the 5-tier network |
+| **QKD** | Simulate BB84 / E91 quantum key distribution with eavesdropper detection |
+| **Orbital Mechanics** | Earth-Mars distance timeline, contact windows, light-time delay |
+| **Bundle Protocol** | Create BPv7 bundles, simulate custody transfer and store-and-forward |
+| **Mars Mission** | End-to-end mission scenario with timeline and data throughput |
+
+### Run Locally with Docker
+
+```bash
+git clone https://github.com/matx104/AETHERIX.git
+cd AETHERIX
+docker compose up --build
+# Open http://localhost:8080
+```
+
+Or serve the `docs/` folder with any static file server (Python, nginx, Caddy, etc.):
+
+```bash
+# Python one-liner
+python -m http.server 8080 --directory docs/
+```
+
+---
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -218,8 +253,11 @@ python --version
 git clone https://github.com/matx104/AETHERIX.git
 cd AETHERIX
 
+# Initialize environment and install dependencies
+./scripts/init.sh
+
 # Run tests to verify installation
-python -m pytest tests/
+./scripts/run_tests.sh
 ```
 
 ### 📊 Link Budget Demo
@@ -308,37 +346,72 @@ python demos/05_mars_mission_scenario/run_demo.py
 
 ```
 AETHERIX/
-├── 📂 src/
-│   ├── 📂 infrastructure/     # Link budget calculations ✅
-│   │   └── link_budget.py
-│   ├── 📂 routing/            # RL-based DTN routing ✅
-│   │   ├── rl_agent.py        # Reinforcement learning agent
-│   │   └── bundle.py          # Bundle Protocol v7 structures
-│   ├── 📂 security/           # Quantum security ✅
-│   │   └── qkd.py             # BB84 & E91 protocols
-│   ├── 📂 orbital/            # Orbital mechanics ✅
-│   │   └── contact_windows.py # Contact window prediction
-│   └── 📂 simulation/         # Simulation APIs 📅
+├── 📂 docs/                        # 🌐 Web Demo (GitHub Pages)
+│   ├── index.html                  #   Single-page app (7 tabs)
+│   ├── css/style.css               #   Cosmic theme (animated starfield)
+│   ├── js/engine.js                #   Computation engines (JS ports)
+│   ├── js/app.js                   #   UI controllers & canvas viz
+│   ├── og-image.svg / favicon.svg  #   Branding assets
+│   ├── EXECUTIVE_SUMMARY.md        #   Architecture overview
+│   ├── COMPARISON_ANALYSIS.md      #   AETHERIX vs current systems
+│   ├── QUICK_REFERENCE.md          #   Key parameters & specs
+│   └── ...
 │
-├── 📂 demos/                   # Interactive demonstrations ✅
-│   ├── 01_link_budget_demo/
-│   ├── 02_dtn_routing_demo/
-│   ├── 03_orbital_mechanics_demo/
-│   ├── 04_quantum_key_demo/
-│   ├── 05_mars_mission_scenario/
-│   └── 06_integrated_demo/
+├── 📂 src/                         # 🐍 Python Modules
+│   ├── 📂 infrastructure/          #   Link budget calculations
+│   │   └── link_budget.py          #     OpticalLinkBudget + Calculator
+│   ├── 📂 routing/                 #   DTN routing
+│   │   ├── rl_agent.py             #     Q-learning routing agent
+│   │   └── bundle.py               #     BPv7 bundle structures
+│   ├── 📂 security/                #   Quantum security
+│   │   └── qkd.py                  #     BB84 + E91 protocols
+│   ├── 📂 orbital/                 #   Orbital mechanics
+│   │   └── contact_windows.py      #     Contact window prediction
+│   └── 📂 simulation/              #   Simulation APIs (planned)
 │
-├── 📂 docs/                    # Documentation ✅
-│   ├── EXECUTIVE_SUMMARY.md
-│   ├── COMPARISON_ANALYSIS.md
-│   ├── network_topology.md
-│   └── link-budget/
+├── 📂 demos/                       # 🎮 Interactive Demos
+│   ├── 01_link_budget_demo/        #   Optical link calculator
+│   ├── 02_dtn_routing_demo/        #   DTN routing simulation
+│   ├── 03_orbital_mechanics_demo/  #   Orbital visualization
+│   ├── 04_quantum_key_demo/        #   QKD demonstration
+│   ├── 05_mars_mission_scenario/   #   Full mission scenario
+│   └── 06_integrated_demo/         #   Presentation-ready demo
 │
-├── 📂 tests/                   # Test suite ✅
-│   └── test_link_budget.py
+├── 📂 tests/                       # 🧪 Test Suite
+│   └── test_link_budget.py         #   Link budget tests
 │
-└── 📂 visualizations/          # Charts and visualizations
-    └── scripts/
+├── 📂 visualizations/              # 📊 Charts & Diagrams
+│   ├── charts/                     #   20 PNG charts (matplotlib)
+│   ├── diagrams/                   #   Architecture diagrams
+│   └── scripts/generate_charts.py  #   Chart generation script
+│
+├── 📂 presentation/                # 📽️ Presentation Package
+│   ├── AETHERIX_Presentation.md    #   Slide content (13 slides)
+│   ├── speaker_notes/              #   Detailed speaker notes
+│   └── handouts/                   #   Examiner handouts
+│
+├── 📂 references/                  # 📚 Academic References
+│   ├── REFERENCES.md               #   Master list (40+ sources)
+│   ├── by_topic/                   #   Categorized references
+│   └── standards/                  #   CCSDS / IETF standards
+│
+├── 📂 interview_prep/              # 🎯 Interview Preparation
+│   ├── question_bank/              #   Technical Q&A
+│   ├── cheat_sheets/               #   Formulas & constants
+│   └── topic_summaries/            #   Topic deep-dives
+│
+├── 📂 scripts/                     # 🔧 Dev Scripts
+│   ├── init.sh                     #   Environment setup
+│   ├── run_tests.sh                #   Test runner
+│   ├── run_demos.sh                #   Demo runner
+│   ├── lint.sh                     #   Code quality
+│   └── clean.sh                    #   Cleanup
+│
+├── 📂 web/                         # 🐳 Docker
+│   └── Dockerfile                  #   nginx:alpine serving docs/
+│
+├── docker-compose.yml              #   Docker orchestration
+└── requirements.txt                #   Python dependencies
 ```
 
 <br/>
@@ -473,7 +546,7 @@ If you find AETHERIX useful, please consider giving it a ⭐!
 
 **AETHERIX** — *Connecting worlds, one bundle at a time*
 
-<sub>Version 1.0.0-alpha | Last Updated: January 2026 | Maintained by AETHERIX Team</sub>
+<sub>Version 1.0.0 | Live Demo: matx104.github.io/AETHERIX | Last Updated: May 2026 | Maintained by AETHERIX Team</sub>
 
 </div>
 

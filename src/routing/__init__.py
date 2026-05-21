@@ -8,7 +8,8 @@ Provides DTN routing capabilities including:
 """
 
 from .bundle import Bundle, BundlePriority, EndpointID, create_science_bundle
-from .rl_agent import RLRoutingAgent, RoutingAction, NetworkState, RoutingDecision
+from .rl_agent import (NetworkState, RLRoutingAgent, RoutingAction,
+                       RoutingDecision)
 
 __all__ = [
     'Bundle',
