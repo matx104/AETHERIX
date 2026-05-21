@@ -10,6 +10,7 @@ const ThemeManager = {
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('aetherix-theme', next);
     this.updateIcon(next);
+    if (typeof App !== 'undefined' && App.initCosmos) App.initCosmos();
   },
   updateIcon(theme) {
     const btn = document.getElementById('theme-toggle');
@@ -153,37 +154,45 @@ const App = (() => {
     particles = [];
     blackHole = null;
 
-    const starCount = isDark ? 500 : 200;
+    const starCount = isDark ? 1000 : 600;
     for (let i = 0; i < starCount; i++) {
       const colorRoll = Math.random();
       let sr, sg, sb;
-      if (colorRoll < 0.1) { sr = 180; sg = 200; sb = 255; }
-      else if (colorRoll < 0.2) { sr = 255; sg = 220; sb = 180; }
-      else if (colorRoll < 0.25) { sr = 255; sg = 180; sb = 180; }
-      else { sr = 200; sg = 210; sb = 240; }
+      if (isDark) {
+        if (colorRoll < 0.1) { sr = 180; sg = 200; sb = 255; }
+        else if (colorRoll < 0.2) { sr = 255; sg = 220; sb = 180; }
+        else if (colorRoll < 0.25) { sr = 255; sg = 180; sb = 180; }
+        else { sr = 200; sg = 210; sb = 240; }
+      } else {
+        if (colorRoll < 0.1) { sr = 50; sg = 70; sb = 190; }
+        else if (colorRoll < 0.2) { sr = 170; sg = 130; sb = 40; }
+        else if (colorRoll < 0.25) { sr = 190; sg = 60; sb = 60; }
+        else { sr = 70; sg = 90; sb = 170; }
+      }
       stars.push({
         x: Math.random() * w,
         y: Math.random() * h,
-        r: Math.random() * (isDark ? 1.8 : 1.0) + 0.2,
-        a: Math.random() * (isDark ? 0.7 : 0.3) + 0.15,
+        r: Math.random() * (isDark ? 1.8 : 1.5) + 0.3,
+        a: Math.random() * (isDark ? 0.7 : 0.5) + (isDark ? 0.15 : 0.25),
         speed: Math.random() * 0.0008 + 0.0001,
         phase: Math.random() * Math.PI * 2,
         cr: sr, cg: sg, cb: sb
       });
     }
 
-    const nebulaCount = isDark ? 8 : 3;
+    const nebulaCount = isDark ? 16 : 10;
     const nebulaColors = [
       [124, 92, 247], [200, 76, 255], [0, 212, 255], [255, 107, 53],
-      [0, 184, 148], [255, 80, 120], [100, 140, 255], [200, 160, 50]
+      [0, 184, 148], [255, 80, 120], [100, 140, 255], [200, 160, 50],
+      [80, 200, 160], [255, 140, 80], [140, 100, 220], [60, 180, 200]
     ];
     for (let i = 0; i < nebulaCount; i++) {
       nebulae.push({
         x: Math.random() * w,
         y: Math.random() * h,
-        r: 120 + Math.random() * 300,
+        r: 120 + Math.random() * 350,
         color: nebulaColors[i % nebulaColors.length],
-        alpha: (isDark ? 0.02 : 0.005) + Math.random() * (isDark ? 0.025 : 0.008),
+        alpha: (isDark ? 0.02 : 0.018) + Math.random() * (isDark ? 0.025 : 0.022),
         dx: (Math.random() - 0.5) * 0.2,
         dy: (Math.random() - 0.5) * 0.12,
         pulse: Math.random() * Math.PI * 2,
@@ -191,39 +200,40 @@ const App = (() => {
       });
     }
 
-    if (isDark) {
-      blackHole = {
-        x: w * 0.82 + (Math.random() - 0.5) * w * 0.15,
-        y: h * 0.18 + (Math.random() - 0.5) * h * 0.1,
-        r: 18 + Math.random() * 14,
-        accretionAngle: 0
-      };
+    blackHole = {
+      x: w * 0.82 + (Math.random() - 0.5) * w * 0.15,
+      y: h * 0.18 + (Math.random() - 0.5) * h * 0.1,
+      r: 18 + Math.random() * 14,
+      accretionAngle: 0
+    };
 
-      const planetDefs = [
-        { color: [255, 107, 53], ringColor: [255, 160, 100], name: 'mars', size: 6, orbitR: 0, hasRing: false },
-        { color: [80, 140, 200], ringColor: [180, 200, 230], name: 'neptune', size: 9, orbitR: 0, hasRing: true },
-        { color: [200, 180, 140], ringColor: [220, 200, 160], name: 'saturn', size: 11, orbitR: 0, hasRing: true },
-        { color: [180, 140, 100], ringColor: [200, 170, 130], name: 'jupiter', size: 12, orbitR: 0, hasRing: false },
-      ];
-      planetDefs.forEach((pd, i) => {
-        const px = w * (0.1 + i * 0.25) + (Math.random() - 0.5) * 100;
-        const py = h * (0.15 + Math.random() * 0.7);
-        planets.push({
-          x: px, y: py,
-          baseX: px, baseY: py,
-          r: pd.size,
-          color: pd.color,
-          ringColor: pd.ringColor,
-          hasRing: pd.hasRing,
-          phase: Math.random() * Math.PI * 2,
-          bobSpeed: 0.0002 + Math.random() * 0.0003,
-          bobAmount: 2 + Math.random() * 4,
-          glowAlpha: 0.08 + Math.random() * 0.06
-        });
+    const planetDefs = [
+      { color: [255, 107, 53], ringColor: [255, 160, 100], size: 6, hasRing: false },
+      { color: [80, 140, 200], ringColor: [180, 200, 230], size: 9, hasRing: true },
+      { color: [200, 180, 140], ringColor: [220, 200, 160], size: 11, hasRing: true },
+      { color: [180, 140, 100], ringColor: [200, 170, 130], size: 12, hasRing: false },
+      { color: [160, 200, 180], ringColor: [180, 220, 200], size: 7, hasRing: false },
+      { color: [220, 180, 100], ringColor: [240, 200, 130], size: 10, hasRing: true },
+      { color: [140, 100, 180], ringColor: [160, 130, 200], size: 8, hasRing: true },
+      { color: [200, 120, 100], ringColor: [220, 150, 130], size: 7, hasRing: false },
+    ];
+    planetDefs.forEach((pd, i) => {
+      const px = w * (0.05 + (i / planetDefs.length) * 0.9) + (Math.random() - 0.5) * 80;
+      const py = h * (0.1 + Math.random() * 0.8);
+      planets.push({
+        baseX: px, baseY: py,
+        r: pd.size,
+        color: pd.color,
+        ringColor: pd.ringColor,
+        hasRing: pd.hasRing,
+        phase: Math.random() * Math.PI * 2,
+        bobSpeed: 0.0002 + Math.random() * 0.0003,
+        bobAmount: 2 + Math.random() * 4,
+        glowAlpha: 0.08 + Math.random() * 0.06
       });
-    }
+    });
 
-    const particleCount = isDark ? 80 : 30;
+    const particleCount = isDark ? 160 : 80;
     for (let i = 0; i < particleCount; i++) {
       const hue = Math.random();
       let pr, pg, pb;
@@ -253,9 +263,7 @@ const App = (() => {
   }
 
   function spawnShootingStar() {
-    const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
-    if (!isDark) return;
-    if (Math.random() > 0.012 || shootingStars.length > 5) return;
+    if (Math.random() > 0.02 || shootingStars.length > 10) return;
     const angle = Math.PI * 0.1 + Math.random() * Math.PI * 0.35;
     const startX = Math.random() * cosmosCanvas.width;
     const startY = Math.random() * cosmosCanvas.height * 0.5;
@@ -281,6 +289,16 @@ const App = (() => {
     const w = cosmosCanvas.width, h = cosmosCanvas.height;
     cosmosCtx.clearRect(0, 0, w, h);
     const now = Date.now();
+    const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+
+    if (!isDark) {
+      const bgGrad = cosmosCtx.createLinearGradient(0, 0, 0, h);
+      bgGrad.addColorStop(0, 'rgba(10, 15, 30, 0.12)');
+      bgGrad.addColorStop(0.5, 'rgba(15, 20, 40, 0.08)');
+      bgGrad.addColorStop(1, 'rgba(10, 15, 30, 0.12)');
+      cosmosCtx.fillStyle = bgGrad;
+      cosmosCtx.fillRect(0, 0, w, h);
+    }
 
     nebulae.forEach(n => {
       n.x += n.dx;
@@ -1584,7 +1602,7 @@ const App = (() => {
     window.addEventListener('resize', () => { resizeCosmos(); });
   }
 
-  return { init, linkBudget, routing, qkd, orbital, bundle, mission, dtnEngine, rfBudget, simulation, study, presentation };
+  return { init, initCosmos, linkBudget, routing, qkd, orbital, bundle, mission, dtnEngine, rfBudget, simulation, study, presentation };
 })();
 
 document.addEventListener('DOMContentLoaded', () => {

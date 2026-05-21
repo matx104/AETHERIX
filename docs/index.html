@@ -77,6 +77,7 @@
         </ul>
       </li>
       <li class="topnav-link" data-route="study" role="menuitem" tabindex="0"><span class="nav-icon">&#128214;</span> Resources</li>
+      <li class="topnav-link" data-route="glossary" role="menuitem" tabindex="0"><span class="nav-icon">&#128218;</span> Glossary</li>
       <li class="topnav-link" data-route="presentation" role="menuitem" tabindex="0"><span class="nav-icon">&#9654;</span> Presentation</li>
     </ul>
     <div class="topnav-right">
@@ -107,6 +108,7 @@
     <div class="topnav-mobile-link" data-route="mission">&#9883; Mars Mission</div>
     <div class="topnav-mobile-section">More</div>
     <div class="topnav-mobile-link" data-route="study">&#128214; Study Resources</div>
+    <div class="topnav-mobile-link" data-route="glossary">&#128218; Glossary</div>
     <div class="topnav-mobile-link" data-route="presentation">&#9654; Presentation</div>
   </div>
 
@@ -1033,6 +1035,420 @@
       </div>
     </section>
 
+    <section id="glossary" class="tab" aria-label="Glossary">
+      <div class="page-header">
+        <h1>Glossary</h1>
+        <p>A complete reference of every technical term, acronym, and concept used across the AETHERIX platform &#8212; explained in plain language.</p>
+        <div class="header-badges">
+          <span class="badge accent">80+ Terms</span>
+          <span class="badge quantum">8 Categories</span>
+          <span class="badge nebula">Plain Language</span>
+        </div>
+      </div>
+
+      <div class="callout callout-tip" style="margin-top:24px">
+        <div class="callout-icon">&#128269;</div>
+        <div>
+          <div class="callout-title">Quick Find</div>
+          <div class="callout-text">Press <strong>Ctrl+F</strong> (or <strong>&#8984;F</strong> on Mac) and type any term to jump straight to it. Terms are grouped into categories below &#8212; each card shows the acronym, full name, and a concise definition.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#128230;</span> Protocols &amp; Standards</header>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> BPv7 &#8212; Bundle Protocol v7</div>
+          <p style="line-height:1.7">The IETF standard (RFC 9171) that defines how data is packaged, addressed, and transported across networks with long delays and intermittent connections. The core protocol of DTN.</p>
+          <div style="margin-top:10px"><span class="badge accent">RFC 9171</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> DTN &#8212; Delay-Tolerant Networking</div>
+          <p style="line-height:1.7">A networking approach designed for environments where connections are intermittent, delays are extreme, and traditional protocols like TCP/IP fail. Think &#8220;postal service for data.&#8221;</p>
+          <div style="margin-top:10px"><span class="badge nebula">CCSDS 734.2-B-1</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> LTP &#8212; Licklider Transmission Protocol</div>
+          <p style="line-height:1.7">A reliable transport protocol (RFC 5326) designed for links with very long round-trip times. Provides assured delivery over single hops in the DTN architecture.</p>
+          <div style="margin-top:10px"><span class="badge accent">RFC 5326</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> TCPCL &#8212; TCP Convergence Layer</div>
+          <p style="line-height:1.7">A convergence layer (RFC 7242) that adapts BPv7 to use TCP for reliable delivery on the Earth segment, where low-delay, persistent connections are available.</p>
+          <div style="margin-top:10px"><span class="badge accent">RFC 7242</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> UDPCL &#8212; UDP Convergence Layer</div>
+          <p style="line-height:1.7">A convergence layer that uses UDP for fast delivery over optical inter-satellite links. Trades guaranteed delivery for speed, with fragmentation and loss simulation.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> CCSDS</div>
+          <p style="line-height:1.7"><strong>Consultative Committee for Space Data Systems.</strong> An international standards body that defines communication protocols for space missions. Used by NASA, ESA, JAXA, and others.</p>
+          <div style="margin-top:10px"><span class="badge success">Space Standards</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> RFC 9171</div>
+          <p style="line-height:1.7">The IETF standard that formally defines Bundle Protocol v7 &#8212; the core DTN data format, including primary blocks, extension blocks, and processing rules.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> RFC 5326</div>
+          <p style="line-height:1.7">The IETF standard that defines the Licklider Transmission Protocol (LTP) &#8212; designed for reliable data transmission over links with very long delays.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> CGR &#8212; Contact Graph Routing</div>
+          <p style="line-height:1.7">A static routing approach that pre-computes paths through a DTN using a graph of known future contacts. Deterministic but cannot adapt to unexpected changes.</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:36px"><span class="section-icon">&#127760;</span> Network Architecture</header>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Node</div>
+          <p style="line-height:1.7">Any endpoint in the DTN network &#8212; a satellite, rover, ground station, relay, or habitat. Each node can store, forward, and route bundles.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Bundle</div>
+          <p style="line-height:1.7">The fundamental data unit in DTN. Like a network packet but smarter &#8212; it carries its own address, priority, lifetime, and custody tracking information. Designed to survive long delays.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Custody Transfer</div>
+          <p style="line-height:1.7">A responsibility handoff mechanism. When a node accepts custody of a bundle, it guarantees the bundle will not be lost &#8212; even if the original sender goes offline.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Store-and-Forward</div>
+          <p style="line-height:1.7">The core DTN delivery model. Data is stored at each intermediate node until the next connection becomes available, then forwarded. No end-to-end connection required.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Convergence Layer</div>
+          <p style="line-height:1.7">A protocol adapter that sits between BPv7 and the physical link. Each transport type (TCP, UDP, LTP) has its own convergence layer, letting BPv7 work over any link technology.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Contact Window</div>
+          <p style="line-height:1.7">A scheduled period during which two nodes can communicate. Contact windows are predicted from orbital mechanics and define when data can be sent or received.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> EID &#8212; Endpoint ID</div>
+          <p style="line-height:1.7">The DTN addressing format. Looks like <code>dtn://node/service</code>. Identifies the source and destination of a bundle, similar to an IP address but designed for delay-tolerant operation.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> EIRP &#8212; Effective Isotropic Radiated Power</div>
+          <p style="line-height:1.7">A measure of the power radiated by an antenna in a specific direction, combining transmitter power and antenna gain. Key metric in link budget calculations.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> ISL &#8212; Inter-Satellite Link</div>
+          <p style="line-height:1.7">A communication link between two satellites, typically using optical (laser) or RF technology. Enables data relay without passing through a ground station.</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:36px"><span class="section-icon">&#127759;</span> 5-Tier Network Architecture</header>
+      <div class="info-bubble" style="margin-top:4px">
+        <div class="info-bubble-icon">&#127760;</div>
+        <div>
+          <div class="info-bubble-title">The 5-Tier Model</div>
+          <div class="info-bubble-text">AETHERIX organizes 241 nodes across five tiers, from Earth&#8217;s surface to Mars&#8217;s surface. Each tier serves a distinct role in relaying data across interplanetary distances.</div>
+        </div>
+      </div>
+      <div class="grid grid-3" style="margin-top:20px">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Tier 1 &#8212; Earth Ground</div>
+          <p style="line-height:1.7">The DSN ground stations on Earth: Goldstone (California), Madrid (Spain), and Canberra (Australia). These are the primary Earth-side endpoints for transmitting and receiving data.</p>
+          <div style="margin-top:10px"><span class="badge accent">DSN</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--nebula)"></span> Tier 2 &#8212; Earth Orbital</div>
+          <p style="line-height:1.7">GEO relay satellites and a constellation of 48 LEO satellites with laser crosslinks. Aggregates and routes data from ground stations toward deep space.</p>
+          <div style="margin-top:10px"><span class="badge nebula">GEO + LEO</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> Tier 3 &#8212; Deep Space Transit</div>
+          <p style="line-height:1.7">Relay stations at the Earth-Sun Lagrange points (ES-L4, ES-L5). Provide critical routing during solar conjunction when direct Earth&#8211;Mars links are blocked by the Sun.</p>
+          <div style="margin-top:10px"><span class="badge quantum">Lagrange Relays</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--mars)"></span> Tier 4 &#8212; Mars Orbital</div>
+          <p style="line-height:1.7">Areostationary and polar-orbit relay satellites around Mars. Receive data from deep space and distribute it to surface assets, or collect surface data for return to Earth.</p>
+          <div style="margin-top:10px"><span class="badge mars">Relay Orbiters</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> Tier 5 &#8212; Mars Surface</div>
+          <p style="line-height:1.7">End-user assets on Mars: habitats, rovers, drones, sensor networks, and science instruments. The final destinations and sources of interplanetary data.</p>
+          <div style="margin-top:10px"><span class="badge success">Rovers &amp; Bases</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> DSN &#8212; Deep Space Network</div>
+          <p style="line-height:1.7">NASA&#8217;s global network of large radio antenna dishes at Goldstone (USA), Madrid (Spain), and Canberra (Australia). Provides continuous coverage for deep space communication.</p>
+        </div>
+      </div>
+      <div class="grid grid-3" style="margin-top:16px">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> GEO &#8212; Geostationary Earth Orbit</div>
+          <p style="line-height:1.7">An orbit at 35,786 km altitude where a satellite appears stationary relative to a point on Earth. Used for relay satellites that maintain constant position over ground stations.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> LEO &#8212; Low Earth Orbit</div>
+          <p style="line-height:1.7">An orbit below 2,000 km altitude. AETHERIX uses a constellation of 48 LEO satellites with optical crosslinks to form a laser mesh network around Earth.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Lagrange Point</div>
+          <p style="line-height:1.7">A gravitationally stable position in a two-body orbital system where a smaller object can maintain a fixed position. AETHERIX uses Earth-Sun L4 and L5 for relay stations.</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:36px"><span class="section-icon">&#128300;</span> Optical &amp; RF Communications</header>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> FSPL &#8212; Free Space Path Loss</div>
+          <p style="line-height:1.7">The loss of signal strength that occurs as a signal spreads out while traveling through free space. Increases with the square of the distance &#8212; a major challenge for interplanetary links.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Link Budget</div>
+          <p style="line-height:1.7">A complete accounting of all gains and losses in a communication link, from transmitter output to receiver input. Determines whether a link can close &#8212; i.e., deliver enough signal to be usable.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Link Margin</div>
+          <p style="line-height:1.7">The difference between the received signal power and the minimum power required for reliable communication. Positive margin means the link works; more margin means more reliability.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> SNR &#8212; Signal-to-Noise Ratio</div>
+          <p style="line-height:1.7">The ratio of desired signal power to background noise power. Higher SNR means clearer, more reliable communication. Measured in decibels (dB).</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Aperture</div>
+          <p style="line-height:1.7">The diameter of a telescope or antenna. Larger apertures collect more signal and produce narrower beams, enabling longer-range communication.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> 1550 nm</div>
+          <p style="line-height:1.7">A near-infrared wavelength used for space optical communications. Chosen for its eye safety, low atmospheric absorption, and compatibility with terrestrial fiber-optic components.</p>
+          <div style="margin-top:10px"><span class="badge accent">Primary Wavelength</span></div>
+        </div>
+      </div>
+      <div class="callout callout-fact" style="margin-top:16px">
+        <div class="callout-icon">&#9889;</div>
+        <div>
+          <div class="callout-title">Radio Frequency Bands</div>
+          <div class="callout-text">AETHERIX supports multiple RF bands alongside optical links. Each band offers different trade-offs between data rate, range, and weather resilience.</div>
+        </div>
+      </div>
+      <div class="grid grid-4" style="margin-top:16px">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--mars)"></span> Ka-band</div>
+          <p style="line-height:1.7">26.5 GHz. High data rate but weather-sensitive. Primary RF band for high-throughput Mars downlink.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> X-band</div>
+          <p style="line-height:1.7">8.4 GHz. Moderate data rate with good all-weather performance. Used by most current Mars missions.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--nebula)"></span> S-band</div>
+          <p style="line-height:1.7">2.3 GHz. Lower data rate but highly reliable. Used for command uplink and emergency communications.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> UHF</div>
+          <p style="line-height:1.7">401 MHz. Ultra High Frequency. Short range, used for surface-to-orbiter links on Mars.</p>
+        </div>
+      </div>
+      <div class="grid grid-3" style="margin-top:16px">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Doppler Shift</div>
+          <p style="line-height:1.7">The change in frequency of a signal caused by relative motion between transmitter and receiver. Must be compensated for in space links.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Atmospheric Attenuation</div>
+          <p style="line-height:1.7">Signal loss from Earth&#8217;s atmosphere &#8212; clouds, rain, and gases absorb RF and optical signals. Optical links are more affected than RF. Typically 1&#8211;5 dB loss depending on weather.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Pointing Loss</div>
+          <p style="line-height:1.7">Signal loss from imperfect antenna/telescope alignment. Optical beams diverge only &#8776;5 &#956;rad, so even tiny misalignments cause significant loss. Typically 1&#8211;3 dB per endpoint.</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:36px"><span class="section-icon">&#129302;</span> Machine Learning &amp; Routing</header>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> RL &#8212; Reinforcement Learning</div>
+          <p style="line-height:1.7">An AI technique where an agent learns optimal behavior through trial and error, receiving rewards for good decisions and penalties for bad ones.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Q-Learning</div>
+          <p style="line-height:1.7">A value-based RL algorithm that learns a &#8220;quality&#8221; score (Q-value) for every possible action in every possible state. The agent picks the action with the highest Q-value.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Q-Table</div>
+          <p style="line-height:1.7">A lookup table that maps every network state to a value for each possible routing action. The agent&#8217;s &#8220;cheat sheet&#8221; built from experience. For larger networks, replaced by neural networks (DQN).</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Epsilon-Greedy</div>
+          <p style="line-height:1.7">A policy that mostly chooses the best-known action (exploitation) but occasionally tries a random one (exploration) with probability epsilon. Balances known good paths vs. discovering better ones.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Reward Function</div>
+          <p style="line-height:1.7">A multi-objective scoring formula: <code>R = &#945;(delivery) &#8722; &#946;(delay) &#8722; &#947;(hops) &#8722; &#948;(drops) &#8722; &#949;(energy)</code>. Guides the RL agent toward reliable, fast, efficient routing.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Federated Learning</div>
+          <p style="line-height:1.7">A distributed machine learning approach where multiple nodes train locally and share only model updates (not raw data). Enables collaborative learning across the DTN.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> DQN &#8212; Deep Q-Network</div>
+          <p style="line-height:1.7">A neural network that approximates the Q-table, enabling RL to scale to large state spaces. The production upgrade path from the current Q-table approach in AETHERIX.</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:36px"><span class="section-icon">&#128272;</span> Quantum &amp; Security</header>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> QKD &#8212; Quantum Key Distribution</div>
+          <p style="line-height:1.7">A method of creating shared secret keys using quantum physics. Any eavesdropping attempt disturbs the quantum states and is immediately detectable.</p>
+          <div style="margin-top:10px"><span class="badge quantum">Unbreakable</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> BB84</div>
+          <p style="line-height:1.7">The Bennett-Brassard 1984 QKD protocol. Uses polarized photons in two bases to establish a shared key. If an eavesdropper intercepts, the error rate rises above 11%.</p>
+          <div style="margin-top:10px"><span class="badge quantum">Prepare &amp; Measure</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> E91</div>
+          <p style="line-height:1.7">The Ekert 1991 QKD protocol. Uses entangled photon pairs and Bell inequality tests to establish a key and detect eavesdropping simultaneously.</p>
+          <div style="margin-top:10px"><span class="badge nebula">Entanglement-Based</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> QBER &#8212; Quantum Bit Error Rate</div>
+          <p style="line-height:1.7">The error rate in quantum key transmission. If QBER is below 11%, no eavesdropper is present and the key is secure. Above 11%, the key is discarded.</p>
+          <div style="margin-top:10px"><span class="badge success">Threshold: &lt; 11%</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Qubit</div>
+          <p style="line-height:1.7">The basic unit of quantum information. Unlike a classical bit (0 or 1), a qubit can be in a superposition of both states simultaneously. Measuring collapses it.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Quantum Repeater</div>
+          <p style="line-height:1.7">A device that extends QKD range through entanglement swapping. Links short-distance quantum segments into a long-distance quantum channel.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> PQC &#8212; Post-Quantum Cryptography</div>
+          <p style="line-height:1.7">Cryptographic algorithms designed to resist attacks by quantum computers. Relies on mathematical problems hard for both classical and quantum computers.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> CRYSTALS-Kyber</div>
+          <p style="line-height:1.7">A NIST-standardized post-quantum key encapsulation mechanism. Used for securely exchanging encryption keys in a way that resists quantum computer attacks.</p>
+          <div style="margin-top:10px"><span class="badge success">NIST Standard</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> CRYSTALS-Dilithium</div>
+          <p style="line-height:1.7">A NIST-standardized post-quantum digital signature scheme. Used for authenticating messages and verifying identity in a quantum-resistant way.</p>
+          <div style="margin-top:10px"><span class="badge success">NIST Standard</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Privacy Amplification</div>
+          <p style="line-height:1.7">A technique that reduces any partial information an eavesdropper might have about a key, by distilling a shorter, completely secret key from a longer one.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> No-Cloning Theorem</div>
+          <p style="line-height:1.7">A fundamental law of quantum physics: it is impossible to create an identical copy of an unknown quantum state. This is why QKD is secure &#8212; eavesdroppers cannot copy qubits.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Entanglement</div>
+          <p style="line-height:1.7">A quantum phenomenon where two particles share correlated states, regardless of distance. Measuring one instantly determines the other. Einstein called it &#8220;spooky action at a distance.&#8221;</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:36px"><span class="section-icon">&#9788;</span> Orbital Mechanics</header>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Synodic Period</div>
+          <p style="line-height:1.7">The 780-day cycle over which Earth and Mars repeat their relative positions. Distance goes from closest approach (opposition) to farthest (conjunction) and back.</p>
+          <div style="margin-top:10px"><span class="badge accent">780 Days</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> Opposition</div>
+          <p style="line-height:1.7">The point of closest Earth&#8211;Mars distance, approximately 55 million km. Signal delay is at its minimum (~3 minutes one-way). Best conditions for communication.</p>
+          <div style="margin-top:10px"><span class="badge success">&#8776; 55M km</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> Conjunction</div>
+          <p style="line-height:1.7">The point of maximum Earth&#8211;Mars distance, approximately 401 million km, with Mars behind the Sun. Signal delay peaks at ~22 minutes one-way.</p>
+          <div style="margin-top:10px"><span class="badge mars">&#8776; 401M km</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> Solar Conjunction Blackout</div>
+          <p style="line-height:1.7">A ~2-week period around conjunction when the Sun lies directly between Earth and Mars, making direct communication impossible. Mitigated via Lagrange relays.</p>
+          <div style="margin-top:10px"><span class="badge mars">&#8776; 14 Days</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> True Anomaly</div>
+          <p style="line-height:1.7">The angular position of a planet in its orbit, measured from perihelion. Used to calculate real-time Earth&#8211;Mars distance and contact windows.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Perihelion</div>
+          <p style="line-height:1.7">The closest point to the Sun in a planet&#8217;s orbit. Mars at perihelion is about 207 million km from the Sun.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Aphelion</div>
+          <p style="line-height:1.7">The farthest point from the Sun in a planet&#8217;s orbit. Mars at aphelion is about 249 million km from the Sun.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Areostationary Orbit</div>
+          <p style="line-height:1.7">The Mars equivalent of Earth&#8217;s geostationary orbit, at ~17,032 km altitude. A satellite here appears stationary over a fixed point on Mars.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> AU &#8212; Astronomical Unit</div>
+          <p style="line-height:1.7">149.6 million kilometers &#8212; the average distance from Earth to the Sun. Used as a standard unit for interplanetary distances. Mars orbits at ~1.52 AU.</p>
+          <div style="margin-top:10px"><span class="badge accent">149.6M km</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Light-Time Delay</div>
+          <p style="line-height:1.7">The time it takes for a signal traveling at the speed of light to traverse the distance between two points. Earth&#8211;Mars: 3 to 22 minutes one-way.</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:36px"><span class="section-icon">&#128202;</span> Data &amp; Metrics</header>
+      <div class="grid grid-4">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Mbps</div>
+          <p style="line-height:1.7"><strong>Megabits per second.</strong> A unit of data transfer speed. AETHERIX achieves 2&#8211;200 Mbps depending on Earth&#8211;Mars distance.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> dBm</div>
+          <p style="line-height:1.7"><strong>Decibels relative to 1 milliwatt.</strong> A unit of absolute power level. 0 dBm = 1 mW.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> dB</div>
+          <p style="line-height:1.7"><strong>Decibels.</strong> A logarithmic ratio unit used to express gain or loss. +3 dB means double the power; &#8722;3 dB means half.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Throughput</div>
+          <p style="line-height:1.7">Total data successfully delivered per unit time. Distinct from bandwidth &#8212; throughput accounts for protocol overhead and losses.</p>
+        </div>
+      </div>
+      <div class="grid grid-3" style="margin-top:16px">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Latency</div>
+          <p style="line-height:1.7">The end-to-end time from when data is sent to when it arrives. In interplanetary DTN, this includes propagation delay, storage time, and processing at each hop.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Availability</div>
+          <p style="line-height:1.7">The percentage of time that communication is possible. Current Mars missions achieve 60&#8211;75%; AETHERIX targets &gt;95% via multi-path routing and Lagrange relays.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Bit Error Rate (BER)</div>
+          <p style="line-height:1.7">The fraction of bits received incorrectly. Deep-space links typically achieve 10&#8722;6 to 10&#8722;9 BER. Forward error correction (FEC) codes improve this by adding redundant bits for self-correction.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-fact" style="margin-top:28px">
+        <div class="callout-icon">&#128218;</div>
+        <div>
+          <div class="callout-title">Continue Learning</div>
+          <div class="callout-text">This glossary covers every technical term used across the AETHERIX platform. For deeper explanations, visit the <strong>Learn</strong> pages &#8212; each topic is explained from the ground up with interactive demos. Start with <strong>What is DTN?</strong> for a guided introduction.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:32px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="Router.navigate('welcome')">Back to Welcome &#8594;</button>
+        <button class="btn btn-quantum" onclick="Router.navigate('study')">Study Resources</button>
+        <button class="btn btn-mars" onclick="Router.navigate('what-is-dtn')">What is DTN? &#8594;</button>
+      </div>
+    </section>
+
     <section id="dashboard" class="tab" aria-label="Mission Control Dashboard">
       <div class="page-header">
         <h1>Mission Control Dashboard</h1>
@@ -1061,6 +1477,75 @@
           <span class="badge quantum">1550nm Near-IR</span>
         </div>
       </div>
+      <div class="callout callout-tip" style="margin-top:20px">
+        <div class="callout-icon">&#127919;</div>
+        <div>
+          <div class="callout-title">What This Calculator Does</div>
+          <div class="callout-text">This tool calculates whether a laser communication link can successfully deliver data between Mars and Earth. It accounts for every source of signal loss (distance, atmosphere, pointing errors) and gain (telescope size, laser power) to determine the <strong>link margin</strong> &#8212; the safety buffer between what you have and what you need. A positive margin means the link works.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128207;</span> Key Parameters Explained</header>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Distance (M km)</div>
+          <p style="line-height:1.7">The Earth&#8211;Mars distance in millions of kilometers. This is the single biggest factor &#8212; signal strength drops with the <strong>square of the distance</strong>. Doubling the distance means 4&#215; less signal (&#8722;12 dB).</p>
+          <div class="callout callout-fact" style="margin-top:10px">
+            <div class="callout-icon">&#128161;</div>
+            <div><div class="callout-text">Range: 55 (opposition) to 401 (conjunction) M km</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> Tx Power &amp; Aperture</div>
+          <p style="line-height:1.7"><strong>Tx Power</strong>: Laser output in watts. More power = stronger signal. Typical: 1&#8211;10W for space lasers.<br><strong>Tx Aperture</strong>: Telescope diameter on the transmitter side (meters). Larger = tighter beam = more gain at the receiver.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--nebula)"></span> Rx Aperture &amp; Data Rate</div>
+          <p style="line-height:1.7"><strong>Rx Aperture</strong>: Receiver telescope diameter. DSN stations use 1&#8211;5m optical receivers.<br><strong>Data Rate</strong>: Target speed in Mbps. Higher rates require more signal &#8212; there&#8217;s a trade-off between speed and distance.</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128200;</span> Preset Scenarios &amp; Expected Results</header>
+      <div class="grid grid-3">
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> Best Case: Opposition</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Preset:</strong> Min 55M km, 5W, 0.22m Tx, 1.0m Rx, 10 Mbps</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Link margin <strong>&gt;+20 dB</strong> &#8212; very healthy margin. The link is comfortably closed with room for atmospheric degradation, pointing errors, and equipment aging.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> At 55M km, free-space loss is &#8776;&#8722;252 dB (vs &#8722;270 dB at max distance). This 18 dB advantage means the signal is 63&#215; stronger than at conjunction.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="App.linkBudget.loadScenario('minimum');App.linkBudget.calculate()">Run This Scenario &#8594;</button></div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--accent-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Typical: Average Distance</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Preset:</strong> Avg 225M km, 5W, 0.22m Tx, 1.0m Rx, 10 Mbps</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Link margin <strong>&#8776;+3 to +8 dB</strong> &#8212; positive but tight. The link works, but there&#8217;s limited margin for additional losses.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> 225M km is 4&#215; farther than opposition. Free-space loss increases by &#8776;12 dB &#8212; consuming most of the margin from the best case.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="App.linkBudget.loadScenario('average');App.linkBudget.calculate()">Run This Scenario &#8594;</button></div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--danger-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> Worst Case: Conjunction</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Preset:</strong> Max 390M km, 5W, 0.22m Tx, 1.0m Rx, 10 Mbps</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Link margin <strong>&#8776;&#8722;3 to +2 dB</strong> &#8212; marginal or negative. The link may not close at 10 Mbps. You&#8217;d need to reduce data rate or increase power.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> At 390M km, free-space loss reaches &#8776;&#8722;269 dB. The signal is extremely weak &#8212; like seeing a candle on the Moon. This is where relay satellites become essential.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="App.linkBudget.loadScenario('maximum');App.linkBudget.calculate()">Run This Scenario &#8594;</button></div>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:20px">
+        <div class="info-bubble-icon">&#128220;</div>
+        <div>
+          <div class="info-bubble-title">Understanding the Results</div>
+          <div class="info-bubble-text">After calculating, you&#8217;ll see: <strong>EIRP</strong> (Effective Isotropic Radiated Power) &#8212; total transmitted power in dBm. <strong>Free Space Loss</strong> &#8212; the largest single loss, proportional to distance squared. <strong>Received Power</strong> &#8212; signal strength at the receiver. <strong>Link Margin</strong> &#8212; the bottom line. Positive = link works, negative = link fails. Aim for &gt;+3 dB for reliability.</div>
+        </div>
+      </div>
+
+      <div class="callout callout-warning" style="margin-top:16px">
+        <div class="callout-icon">&#9888;</div>
+        <div>
+          <div class="callout-title">What If the Margin Is Negative?</div>
+          <div class="callout-text">A negative margin means the link cannot close at your chosen data rate. Options: <strong>1)</strong> Reduce data rate (e.g., from 10 Mbps to 2 Mbps &#8212; requires &#8776;7 dB less signal). <strong>2)</strong> Increase transmitter power or aperture. <strong>3)</strong> Use relay satellites to break the long link into shorter hops. <strong>4)</strong> Wait for a closer orbital position.</div>
+        </div>
+      </div>
+
       <div class="grid grid-2">
         <div class="card">
           <div class="card-title"><span class="ct-dot"></span> Link Parameters</div>
@@ -1111,6 +1596,57 @@
           <span class="badge nebula">Multi-Hop DTN</span>
         </div>
       </div>
+
+      <div class="callout callout-tip" style="margin-top:20px">
+        <div class="callout-icon">&#127919;</div>
+        <div>
+          <div class="callout-title">What This Demo Shows</div>
+          <div class="callout-text">This simulation shows how an AI agent makes routing decisions in a delay-tolerant network. Given the current network state (which node you&#8217;re at, link quality, buffer fullness, bundle priority), the agent decides: <strong>forward</strong> (send to next hop), <strong>store</strong> (wait for better conditions), <strong>drop</strong> (discard undeliverable data), or <strong>split</strong> (send via multiple paths).</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128207;</span> Input Parameters Explained</header>
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Current Node &amp; Destination</div>
+          <p style="line-height:1.7"><strong>Current Node:</strong> Where the bundle is right now. Options span all 5 tiers from Mars surface to Earth ground stations. The agent considers which neighbors are reachable from this node.<br><strong>Destination:</strong> Where the bundle needs to go. The agent calculates the best path from current node to destination through the network.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> Priority &amp; Buffer</div>
+          <p style="line-height:1.7"><strong>Priority:</strong> EMERGENCY (0) through BULK (4). Emergency bundles force forwarding even on poor links. Bulk bundles may be stored until conditions improve.<br><strong>Buffer Occupancy:</strong> How full the node&#8217;s storage is (0&#8211;100%). At &gt;80%, the agent may drop low-priority bundles to make room for critical ones.</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128200;</span> Preset Test Cases</header>
+      <div class="grid grid-3">
+        <div class="card" style="border-color:rgba(var(--danger-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> Emergency from Mars Surface</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Node: mars.surface.rover-01, Dest: earth.control.moc, Priority: EMERGENCY, Buffer: 35%</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Action: <strong>FORWARD</strong> immediately, even on marginal links. The agent prioritizes emergency delivery above all else &#8212; it will use any available path.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> Priority 0 overrides buffer and link quality concerns. Emergency data (solar flare alerts, system failures) cannot wait.</p>
+        </div>
+        <div class="card" style="border-color:rgba(var(--accent-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Standard at High Buffer</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Node: transit.esl4.relay, Dest: earth.control.moc, Priority: STANDARD, Buffer: 90%</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Action: <strong>STORE</strong> or cautious forward. With buffer nearly full, the agent may prefer to wait rather than risk a drop if the next hop can&#8217;t accept the bundle.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> At 90% buffer, the risk of overflow is high. Standard priority data can afford to wait for a cleaner transmission window.</p>
+        </div>
+        <div class="card" style="border-color:rgba(var(--nebula-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--nebula)"></span> Bulk Through LEO Mesh</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Node: earth.leo.constellation, Dest: earth.control.moc, Priority: BULK, Buffer: 35%</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Action: <strong>FORWARD</strong> or <strong>SPLIT</strong>. Low buffer pressure and proximity to destination allow the agent to route freely, potentially splitting for multipath delivery.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> LEO mesh has many paths to Earth ground. Bulk data benefits from multipath delivery &#8212; even if some fragments are lost, the total throughput is higher.</p>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:20px">
+        <div class="info-bubble-icon">&#128200;</div>
+        <div>
+          <div class="info-bubble-title">Understanding the Output</div>
+          <div class="info-bubble-text"><strong>Action:</strong> What the agent decided (Forward/Store/Drop/Split). <strong>Next Hop:</strong> Which neighbor receives the bundle. <strong>Confidence:</strong> How sure the agent is (0&#8211;100%). Higher = more experienced. <strong>Reasoning:</strong> Plain-language explanation of why this decision was made. Try &#8220;Simulate Route&#8221; to see the full multi-hop path.</div>
+        </div>
+      </div>
+
       <div class="grid grid-2">
         <div class="card">
           <div class="card-title"><span class="ct-dot"></span> Network State</div>
@@ -1176,6 +1712,61 @@
           <span class="badge accent">QBER &lt; 11%</span>
         </div>
       </div>
+      <div class="callout callout-tip" style="margin-top:20px">
+        <div class="callout-icon">&#127919;</div>
+        <div>
+          <div class="callout-title">What This Simulation Does</div>
+          <div class="callout-text">This tool simulates quantum key distribution &#8212; the process of creating an unbreakable shared secret key between two parties (Alice and Bob) using quantum physics. You&#8217;ll see how many usable key bits are generated, whether an eavesdropper was detected, and why quantum mechanics guarantees security.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128207;</span> Parameters Explained</header>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> Protocol</div>
+          <p style="line-height:1.7"><strong>BB84:</strong> Alice sends photons in random orientations, Bob measures them. Simple and widely studied.<br><strong>E91:</strong> Uses entangled photon pairs &#8212; both parties measure the same entangled particles. More robust against certain attacks but harder to implement.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Qubits / Pairs</div>
+          <p style="line-height:1.7">Number of quantum particles exchanged. More qubits = longer final key. Typically 50&#8211;60% are &#8220;sifted out&#8221; (discarded because Alice and Bob used different measurement bases), so 1000 qubits &#8594; &#8776;500 raw key bits.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--nebula)"></span> Channel Error Rate</div>
+          <p style="line-height:1.7">Simulates natural noise in the quantum channel (detector errors, atmospheric scattering). If error rate exceeds <strong>11%</strong>, the key is discarded &#8212; this could indicate eavesdropping. Normal channels: 1&#8211;5% error.</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128200;</span> Preset Test Cases</header>
+      <div class="grid grid-3">
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> Clean BB84 Exchange</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> BB84, 1000 qubits, 0% error</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> QBER &#8776;0%, Secure: <strong>Yes</strong>, Sifted key &#8776;500 bits. Perfect channel with no noise.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> With zero channel error, Alice and Bob&#8217;s bits match perfectly when they use the same basis. The QBER stays well below the 11% threshold.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('qkd-protocol').value='bb84';document.getElementById('qkd-num-qubits').value='1000';document.getElementById('qkd-error').value='0';document.getElementById('qkd-error-val').textContent='0%';App.qkd.run()">Run Clean BB84 &#8594;</button></div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--accent-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Noisy Channel</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> BB84, 1000 qubits, 8% error</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> QBER &#8776;8%, Secure: <strong>Yes</strong> (barely). Key is kept because QBER is below 11%, but some bits will be discarded during privacy amplification.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> 8% is high for natural noise &#8212; approaching the security threshold. The protocol remains secure but the final key is shorter after error correction and privacy amplification.</p>
+        </div>
+        <div class="card" style="border-color:rgba(var(--danger-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> Eavesdropper Detected</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> BB84, 1000 qubits, click &#8220;Simulate Eavesdropper&#8221;</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> QBER <strong>&gt;11%</strong>, Secure: <strong>No</strong>. The key is discarded entirely. Eve&#8217;s measurements disturbed the quantum states.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> The no-cloning theorem means Eve can&#8217;t copy qubits &#8212; she must measure them, which collapses their quantum state. When she guesses the wrong basis (&#8776;50% of the time), she introduces errors that Alice and Bob detect.</p>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:20px">
+        <div class="info-bubble-icon">&#128272;</div>
+        <div>
+          <div class="info-bubble-title">Understanding the Output</div>
+          <div class="info-bubble-text"><strong>Raw Key Length:</strong> Total bits before sifting. <strong>Sifted Key:</strong> Bits where Alice and Bob used the same basis (&#8776;50% of raw). <strong>QBER:</strong> Error rate &#8212; below 11% = secure. <strong>Secure:</strong> Whether the key is safe to use. <strong>Efficiency:</strong> Percentage of raw qubits that became usable key bits.</div>
+        </div>
+      </div>
+
       <div class="grid grid-2">
         <div class="card">
           <div class="card-title"><span class="ct-dot"></span> Protocol Configuration</div>
@@ -1220,6 +1811,59 @@
           <span class="badge mars">J2000 Epoch</span>
         </div>
       </div>
+      <div class="callout callout-tip" style="margin-top:20px">
+        <div class="callout-icon">&#127919;</div>
+        <div>
+          <div class="callout-title">What This Tool Shows</div>
+          <div class="callout-text">This orbital mechanics calculator predicts the Earth&#8211;Mars distance over time and identifies communication &#8220;contact windows&#8221; &#8212; periods when the link geometry is favorable for data transfer. Understanding these windows is essential for planning when to transmit high-priority science data vs. low-priority bulk data.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128207;</span> Parameters Explained</header>
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Start Day</div>
+          <p style="line-height:1.7">Day 0 = Mars opposition (closest approach, &#8776;55M km). The synodic period is 780 days. Day 390 &#8776; conjunction (farthest, &#8776;401M km). This lets you simulate any point in the Earth&#8211;Mars orbital cycle.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--mars)"></span> Duration</div>
+          <p style="line-height:1.7">How many days to simulate. Shorter windows (30&#8211;90 days) show detailed contact scheduling. The full 780-day period shows the complete distance cycle from opposition through conjunction and back.</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128200;</span> Preset Test Cases</header>
+      <div class="grid grid-3">
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> Opposition Window</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Start: Day 0, Duration: 90 days</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Distance starts at &#8776;55M km, light delay &#8776;3 min. Multiple high-quality contact windows. Data rates 50&#8211;200 Mbps.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> At opposition, Earth and Mars are at their closest. This is the golden window &#8212; schedule your highest-priority data transfers here.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('orb-start-day').value='0';document.getElementById('orb-duration').value='90';App.orbital.calculate()">Run Opposition &#8594;</button></div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--danger-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> Conjunction Blackout</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Start: Day 370, Duration: 60 days</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Distance peaks at &#8776;401M km. Solar conjunction causes a ~2-week communication blackout around day 390. No direct contact windows.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> Mars passes behind the Sun from Earth&#8217;s perspective. The Sun&#8217;s radio interference makes direct communication impossible &#8212; only Lagrange relay paths work.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('orb-start-day').value='370';document.getElementById('orb-duration').value='60';App.orbital.calculate()">Run Conjunction &#8594;</button></div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--accent-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Full Synodic Period</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Start: Day 0, Duration: 780 days</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Complete distance curve showing the sinusoidal variation. Best windows in first/last 90 days. Worst around day 390.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> The 780-day synodic period is the fundamental planning cycle for Mars missions. All link budget, routing, and scheduling decisions reference this timeline.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('orb-start-day').value='0';document.getElementById('orb-duration').value='780';App.orbital.calculate()">Run Full Period &#8594;</button></div>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:20px">
+        <div class="info-bubble-icon">&#128202;</div>
+        <div>
+          <div class="info-bubble-title">Reading the Charts</div>
+          <div class="info-bubble-text"><strong>Distance Timeline:</strong> Shows Earth&#8211;Mars distance over the selected period. Lower = better for communication. <strong>Contact Windows:</strong> Highlighted periods where link geometry supports data transfer. <strong>Summary Stats:</strong> Min/max/average distance, light-time delay, and estimated data rates for the selected window.</div>
+        </div>
+      </div>
+
       <div class="grid grid-2">
         <div>
           <div class="card">
@@ -1260,6 +1904,60 @@
           <span class="badge nebula">Custody Transfer</span>
         </div>
       </div>
+      <div class="callout callout-tip" style="margin-top:20px">
+        <div class="callout-icon">&#127919;</div>
+        <div>
+          <div class="callout-title">What This Tool Does</div>
+          <div class="callout-text">This simulator creates Bundle Protocol v7 data units &#8212; the fundamental messages in a DTN network. You configure the source, destination, priority, and payload size, then watch as the bundle is constructed with full addressing, custody tracking, and lifetime management. Use &#8220;Create &amp; Route&#8221; to see it traverse the network.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128207;</span> Bundle Fields Explained</header>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Source &amp; Destination</div>
+          <p style="line-height:1.7">DTN Endpoint IDs in the format <code>dtn://node/service</code>. The source is where the bundle originates; the destination is the final recipient. The routing engine computes the multi-hop path between them.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> Priority &amp; Payload</div>
+          <p style="line-height:1.7"><strong>Priority:</strong> EMERGENCY (0) &#8212; life-safety alerts. BULK (4) &#8212; archive dumps. Determines queuing order at each hop.<br><strong>Payload:</strong> The actual data in MB. Bundles can carry up to GBs &#8212; millions of times larger than TCP packets.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--nebula)"></span> Deadline &amp; Lifetime</div>
+          <p style="line-height:1.7"><strong>Deadline:</strong> Hours until the bundle must arrive. Expired bundles are dropped to free buffer space.<br><strong>Lifetime:</strong> Maximum days the bundle can exist in the network. Prevents stale data from circulating forever in a DTN.</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128200;</span> Preset Test Cases</header>
+      <div class="grid grid-3">
+        <div class="card" style="border-color:rgba(var(--danger-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> Emergency Alert</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Rover &#8594; Earth MOC, EMERGENCY, 1 MB, 4h deadline</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Immediate forwarding through all hops. Custody transfer at every node. Priority 0 means it jumps to the front of every queue.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> Small payload + highest priority + short deadline = fastest possible delivery. Think solar flare warning or system failure alert.</p>
+        </div>
+        <div class="card" style="border-color:rgba(var(--accent-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Science Data Dump</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Rover &#8594; Earth MOC, STANDARD, 500 MB, 168h deadline</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Standard queuing at each hop. May be stored at intermediate nodes during unfavorable contact windows. 7-day deadline allows flexible routing.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> 500 MB of science data can tolerate delays. The routing agent will choose energy-efficient paths and wait for good contact windows.</p>
+        </div>
+        <div class="card" style="border-color:rgba(var(--nebula-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--nebula)"></span> Bulk Software Update</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Earth DSN &#8594; Mars Areo, BULK, 2000 MB, 720h deadline</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Lowest priority in every queue. Sent during off-peak windows when no higher-priority data is waiting. 30-day lifetime accommodates slow delivery.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> Software updates are large but not time-critical. The network fills spare capacity with bulk data, maximizing throughput without impacting operations.</p>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:20px">
+        <div class="info-bubble-icon">&#128230;</div>
+        <div>
+          <div class="info-bubble-title">Understanding Bundle Details</div>
+          <div class="info-bubble-text">After creating a bundle, you&#8217;ll see: <strong>Bundle ID</strong> (unique UUID), <strong>Primary Block</strong> (source, destination, timestamp), <strong>Priority</strong> (queuing order), <strong>Lifetime</strong> (expiration), <strong>Custody</strong> (which node is responsible), and <strong>Flags</strong> (fragmentation, ACK requests). &#8220;Create &amp; Route&#8221; shows the full multi-hop path through the 5-tier network.</div>
+        </div>
+      </div>
+
       <div class="grid grid-2">
         <div class="card">
           <div class="card-title"><span class="ct-dot"></span> Create Bundle</div>
@@ -1324,6 +2022,60 @@
           <span class="badge nebula">Priority Queue</span>
         </div>
       </div>
+      <div class="callout callout-tip" style="margin-top:20px">
+        <div class="callout-icon">&#127919;</div>
+        <div>
+          <div class="callout-title">What This Engine Simulates</div>
+          <div class="callout-text">The DTN Engine is the heart of the network &#8212; it demonstrates how data is segmented, transmitted, and reassembled using the Licklider Transmission Protocol (LTP) over lossy deep-space links. Below the LTP simulator, the Policy Engine shows how different routing policies make decisions based on bundle priority, buffer state, and link quality.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128207;</span> LTP Parameters Explained</header>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Payload Size</div>
+          <p style="line-height:1.7">The bundle payload in bytes. LTP breaks large payloads into segments that fit the link MTU. Larger payloads = more segments = more chances for loss, but also more efficient use of the link.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> MTU (Maximum Transmission Unit)</div>
+          <p style="line-height:1.7">The largest single segment that can be sent in one frame. Smaller MTU = more segments = more overhead but finer-grained retransmission. Deep-space links typically use 1400 bytes.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--nebula)"></span> Link Loss Rate</div>
+          <p style="line-height:1.7">Percentage of segments lost in transit (simulates atmospheric interference, pointing errors). LTP selectively retransmits only lost segments &#8212; not the entire payload. Critical for 20+ minute delay links.</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128200;</span> Preset LTP Test Cases</header>
+      <div class="grid grid-3">
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> Clean Link</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> 10000 bytes, 1400 MTU, 0% loss</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> 8 segments sent, 8 received. Zero retransmissions. Total transfer time = 1 round trip.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> With no loss, LTP is a simple segmentation protocol &#8212; split, send, acknowledge. The ideal baseline case.</p>
+        </div>
+        <div class="card" style="border-color:rgba(var(--accent-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Moderate Loss</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> 10000 bytes, 1400 MTU, 5% loss</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> &#8776;1 segment lost on average. LTP retransmits only the lost segment. Total transfer time &#8776;2 round trips.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> At 5% loss, roughly 1 in 20 segments is lost. LTP&#8217;s selective retransmission is far more efficient than TCP&#8217;s go-back-N approach over 20-minute-delay links.</p>
+        </div>
+        <div class="card" style="border-color:rgba(var(--danger-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> Heavy Loss</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> 100000 bytes, 1400 MTU, 20% loss</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> &#8776;72 segments, &#8776;14 lost. Multiple retransmission rounds required. Transfer time &#8776;3&#8211;4 round trips.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> At 20% loss, the link is severely degraded (solar storm scenario). LTP still delivers &#8212; eventually &#8212; because each retransmission round only resends what was lost, not everything.</p>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:20px">
+        <div class="info-bubble-icon">&#9881;</div>
+        <div>
+          <div class="info-bubble-title">LTP vs TCP Over Deep Space</div>
+          <div class="info-bubble-text">TCP would timeout and retransmit the entire window after a single loss &#8212; wasting precious bandwidth on a 20-minute-delay link. LTP sends a report of exactly which segments arrived, and the sender retransmits only the missing ones. For a 100KB payload with 5% loss, LTP saves &#8776;95KB of unnecessary retransmission compared to TCP.</div>
+        </div>
+      </div>
+
       <div class="grid grid-2">
         <div class="card">
           <div class="card-title"><span class="ct-dot"></span> LTP Segmentation Simulator</div>
@@ -1375,6 +2127,54 @@
           <span class="badge nebula">UHF 401 MHz</span>
         </div>
       </div>
+      <div class="callout callout-tip" style="margin-top:20px">
+        <div class="callout-icon">&#127919;</div>
+        <div>
+          <div class="callout-title">What This Calculator Does</div>
+          <div class="callout-text">This tool performs RF (radio frequency) link budget analysis &#8212; the traditional approach for deep-space communication. While AETHERIX primarily uses optical (laser) links, RF provides critical backup, works through clouds, and handles command uplink where lasers are impractical.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128207;</span> RF Parameters Explained</header>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--mars)"></span> Frequency Band</div>
+          <p style="line-height:1.7"><strong>Ka-band</strong> (26.5 GHz): Highest RF data rate but weather-sensitive. <strong>X-band</strong> (8.4 GHz): Current Mars standard &#8212; reliable, moderate speed. <strong>S-band</strong> (2.3 GHz): Command uplink. <strong>UHF</strong> (401 MHz): Mars surface-to-orbiter short range.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Dish Size (Tx &amp; Rx)</div>
+          <p style="line-height:1.7">Antenna diameter in meters. Larger dishes = higher gain = longer range. Spacecraft typically have 1&#8211;5m dishes; DSN ground stations have 34&#8211;70m dishes. Gain increases with frequency and dish size.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> Tx Power &amp; Data Rate</div>
+          <p style="line-height:1.7"><strong>Tx Power:</strong> Transmitter output in watts. Spacecraft: 5&#8211;40W. Ground: up to 400W.<br><strong>Data Rate:</strong> Target speed in bps. RF is much slower than optical: typical 1 kbps&#8211;6 Mbps vs optical&#8217;s 2&#8211;200 Mbps.</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128200;</span> Optical vs RF Comparison</header>
+      <div class="card">
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Property</th><th>Optical (1550nm)</th><th>Ka-band RF</th><th>X-band RF</th></tr></thead>
+            <tbody>
+              <tr><td>Wavelength</td><td>1550 nm</td><td>11.3 mm</td><td>35.7 mm</td></tr>
+              <tr><td>Beam Divergence</td><td>&#8776;5 &#956;rad (very narrow)</td><td>&#8776;0.5 mrad</td><td>&#8776;1.5 mrad</td></tr>
+              <tr><td>Data Rate</td><td>2&#8211;200 Mbps</td><td>1&#8211;50 Mbps</td><td>0.5&#8211;6 Mbps</td></tr>
+              <tr><td>Weather Immunity</td><td>Low (clouds block)</td><td>Moderate (rain fade)</td><td>High</td></tr>
+              <tr><td>Best For</td><td>Bulk science downlink</td><td>High-rate backup</td><td>Reliable command/telemetry</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:20px">
+        <div class="info-bubble-icon">&#128161;</div>
+        <div>
+          <div class="info-bubble-title">When to Use RF vs Optical</div>
+          <div class="info-bubble-text">AETHERIX uses a <strong>hybrid approach</strong>: optical lasers for high-speed science data downlink (when sky is clear), Ka-band RF for high-rate backup and cloud-penetration, X-band for reliable command uplink and telemetry, and UHF for Mars surface-to-orbiter links. The RL routing agent automatically selects the best available link type for each bundle.</div>
+        </div>
+      </div>
+
       <div class="grid grid-2">
         <div class="card">
           <div class="card-title"><span class="ct-dot"></span> RF Parameters</div>
@@ -1420,6 +2220,65 @@
           <span class="badge quantum">149 Tests</span>
         </div>
       </div>
+      <div class="callout callout-tip" style="margin-top:20px">
+        <div class="callout-icon">&#127919;</div>
+        <div>
+          <div class="callout-title">What This Simulation Does</div>
+          <div class="callout-text">This runs a full network simulation across all 241 nodes in the 5-tier topology. It generates bundles at random Mars-side sources, routes them through the network using policy-driven forwarding, and tracks delivery statistics. This is the most comprehensive test of AETHERIX&#8217;s performance.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128207;</span> Configuration Explained</header>
+      <div class="grid grid-4">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Duration</div>
+          <p style="line-height:1.7">Simulation time in hours. 168h = 1 week (good baseline). Longer runs show convergence behavior.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Time Step</div>
+          <p style="line-height:1.7">Granularity in seconds. 3600 = hourly. Smaller steps = more accurate but slower.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Bundles/hour</div>
+          <p style="line-height:1.7">Traffic generation rate. 10 = moderate load. 50+ = stress test. Higher rates test buffer management.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Seed</div>
+          <p style="line-height:1.7">Random seed for reproducibility. Same seed + same config = identical results. Essential for scientific reproducibility.</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128200;</span> Preset Scenarios</header>
+      <div class="grid grid-3">
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> Baseline (1 Week)</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> 168h, 3600s step, 10 bundles/h, seed 42</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Delivery ratio &gt;80%, avg delay 4&#8211;8h, 3&#8211;5 hops average. Emergency bundles: &gt;95% delivery.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> Moderate load with reasonable timeouts gives the policy engine room to optimize. This is the standard benchmark configuration.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('sim-duration').value='168';document.getElementById('sim-step').value='3600';document.getElementById('sim-rate').value='10';document.getElementById('sim-seed').value='42';App.simulation.run()">Run Baseline &#8594;</button></div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--danger-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> Stress Test</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> 168h, 3600s step, 50 bundles/h, seed 42</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Delivery ratio drops to 60&#8211;75%. More drops and expired bundles. Buffer overflows at intermediate nodes. Emergency delivery stays &gt;90%.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> 50 bundles/hour overwhelms the network&#8217;s capacity. This tests the priority queuing &#8212; emergency traffic should still get through while bulk data suffers.</p>
+        </div>
+        <div class="card" style="border-color:rgba(var(--accent-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Long Duration</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> 720h (30 days), 7200s step, 10 bundles/h, seed 42</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong>; Shows long-term trends, orbital effects on delivery, and buffer utilization patterns over the synodic period.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> A month-long simulation reveals how changing Earth&#8211;Mars distance affects throughput over time and tests the routing agent&#8217;s adaptability.</p>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:20px">
+        <div class="info-bubble-icon">&#128202;</div>
+        <div>
+          <div class="info-bubble-title">Reading the Results</div>
+          <div class="info-bubble-text"><strong>Delivery Ratio:</strong> % of bundles that reached their destination. <strong>Average Delay:</strong> End-to-end time including storage at each hop. <strong>Average Hops:</strong> How many intermediate nodes each bundle traversed. <strong>Priority Breakdown:</strong> Per-priority delivery stats &#8212; emergency should always be highest. <strong>Charts:</strong> Delivery over time (should trend upward as the agent learns) and priority distribution.</div>
+        </div>
+      </div>
+
       <div class="card" style="margin-bottom:18px">
         <div class="card-title"><span class="ct-dot"></span> Simulation Configuration</div>
         <div class="form-row">
@@ -1455,6 +2314,62 @@
           <span class="badge accent">Live Simulation</span>
         </div>
       </div>
+      <div class="callout callout-tip" style="margin-top:20px">
+        <div class="callout-icon">&#127919;</div>
+        <div>
+          <div class="callout-title">What This Scenario Simulates</div>
+          <div class="callout-text">This is the full integration test &#8212; combining link budget analysis, RL routing decisions, QKD security assessment, and orbital mechanics into a single Mars mission scenario. It shows how all AETHERIX components work together over a realistic mission timeline.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128207;</span> Scenario Parameters</header>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Start Day</div>
+          <p style="line-height:1.7">Day 0 = Mars opposition. Day 390 = conjunction. This sets the initial Earth&#8211;Mars distance and orbital geometry, which affects link budgets throughout the simulation.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--mars)"></span> Duration</div>
+          <p style="line-height:1.7">Mission duration in days. 30 days = one contact window. 90 days = seasonal planning. 365 days = full mission phase showing distance variation.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> Bundles per Type</div>
+          <p style="line-height:1.7">Number of bundles generated for each priority level (5 levels). Total bundles = 5 &#215; this number. 25 = 125 total bundles (moderate). 100 = 500 bundles (stress test).</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128200;</span> Preset Mission Scenarios</header>
+      <div class="grid grid-3">
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> Opposition Campaign</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Start Day 0, 30 days, 25 bundles/type</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> High throughput, low latency. QKD key rate &#8212; 5&#8211;10 kbps. Delivery ratio &gt;90%. This is the best-case mission scenario.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> Opposition gives the shortest distance, strongest signal, and fastest data rates. Mission planners concentrate high-priority science observations for this window.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('msn-start').value='0';document.getElementById('msn-duration').value='30';document.getElementById('msn-bundles').value='25';App.mission.run()">Run Opposition &#8594;</button></div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--danger-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> Conjunction Challenge</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Start Day 370, 60 days, 25 bundles/type</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Reduced throughput, some blackouts. Lagrange relays maintain partial connectivity. QKD key rate drops significantly. Emergency delivery remains &gt;80%.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> This stress-tests the network&#8217;s resilience during the worst orbital conditions. The RL routing agent must find alternative paths through relays.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('msn-start').value='370';document.getElementById('msn-duration').value='60';document.getElementById('msn-bundles').value='25';App.mission.run()">Run Conjunction &#8594;</button></div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--accent-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Full Mission Year</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Start Day 0, 365 days, 15 bundles/type</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong>; Shows the full performance envelope &#8212; from peak throughput at opposition through the conjunction bottleneck and back. Reveals seasonal patterns in delivery statistics.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> A full year captures the complete range of operating conditions. This is the scenario used for long-term mission planning and infrastructure sizing.</p>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:20px">
+        <div class="info-bubble-icon">&#128202;</div>
+        <div>
+          <div class="info-bubble-title">Reading the Integrated Results</div>
+          <div class="info-bubble-text">The mission results combine all subsystems: <strong>Data Transfer Timeline</strong> shows daily throughput varying with distance. <strong>Bundle Traffic Mix</strong> shows priority distribution over time. <strong>Routing Simulation</strong> shows which paths the RL agent selected. <strong>QKD Security Assessment</strong> shows key generation rate and security status for each link.</div>
+        </div>
+      </div>
+
       <div class="card" style="margin-bottom:18px">
         <div class="card-title"><span class="ct-dot"></span> Scenario Configuration</div>
         <div class="form-row">
