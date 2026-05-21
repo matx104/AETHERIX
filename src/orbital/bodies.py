@@ -1,7 +1,7 @@
 """Celestial body data for the AETHERIX Earth-Mars DTN simulation."""
 
-from dataclasses import dataclass
 import math
+from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
