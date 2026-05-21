@@ -1170,7 +1170,7 @@ tbody tr:hover td { background: rgba(var(--accent-rgb), 0.03); }
 /* ─── FEATURE CARDS ─── */
 .feature-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     margin: 32px 0;
 }
@@ -1750,7 +1750,7 @@ body.pres-active #cosmos-canvas { opacity: 0.3; }
     .metrics-bar { gap: 20px !important; }
     .card-value { font-size: 1.4rem; }
 
-    .feature-grid { grid-template-columns: 1fr; }
+    .feature-grid { grid-template-columns: 1fr !important; }
     .step-card { flex-direction: column; gap: 16px; }
     .info-bubble { flex-direction: column; gap: 10px; }
     .callout { gap: 8px; }

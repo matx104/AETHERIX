@@ -1,4 +1,4 @@
-const ThemeManager = {
+window.ThemeManager = {
   init() {
     const saved = localStorage.getItem('aetherix-theme') || 'dark';
     document.documentElement.setAttribute('data-theme', saved);
@@ -18,7 +18,7 @@ const ThemeManager = {
   }
 };
 
-const DropdownManager = {
+window.DropdownManager = {
   init() {
     document.querySelectorAll('.topnav-dropdown').forEach(dd => {
       dd.addEventListener('mouseenter', () => {
@@ -52,7 +52,7 @@ const DropdownManager = {
   }
 };
 
-const Router = {
+window.Router = {
   init() {
     document.querySelectorAll('[data-route]').forEach(el => {
       el.addEventListener('click', (e) => {
@@ -88,6 +88,9 @@ const Router = {
     } else {
       document.body.classList.remove('pres-active');
     }
+    if (route === 'dashboard') {
+      App.ensureDashboard();
+    }
     if (hash.startsWith('presentation/')) {
       const slideNum = parseInt(hash.split('/')[1]);
       if (slideNum >= 1 && slideNum <= 13) App.presentation.goTo(slideNum - 1);
@@ -96,7 +99,7 @@ const Router = {
   }
 };
 
-const App = (() => {
+window.App = (() => {
   const charts = {};
   const bundles = [];
   const cosmosCanvas = document.getElementById('cosmos-canvas');
@@ -1746,20 +1749,26 @@ const App = (() => {
     if (polQuality) polQuality.addEventListener('input', e => { $('pol-quality-val').textContent = e.target.value + '%'; });
   }
 
+  let dashboardInitialized = false;
+  function ensureDashboard() {
+    if (dashboardInitialized) return;
+    dashboardInitialized = true;
+    initDashboard();
+    setTimeout(() => initTopology(), 100);
+  }
+
   function init() {
     initCosmos();
-    initDashboard();
     study.init();
     qkd.init();
     bundle.renderList();
     dtnEngine.loadPolicies();
     initSliders();
     initTicker();
-    setTimeout(() => initTopology(), 100);
     window.addEventListener('resize', () => { resizeCosmos(); });
   }
 
-  return { init, initCosmos, linkBudget, routing, qkd, orbital, bundle, mission, dtnEngine, rfBudget, simulation, study, presentation };
+  return { init, initCosmos, ensureDashboard, linkBudget, routing, qkd, orbital, bundle, mission, dtnEngine, rfBudget, simulation, study, presentation };
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
