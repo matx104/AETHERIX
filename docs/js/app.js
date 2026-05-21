@@ -224,6 +224,12 @@ const App = (() => {
     if (bs) bs.addEventListener('input', e => { $('rt-buffer-val').textContent = e.target.value + '%'; });
     const es = $('qkd-error');
     if (es) es.addEventListener('input', e => { $('qkd-error-val').textContent = e.target.value + '%'; });
+    const ltpLoss = $('ltp-loss');
+    if (ltpLoss) ltpLoss.addEventListener('input', e => { $('ltp-loss-val').textContent = e.target.value + '%'; });
+    const polBuffer = $('pol-buffer');
+    if (polBuffer) polBuffer.addEventListener('input', e => { $('pol-buffer-val').textContent = e.target.value + '%'; });
+    const polQuality = $('pol-quality');
+    if (polQuality) polQuality.addEventListener('input', e => { $('pol-quality-val').textContent = e.target.value + '%'; });
   }
 
   // --- NETWORK TOPOLOGY CANVAS ---
@@ -759,6 +765,121 @@ const App = (() => {
     }
   };
 
+  // --- DTN ENGINE ---
+  const dtnEngine = {
+    runLTP() {
+      const payload = parseInt(document.getElementById('ltp-payload').value);
+      const mtu = parseInt(document.getElementById('ltp-mtu').value);
+      const loss = parseInt(document.getElementById('ltp-loss').value) / 100;
+      const result = LTP.simulateTransfer(payload, mtu, loss);
+      const el = document.getElementById('ltp-result');
+      const content = document.getElementById('ltp-result-content');
+      el.style.display = 'block';
+      const statusColor = result.retransmitted === 0 ? 'var(--success)' : result.retransmitted < 5 ? 'var(--accent)' : 'var(--mars)';
+      content.innerHTML = `
+        <div class="result-grid">
+          <div class="result-item"><span class="result-label">Total Segments</span><span class="result-value">${result.segments}</span></div>
+          <div class="result-item"><span class="result-label">Segments Sent</span><span class="result-value">${result.sent}</span></div>
+          <div class="result-item"><span class="result-label">Segments Lost</span><span class="result-value" style="color:${result.lost > 0 ? 'var(--mars)' : 'var(--success)'}">${result.lost}</span></div>
+          <div class="result-item"><span class="result-label">Retransmissions</span><span class="result-value" style="color:${statusColor}">${result.retransmitted}</span></div>
+          <div class="result-item"><span class="result-label">Transfer Efficiency</span><span class="result-value">${result.efficiency}%</span></div>
+          <div class="result-item"><span class="result-label">Red/Gnd Model</span><span class="result-value">Full RED (reliable)</span></div>
+        </div>
+        <div style="margin-top:14px;font-size:0.85rem;color:var(--text-secondary)">
+          LTP segments payload into ${mtu}-byte blocks. Checkpoint at offset 0 enables report-based retransmission.
+          Loss rate ${Math.round(loss*100)}% resulted in ${result.retransmitted} retransmissions.
+        </div>`;
+    },
+    loadPolicies() {
+      const grid = document.getElementById('policy-grid');
+      if (!grid) return;
+      grid.innerHTML = Policy.POLICIES.map(p => `
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span style="font-weight:600;color:var(--accent)">${p.id}</span>
+            <span class="badge ${p.action === 'forward' ? 'badge success' : p.action === 'drop' ? 'badge mars' : 'badge nebula'}" style="font-size:0.7rem;padding:2px 8px">${p.action.toUpperCase()}</span>
+          </div>
+          <div style="font-weight:600;margin-bottom:4px">${p.name}</div>
+          <div style="font-size:0.8rem;color:var(--text-secondary)">IF ${p.condition} → ${p.action} to ${p.target}</div>
+        </div>`).join('');
+    },
+    evaluatePolicy() {
+      const priority = parseInt(document.getElementById('pol-priority').value);
+      const buffer = parseInt(document.getElementById('pol-buffer').value);
+      const quality = parseInt(document.getElementById('pol-quality').value) / 100;
+      const result = Policy.evaluate({ priority, buffer, linkQuality: quality, destTier: 1, currentTier: 4 });
+      const el = document.getElementById('pol-result');
+      const color = result.action === 'forward' ? 'var(--success)' : result.action === 'drop' ? 'var(--mars)' : 'var(--nebula)';
+      el.innerHTML = `<div style="padding:12px;background:rgba(255,255,255,0.03);border-radius:8px;border-left:3px solid ${color}">
+        <div style="font-weight:600;color:${color};text-transform:uppercase">${result.action}</div>
+        <div style="font-size:0.85rem;color:var(--text-secondary);margin-top:4px">Target: ${result.target}${result.matched ? ' — matched by ' + result.matched.id + ' (' + result.matched.name + ')' : ' — no policy matched (default)'}</div>
+      </div>`;
+    }
+  };
+
+  // --- RF BUDGET ---
+  const rfBudget = {
+    calculate() {
+      const band = document.getElementById('rf-band').value;
+      const freq = RFBudget.BANDS[band];
+      const distance = parseFloat(document.getElementById('rf-distance').value) * 1e6;
+      const txPower = parseFloat(document.getElementById('rf-tx-power').value);
+      const txDish = parseFloat(document.getElementById('rf-tx-dish').value);
+      const rxDish = parseFloat(document.getElementById('rf-rx-dish').value);
+      const dataRate = parseFloat(document.getElementById('rf-rate').value);
+      const r = RFBudget.calculate({
+        frequency_hz: freq, distance_km: distance,
+        tx_power_watts: txPower, tx_diameter_m: txDish, rx_diameter_m: rxDish,
+        data_rate_bps: dataRate, bandwidth_hz: dataRate * 2
+      });
+      const el = document.getElementById('rf-result');
+      const content = document.getElementById('rf-result-content');
+      el.style.display = 'block';
+      const mColor = r.margin_db > 3 ? 'var(--success)' : r.margin_db > 0 ? 'var(--accent)' : 'var(--mars)';
+      content.innerHTML = `
+        <div class="result-grid">
+          <div class="result-item"><span class="result-label">Band</span><span class="result-value">${band}</span></div>
+          <div class="result-item"><span class="result-label">Frequency</span><span class="result-value">${(freq/1e9).toFixed(1)} GHz</span></div>
+          <div class="result-item"><span class="result-label">FSPL</span><span class="result-value">${r.fspl_db.toFixed(1)} dB</span></div>
+          <div class="result-item"><span class="result-label">EIRP</span><span class="result-value">${r.eirp_dbm.toFixed(1)} dBm</span></div>
+          <div class="result-item"><span class="result-label">Rx Power</span><span class="result-value">${r.rx_power_dbm.toFixed(1)} dBm</span></div>
+          <div class="result-item"><span class="result-label">System Temp</span><span class="result-value">${r.tSys_k.toFixed(0)} K</span></div>
+          <div class="result-item"><span class="result-label">Eb/N0</span><span class="result-value">${r.eb_n0_db.toFixed(1)} dB</span></div>
+          <div class="result-item"><span class="result-label">Link Margin</span><span class="result-value" style="color:${mColor}">${r.margin_db > 0 ? '+' : ''}${r.margin_db.toFixed(1)} dB</span></div>
+        </div>
+        <div style="margin-top:14px;font-size:0.85rem;color:var(--text-secondary)">
+          ${r.margin_db > 3 ? '✓ Link CLOSED with comfortable margin.' : r.margin_db > 0 ? '⚠ Link marginally closed — consider lower data rate.' : '✗ Link NOT closed — insufficient margin. Reduce data rate or increase power/aperture.'}
+        </div>`;
+    }
+  };
+
+  // --- SIMULATION ---
+  const simulation = {
+    run() {
+      const config = {
+        duration_hours: parseFloat(document.getElementById('sim-duration').value),
+        step_seconds: parseFloat(document.getElementById('sim-step').value),
+        bundle_rate: parseFloat(document.getElementById('sim-rate').value),
+        seed: parseInt(document.getElementById('sim-seed').value)
+      };
+      const result = Simulation.run(config);
+      document.getElementById('sim-results').style.display = 'block';
+      document.getElementById('sim-stats').innerHTML = [
+        { label: 'Total Bundles', value: result.total, color: 'var(--accent)' },
+        { label: 'Delivered', value: result.delivered, color: 'var(--success)' },
+        { label: 'Dropped', value: result.dropped, color: 'var(--mars)' },
+        { label: 'Delivery Ratio', value: (result.deliveryRatio * 100).toFixed(1) + '%', color: result.deliveryRatio > 0.7 ? 'var(--success)' : 'var(--accent)' }
+      ].map(s => `<div class="card stat-card"><div class="metric-value" style="color:${s.color}">${s.value}</div><div class="metric-label">${s.label}</div></div>`).join('');
+      document.getElementById('sim-details').innerHTML = `
+        <div class="result-grid">
+          <div class="result-item"><span class="result-label">Simulation Steps</span><span class="result-value">${result.steps}</span></div>
+          <div class="result-item"><span class="result-label">Stored (deferred)</span><span class="result-value">${result.stored}</span></div>
+          <div class="result-item"><span class="result-label">Avg Delay</span><span class="result-value">${result.avgDelayMinutes.toFixed(1)} min</span></div>
+          <div class="result-item"><span class="result-label">Avg Hops</span><span class="result-value">${result.avgHops.toFixed(1)}</span></div>
+        </div>`;
+    }
+  };
+
   // --- STUDY RESOURCES ---
   const study = {
     learningObjectives: [
@@ -955,6 +1076,8 @@ const App = (() => {
       const el = $('dashboard-study-stats');
       if (!el) return;
       const stats = [
+        { value: '241', label: 'Network Nodes', color: 'var(--nebula)', sub: '5-tier topology' },
+        { value: '149', label: 'Unit Tests', color: '#00d4aa', sub: '10 test modules' },
         { value: '64+', label: 'Academic References', color: 'var(--accent)', sub: 'IEEE format' },
         { value: '7', label: 'CCSDS/IETF Standards', color: 'var(--success)', sub: 'Blue Books & RFCs' },
         { value: '7+', label: 'Free Courses', color: 'var(--quantum)', sub: 'edX, Coursera, UCL' },
@@ -1152,6 +1275,7 @@ const App = (() => {
     qkd.init();
     orbital.calculate();
     bundle.renderList();
+    dtnEngine.loadPolicies();
     initTicker();
     setTimeout(() => initTopology(), 100);
     window.addEventListener('resize', () => { resizeCosmos(); });
@@ -1163,5 +1287,5 @@ const App = (() => {
     init();
   }
 
-  return { linkBudget, routing, qkd, orbital, bundle, mission, study, presentation };
+  return { linkBudget, routing, qkd, orbital, bundle, mission, dtnEngine, rfBudget, simulation, study, presentation };
 })();

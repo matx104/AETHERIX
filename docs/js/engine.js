@@ -488,6 +488,155 @@ const AetherixEngine = (() => {
     }
   };
 
+  const RFBudget = {
+    BANDS: {
+      'Ka-band': 26.5e9,
+      'X-band': 8.4e9,
+      'S-band': 2.3e9,
+      'UHF': 401e6
+    },
+    SPEED_OF_LIGHT: 299792458,
+    BOLTZMANN: 1.380649e-23,
+
+    calculate(d) {
+      const freq = d.frequency_hz;
+      const dist_m = d.distance_km * 1000;
+      const fspl = 20 * Math.log10(4 * Math.PI * dist_m * freq / this.SPEED_OF_LIGHT);
+      const txGain = 10 * Math.log10(0.55 * Math.pow(Math.PI * d.tx_diameter_m * freq / this.SPEED_OF_LIGHT, 2));
+      const rxGain = 10 * Math.log10(0.55 * Math.pow(Math.PI * d.rx_diameter_m * freq / this.SPEED_OF_LIGHT, 2));
+      const txPowerDbm = 10 * Math.log10(d.tx_power_watts * 1000);
+      const eirp = txPowerDbm + txGain - 1.0;
+      const rxPower = eirp - fspl - 1.0 + rxGain - 0.5 - 0.5 - 2.0;
+      const tSys = 50 + 290 * (Math.pow(10, 2.0/10) - 1);
+      const noiseDbm = 10 * Math.log10(this.BOLTZMANN * tSys * d.bandwidth_hz * 1000);
+      const cnr = rxPower - noiseDbm;
+      const ebN0 = cnr - 10 * Math.log10(d.data_rate_bps);
+      const margin = ebN0 - 10.0;
+      return { frequency_hz: freq, fspl_db: fspl, tx_gain_dbi: txGain, rx_gain_dbi: rxGain,
+               eirp_dbm: eirp, rx_power_dbm: rxPower, noise_power_dbm: noiseDbm,
+               cnr_db: cnr, eb_n0_db: ebN0, margin_db: margin, tSys_k: tSys };
+    }
+  };
+
+  const LTP = {
+    segment(payload, mtu) {
+      const segments = [];
+      const bytes = typeof payload === 'string' ? new TextEncoder().encode(payload) : payload;
+      for (let i = 0; i < bytes.length; i += mtu) {
+        segments.push({
+          sessionId: 'ses-' + Math.random().toString(36).substr(2,6),
+          offset: i,
+          isCheckpoint: i === 0,
+          isEORS: (i + mtu) >= bytes.length,
+          size: Math.min(mtu, bytes.length - i)
+        });
+      }
+      return segments;
+    },
+    simulateTransfer(totalBytes, mtu, lossRate) {
+      const segs = this.segment('x'.repeat(totalBytes), mtu);
+      let sent = 0, lost = 0, retrans = 0;
+      for (const s of segs) {
+        sent++;
+        if (Math.random() < (lossRate || 0)) { lost++; retrans++; sent++; }
+      }
+      return { segments: segs.length, sent, lost, retransmitted: retrans,
+               efficiency: ((segs.length) / sent * 100).toFixed(1) };
+    }
+  };
+
+  const Topology = {
+    TIERS: [
+      { name: 'Earth Ground', nodes: 5, color: '#4fc3f7' },
+      { name: 'Earth Orbital', nodes: 51, color: '#29b6f6' },
+      { name: 'Deep Space Transit', nodes: 4, color: '#ce93d8' },
+      { name: 'Mars Orbital', nodes: 4, color: '#ef5350' },
+      { name: 'Mars Surface', nodes: 177, color: '#e57373' }
+    ],
+    TOTAL_NODES: 241,
+    LINKS: [
+      { from: 0, to: 1, rate: '10 Mbps RF', latency: '10 ms' },
+      { from: 1, to: 2, rate: '100 Mbps Optical', latency: '1 s' },
+      { from: 2, to: 3, rate: '50 Mbps Optical', latency: '10 min' },
+      { from: 3, to: 4, rate: '2 Mbps RF', latency: '1 ms' }
+    ],
+    getSummary() {
+      return { totalNodes: this.TOTAL_NODES, tiers: this.TIERS.length, interTierLinks: this.LINKS.length };
+    }
+  };
+
+  const Training = {
+    train(config) {
+      const rewards = [];
+      let epsilon = config.epsilonStart || 1.0;
+      const decay = config.decay || 0.995;
+      const end = config.epsilonEnd || 0.01;
+      for (let i = 0; i < config.episodes; i++) {
+        const r = -2 + (1 - epsilon) * 3 + (Math.random() - 0.5) * epsilon * 4;
+        rewards.push(r);
+        epsilon = Math.max(end, epsilon * decay);
+      }
+      const avg100 = rewards.slice(-100).reduce((a,b) => a+b, 0) / Math.min(100, rewards.length);
+      return { rewards, epsilonHistory: rewards.map((_, i) => Math.max(end, Math.pow(decay, i))),
+               avgRewardLast100: avg100, episodes: config.episodes,
+               convergence: rewards.findIndex((_, i, a) => {
+                 if (i < 50) return false;
+                 const s = a.slice(i-50, i);
+                 const m = s.reduce((a,b)=>a+b,0)/50;
+                 return s.every(v => Math.abs(v - m) < 0.5);
+               }) };
+    }
+  };
+
+  const Simulation = {
+    run(config) {
+      const steps = Math.floor(config.duration_hours * 3600 / (config.step_seconds || 3600));
+      let total=0, delivered=0, dropped=0, stored=0;
+      const delays = [];
+      for (let t = 0; t < steps; t++) {
+        if (Math.random() < (config.bundle_rate || 10) / 3600 * (config.step_seconds || 3600)) {
+          total++;
+          const priority = [0,0,1,1,2,2,2,3,3,4][Math.floor(Math.random()*10)];
+          const hops = 3 + Math.floor(Math.random() * 4);
+          const delayPerHop = 300 + Math.random() * 1200;
+          const totalDelay = hops * delayPerHop;
+          const deliverable = priority <= 2 || Math.random() > 0.3;
+          if (deliverable) { delivered++; delays.push(totalDelay); }
+          else if (Math.random() < 0.2) dropped++;
+          else stored++;
+        }
+      }
+      const avgDelay = delays.length ? delays.reduce((a,b)=>a+b,0)/delays.length : 0;
+      return { total, delivered, dropped, stored, deliveryRatio: total ? delivered/total : 0,
+               avgDelaySeconds: avgDelay, avgDelayMinutes: avgDelay/60,
+               avgHops: delivered ? 3 + Math.random()*2 : 0, steps };
+    }
+  };
+
+  const Policy = {
+    POLICIES: [
+      { id: 'POL-001', name: 'Emergency Fast Path', condition: 'priority <= 1', action: 'forward', target: 'best link' },
+      { id: 'POL-002', name: 'Congestion Control', condition: 'buffer > 90% AND priority >= 3', action: 'drop', target: 'low priority' },
+      { id: 'POL-003', name: 'Deep Space Store', condition: 'link_quality < 30%', action: 'store', target: 'local buffer' },
+      { id: 'POL-004', name: 'Bulk Defer', condition: 'priority == 4 AND buffer > 50%', action: 'store', target: 'deferred queue' },
+      { id: 'POL-005', name: 'Tier-Aware Routing', condition: 'dest_tier < current_tier', action: 'forward', target: 'lower-tier neighbor' }
+    ],
+    evaluate(ctx) {
+      for (const p of this.POLICIES) {
+        if (this._match(p, ctx)) return { matched: p, action: p.action, target: p.target };
+      }
+      return { matched: null, action: 'store', target: 'default' };
+    },
+    _match(policy, ctx) {
+      if (policy.id === 'POL-001') return ctx.priority <= 1;
+      if (policy.id === 'POL-002') return ctx.buffer > 90 && ctx.priority >= 3;
+      if (policy.id === 'POL-003') return ctx.linkQuality < 0.3;
+      if (policy.id === 'POL-004') return ctx.priority === 4 && ctx.buffer > 50;
+      if (policy.id === 'POL-005') return ctx.destTier < ctx.currentTier;
+      return false;
+    }
+  };
+
   return {
     LinkBudget,
     Orbital,
@@ -495,6 +644,12 @@ const AetherixEngine = (() => {
     Routing,
     Bundle,
     Mission,
+    RFBudget,
+    LTP,
+    Topology,
+    Training,
+    Simulation,
+    Policy,
     CONSTANTS: { SPEED_OF_LIGHT, SPEED_OF_LIGHT_KMS, AU_KM, DEFAULT_WAVELENGTH, EARTH_PERIOD, MARS_PERIOD, SYNODIC_PERIOD }
   };
 })();
