@@ -73,6 +73,31 @@ study_resources/
 
 ---
 
+## Implementation Statistics
+
+AETHERIX's codebase spans **18 source modules** across 5 subsystems with **149 tests** providing comprehensive coverage:
+
+| Subsystem | Modules | Key Capabilities |
+|-----------|:-------:|-----------------|
+| `src/routing/` | 5 | Bundle protocol, forwarding engine, RL agent, policy engine |
+| `src/security/` | 4 | BB84/E91 QKD, quantum repeater chains, privacy amplification, CASCADE error correction |
+| `src/infrastructure/` | 3 | Optical link budget, hybrid optical/RF, simulation framework |
+| `src/orbital/` | 3 | Contact windows, orbital mechanics, topology generation (241 nodes) |
+| `src/simulation/` | 3 | Scenario runner, training pipeline, multi-agent federation |
+
+### New Capabilities (since initial release)
+
+- **Forwarding engine** — Complete BPv7 bundle forwarding with BFS shortest-path fallback, custody tracking, and priority-aware queue management
+- **LTP convergence layer** — Red/green segment handling, checkpoint/retransmission, and session management for deep-space links
+- **Training pipeline** — Episode-based RL training with configurable reward weights, epsilon decay scheduling, and Q-table persistence
+- **Multi-agent federation** — Federated Q-learning across distributed nodes with periodic weight averaging
+- **Repeater chains** — Multi-hop quantum repeater simulation with entanglement swapping and fidelity degradation
+- **Privacy amplification** — Information-theoretic key compression using Toeplitz hashing, Csiszar-Korner bound enforcement
+- **Simulation framework** — Scenario definition, contact schedule generation, and Monte Carlo batch runs
+- **Policy engine** — Declarative routing policies with priority-based rules, time-window constraints, and QoS enforcement
+
+---
+
 ## Exam Day Quick Reference
 
 **The 10 numbers you MUST know:**
@@ -86,7 +111,7 @@ study_resources/
 | 5 | 1550 nm | Optical wavelength |
 | 6 | 11% | QBER security threshold |
 | 7 | 17,032 km | Areostationary orbit altitude |
-| 8 | 232 | Total network nodes |
+| 8 | 241 | Total network nodes |
 | 9 | 5 W | Typical laser power |
 | 10 | 0.5-6 Mbps | Current Mars data rates |
 

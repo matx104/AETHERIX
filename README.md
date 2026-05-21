@@ -14,6 +14,7 @@
 [![License](https://img.shields.io/badge/License-Research-00d4aa?style=for-the-badge)](LICENSE)
 [![DTN](https://img.shields.io/badge/Protocol-Bundle_v7-f9ca24?style=for-the-badge)](https://www.rfc-editor.org/rfc/rfc9171.html)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/)
+[![Tests](https://img.shields.io/badge/Tests-149_passing-00d4aa?style=for-the-badge)]()
 
 <br/>
 
@@ -54,7 +55,7 @@ AETHERIX is a comprehensive **AI-driven, quantum-secure space operations platfor
 - **Reinforcement Learning agents** replace static Contact Graph Routing
 - Autonomous decision-making per bundle
 - Adaptive to real-time link conditions
-- Multi-agent distributed learning
+- Multi-agent federated learning
 
 </td>
 <td width="50%">
@@ -62,8 +63,8 @@ AETHERIX is a comprehensive **AI-driven, quantum-secure space operations platfor
 ### 🔐 Quantum Security
 - **BB84 & E91 QKD protocols** implemented
 - Entanglement-based security for Mars links
-- Quantum repeaters at Lagrange points
-- Information-theoretically secure
+- Quantum repeaters with entanglement purification
+- Privacy amplification with CASCADE reconciliation
 
 </td>
 </tr>
@@ -74,16 +75,16 @@ AETHERIX is a comprehensive **AI-driven, quantum-secure space operations platfor
 - **10-100× faster** than traditional RF
 - 2-200 Mbps Earth-Mars data rates
 - Hybrid optical/RF for reliability
-- Comprehensive link budget analysis
+- Comprehensive link budget analysis (optical + RF)
 
 </td>
 <td width="50%">
 
 ### 🌐 DTN Architecture
 - **Bundle Protocol v7** (RFC 9171)
-- Store-and-forward networking
-- 5-tier hierarchical topology
-- CCSDS standards compliant
+- Store-and-forward with custody tracking
+- 5-tier hierarchical topology (241 nodes)
+- LTP, TCPCL, and UDP convergence layers
 
 </td>
 </tr>
@@ -100,10 +101,10 @@ AETHERIX is a comprehensive **AI-driven, quantum-secure space operations platfor
 | Phase | Status | Description |
 |:-----:|:------:|-------------|
 | 🏗️ **Phase 1** | ✅ Complete | Network topology & link budget analysis |
-| 🔧 **Phase 2** | 🔄 In Progress | Core implementation (DTN, RL agents) |
-| 🔮 **Phase 3** | 📅 Planned | Quantum integration |
-| 🧪 **Phase 4** | 📅 Planned | Simulation & validation |
-| 🚀 **Phase 5** | 📅 Planned | Optimization & scale |
+| 🔧 **Phase 2** | ✅ Complete | Core implementation (DTN, RL agents) |
+| 🔮 **Phase 3** | ✅ Complete | Quantum integration |
+| 🧪 **Phase 4** | ✅ Complete | Simulation & validation |
+| 🚀 **Phase 5** | 🔄 In Progress | Optimization & scale |
 
 </div>
 
@@ -111,12 +112,55 @@ AETHERIX is a comprehensive **AI-driven, quantum-secure space operations platfor
 
 | Module | Status | Description |
 |--------|:------:|-------------|
-| `src/infrastructure/link_budget.py` | ✅ | Optical link budget calculator |
-| `src/routing/rl_agent.py` | ✅ | RL routing agent (simplified demo) |
-| `src/routing/bundle.py` | ✅ | Bundle Protocol v7 data structures |
+| `src/infrastructure/link_budget.py` | ✅ | Optical link budget calculator (CCSDS 141.0-B-1) |
+| `src/infrastructure/rf_link_budget.py` | ✅ | RF link budget for Ka/X/S/UHF bands |
+| `src/routing/bundle.py` | ✅ | BPv7 bundle data structures (RFC 9171) |
+| `src/routing/rl_agent.py` | ✅ | Q-learning routing agent with epsilon-greedy policy |
+| `src/routing/node.py` | ✅ | DTN node model with capabilities & buffer management |
+| `src/routing/contact_graph.py` | ✅ | Contact graph with BFS pathfinding |
+| `src/routing/forwarding_engine.py` | ✅ | Store-and-forward engine with priority queue & custody tracking |
+| `src/routing/ltp.py` | ✅ | Licklider Transmission Protocol convergence layer (RFC 5326) |
+| `src/routing/tcpcl.py` | ✅ | TCP Convergence Layer (RFC 7242) |
+| `src/routing/udp_cl.py` | ✅ | UDP Convergence Layer for optical ISL |
+| `src/routing/training.py` | ✅ | RL training loop with experience replay & convergence detection |
+| `src/routing/multi_agent.py` | ✅ | Multi-agent federated learning with Q-table aggregation |
 | `src/security/qkd.py` | ✅ | BB84 & E91 QKD protocols |
-| `src/orbital/contact_windows.py` | ✅ | Orbital mechanics & contact prediction |
+| `src/security/repeater_chain.py` | ✅ | Multi-hop quantum repeater chain with entanglement purification |
+| `src/security/privacy_amplification.py` | ✅ | CASCADE reconciliation, universal hashing, Csiszár-Körner bound |
+| `src/orbital/contact_windows.py` | ✅ | Orbital mechanics & contact window prediction |
+| `src/orbital/bodies.py` | ✅ | Celestial body database (Sun, Earth, Mars, Moon) |
+| `src/orbital/doppler.py` | ✅ | Classical & relativistic Doppler shift |
+| `src/orbital/topology.py` | ✅ | Full 5-tier network topology (241 nodes) |
+| `src/simulation/simulator.py` | ✅ | Simulation engine integrating topology, forwarding & bundles |
+| `src/simulation/policy_engine.py` | ✅ | 5 default routing policies (congestion control, emergency fast-path, etc.) |
 | `demos/` | ✅ | Interactive demonstration suite |
+
+<br/>
+
+---
+
+## 🧪 Test Coverage
+
+<div align="center">
+
+![Tests](https://img.shields.io/badge/Total_Tests-149-brightgreen?style=for-the-badge)
+![Passing](https://img.shields.io/badge/Pass_Rate-100%25-brightgreen?style=for-the-badge)
+![Files](https://img.shields.io/badge/Test_Files-10-blue?style=for-the-badge)
+
+</div>
+
+| Test File | Module | Coverage |
+|-----------|--------|:--------:|
+| `tests/test_link_budget.py` | Optical & RF link budgets | ✅ |
+| `tests/test_bundle.py` | BPv7 bundle data structures | ✅ |
+| `tests/test_rl_agent.py` | RL routing agent | ✅ |
+| `tests/test_training.py` | RL training loop | ✅ |
+| `tests/test_forwarding.py` | Store-and-forward engine | ✅ |
+| `tests/test_topology.py` | 5-tier network topology & contact graph | ✅ |
+| `tests/test_qkd.py` | BB84 & E91 QKD protocols | ✅ |
+| `tests/test_quantum_extended.py` | Repeater chains & privacy amplification | ✅ |
+| `tests/test_orbital.py` | Orbital mechanics, Doppler, celestial bodies | ✅ |
+| `tests/test_policy_engine.py` | Routing policy engine | ✅ |
 
 <br/>
 
@@ -128,11 +172,11 @@ AETHERIX is a comprehensive **AI-driven, quantum-secure space operations platfor
 
 | Product | Description | Status |
 |:-------:|-------------|:------:|
-| **🛰️ AETHERIX Relay** | DTN + AI routing layer for autonomous data forwarding | 🔄 |
+| **🛰️ AETHERIX Relay** | DTN + AI routing layer for autonomous data forwarding | ✅ |
 | **🔐 AETHERIX Quantum** | QKD & entanglement security stack for command links | ✅ |
 | **📊 AETHERIX Ops** | Mission monitoring & control dashboard | 📅 |
-| **🔬 AETHERIX Sim** | ns-3 / OMNeT++ simulation environment | 📅 |
-| **⚙️ AETHERIX Forge** | Policy, configuration & automation engine | 📅 |
+| **🔬 AETHERIX Sim** | Simulation engine with policy-driven routing | ✅ |
+| **⚙️ AETHERIX Forge** | Policy, configuration & automation engine | ✅ |
 
 </div>
 
@@ -359,15 +403,47 @@ AETHERIX/
 │
 ├── 📂 src/                         # 🐍 Python Modules
 │   ├── 📂 infrastructure/          #   Link budget calculations
-│   │   └── link_budget.py          #     OpticalLinkBudget + Calculator
-│   ├── 📂 routing/                 #   DTN routing
-│   │   ├── rl_agent.py             #     Q-learning routing agent
-│   │   └── bundle.py               #     BPv7 bundle structures
+│   │   ├── link_budget.py          #     OpticalLinkBudget + Calculator (CCSDS 141.0-B-1)
+│   │   └── rf_link_budget.py       #     RF link budget (Ka/X/S/UHF bands)
+│   │
+│   ├── 📂 routing/                 #   DTN routing & AI
+│   │   ├── bundle.py               #     BPv7 bundle data structures (RFC 9171)
+│   │   ├── rl_agent.py             #     Q-learning routing agent (epsilon-greedy)
+│   │   ├── node.py                 #     DTN node model with buffer management
+│   │   ├── contact_graph.py        #     Contact graph with BFS pathfinding
+│   │   ├── forwarding_engine.py    #     Store-and-forward (priority queue, custody)
+│   │   ├── ltp.py                  #     LTP convergence layer (RFC 5326)
+│   │   ├── tcpcl.py                #     TCP Convergence Layer (RFC 7242)
+│   │   ├── udp_cl.py               #     UDP Convergence Layer (optical ISL)
+│   │   ├── training.py             #     RL training loop (experience replay)
+│   │   └── multi_agent.py          #     Federated learning (Q-table aggregation)
+│   │
 │   ├── 📂 security/                #   Quantum security
-│   │   └── qkd.py                  #     BB84 + E91 protocols
+│   │   ├── qkd.py                  #     BB84 + E91 QKD protocols
+│   │   ├── repeater_chain.py       #     Multi-hop repeater (entanglement purification)
+│   │   └── privacy_amplification.py #    CASCADE reconciliation, universal hashing
+│   │
 │   ├── 📂 orbital/                 #   Orbital mechanics
-│   │   └── contact_windows.py      #     Contact window prediction
-│   └── 📂 simulation/              #   Simulation APIs (planned)
+│   │   ├── contact_windows.py      #     Contact window prediction
+│   │   ├── bodies.py               #     Celestial body database (Sun, Earth, Mars, Moon)
+│   │   ├── doppler.py              #     Classical & relativistic Doppler shift
+│   │   └── topology.py             #     5-tier network topology (241 nodes)
+│   │
+│   └── 📂 simulation/              #   Simulation engine
+│       ├── simulator.py            #     Full simulation engine (topology + forwarding)
+│       └── policy_engine.py        #     5 default routing policies
+│
+├── 📂 tests/                       # 🧪 Test Suite (149 tests, 10 files)
+│   ├── test_link_budget.py         #     Optical & RF link budget tests
+│   ├── test_bundle.py              #     BPv7 bundle tests
+│   ├── test_rl_agent.py            #     RL agent tests
+│   ├── test_training.py            #     Training loop tests
+│   ├── test_forwarding.py          #     Forwarding engine tests
+│   ├── test_topology.py            #     Topology & contact graph tests
+│   ├── test_qkd.py                 #     QKD protocol tests
+│   ├── test_quantum_extended.py    #     Repeater & privacy amplification tests
+│   ├── test_orbital.py             #     Orbital mechanics & Doppler tests
+│   └── test_policy_engine.py       #     Policy engine tests
 │
 ├── 📂 demos/                       # 🎮 Interactive Demos
 │   ├── 01_link_budget_demo/        #   Optical link calculator
@@ -376,9 +452,6 @@ AETHERIX/
 │   ├── 04_quantum_key_demo/        #   QKD demonstration
 │   ├── 05_mars_mission_scenario/   #   Full mission scenario
 │   └── 06_integrated_demo/         #   Presentation-ready demo
-│
-├── 📂 tests/                       # 🧪 Test Suite
-│   └── test_link_budget.py         #   Link budget tests
 │
 ├── 📂 visualizations/              # 📊 Charts & Diagrams
 │   ├── charts/                     #   20 PNG charts (matplotlib)
@@ -426,7 +499,9 @@ AETHERIX/
 |----------|----------|:------:|
 | Bundle Protocol v7 | RFC 9171 | ✅ |
 | Licklider Transmission Protocol | RFC 5326 | ✅ |
+| TCP Convergence Layer | RFC 7242 | ✅ |
 | CCSDS Space Link Protocols | Blue Books | ✅ |
+| CCSDS Optical Communications | 141.0-B-1 | ✅ |
 
 ### Standards Compliance
 
@@ -446,6 +521,7 @@ AETHERIX/
 | CCSDS 141.0-B-1 | Optical Communications | ✅ |
 | RFC 9171 | Bundle Protocol Version 7 | ✅ |
 | RFC 5326 | Licklider Transmission Protocol | ✅ |
+| RFC 7242 | TCP Convergence Layer | ✅ |
 
 <br/>
 
@@ -460,6 +536,8 @@ AETHERIX/
 3. 📡 **Hybrid optical/RF** with adaptive switching
 4. 🔐 **Quantum-secured deep space links** via repeater network
 5. 🧠 **Federated learning** across distributed space assets
+6. 🔄 **Multi-hop quantum repeater chains** with entanglement purification
+7. 📊 **Policy-driven simulation engine** with 5 default routing policies
 
 ### Comparison with Current Systems
 
@@ -494,7 +572,7 @@ AETHERIX/
 We welcome contributions! Areas of interest:
 
 - 🤖 RL agent algorithms and architectures
-- 📡 Optical link models and simulations  
+- 📡 Optical link models and simulations
 - 🔐 QKD protocol implementations
 - 🧪 Testing and validation frameworks
 - 📖 Documentation and tutorials
@@ -546,7 +624,6 @@ If you find AETHERIX useful, please consider giving it a ⭐!
 
 **AETHERIX** — *Connecting worlds, one bundle at a time*
 
-<sub>Version 1.0.0 | Live Demo: matx104.github.io/AETHERIX | Last Updated: May 2026 | Maintained by AETHERIX Team</sub>
+<sub>Version 2.0.0 | Live Demo: matx104.github.io/AETHERIX | Last Updated: May 2026 | Maintained by AETHERIX Team</sub>
 
 </div>
-

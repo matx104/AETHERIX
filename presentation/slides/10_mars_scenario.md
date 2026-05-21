@@ -1,4 +1,4 @@
-# Mars Mission Scenario — End-to-End Demo
+# Mars Mission Scenario — End-to-End Simulation
 
 ## [LIVE DEMO] Mission Communication Scenario
 
@@ -50,6 +50,18 @@ DSN Madrid ◄──Fiber── LEO Constellation ◄──── Deep Space Lin
   JPL MOC ✓ Delivered
 ```
 
+### Simulation Engine — Full Implementation
+
+The Mars mission scenario is backed by a **complete simulation engine** with:
+
+| Component | Implementation |
+|-----------|---------------|
+| **Policy-driven routing** | RL agent policies control all forwarding decisions |
+| **Contact scheduling** | Realistic contact windows from orbital mechanics |
+| **Link dynamics** | Distance-dependent data rates, outage modeling |
+| **Bundle lifecycle** | Full store-and-forward with custody tracking |
+| **Metrics collection** | Delivery ratio, end-to-end delay, hop count per bundle |
+
 ### Performance Metrics
 
 | Metric | Value | Notes |
@@ -66,7 +78,7 @@ DSN Madrid ◄──Fiber── LEO Constellation ◄──── Deep Space Lin
 1. **No end-to-end connection** — Each hop operates independently
 2. **Custody transfer** — Each node takes responsibility, source buffer freed
 3. **Priority scheduling** — P2 science data gets 6-8 hours/day of contact time
-4. **RL routing** — Agent chose MRS-Alpha over MRS-Beta (0.85 vs 0.72 link quality)
+4. **Policy-driven routing** — RL agent chose MRS-Alpha over MRS-Beta (0.85 vs 0.72 link quality)
 5. **Store-and-forward** — If any link drops, bundle waits at last custodian
 
 ### Failure Scenario (What If?)

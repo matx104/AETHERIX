@@ -253,6 +253,79 @@ Trade-off: Higher compute, training needed. Fallback to CGR if RL fails.
 
 ---
 
+## Category F: Advanced Protocol Deep-Dive
+
+### F1. Explain the LTP red/green segment model.
+**Answer**: LTP (RFC 5326) splits each data transfer session into two segment types:
+- **Red segments**: Reliable delivery — the sender transmits data segments followed by a checkpoint. The receiver responds with a Report Segment (RS) listing received data bounds. Any gaps trigger selective retransmission. Red segments guarantee delivery at the cost of bandwidth overhead (ACK traffic and potential retransmissions).
+- **Green segments**: Best-effort delivery — sent once with no acknowledgement or retransmission. Green data arrives if the channel is clean; corrupted or lost green segments are simply discarded.
+
+In AETHERIX, segment type is selected per-bundle based on priority:
+- P0/P1 bundles → all red (guaranteed delivery for emergency and high-science data).
+- P2 bundles → metadata block red (custody tracking), payload green (retransmitting large payloads is bandwidth-expensive).
+- P3/P4 bundles → all green (best-effort is acceptable for housekeeping and bulk).
+
+The red/green model is unique to LTP — TCP provides all-reliable, UDP provides all-best-effort. LTP's mixed model is ideal for deep space where bandwidth is precious and not all data deserves retransmission overhead.
+
+### F2. How does experience replay prevent catastrophic forgetting in DQN?
+**Answer**: Catastrophic forgetting occurs when a neural network overwrites previously learned weights with new training data, "forgetting" earlier experiences. In DQN for DTN routing, this would mean the agent forgets how to route during opposition conditions after training on conjunction scenarios.
+
+Experience replay prevents this by:
+1. **Storing transitions**: Every experience `(state, action, reward, next_state)` is stored in a replay buffer (typically 10⁶ transitions).
+2. **Random sampling**: Instead of training on consecutive experiences (which are temporally correlated), the network trains on random mini-batches sampled uniformly from the buffer.
+3. **Breaking correlation**: Random sampling ensures the network sees a diverse mix of old and new experiences in every training step, preventing it from overfitting to recent conditions.
+4. **Replay ratio**: Each stored transition may be used in multiple training steps, maximising the learning extracted from rare but important events (e.g., a solar flare that only occurs once in 780 days).
+
+In AETHERIX's context: without experience replay, the agent trained over the 780-day synodic period would forget opposition-phase routing by the time it reaches conjunction. The replay buffer maintains a uniform distribution of experiences across all distance phases, ensuring the policy remains effective throughout the entire cycle.
+
+### F3. What is the Csiszár-Körner bound?
+**Answer**: The Csiszár-Körner bound (1978) defines the maximum rate at which secret key material can be extracted from correlated random variables observed by two parties (Alice and Bob) in the presence of an eavesdropper (Eve):
+
+```
+S ≤ H(X) − H(X|Y)
+```
+
+For BB84 over a binary symmetric channel with error probability p (QBER):
+```
+S ≤ 1 − h(p)
+```
+
+Where h(p) = −p log₂(p) − (1−p) log₂(1−p) is binary entropy.
+
+This bound tells us:
+- At QBER = 0%: S = 1.0 (all raw key bits become secret key).
+- At QBER = 5%: S = 0.714 (71.4% efficiency).
+- At QBER = 11%: S = 0.499 (the Shor-Preskill threshold — positive but reduced).
+- At QBER ≥ 50%: S ≤ 0 (no secret key possible).
+
+In AETHERIX, this bound is used in the privacy amplification stage to calculate the maximum extractable key length: `m = n × S − leak_EC − security_parameter`. The simulation compares actual key rates against this theoretical maximum to verify that post-processing is not unnecessarily discarding key material.
+
+### F4. How does BFS routing scale with 241 nodes?
+**Answer**: BFS pathfinding on AETHERIX's contact graph scales as O(V + E) per query, where V is the number of contact vertices and E is the number of valid contact-to-contact edges. For the 241-node topology:
+
+- **Contact vertices**: Each inter-tier link has ~1 contact per day per node pair. Over a 780-day simulation with ~200 active node pairs: V ≈ 156,000 contact vertices.
+- **Edges**: Each contact can connect to subsequent contacts at the destination node. Average fan-out ≈ 5–10 edges per vertex: E ≈ 780,000–1,560,000 edges.
+- **Per-query time**: BFS traversal of this graph takes ~1–5 ms on modern hardware (well within the real-time routing requirement).
+- **Query frequency**: The RL agent queries BFS only as a fallback (when confidence < 0.3), so query rate is low (~1 per second during normal operation).
+
+Scalability concerns arise if the network grows beyond 1000 nodes or if the simulation horizon extends beyond 780 days. The contact graph can be pruned by removing expired contacts (past contacts) and contacts too short for any feasible bundle, keeping the active graph size manageable. Additionally, the tiered topology constrains the search — bundles typically traverse 4–5 hops, so BFS only needs to explore contacts within a bounded time window (±max_lifetime).
+
+### F5. What is the relationship between link margin and data rate?
+**Answer**: Link margin and data rate are directly coupled through the Shannon capacity and the receiver's required Eb/N₀ (energy per bit to noise spectral density ratio):
+
+```
+Margin = P_received − P_sensitivity(required for target BER at current data rate)
+```
+
+The relationship works as follows:
+1. **Higher data rate → lower margin**: At a fixed transmit power and distance, increasing the data rate spreads the available energy across more bits. Each bit has less energy, so the signal-to-noise ratio (SNR) drops, and the link margin shrinks. Doubling the data rate reduces the margin by 3 dB.
+2. **Lower data rate → higher margin**: Reducing the data rate concentrates energy into fewer bits, improving SNR. AETHERIX exploits this at aphelion: reducing from 200 Mbps to 2 Mbps recovers ~20 dB of link margin, keeping the link operational.
+3. **Adaptive coding and modulation (ACM)**: AETHERIX dynamically adjusts the FEC code rate and modulation order based on current margin. At opposition (high margin): high-order modulation (64-QAM) with weak FEC (code rate 0.9) = 200 Mbps. At aphelion (low margin): low-order modulation (BPSK/QPSK) with strong FEC (code rate 0.5) = 2 Mbps. This is the same principle used in DVB-S2 for satellite TV.
+
+The formula: `DataRate = Bandwidth × log₂(1 + SNR)`, where SNR = `Margin + ReceiverSensitivity`. When margin drops, reducing the data rate is the primary lever to maintain positive margin — the alternative (increasing transmit power) is constrained by spacecraft power budgets.
+
+---
+
 ## Quick Tips for Interview
 
 1. **Start with the standard**: "According to CCSDS 734.2..."

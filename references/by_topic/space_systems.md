@@ -96,6 +96,22 @@ AETHERIX targets compliance with CCSDS standards for interoperability, uses NASA
 
 > GMAT provides high-fidelity orbital propagation for mission analysis. AETHERIX can use GMAT to generate realistic contact windows (considering J2 perturbations, third-body gravity, solar radiation pressure) that feed into the network simulator. The combination of GMAT for orbital dynamics and ns-3 for network simulation would create a complete Earth–Mars DTN simulation environment.
 
+## CCSDS DTN Architecture (Extended)
+
+[65] CCSDS, "Delay/Disruption-Tolerant Networking Bundle Protocol Licklider Transmission Protocol (LTP) Convergence-Layer Adapter," CCSDS 734.3-B-1, Blue Book, Apr. 2022. [Online]. Available: https://public.ccsds.org/Pubs/734x3b1.pdf
+
+> Specifies how DTN bundles are transported over LTP in CCSDS-compliant systems, defining the mapping between BPv7 administrative records and LTP session segments. AETHERIX's LTP convergence layer follows this standard for bundling red-part (reliable) and green-part (best-effort) data into LTP blocks, with priority-aware segmentation that maps BPv7 priority classes to LTP quality-of-service markers.
+
+## Policy-Based Routing in Space Networks
+
+[66] G. Araniti, A. Iera, S. Pizzi, and F. Vatalaro, "QoS-Oriented Traffic Management in DTN-based Space Communication Systems," *IEEE Wireless Communications*, vol. 26, no. 2, pp. 46-53, Apr. 2019.
+
+> Proposes policy-based traffic management for space DTN networks, where routing and scheduling decisions are governed by declarative policies that consider bundle priority, deadline, source type, and current link conditions. AETHERIX's policy engine implements a similar policy-based routing framework: rules are defined as priority-tier constraints (e.g., "P0 bundles must use lowest-latency path regardless of energy cost") and enforced at each custodian node during forwarding decisions.
+
+[67] S. Burleigh, "Interplanetary Overlay Network (ION): An Implementation of the DTN Architecture," in *Proc. IEEE Aerospace Conf.*, 2019, pp. 1-8.
+
+> Updated description of ION-DTN's architecture including its policy-based routing extensions, which allow mission operators to inject routing constraints (preferred paths, excluded nodes, time-window restrictions) alongside contact plans. AETHERIX's policy engine design draws on ION's approach but adds RL-learned policies that automatically adapt the policy parameters based on observed network performance.
+
 ## Additional Space Communication Surveys
 
 [61] I. F. Akyildiz, O. B. Akan, C. Chen, J. Fang, and W. Su, "InterPlaNetary Internet: State-of-the-Art and Research Challenges," *Computer Networks*, vol. 43, no. 2, pp. 75-112, Oct. 2003.

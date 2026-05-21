@@ -66,6 +66,28 @@ Delay-tolerant networking is the backbone of AETHERIX. Earth–Mars links suffer
 
 > PROPHET routing uses delivery probability estimates based on encounter history. AETHERIX's RL agent can be seen as a generalization: instead of heuristic probability updates, it learns optimal forwarding decisions via reward signals.
 
+## Convergence Layers
+
+[65] M. Demmer, J. Ott, and S. Perreault, "Delay-Tolerant Networking TCP Convergence Layer Protocol," RFC 7242, Aug. 2014. [Online]. Available: https://www.rfc-editor.org/rfc/rfc7242
+
+> Defines the TCP convergence layer (TCPCL) for BPv7, providing reliable, session-based transport over TCP connections. AETHERIX uses TCPCL for Earth-segment links (DSN stations to Mission Operations Centers) where reliable, ordered delivery is required and round-trip times are terrestrial-scale. TCPCL's length-prefixed segment framing and session management complement LTP's deep-space role.
+
+[66] S. Burleigh, "Delay-Tolerant Networking Licklider Transmission Protocol (LTP) Convergence-Layer Adapter," RFC 9174, Jan. 2023. [Online]. Available: https://www.rfc-editor.org/rfc/rfc9174
+
+> Updates the LTP convergence-layer adapter specification for BPv7, defining how bundles are encapsulated into LTP blocks (red-part for reliable, green-part for best-effort delivery). AETHERIX's LTP implementation uses red-part segments for high-priority bundles (P0-P2) and green-part for bulk data (P3-P4), optimizing retransmission overhead on bandwidth-limited deep-space links.
+
+## Store-and-Forward Theory
+
+[67] K. Fall and S. Farrell, "DTN: An Architectural Retrospective," *IEEE Journal on Selected Areas in Communications*, vol. 26, no. 5, pp. 828-836, Jun. 2008. doi: 10.1109/JSAC.2008.080608
+
+> Retrospective on the DTN architecture five years after its introduction, analyzing which design decisions stood the test of time and which evolved. Discusses the store-and-forward paradigm's robustness in the face of partitioned networks, the role of custody transfer in providing delivery guarantees, and the importance of late-binding for heterogeneous link environments — all principles embedded in AETHERIX's forwarding engine.
+
+## Priority Queuing in DTN
+
+[68] N. Bezirgiannidis, S. Burleigh, and V. Tsaoussidis, "Delivery Time Estimation for Space Bundle Protocols," in *Proc. 7th ACM Workshop on Performance Monitoring and Measurement of Heterogeneous Wireless and Wired Networks*, 2012, pp. 47-54.
+
+> Presents delivery time estimation techniques for DTN bundles with different priority classes. Demonstrates that priority-aware scheduling at custodian nodes significantly improves on-time delivery for expedited traffic without starving bulk transfers. AETHERIX's policy engine implements priority-based queuing derived from this work, ensuring P0 (emergency) bundles always preempt lower-priority traffic in bounded-size buffers.
+
 ## Additional DTN References
 
 [61] I. F. Akyildiz, O. B. Akan, C. Chen, J. Fang, and W. Su, "InterPlaNetary Internet: State-of-the-Art and Research Challenges," *Computer Networks*, vol. 43, no. 2, pp. 75-112, Oct. 2003.

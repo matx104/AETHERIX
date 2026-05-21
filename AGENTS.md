@@ -143,14 +143,15 @@ The project follows these standards:
 
 ## Implemented Modules
 
-### Infrastructure (`src/infrastructure/link_budget.py`)
-Full implementation of optical link budget calculations:
-- `OpticalLinkBudget` - dataclass for link budget results
-- `LinkBudgetCalculator` - calculates free-space loss, EIRP, received power, link margin
-- `calculate_mars_earth_link(scenario)` - convenience method for "minimum", "average", "maximum" scenarios
+### Infrastructure (`src/infrastructure/`)
+- **`link_budget.py`**: Optical link budget calculations
+  - `OpticalLinkBudget` - dataclass for link budget results
+  - `LinkBudgetCalculator` - calculates free-space loss, EIRP, received power, link margin
+  - `calculate_mars_earth_link(scenario)` - convenience method for "minimum", "average", "maximum" scenarios
+- **`rf_link_budget.py`**: RF link budget calculator
+  - Ka/X/S/UHF bands, CCSDS 401.0-B-30 compliant
 
 ### Routing (`src/routing/`)
-Demo-level implementations:
 - **`rl_agent.py`**: Q-learning based routing agent
   - `RLRoutingAgent` - epsilon-greedy policy with Q-table
   - `NetworkState` - state representation (node, neighbors, link quality, buffer)
@@ -160,30 +161,50 @@ Demo-level implementations:
   - `Bundle` - full bundle with primary block, lifetime, custody tracking
   - `EndpointID` - DTN endpoint identifiers (scheme://node/service)
   - `BundlePriority` - 5 priority levels (EMERGENCY to BULK)
+- **`node.py`**: DTN node model
+  - `NodeType`, `NodeCapabilities`, `DTNNode` with buffer management
+- **`contact_graph.py`**: Contact graph with BFS pathfinding
+- **`forwarding_engine.py`**: Full store-and-forward engine
+  - `BundleQueue` priority queue, custody transfer
+- **`ltp.py`**: Licklider Transmission Protocol (RFC 5326)
+  - Segmentation, retransmission, reports
+- **`tcpcl.py`**: TCP Convergence Layer (RFC 7242)
+  - Session management for Earth segment
+- **`udp_cl.py`**: UDP Convergence Layer
+  - Optical ISL fragmentation with loss simulation
+- **`training.py`**: RL training loop
+  - `ExperienceReplay`, `TrainingEnvironment`, convergence detection
+- **`multi_agent.py`**: Multi-agent federated learning
+  - Q-table aggregation
 
-### Security (`src/security/qkd.py`)
-QKD protocol simulations:
-- `BB84Protocol` - Bennett-Brassard 1984 protocol with QBER detection
-- `E91Protocol` - Entanglement-based protocol (Ekert 1991)
-- `QuantumRepeater` - entanglement swapping for extended range
-- Security threshold: QBER < 11% indicates no eavesdropper
+### Security (`src/security/`)
+- **`qkd.py`**: QKD protocol simulations
+  - `BB84Protocol` - Bennett-Brassard 1984 protocol with QBER detection
+  - `E91Protocol` - Entanglement-based protocol (Ekert 1991)
+  - `QuantumRepeater` - entanglement swapping for extended range
+  - Security threshold: QBER < 11% indicates no eavesdropper
+- **`repeater_chain.py`**: Multi-hop quantum repeater chain with entanglement purification
+- **`privacy_amplification.py`**: CASCADE reconciliation, universal hashing, Csiszár-Körner bound
 
-### Orbital (`src/orbital/contact_windows.py`)
-Orbital mechanics calculations:
-- `calculate_earth_mars_distance()` - distance from true anomaly
-- `calculate_light_time()` - one-way light delay
-- `predict_contact_windows()` - communication opportunity prediction
-- `get_distance_timeline()` - synodic period distance variation
-- Handles solar conjunction blackouts
+### Orbital (`src/orbital/`)
+- **`contact_windows.py`**: Orbital mechanics calculations
+  - `calculate_earth_mars_distance()` - distance from true anomaly
+  - `calculate_light_time()` - one-way light delay
+  - `predict_contact_windows()` - communication opportunity prediction
+  - `get_distance_timeline()` - synodic period distance variation
+  - Handles solar conjunction blackouts
+- **`bodies.py`**: Celestial body database (Sun, Earth, Mars, Moon) with orbital velocities
+- **`doppler.py`**: Classical and relativistic Doppler shift calculations
+- **`topology.py`**: Full 5-tier network topology (241 nodes) with inter-tier links and BFS routing
+
+### Simulation (`src/simulation/`)
+- **`simulator.py`**: Full simulation engine integrating topology, forwarding, bundle generation
+- **`policy_engine.py`**: Policy-based routing engine with 5 default policies
 
 ## Development Notes
 
 ### Test Coverage
-Currently only `tests/test_link_budget.py` exists. Tests needed for:
-- RL routing agent
-- QKD protocols
-- Orbital mechanics
-- Bundle protocol
+149 tests across 10 test files (test_link_budget, test_rl_agent, test_qkd, test_orbital, test_bundle, test_topology, test_forwarding, test_training, test_quantum_extended, test_policy_engine)
 
 ### Production Upgrades Needed
 The current implementations are demo-level. Production would require:

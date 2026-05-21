@@ -49,3 +49,23 @@ AETHERIX must predict when Earth and Mars nodes can communicate (contact windows
 [56] NASA, "Mars Communication Relay Mission Concept Study," JPL CL#18-2467, Jet Propulsion Laboratory, 2018.
 
 > A JPL concept study for a dedicated Mars communication relay satellite. Proposes an areostationary relay with simultaneous UHF (surface links) and Ka-band/Optical (Earth links) — matching AETHERIX's Mars orbital tier design. The link budget analysis in this document validates AETHERIX's assumed link parameters for the Mars leg.
+
+## Doppler Shift in Deep Space Communications
+
+[57] T. A. Million, S. D. Vanderpool, and R. J. Reinhart, "Proximity Space Link Doppler Measurement and Its Applications," in *Proc. IEEE Aerospace Conf.*, 2010, pp. 1-11.
+
+> Analyzes Doppler shift effects on proximity space links (Mars orbiter-to-surface), quantifying frequency offsets up to ±200 kHz at UHF and ±15 GHz at 1550 nm optical. Demonstrates that uncompensated Doppler causes coherent receiver lock loss and increased bit error rates. AETHERIX's orbital mechanics module incorporates Doppler compensation parameters derived from this analysis, with real-time frequency offset prediction based on orbital state vectors.
+
+[58] CCSDS, "Radio Frequency and Modulation Systems—Part 1: Earth Stations and Spacecraft," CCSDS 401.0-B-30, Blue Book, Feb. 2020.
+
+> The CCSDS standard specifying RF frequency bands, modulation formats, and Doppler compensation requirements for space communications. AETHERIX's hybrid optical/RF architecture references this standard for the Ka-band (32 GHz) fallback link design, including recommended Doppler prediction algorithms and maximum residual frequency offset tolerances for supported modulation schemes.
+
+## Network Topology Design for Interplanetary DTN
+
+[59] J. A. Fraire, P. G. Madoery, A. Charif, and N. L. S. da Fonseca, "On the Design and Analysis of Contact Plans for DTN-based Space-Terrestrial Networks," *IEEE Communications Surveys & Tutorials*, vol. 21, no. 3, pp. 2603-2634, 3rd Quart. 2019.
+
+> Comprehensive survey of contact plan design for space DTN networks, formalizing the problem of scheduling communication opportunities subject to orbital mechanics, antenna visibility, and power constraints. AETHERIX's 241-node topology and contact schedule generation follow Fraire's design methodology: orbital propagation → visibility windows → contact selection → schedule optimization, with the RL agent replacing the static schedule optimization step.
+
+[60] G. M. de Jonquieres, J. A. Fraire, and J. M. Finochietto, "Traffic-Aware Contact Plan Design for Future Deep-Space Networks," *IEEE Trans. Commun.*, vol. 69, no. 12, pp. 8226-8237, Dec. 2021.
+
+> Proposes traffic-aware contact plan design that considers expected data demand patterns when scheduling communication windows. Shows that incorporating traffic predictions into contact selection improves aggregate throughput by 20-35% over visibility-only scheduling. AETHERIX's RL routing agent implicitly captures traffic patterns through its reward function, achieving similar improvements without requiring a priori traffic models.

@@ -19,13 +19,13 @@
 
 ## The Solution: AETHERIX Architecture
 
-### Five-Tier Network (232 nodes)
+### Five-Tier Network (241 nodes)
 
 1. **Earth Ground** (6 nodes) — DSN stations: Goldstone, Madrid, Canberra + control centers
 2. **Earth Orbital** (51 nodes) — 3 GEO relays + 48 LEO laser satellites
-3. **Deep Space Transit** (4 nodes) — Lagrange point relays (ES-L4, ES-L5) + transfer orbit sats
-4. **Mars Orbital** (4 nodes) — 2 areostationary + 2 polar orbiters
-5. **Mars Surface** (167 nodes) — Bases, rovers, drones, sensor networks
+3. **Deep Space Transit** (8 nodes) — Lagrange point relays (ES-L4, ES-L5) + transfer orbit sats + quantum repeaters
+4. **Mars Orbital** (6 nodes) — 2 areostationary + 2 polar orbiters + 2 relay comsats
+5. **Mars Surface** (170 nodes) — Bases, rovers, drones, sensor networks
 
 ### Core Technologies
 
@@ -75,17 +75,30 @@
 
 ## Implementation Status
 
-| Component | Location | Lines | Status |
-|-----------|----------|:-----:|--------|
-| Optical Link Budget Calculator | `src/infrastructure/link_budget.py` | 395 | Complete |
-| RL Routing Agent (Q-learning) | `src/routing/rl_agent.py` | ~300 | Demo |
-| BPv7 Bundle Protocol Structures | `src/routing/bundle.py` | ~250 | Demo |
-| BB84/E91 QKD Simulation | `src/security/qkd.py` | ~350 | Demo |
-| Orbital Mechanics / Contact Windows | `src/orbital/contact_windows.py` | ~300 | Demo |
-| Interactive Web Platform | `docs/` (static SPA) | ~2000+ | Live |
-| Test Suite | `tests/` | Ongoing | In progress |
+| Component | Location | Status |
+|-----------|----------|--------|
+| Optical Link Budget Calculator | `src/infrastructure/` | Complete |
+| Hybrid Optical/RF Link Model | `src/infrastructure/` | Complete |
+| Simulation Framework | `src/simulation/` | Complete |
+| RL Routing Agent (Q-learning) | `src/routing/` | Complete |
+| BPv7 Forwarding Engine (BFS fallback) | `src/routing/` | Complete |
+| LTP Convergence Layer | `src/routing/` | Complete |
+| Policy Engine | `src/routing/` | Complete |
+| BB84/E91 QKD Simulation | `src/security/` | Complete |
+| Quantum Repeater Chains | `src/security/` | Complete |
+| Privacy Amplification (Toeplitz) | `src/security/` | Complete |
+| CASCADE Error Correction | `src/security/` | Complete |
+| Orbital Mechanics / Contact Windows | `src/orbital/` | Complete |
+| Topology Generator (241 nodes) | `src/orbital/` | Complete |
+| Training Pipeline | `src/simulation/` | Complete |
+| Multi-Agent Federation | `src/simulation/` | Complete |
+| Scenario Runner | `src/simulation/` | Complete |
+| Interactive Web Platform | `docs/` | Live |
+| Test Suite (149 tests) | `tests/` | Complete |
 
-## References (64 total, IEEE format)
+**18 source modules | 149 tests | 241-node topology | Live web platform**
+
+## References (70+ total, IEEE format)
 
 Full list in `references/REFERENCES.md` — foundational papers include:
 
@@ -97,4 +110,4 @@ Full list in `references/REFERENCES.md` — foundational papers include:
 
 ---
 
-*64 academic references | 6 interactive demos | Live web platform | Docker-ready*
+*70+ academic references | 18 source modules | 149 tests | 6 interactive demos | Live web platform | Docker-ready*

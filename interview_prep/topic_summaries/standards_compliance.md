@@ -111,3 +111,149 @@ Three reasons. First, the algorithms are NIST standards (FIPS 203/204, published
 ### Q5. "If you had to demonstrate compliance to a CCSDS panel, what would you show?"
 
 I would present four artefacts: (1) The BPv7 implementation in `src/routing/bundle.py` showing CBOR-encoded primary blocks, correct processing flags (0x01–0x40 per RFC 9171 §4.2.1), and LNIS v5 compliant endpoint IDs per CCSDS 142.0-B-2. (2) The LTP convergence layer usage showing red/green segment handling per RFC 5326. (3) The link budget methodology in `src/infrastructure/link_budget.py` following CCSDS 141.0-B-1's FSPL, EIRP, and margin calculation approach. (4) The five-tier DTN architecture consistent with CCSDS 734.2-B-1's region and convergence layer model. Each of these has traceability from the source code to the specific section of the standard.
+
+## RFC 5326 (LTP) — Implementation Details
+
+AETHERIX's LTP convergence layer implementation follows RFC 5326 with these specific details:
+
+### Segment Types and Encoding
+
+| Segment Type | Code | Direction | Purpose |
+|-------------|------|-----------|---------|
+| LTP Data Segment | 0 | Sender → Receiver | Carries red or green data |
+| LTP Report Segment | 1 | Receiver → Sender | ACKs received data bounds |
+| LTP Report ACK | 2 | Sender → Receiver | Acknowledges RS receipt |
+| LTP Checkpoint | 3 | Sender → Receiver | Marks end of red data block |
+| LTP Checkpoint ACK | 4 | Receiver → Sender | Acknowledges checkpoint |
+
+Each segment header contains: Session ID (originator Engine-ID + session number), Report Serial Number (for RS tracking), and data bounds (client service ID, offset, length).
+
+### Red/Green Segment Handling
+
+```
+LTP Session:
+  [Red-0][Red-1]...[Red-N][Checkpoint] → [Report Segment (ACK)] → [Retransmit gaps if any]
+  [Green-0][Green-1]...[Green-M] → (no ACK expected)
+```
+
+Implementation rules:
+- Red data blocks are transmitted with an incrementing offset counter. The final red segment sets the checkpoint flag.
+- The receiver tracks received data bounds in a reception claim list. Gaps in this list trigger retransmission requests.
+- Green segments are transmitted after all red segments for a given session. Green data that arrives corrupted is simply discarded.
+- Session timeout: set to `2 × OWLT + processing_margin`. For AETHERIX, this ranges from 6 minutes (opposition) to 45 minutes (aphelion).
+
+### LTP and BPv7 Integration
+
+In AETHERIX, the LTP convergence layer adapter (`CLA_LTP`) sits between the bundle layer and the link-layer transport:
+
+```
+Bundle Layer → CLA_LTP.segment(bundle) → LTP Session → RF/Optical Link
+LTP Session → CLA_LTP.reassemble() → Bundle Layer
+```
+
+The CLA_LTP maps bundle priority to LTP segment type:
+- P0/P1: Entire bundle as red data (reliable delivery).
+- P2: Bundle header (primary block) as red, payload as green.
+- P3/P4: Entire bundle as green data (best-effort).
+
+### Flow Control
+
+LTP does not have explicit flow control. AETHERIX implements an implicit mechanism: the LTP sender tracks the number of unacknowledged red bytes. If unacknowledged bytes exceed `2 × link_bandwidth × OWLT` (the bandwidth-delay product), the sender pauses transmission of new red data until reports arrive. This prevents buffer overflow at the receiver.
+
+## RFC 7242 / RFC 9174 (TCPCL) — Implementation Details
+
+TCPCL v4 (RFC 9174, obsoletes RFC 7242) is used for all terrestrial Earth-segment links in AETHERIX:
+
+### TCPCL Session Establishment
+
+1. **TCP connection**: Standard TCP three-way handshake between DSN station and MOC.
+2. **TCPCL Contact Header**: Both ends exchange a contact header containing: version (4), header flags, local IANA-assigned Node-ID, and keep-alive interval (30 seconds default).
+3. **Session Parameters**: Negotiated during contact — segment MRU (Maximum Receive Unit), transfer ID range, extension items.
+
+### Bundle Transfer Protocol
+
+Each bundle transfer over TCPCL uses this framing:
+
+```
+[Message Type: XFER_SEGMENT (0x01)]
+[Transfer ID: uint64]
+[Flags: START (0x01) | END (0x02) | ACK (0x04)]
+[Length: uint64]
+[Payload: bytes]
+```
+
+- Large bundles are split into multiple XFER_SEGMENT messages with incrementing offsets.
+- The final segment has the END flag set.
+- The receiver sends XFER_ACK for each received segment, enabling the sender to release buffer memory progressively.
+- If the TCP connection drops mid-transfer, TCPCL supports resumption: the sender re-connects, identifies the last acknowledged Transfer ID, and resumes from that offset.
+
+### TCPCL in AETHERIX
+
+| Link | TCPCL Configuration |
+|------|-------------------|
+| DSN ↔ MOC | Persistent connection, 10 Gbps, keep-alive 30s, MRU 65535 bytes |
+| MOC ↔ Archive | Persistent connection, 1 Gbps, keep-alive 60s |
+| DSN ↔ DSN (via LEO mesh) | TCPCL over the LEO optical ISL, 1 Gbps, MRU 65535 |
+
+TCPCL is not used for any space link — only for terrestrial infrastructure where TCP's congestion control and reliability are appropriate.
+
+## Full CCSDS Compliance Across All Modules
+
+AETHERIX maps each implemented module to the relevant CCSDS standard:
+
+### Module-to-Standard Traceability
+
+| AETHERIX Module | CCSDS Standard | Compliance Points |
+|----------------|---------------|-------------------|
+| `src/routing/bundle.py` | CCSDS 735.1-B-1 (BP) | CBOR primary block, processing flags 0x01–0x40, endpoint ID format, lifetime handling |
+| `src/routing/bundle.py` | RFC 9171 (BPv7) | Bundle creation timestamp (dtn: creation timestamp + sequence number), fragmentation (IS_FRAGMENT flag 0x01), custody transfer (CUSTODY_REQUESTED 0x08) |
+| `src/infrastructure/link_budget.py` | CCSDS 141.0-B-1 (Optical) | FSPL calculation methodology, EIRP definition, atmospheric attenuation model, link margin definition |
+| `src/infrastructure/link_budget.py` | CCSDS 142.0-B-2 (LNIS v5) | Node identification scheme, hierarchical EID namespace |
+| `src/routing/rl_agent.py` | CCSDS 734.2-B-1 (DTN Architecture) | Region model, convergence layer abstraction, administrative records |
+| `src/security/qkd.py` | ETSI TS 103 645/724 | QBER threshold (11%), protocol specification (BB84/E91), security parameter tracking |
+| `src/security/qkd.py` | FIPS 203 (ML-KEM) | Key encapsulation fallback mechanism |
+| `src/security/qkd.py` | FIPS 204 (ML-DSA) | Bundle authentication signatures |
+| `src/orbital/contact_windows.py` | CCSDS 502.0-B-3 (Orbital Data) | SGP4/SDP4 propagation, TLE-based orbit determination |
+
+### CCSDS 734.2-B-1 Compliance (DTN Architecture)
+
+AETHERIX's five-tier topology directly maps to the CCSDS DTN architecture:
+
+- **Regions**: Each tier is a DTN region with distinct convergence layers. T1↔T2 uses TCPCL; T2↔T3 uses LTP; T3↔T4 uses LTP; T4↔T5 uses LTP/UDP-CL.
+- **Bundle layer**: Sits above CLAs, below application layer, as specified in §2.1.
+- **Administrative records**: Bundle status reports, custody signals, and custodian signals follow the CCSDS encoding.
+- **Security**: BPSec (RFC 9172) block integrity and confidentiality are planned for the production upgrade.
+
+### CCSDS 735.1-B-1 Compliance (Bundle Protocol)
+
+Specific compliance points in `src/routing/bundle.py`:
+
+| Requirement | Section | AETHERIX Implementation |
+|------------|---------|------------------------|
+| CBOR-encoded primary block | §4.2.1 | `Bundle` class encodes source/destination EID, creation timestamp, lifetime, hop count as CBOR |
+| Processing control flags | §4.2.3 | Flags 0x01 (IS_FRAGMENT) through 0x40 fully implemented |
+| Endpoint ID format | §4.2.5 | `dtn://node/service` scheme with LNIS v5 hierarchical naming |
+| Bundle lifetime | §4.2.6 | Lifetime in seconds from creation; expired bundles discarded with status report |
+| Fragment reassembly | §4.5 | Fragments reassembled at destination using offset and total-length fields |
+| Custody transfer | §4.4 | Custody requested/accepted/ refused administrative records |
+
+### CCSDS 141.0-B-1 Compliance (Optical Communications)
+
+Link budget compliance in `src/infrastructure/link_budget.py`:
+
+| Requirement | AETHERIX Implementation |
+|------------|------------------------|
+| FSPL formula | `FSPL = 20·log₁₀(4πd/λ)` — exactly matches CCSDS 141.0-B-1 §3.2 |
+| EIRP calculation | `EIRP = P_tx + G_tx` (dBm + dBi) — matches §3.3 |
+| Atmospheric attenuation | Site-specific model with 3–10 dB clear-sky + scintillation — matches §3.4 |
+| Pointing loss | 3 dB conservative allocation — matches §3.5 |
+| Receiver sensitivity | Based on photon-counting detector NEP — matches §3.6 |
+| Link margin | `Margin = P_received − P_sensitivity` — matches §3.7 |
+
+### Compliance Gaps (Acknowledged)
+
+AETHERIX does **not** claim full compliance in these areas:
+- **BPSec (RFC 9172)**: Not yet implemented. Bundle integrity and confidentiality blocks are planned.
+- **LTP security (LTPLS)**: Not implemented. The LTP authentication mechanism defined in RFC 5326 §13 is deferred to the production upgrade.
+- **CCSDS File Delivery Protocol (CFDP)**: Not implemented. AETHERIX uses raw BPv7 bundles rather than CFDP over BPv7.
+- **SLE (Space Link Extension)**: Not implemented. Direct DSN integration would require SLE service instances (RAF, RCF, FCLTU).

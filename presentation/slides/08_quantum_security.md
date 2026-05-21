@@ -30,6 +30,8 @@ Alice                                          Bob
   │  QBER < 11% → SECURE                         │
   │  QBER ≥ 11% → ABORT (eavesdropper detected)  │
   │                                              │
+  │  ── Error reconciliation (CASCADE) ──────────►│
+  │                                              │
   │  ── Privacy amplification ──────────────────► │
   │                                              │
   │     ← Final shared secret key →              │
@@ -44,26 +46,51 @@ Alice                                          Bob
 5. **Correlated measurements** become shared key
 6. Any eavesdropping **breaks entanglement** (detected via Bell test)
 
+### Full Post-Processing Pipeline — Implemented
+
+| Stage | Algorithm | Purpose |
+|-------|-----------|---------|
+| **Sifting** | Basis reconciliation | Discard mismatched measurement bases (~50% retained) |
+| **Error reconciliation** | CASCADE protocol | Correct bit errors without leaking key information |
+| **Privacy amplification** | Csiszár-Körner bound | Compress key to eliminate any eavesdropper knowledge |
+| **Authentication** | Classical MAC | Prevent man-in-the-middle on classical channel |
+
+#### CASCADE Error Reconciliation
+
+- **Binary + parity-check based** — Corrects errors in sifted key bit-by-bit
+- **Multi-pass** — Iterates until error rate drops below threshold
+- **Information leakage tracked** — Revealed parity bits accounted for in privacy amplification
+
+#### Privacy Amplification (Csiszár-Körner)
+
+- **Universal hash functions** — Randomly selected compression function
+- **Compression ratio** — Determined by Csiszár-Körner bound: l = n − leak − δ
+- **Security parameter δ** — Exponentially small probability of eavesdropper knowledge
+- **Result** — Final key is information-theoretically secure
+
+### Multi-Hop Quantum Repeater Chains — Implemented
+
+```
+Earth ◄──► ES-L4 ◄──► ES-L5 ◄──► Mars
+  Repeater    Repeater    Repeater
+  Chain 1     Chain 2     Chain 3
+```
+
+| Feature | Implementation |
+|---------|---------------|
+| **Entanglement swapping** | Multi-hop Bell state measurement at each repeater |
+| **Purification** | Fidelity improvement using multiple noisy entangled pairs |
+| **Nesting** | Hierarchical swapping for arbitrary distances |
+| **Fidelity tracking** | Per-link and end-to-end entanglement fidelity monitored |
+| **Threshold management** | Minimum fidelity per hop before accepting swap |
+
 ### AETHERIX Quantum Deployment Roadmap
 
 | Phase | Link Segment | Protocol | Range | Key Rate | Status |
 |-------|-------------|----------|-------|----------|--------|
 | 1 | Earth ↔ LEO | BB84 | < 2,000 km | 1-10 kbps | Demonstrated (Micius satellite) |
 | 2 | Earth ↔ GEO | BB84/E91 | ~36,000 km | 100-1000 bps | In development |
-| 3 | Earth ↔ Mars | E91 + Repeaters | 54-401 M km | 1-10 bps | Future (AETHERIX proposal) |
-
-### Quantum Repeaters at Lagrange Points
-
-```
-Earth ←── Entangled Photons ──→ ES-L4 ←── Entanglement Swapping ──→ ES-L5 ←── Entangled Photons ──→ Mars
-                                    ↑                                       ↑
-                              Quantum Repeater                       Quantum Repeater
-```
-
-- **Problem**: Photon loss limits direct QKD to ~500 km
-- **Solution**: Quantum repeaters perform entanglement swapping
-- **Locations**: ES-L4 and ES-L5 (stable Lagrange points, 60° from Earth)
-- **Result**: End-to-end entanglement across 225 M km
+| 3 | Earth ↔ Mars | E91 + Multi-hop Repeaters | 54-401 M km | 1-10 bps | **Simulated (AETHERIX)** |
 
 ### Security Threshold
 

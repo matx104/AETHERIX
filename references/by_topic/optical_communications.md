@@ -45,6 +45,32 @@ AETHERIX uses a hybrid optical/RF communication architecture where the primary d
 
 > A focused treatment of the optical link budget equation with worked examples. Marshall's formulation of the link margin equation (received power minus required sensitivity, in dB) is the exact approach used in AETHERIX's `LinkBudgetCalculator.calculate_link_margin()` method.
 
+## Ka-Band Deep Space Link Budgets
+
+[53] J. Taylor, D. K. Lee, and S. Shambayati, "Mars Reconnaissance Orbiter Telecommunications," in *The Deep Space Network*, 2006, Article 6.
+
+> Describes MRO's Ka-band (32 GHz) link design and in-flight performance, achieving 6 Mbps downlink at Mars distances with 34-meter DSN antennas. Provides real-world Ka-band link margin data and atmospheric attenuation measurements that AETHERIX uses to validate its RF fallback link budget model against operational results.
+
+[54] S. Shambayati, "Ka-Band Telemetry Operations on the Mars Reconnaissance Orbiter: A Year in Review," in *Proc. IEEE Aerospace Conf.*, 2008, pp. 1-11.
+
+> Summarizes one year of Ka-band telemetry operations from MRO, including seasonal atmospheric effects, rain attenuation statistics at DSN sites, and link availability analysis. The Ka-band availability data (75-85% per pass) informs AETHERIX's hybrid link availability model, where optical achieves higher throughput but Ka-band provides more consistent availability during adverse weather.
+
+## Hybrid Optical/RF Systems
+
+[55] A. Biswas, M. W. Wright, D. Boroson, and N. Page, "Link and System Design for a Lunar-Backbone Network Supporting Both Optical and RF Links," *Proc. SPIE*, vol. 10524, p. 105240G, Feb. 2018.
+
+> Proposes a hybrid optical/RF architecture for lunar communications where the optical link provides high-rate data transfer and the RF link provides robust telemetry, tracking, and command during optical outages. The link switching and failover design directly informs AETHERIX's hybrid architecture: optical primary for data, Ka-band RF for command and control with automatic failover during cloud cover, pointing loss, or conjunction events.
+
+[56] H. Hemmati, "Hybrid RF/Optical Communications for Deep Space," in *Proc. IEEE Aerospace Conf.*, 2006, pp. 1-8.
+
+> Early advocacy for hybrid RF/optical deep-space links, arguing that the complementary strengths (optical = high rate, RF = high availability) make a combined system more robust than either alone. AETHERIX adopts Hemmati's recommended configuration: simultaneous optical and Ka-band RF transceivers on deep-space relay platforms, with the RF link providing a low-rate (~1 Mbps) always-on command channel.
+
+## RF Link Design
+
+[57] CCSDS, "Radio Frequency and Modulation Systems—Part 1: Earth Stations and Spacecraft," CCSDS 401.0-B-30, Blue Book, Feb. 2020.
+
+> Defines RF frequency band allocations, modulation formats (QPSK, 8-PSK), coding schemes (concatenated Reed-Solomon + convolutional, LDPC), and link design parameters for CCSDS-compliant space communications. AETHERIX references this standard for Ka-band (32 GHz) RF fallback link parameters including EIRP, G/T, and required Eb/N0 for each modulation/coding combination.
+
 ## Related CCSDS Standard
 
 [49] CCSDS, "Optical Communications Physical Layer," CCSDS 141.0-B-1, Blue Book, Aug. 2019. [Online]. Available: https://public.ccsds.org/Pubs/141x0b1.pdf

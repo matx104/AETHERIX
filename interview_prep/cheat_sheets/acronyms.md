@@ -45,7 +45,7 @@ Complete A-Z list of acronyms used in the AETHERIX project and interplanetary ne
 |---------|-----------|------------|
 | **dBm** | Decibels relative to 1 milliwatt | Power measurement unit; 0 dBm = 1 mW, 37 dBm = 5 W |
 | **DILITHIUM** | see ML-DSA | Lattice-based digital signature algorithm standardised as FIPS 204 |
-| **DQN** | Deep Q-Network | RL algorithm using neural networks to approximate Q-values; planned AETHERIX upgrade |
+| **DQN** | Deep Q-Network | RL algorithm using neural networks to approximate Q-values; planned AETHERIX upgrade from Q-tables |
 | **DSN** | Deep Space Network | NASA's three-station (Goldstone, Madrid, Canberra) interplanetary communication system |
 | **DSOC** | Deep Space Optical Communications | NASA's 2023 laser communication demonstration on the Psyche spacecraft |
 | **DTN** | Delay-Tolerant Networking | Network architecture for high-delay, intermittent-connectivity environments (RFC 4838) |
@@ -109,6 +109,7 @@ Complete A-Z list of acronyms used in the AETHERIX project and interplanetary ne
 |---------|-----------|------------|
 | **KEM** | Key Encapsulation Mechanism | Asymmetric cryptographic primitive for key exchange; ML-KEM (Kyber) is the NIST standard |
 | **KYBER** | see ML-KEM | Lattice-based KEM standardised as FIPS 203; used in AETHERIX for PQC key exchange fallback |
+| **CK** | Csiszár-Körner | Theorem establishing the secrecy capacity of a wiretap channel; bounds privacy amplification compression ratio |
 
 ## L
 
@@ -194,7 +195,7 @@ Complete A-Z list of acronyms used in the AETHERIX project and interplanetary ne
 | Acronym | Expansion | Definition |
 |---------|-----------|------------|
 | **TCP** | Transmission Control Protocol | Reliable Internet transport; unsuitable for interplanetary use due to delay assumptions |
-| **TCPCL** | TCP Convergence Layer | BPv7 convergence layer adapter for TCP transport (RFC 9174); used in AETHERIX Earth segment |
+| **TCPCL** | TCP Convergence Layer | BPv7 convergence layer adapter for TCP transport (RFC 7242); used in AETHERIX Earth segment |
 | **TLE** | Two-Line Element | Orbital element format for SGP4 propagation; publicly available from Space Track |
 | **TMR** | Triple Modular Redundancy | Hardware fault tolerance: three identical circuits with majority voting |
 | **TRL** | Technology Readiness Level | NASA scale (1–9) measuring technology maturity; optical space links at TRL 7–8, RF at TRL 9 |
@@ -224,3 +225,18 @@ Complete A-Z list of acronyms used in the AETHERIX project and interplanetary ne
 |---------|-----------|------------|
 | **Z-basis** | Rectilinear (Computational) Basis | QKD measurement basis: |0⟩ and |1⟩ states |
 | **X-basis** | Diagonal (Hadamard) Basis | QKD measurement basis: |+⟩ and |−⟩ states |
+
+---
+
+## New Acronyms (Extended Capabilities)
+
+| Acronym | Expansion | Definition |
+|---------|-----------|------------|
+| **LTP** | Licklider Transmission Protocol | Deep-space convergence layer (RFC 5326) with red/green segments and link-local retransmission; implemented in AETHERIX's LTP convergence layer module |
+| **TCPCL** | TCP Convergence Layer | BPv7 convergence layer for TCP transport (RFC 7242); used for Earth-segment DSN links |
+| **UDP-CL** | UDP Convergence Layer | BPv7 convergence layer for low-overhead, high-throughput links; used for optical inter-satellite links |
+| **BFS** | Breadth-First Search | Graph traversal algorithm used in AETHERIX's forwarding engine as shortest-path fallback when RL Q-values are unavailable |
+| **CASCADE** | CASCADE Protocol | Interactive bit-level error correction protocol for QKD key reconciliation; implemented in AETHERIX's security module |
+| **CK** | Csiszár-Körner | Foundational theorem bounding the secrecy capacity of wiretap channels; used for privacy amplification parameter selection |
+| **DQN** | Deep Q-Network | RL architecture using neural network function approximation; planned upgrade from tabular Q-learning in AETHERIX |
+| **MADQN** | Multi-Agent Deep Q-Network | Multi-agent extension of DQN for distributed routing; AETHERIX's target architecture for federated RL training |

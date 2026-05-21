@@ -51,3 +51,33 @@ AETHERIX replaces static Contact Graph Routing with an RL-based routing agent th
 [37] P. Hernandez-Leal, M. Kaisers, T. Baarslag, and E. M. de Cote, "A Survey of Learning in Multiagent Environments: Dealing with Non-Stationarity," arXiv preprint arXiv:1707.09183, 2017.
 
 > Addresses the fundamental challenge in MARL: each agent's learning makes the environment non-stationary for all other agents. In AETHERIX's context, as routing policies update at individual nodes, the optimal policy for other nodes changes. Hernandez-Leal's analysis of non-stationarity mitigation strategies (experience replay stabilization, opponent modeling) will be critical for AETHERIX's production MARL implementation.
+
+## Experience Replay & Training
+
+[38] L.-J. Lin, "Self-Improving Reactive Agents Based on Determination of the Optimal Behavior: Case Studies of Reinforcement Learning," Ph.D. dissertation, University of Pittsburgh, 1992.
+
+> Introduces experience replay — storing past transitions and replaying them during training to break temporal correlations and improve sample efficiency. AETHERIX's training pipeline implements experience replay buffers at each routing agent, enabling offline training on historical contact schedules and simulated traffic patterns without requiring live network interaction.
+
+[39] S. Zhang, R. S. Sutton, and M. White, "A Deeper Look at Experience Replay," arXiv preprint arXiv:1712.01275, 2017.
+
+> Analyzes why experience replay improves deep RL stability, demonstrating that prioritized replay based on TD-error magnitude accelerates convergence. AETHERIX's federated training module uses prioritized experience replay to focus learning on routing decisions with the highest prediction error — typically involving conjunction blackouts and link failures where the current Q-table is least accurate.
+
+## Federated Reinforcement Learning
+
+[40] X. Wang, R. Gao, and L. Jiao, "Federated Reinforcement Learning: Algorithm, Application and Opportunity," arXiv preprint arXiv:2105.10619, 2021.
+
+> Surveys federated reinforcement learning (FRL), where distributed agents train local models and periodically aggregate updates without sharing raw data. AETHERIX's multi-agent federation uses FRL to maintain routing intelligence across the 5-tier topology: each node trains on local traffic observations, then shares Q-table updates (not packet data) via federated averaging, preserving data sovereignty at each mission operations center.
+
+[41] B. McMahan, E. Moore, D. Ramage, S. Hampson, and B. Aguera y Arcas, "Communication-Efficient Learning of Deep Networks from Decentralized Data," in *Proc. 20th Int. Conf. Artificial Intelligence and Statistics (AISTATS)*, 2017, pp. 1273-1282.
+
+> Introduces Federated Averaging (FedAvg), the foundational algorithm for federated learning. AETHERIX adapts FedAvg for Q-table aggregation: each node performs k episodes of local Q-learning, then transmits its Q-table delta to a central aggregator (e.g., at a Lagrange relay) which computes a weighted average. The communication cost is bounded by the state-action space size, making it feasible over deep-space links with limited contact windows.
+
+## Multi-Agent Q-Learning & Convergence
+
+[42] J. Hu and M. P. Wellman, "Multiagent Reinforcement Learning: Theoretical Framework and an Algorithm," in *Proc. 15th Int. Conf. Machine Learning (ICML)*, 1998, pp. 242-250.
+
+> Introduces Nash Q-learning, extending Q-learning to multi-agent settings where each agent maintains Q-functions over joint actions. Proves convergence to a Nash equilibrium under specific exploration conditions. AETHERIX's multi-agent routing uses a simplified cooperative variant where agents share action observations, converging faster than fully independent Q-learning at the cost of modest communication overhead.
+
+[43] C. J. C. H. Watkins and P. Dayan, "Q-Learning," *Machine Learning*, vol. 8, no. 3, pp. 279-292, May 1992. doi: 10.1007/BF00992698
+
+> The original convergence proof for Q-learning, establishing that tabular Q-learning with appropriate learning rate decay converges to the optimal Q-function with probability 1. AETHERIX's routing agent relies on this guarantee in the single-agent (centralized training) setting; the multi-agent extension requires additional convergence assumptions documented in Hu & Wellman (1998). The training pipeline implements learning rate scheduling (α_t = 1/visit_count(s,a)) to satisfy Watkins & Dayan's convergence conditions.

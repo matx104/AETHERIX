@@ -107,3 +107,107 @@ Split is for multipath routing. When a large bundle (e.g., a 500 MB image mosaic
 ### Q5. "What happens to DTN bundles during a solar conjunction?"
 
 During solar conjunction (~2 weeks, every 780 days), the Sun is between Earth and Mars, causing radio interference and near-total direct-link blackout. AETHERIX handles this with a three-phase strategy: (1) Pre-position critical data T-14 days before conjunction, (2) activate Lagrange-point relays (ES-L4/ES-L5) which are 60° ahead/behind in orbit and maintain a line-of-sight around the Sun, achieving 50–70% availability versus 0% for direct links, (3) Mars-side assets operate autonomously for the conjunction period, storing data locally in their buffers (typically 64–256 GB). After conjunction, the backlog transmits during the first available contact window. Bundles with lifetime shorter than the conjunction period will expire — this is acceptable for housekeeping data (P3) but not for emergency alerts (P0), which are routed via the Lagrange path.
+
+## Forwarding Engine
+
+The AETHERIX forwarding engine is the core decision loop at every DTN node. When a bundle arrives (or is generated locally), the engine executes:
+
+1. **Destination check** — If the bundle's destination EID matches this node, deliver locally and stop.
+2. **Lifetime check** — If the bundle's remaining lifetime (creation timestamp + lifetime − current time) is ≤ 0, discard with a status report.
+3. **Hop-count check** — Decrement the hop-count limit. If zero, discard with status report.
+4. **Policy lookup** — Consult the routing policy engine for forwarding constraints (priority gates, energy budget, congestion thresholds).
+5. **Next-hop selection** — The RL agent (or CGR fallback) selects the next hop from available neighbors.
+6. **Convergence-layer dispatch** — Hand the bundle to the appropriate CLA (LTP, TCPCL, or UDP-CL) for the selected link.
+7. **Custody handling** — If `CUSTODY_REQUESTED` is set and the next node returns a custody-acceptance signal, release local buffer. Otherwise, retain until custody is confirmed or lifetime expires.
+
+The engine runs as a non-blocking event loop: bundle arrivals, contact-window openings, custody timeouts, and RL decisions are all events processed in priority order.
+
+## Priority Queue (5 Levels)
+
+Each node maintains five outbound queues, one per priority level. The scheduler drains them in strict priority order:
+
+| Queue | Level | Scheduling Policy | Buffer Share |
+|-------|-------|-------------------|--------------|
+| Q0 | Emergency | Pre-emptive — interrupts any lower-priority transmission | 5% guaranteed |
+| Q1 | High Science | Pre-emptive over Q2–Q4 | 15% guaranteed |
+| Q2 | Standard | Round-robin within class, no pre-emption | 40% guaranteed |
+| Q3 | Housekeeping | Opportunistic — uses remaining capacity | 25% guaranteed |
+| Q4 | Bulk | Best-effort — fills idle gaps | 15% guaranteed |
+
+Buffer overflow handling: when a node's total buffer exceeds 90% capacity, the agent applies a tail-drop policy starting from Q4 upward. P0 and P1 queues are protected — they are never dropped due to congestion. If the buffer reaches 100%, P2 bundles are selectively expired (oldest lifetime first) before touching P0/P1.
+
+## Custody Transfer (Detailed)
+
+Custody transfer in AETHERIX follows RFC 9171 §4.3 and CCSDS 734.2-B-1:
+
+- **Custody Request**: The source sets `CUSTODY_REQUESTED` (flag 0x08) in the bundle's processing control flags.
+- **Custody Acceptance**: The receiving node returns a Custody Acceptance administrative record. This is a BPv7 administrative bundle (type 0x01) containing the original bundle's source EID, creation timestamp, and a custody-acceptance status code.
+- **Custody Refusal**: If the receiver's buffer is full or the bundle fails validation, it returns a Custody Refusal with a reason code (buffer full, lifetime expired, unsupported block type). The sender must then select an alternate next-hop or store the bundle.
+- **Custody Release**: Once the current custodian receives a Custody Acceptance from the next downstream node, it may safely delete the bundle from its persistent store.
+- **Retransmission Timer**: If no Custody Acceptance is received within `min(remaining_lifetime / 2, contact_window_end)` seconds, the custodian retransmits the bundle on the next available contact.
+
+## LTP — Licklider Transmission Protocol (RFC 5326)
+
+LTP is AETHERIX's convergence layer for every deep-space hop (Mars orbital ↔ Lagrange ↔ Earth orbital). Key implementation details:
+
+### Red/Green Segment Model
+
+An LTP session carries one or more data blocks. Each block is segmented:
+
+- **Red segments**: Reliable delivery. The sender transmits all red segments, then a checkpoint segment. The receiver replies with a Report Segment (RS) listing which data offsets were received. Missing offsets are retransmitted. This repeats until all red data is acknowledged.
+- **Green segments**: Best-effort delivery. Sent once with no acknowledgement. Green segments may follow red segments in the same session — the green data arrives only if the channel was clean.
+
+In AETHERIX, the bundle's priority class determines the segment type:
+- P0/P1 bundles → all red segments (guaranteed delivery).
+- P2 bundles → metadata block red (for custody), payload block green (retransmit not worth the bandwidth).
+- P3/P4 bundles → all green segments.
+
+### LTP Session Lifecycle
+
+1. **Session open**: Sender creates a session with a unique session ID (originator Engine-ID + session number).
+2. **Data transmission**: Red data segments sent in order; green data segments follow.
+3. **Checkpoint**: The last red segment is marked as a checkpoint, triggering the receiver's RS.
+4. **Report reception**: Sender receives RS. If all data acknowledged, session closes. Otherwise, retransmit missing data and issue a new checkpoint.
+5. **Session close**: After all red data is acknowledged, the sender transmits a session-end marker.
+
+Timer values are critical: LTP's retransmission timer must be set to at least the one-way light time plus processing margin. For AETHERIX deep-space hops, this ranges from 3 minutes (opposition) to 22 minutes (aphelion).
+
+## TCPCL — TCP Convergence Layer (RFC 9174 / RFC 7242)
+
+TCPCL v4 (RFC 9174, which obsoletes RFC 7242) is used for all Earth-segment hops where TCP provides reliable, low-latency transport:
+
+- **DSN station → Mission Operations Center (MOC)**: 1–10 Gbps terrestrial links, <10 ms RTT.
+- **Intra-DSN transfers**: Goldstone ↔ Madrid ↔ Canberra via the LEO laser mesh or terrestrial fibre.
+- **MOC → data archive**: Science data pipeline ingestion.
+
+TCPCL features used in AETHERIX:
+- **Bundle transfer ID**: Each bundle transfer is tracked with a unique ID for acknowledgement.
+- **Bundle segmentation**: Large bundles can be split into TCPCL segments for transmission, reassembled at the receiver.
+- **Length-prefixed framing**: Each TCPCL data frame carries a length field, enabling multiplexing over a single TCP connection.
+- **Keep-alive**: Periodic keep-alive messages detect connection failure within seconds (appropriate for terrestrial RTT).
+
+## UDP-CL for Optical Inter-Satellite Links
+
+The LEO laser mesh (48 satellites, 1–10 Gbps ISL) uses UDP-CL for minimum overhead:
+
+- No retransmission — the ISL links have very low BER (<10⁻⁹) and short propagation delays (<5 ms intra-plane).
+- Bundle-level CRC32 detects corruption; corrupted bundles are dropped and retransmitted end-to-end via custody transfer.
+- Rate control is implicit: the ISL bandwidth is known and stable, so bundles are transmitted at line rate.
+- Jumbo frames (MTU 9000 bytes) reduce per-bundle framing overhead.
+
+## Contact Graph with BFS Pathfinding
+
+AETHERIX maintains a contact graph for the CGR fallback path. The graph is constructed from predicted contact windows:
+
+1. **Vertices**: Each contact window is a vertex: `(from_node, to_node, start_time, end_time, data_rate)`.
+2. **Edges**: An edge connects vertex A to vertex B if A's `to_node` equals B's `from_node` and A's `end_time` < B's `start_time` (i.e., the bundle can traverse A and then B without waiting).
+
+BFS pathfinding from source to destination:
+- **BFS traversal** explores the contact graph in order of hop count, finding the path with the earliest delivery time.
+- **Exclusion list**: Contacts that have already ended (past) or are too short for the bundle are pruned.
+- **Volume check**: Each candidate path is checked for sufficient data volume (contact duration × data rate ≥ remaining bundle size).
+- **Fallback ranking**: If multiple paths exist, AETHERIX ranks by: (1) earliest delivery, (2) fewest hops, (3) highest minimum data rate.
+
+BFS is preferred over Dijkstra for the contact graph because the edge weights (delay) are time-dependent — a contact that opens sooner may have a later end-to-end delivery than one that opens later but has shorter subsequent hops. BFS with delivery-time tracking captures this correctly.
+
+The RL agent's output is compared against the BFS/CGR path. If the RL agent's chosen next-hop is not in the BFS candidate set, confidence is reduced, and the decision is flagged for review.

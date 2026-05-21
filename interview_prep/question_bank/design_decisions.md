@@ -149,3 +149,53 @@
 **Answer**: The Earth-Mars distance varies by a factor of 7.3× (54.6M to 401M km) over the synodic period, and the communication conditions change dramatically: data rates from 200 Mbps to 2 Mbps, light-time from 3 to 22 minutes, and the conjunction blackout around the midpoint. A 30-day window captures only a narrow slice of these conditions. An agent trained only at opposition (short delay, high bandwidth) would learn to always forward immediately — a catastrophic policy during conjunction when no direct link exists. Similarly, an agent trained only during conjunction would over-store, wasting contact windows at opposition. The full 780-day training ensures the policy is robust across all conditions.
 
 **Trade-offs**: Longer training consumes more compute. The Q-table approach mitigates this because tabular Q-learning converges faster than DQN. For the DQN upgrade, techniques like prioritised experience replay and curriculum learning (starting with easy opposition scenarios before introducing conjunction) would reduce training time.
+
+---
+
+### DD16. Why LTP over TCP for deep-space links?
+
+**Question**: TCP provides reliable delivery. Why use a less well-known protocol?
+
+**Answer**: TCP's reliability depends on end-to-end ACKs, which assume the RTT is short enough for the sender to maintain state about unacknowledged segments. At 6–44 minute RTT, a TCP sender would need to buffer millions of segments per connection, and every timeout triggers exponential backoff calibrated for millisecond networks. LTP solves this by making reliability link-local: each hop acknowledges data independently, and retransmission occurs only on the failed hop, not end-to-end. Additionally, LTP's red/green segment model allows mixing reliable and best-effort data within a single session — TCP has no equivalent. A science downlink can send the metadata block as red (reliable, for cataloguing) and the image data as green (best-effort, retransmitting a 500 MB image is wasteful). TCP would need to open two separate connections. Finally, LTP's timers default to minutes/hours (matching deep-space OWLT), while TCP's retransmission timer is derived from RTT variance and would produce pathological behaviour at interplanetary scales.
+
+**Trade-offs**: LTP requires a dedicated implementation — it is not available in standard OS network stacks. ION-DTN provides a reference implementation, but AETHERIX models LTP behaviour in simulation rather than running the full protocol stack.
+
+---
+
+### DD17. How does the priority queue handle buffer overflow?
+
+**Question**: When a node's buffer is full, how are bundles prioritised for eviction?
+
+**Answer**: AETHERIX uses a tiered eviction policy that protects high-priority data. When buffer occupancy exceeds 90%, the policy engine (POL-001) activates eviction: P4 (Bulk) bundles are expired first, starting with the oldest (earliest creation timestamp). If P4 eviction does not free enough space, P3 (Housekeeping) bundles are expired. P2 (Standard) bundles are expired only if P4 and P3 queues are empty and the buffer is still above 95%. P0 and P1 bundles are **never** evicted — they are protected by the policy engine, which rejects any DROP action targeting P0/P1. Additionally, the RL agent's reward function penalises drops heavily (δ = 10.0 for P0), so the agent learns to prevent overflow by forwarding lower-priority bundles proactively before the buffer fills. In the worst case (all queues full, no contacts available), the node sends a Custody Refusal to upstream nodes, signalling them to find alternate paths.
+
+**Trade-offs**: Strict priority protection means a burst of P0 bundles could fill the buffer and starve P2–P4 of storage. The 5%/15%/40%/25%/15% buffer share allocation prevents this — P0 can use at most 5% of the buffer plus any unallocated space.
+
+---
+
+### DD18. Why federated learning over centralized training for the RL routing agent?
+
+**Question**: Why not collect all network state at a central server and train one model?
+
+**Answer**: Centralised training requires shipping all training data (state transitions, rewards, network topology) from every node to a single location. At 3–22 minute one-way delay, this data is hours stale by the time it arrives — the trained model would be optimising for past conditions, not current ones. Federated learning keeps training local: each node trains on its own experience (local Q-table updates) and periodically shares model parameters (not raw data) with neighbours during contact windows. This produces a model that reflects each node's local view of the network while incorporating insights from other nodes. The communication cost is minimal — sharing Q-table diffs is orders of magnitude smaller than sharing all state transitions. Additionally, federated learning provides fault tolerance: if a node loses contact, it continues training locally and synchronises when the link recovers. Centralised training would stall without connectivity.
+
+**Trade-offs**: Federated learning converges slower than centralised because each node sees only a subset of the state space. AETHERIX mitigates this with the CGR fallback — nodes that haven't converged yet use deterministic routing. This is a demo-level design; production would explore federated DQN with parameter server architecture.
+
+---
+
+### DD19. How does entanglement purification improve key rates?
+
+**Question**: Purification consumes raw entangled pairs. How does discarding pairs improve the final key rate?
+
+**Answer**: Without purification, the 5-hop Earth-Mars repeater chain produces end-to-end entanglement with fidelity ~0.37 — too low for any useful key extraction (the equivalent QBER would be ~31%, well above the 11% threshold). Purification trades quantity for quality: it consumes multiple low-fidelity pairs to produce fewer but higher-fidelity pairs. One round of purification on pairs with F = 0.75 produces pairs with F ≈ 0.90, consuming roughly half the pairs. A second round on F = 0.90 pairs yields F ≈ 0.97, consuming another half. Starting with 1000 raw pairs per hop at F = 0.75: after two purification rounds, each hop retains ~250 pairs at F = 0.97. After entanglement swapping, end-to-end fidelity is ~0.97⁵ ≈ 0.86, corresponding to QBER ~7% — below the 11% threshold, enabling key extraction. The net key rate is 250 × (1 − h(0.07)) ≈ 250 × 0.605 = 151 bits per purification cycle. Without purification, the key rate would be zero.
+
+**Trade-offs**: Purification is resource-intensive — it requires quantum memory to hold multiple pairs simultaneously and high-fidelity local gates (CNOT) for the purification operation. These are among the hardest engineering challenges in quantum repeater networks.
+
+---
+
+### DD20. What is the CASCADE protocol and why use it for QKD error reconciliation?
+
+**Question**: Why not just use standard error-correcting codes like Reed-Solomon?
+
+**Answer**: Standard forward error-correcting codes (LDPC, Reed-Solomon) encode redundant information into the transmission itself. But in QKD, the raw key bits already exist at both Alice and Bob — the errors come from channel noise and eavesdropping, not from transmission. CASCADE is an interactive reconciliation protocol that corrects errors by revealing parity information over the classical channel. The key advantage is that CASCADE reveals only the minimum information needed to correct errors — it adaptively targets the actual error positions rather than broadcasting fixed redundancy. Standard codes would need to be designed for the worst-case QBER, wasting information when the actual error rate is low. CASCADE's three-pass approach with decreasing block sizes ({8, 16, 32} bits) catches both isolated and burst errors efficiently. The leaked parity information is precisely quantified and subtracted during privacy amplification, ensuring the final key's security accounts for every bit revealed.
+
+**Trade-offs**: CASCADE requires real-time interaction (multiple rounds of parity exchange) over the classical channel, adding latency proportional to the RTT. For Earth-Mars, this means each reconciliation pass takes 6–44 minutes. More efficient codes (LDPC-based reconciliation) approach the Shannon limit with single-pass operation but are significantly more complex to implement. AETHERIX uses CASCADE for the demo and plans LDPC for production.

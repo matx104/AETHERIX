@@ -130,3 +130,20 @@ Defines service management interfaces for cross-support between space agencies, 
 - Section 3: Service management framework and interface definitions
 - Section 4: Cross-support agreements and service-level parameters
 - Section 5: Scheduling and allocation of ground station resources
+
+---
+
+## CCSDS 734.3-B-1 — DTN Bundle Protocol LTP Convergence-Layer Adapter
+
+- **Document**: CCSDS 734.3-B-1 (Blue Book)
+- **Title**: Delay/Disruption-Tolerant Networking Bundle Protocol Licklider Transmission Protocol (LTP) Convergence-Layer Adapter
+- **Published**: April 2022
+- **PDF**: https://public.ccsds.org/Pubs/734x3b1.pdf
+
+Specifies the convergence-layer adapter for transporting DTN bundles over LTP in CCSDS-compliant space systems. Defines the mapping between BPv7 administrative records and LTP session segments, including how bundle priority classes map to LTP quality-of-service markers, how custody transfer acknowledgments are carried in LTP reception claims, and how bundle fragmentation interacts with LTP segmentation. AETHERIX's LTP convergence layer implements this adapter for the deep-space link between Earth orbital and Mars orbital tiers.
+
+**Key Sections for AETHERIX:**
+- Section 3: Bundle encapsulation into LTP blocks with priority-aware segmentation
+- Section 4: BPv7 custody transfer mapping to LTP session management
+- Section 5: Bundle fragmentation and LTP block reassembly procedures
+- Section 6: Error handling and session recovery for deep-space link conditions

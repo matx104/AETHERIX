@@ -139,3 +139,114 @@ A global dust storm (occurring roughly every 3 Mars years, ~6 Earth years) affec
 ### Q5. "Your link budget shows 10 dB margin. Is that enough?"
 
 10 dB margin is conservative for deep-space optical links. It accounts for: atmospheric scintillation (1–3 dB after adaptive optics), pointing jitter (1–3 dB), component aging (1–2 dB), and unexpected losses. NASA's DSOC (Deep Space Optical Communications) demonstration in 2023 used similar margins successfully at Mars distances. However, 10 dB is the average-distance design point. At aphelion (401M km), the margin shrinks because FSPL increases by ~5 dB relative to average. At opposition (54.6M km), the margin is generous (~17 dB). If the margin goes negative at aphelion, AETHERIX reduces the data rate (from 200 Mbps to 2 Mbps) to maintain positive margin — a valid trade-off specified by the Shannon capacity equation: reducing bandwidth reduces the required SNR.
+
+## RF Link Budget (Ka-band and UHF)
+
+AETHERIX's RF links serve as the reliable backup to the optical primary. Two RF bands are used:
+
+### Ka-band (32 GHz) — Deep-Space RF
+
+| Parameter | Value | Notes |
+|-----------|-------|-------|
+| Frequency | 32.0 GHz | CCSDS allocated space-research band |
+| Transmit power | 20 W (43 dBm) | Solid-state power amplifier (SSPA) |
+| TX antenna gain | 55 dBi | 3m dish on spacecraft |
+| EIRP | 98 dBm | TX power + TX gain |
+| FSPL at 225M km | 309.5 dB | 20·log₁₀(4πd/λ) |
+| RX antenna gain (70m DSN) | 74 dBi | Goldstone DSS-14 |
+| System noise temperature | 25 K | Cryogenic LNA |
+| Receiver sensitivity | −148 dBm | For BER 10⁻⁶ with FEC |
+| Atmospheric loss | 1–3 dB | At 10° elevation |
+| Implementation loss | 2 dB | Codec + filter losses |
+| **Link margin** | **~6 dB** | At average distance |
+| **Data rate** | **2–6 Mbps** | Distance-dependent |
+
+### UHF (400 MHz) — Mars Surface Links
+
+| Parameter | Value | Notes |
+|-----------|-------|-------|
+| Frequency | 401 MHz | Mars surface comm band |
+| Transmit power | 5 W (37 dBm) | Low-power transceiver |
+| TX antenna gain | 0–3 dBi | Omnidirectional / low-gain |
+| EIRP | 40 dBm | |
+| FSPL at 17,032 km | 159.1 dB | Surface to areostationary |
+| RX antenna gain (orbiter) | 6 dBi | Patch antenna |
+| System noise temperature | 100 K | Standard LNA |
+| **Link margin** | **~12 dB** | |
+| **Data rate** | **64 kbps – 1 Mbps** | Sufficient for commands + telemetry |
+
+### Data Rate vs Distance (Ka-band)
+
+| Distance | FSPL (dB) | Link Margin (dB) | Achievable Data Rate |
+|----------|-----------|-------------------|---------------------|
+| 54.6M km (opposition) | 297.2 | +18 | 6 Mbps |
+| 225M km (average) | 309.5 | +6 | 2 Mbps |
+| 401M km (aphelion) | 314.5 | +1 | 0.5 Mbps (code rate reduction) |
+
+When the Ka-band margin drops below 3 dB, the system automatically reduces the data rate by switching to a stronger FEC code rate (from 0.8 to 0.5) or reducing symbol rate, maintaining positive margin at the cost of throughput.
+
+## Hybrid Optical/RF Link Analysis
+
+AETHERIX's hybrid link controller manages simultaneous optical and RF transmission:
+
+### Operating Modes
+
+| Mode | Optical | RF | Trigger | Data Handling |
+|------|---------|-----|---------|---------------|
+| Dual-primary | Active | Active | Normal operations | P0/P1 on RF, P2+P3 on optical, P4 fills gaps |
+| Optical-primary | Active | Standby | Clear weather | All priorities on optical, RF ready |
+| RF-primary | Standby | Active | Cloud cover / optical fault | All traffic on RF at reduced rate |
+| Emergency | Active | Active (boosted) | Critical event (P0 bundle) | P0 on both links simultaneously for redundancy |
+| Conjunction-only | Inactive | Inactive | Solar conjunction (direct) | Store locally, use Lagrange relay path |
+
+### Automatic Failover
+
+The link controller monitors optical received signal level every 100 ms. If the signal drops below threshold for >5 seconds:
+
+1. **Immediate**: All queued P0/P1 bundles are diverted to RF.
+2. **Transient (<30 s)**: P2 bundles held in buffer; optical expected to recover.
+3. **Sustained (>30 s)**: All traffic diverted to RF. Optical link enters recovery mode (beacon reacquisition).
+4. **Recovery**: Optical beacon re-acquired → signal quality verified → optical resumes → traffic rebalanced.
+
+Failover is transparent to the bundle layer — the convergence layer adapter switches the underlying transport without affecting custody state.
+
+### Throughput Analysis
+
+Combined throughput over one synodic period (average):
+
+| Phase | Optical Rate | RF Rate | Combined | Optical Availability |
+|-------|-------------|---------|----------|---------------------|
+| Opposition (±90 days) | 200 Mbps | 6 Mbps | 206 Mbps | ~90% |
+| Quadrature (±180 days) | 50 Mbps | 2 Mbps | 52 Mbps | ~80% |
+| Near-conjunction (±30 days) | 10 Mbps | 0.5 Mbps | 10.5 Mbps | ~60% |
+| Conjunction (14 days) | 0 Mbps (direct) | 0 Mbps (direct) | Via relay only | N/A |
+
+## Policy Engine with 5 Default Policies
+
+AETHERIX's routing policy engine constrains the RL agent's decisions with operational rules. The engine evaluates policies before the RL agent selects an action:
+
+### Policy Architecture
+
+```
+Bundle arrives → Policy Engine (rule check) → RL Agent (action selection) → CLA dispatch
+```
+
+If any policy rejects the RL agent's proposed action, the agent must select an alternative. Policies are evaluated in priority order; the first rejection is final.
+
+### Default Policies
+
+| Policy ID | Name | Rule | Rationale |
+|-----------|------|------|-----------|
+| POL-001 | **Critical Protection** | Never DROP bundles with priority P0 or P1. If buffer is full, expire P4 bundles first, then P3, then P2. | Emergency and high-science data must never be lost. |
+| POL-002 | **Energy Budget** | If node's remaining energy < 20% of capacity, suppress FORWARDS on energy-intensive links (optical TX, high-power RF). Allow only STORE and low-power RF forwards. | Prevent battery depletion during dust storms or solar panel degradation. |
+| POL-003 | **Loop Prevention** | If the proposed next-hop is in the bundle's hop-history (last 5 hops), reject and force re-selection. | Prevent routing loops caused by stale RL state or topology changes. |
+| POL-004 | **Lifetime Gate** | If a bundle's remaining lifetime < estimated delivery time via the proposed path, downgrade priority and attempt shortest-delay path instead. | Prevent wasting resources on bundles that will expire before delivery. |
+| POL-005 | **Conjunction Protocol** | During declared conjunction window, suppress all forwards to Earth-direct links. Force traffic through Lagrange relay path (ES-L4/ES-L5). | Avoid wasting transmission power on blocked direct path during conjunction. |
+
+### Policy Evaluation
+
+Each policy returns one of: `ALLOW`, `DENY`, or `DENY_WITH_SUGGESTION`. A `DENY_WITH_SUGGESTION` includes an alternative action (e.g., "DENY forward to node X; SUGGEST store for 2 hours until contact window opens"). The RL agent treats the suggestion as a strong bias but is not forced to follow it — this allows the agent to find potentially better alternatives.
+
+### Custom Policies
+
+The policy engine supports custom policies uploaded as DTN bundles (P1 priority, ML-DSA signed). This allows mission operators to inject new rules without software updates — for example: "POL-006: During Mars dust storm season, limit drone uplink to 1 Mbps and route all drone data through the nearest base hub." Custom policies are validated against a schema before activation.

@@ -177,3 +177,104 @@ P_dBm = 10 × log₁₀(P_mW)
 | 10 dBm | 10 mW |
 | 0 dBm | 1 mW |
 | -30 dBm | 1 μW |
+
+---
+
+## LTP Segment Count
+
+```
+N_red = ceil(bundle_size / red_block_size)
+N_green = ceil(remaining_size / green_block_size)
+N_total = N_red + N_green
+
+Where:
+  bundle_size = total BPv7 bundle payload (bytes)
+  red_block_size = reliable segment size (configurable, typically 1024 bytes)
+  green_block_size = best-effort segment size (typically 4096 bytes)
+  N_red segments require checkpoint/acknowledgment
+  N_green segments are fire-and-forget
+```
+
+---
+
+## Q-Learning Update Rule
+
+```
+Q(s, a) ← Q(s, a) + α × [r + γ × max_a' Q(s', a') - Q(s, a)]
+
+Where:
+  s = current state (node, neighbors, link quality, buffer)
+  a = action taken (forward, store, drop, split)
+  r = reward received: α(delivery) - β(delay) - γ(hops) - δ(drops) - ε(energy)
+  α = learning rate (decays as 1/visit_count(s,a))
+  γ = discount factor (0.95 in AETHERIX)
+  s' = next state after action
+  max_a' Q(s', a') = estimated optimal future value
+```
+
+---
+
+## Binary Entropy Function
+
+```
+h(p) = -p × log₂(p) - (1 - p) × log₂(1 - p)
+
+Where:
+  p = error probability (QBER in QKD context)
+
+Key values:
+  h(0) = 0      (no errors, no information leakage)
+  h(0.11) ≈ 0.5 (Shor-Preskill threshold)
+  h(0.5) = 1    (maximum entropy, no useful information)
+```
+
+---
+
+## Csiszár-Körner Bound (Privacy Amplification)
+
+```
+l_secure < n × (1 - h(QBER) - δ_leak)
+
+Where:
+  l_secure = length of final secure key after privacy amplification
+  n = length of sifted key after CASCADE error correction
+  h(QBER) = binary entropy of the quantum bit error rate
+  δ_leak = fraction of key information leaked during error correction
+
+This bounds the maximum extractable secret key length.
+AETHERIX applies Toeplitz-matrix hashing to achieve this bound.
+```
+
+---
+
+## CASCADE Block Size
+
+```
+k_init = 0.73 / QBER_estimate
+
+Where:
+  k_init = initial block size for CASCADE first pass
+  QBER_estimate = estimated error rate from sample comparison
+
+Subsequent passes: k_pass = 2 × k_previous
+Typical: QBER = 5% → k_init ≈ 15 bits
+CASCADE achieves reconciliation efficiency f_EC ≈ 1.05-1.15
+```
+
+---
+
+## Federated Averaging (FedAvg for Q-Tables)
+
+```
+Q_global = Σ_i (n_i / N) × Q_i
+
+Where:
+  Q_global = aggregated global Q-table
+  Q_i = local Q-table from node i
+  n_i = number of training episodes at node i
+  N = Σ_i n_i (total episodes across all nodes)
+
+Aggregation occurs every K contact windows.
+Communication cost per round: O(|S| × |A|) per node.
+AETHERIX uses K=10 contact windows between aggregation rounds.
+```

@@ -20,16 +20,19 @@ DTN solves this by **decoupling communication from connectivity**.
 │         (Science data, commands, imagery)         │
 ├─────────────────────────────────────────────────┤
 │         Bundle Protocol v7 (BPv7)                │
-│   • Store-and-forward                            │
-│   • Custody transfer                             │
-│   • Priority scheduling (P0-P4)                  │
-│   • Bundle fragmentation                         │
+│   • Store-and-forward  ✅ FULLY IMPLEMENTED      │
+│   • Custody transfer   ✅ FULLY IMPLEMENTED      │
+│   • Priority scheduling (P0-P4) ✅ IMPLEMENTED   │
+│   • Bundle fragmentation  ✅ IMPLEMENTED          │
 │   • Security blocks (BPSec)                      │
 ├─────────────────────────────────────────────────┤
 │         Convergence Layer Adapters               │
-│   • LTP  — Deep space (long-delay, reliable)     │
-│   • TCPCL — Earth segment (reliable, ordered)    │
+│   • LTP    — Deep space (segmentation/retrans)   │
+│             ✅ FULLY IMPLEMENTED                  │
+│   • TCPCL  — Earth segment (reliable, ordered)   │
+│             ✅ FULLY IMPLEMENTED                  │
 │   • UDP-CL — Optical ISL (low overhead)          │
+│             ✅ FULLY IMPLEMENTED                  │
 ├─────────────────────────────────────────────────┤
 │         Physical Layer                           │
 │   • Optical (1550 nm laser) — Primary            │
@@ -37,7 +40,7 @@ DTN solves this by **decoupling communication from connectivity**.
 └─────────────────────────────────────────────────┘
 ```
 
-### How Store-and-Forward Works
+### BPv7 Implementation — Full Store-and-Forward
 
 1. **Source** creates a bundle (payload + metadata: destination, priority, lifetime)
 2. **Forward** to next hop when link becomes available
@@ -45,6 +48,14 @@ DTN solves this by **decoupling communication from connectivity**.
 4. **Custody transfer** — receiving node accepts responsibility
 5. **Repeat** hop-by-hop until destination reached
 6. No end-to-end connection required at any point
+
+### Convergence Layer Details
+
+| Layer | Segment | Key Features | Implementation |
+|-------|---------|-------------|----------------|
+| **LTP** | Deep space | Segmentation, retransmission, session management | Full (RFC 5326 compliant) |
+| **TCPCL** | Earth segment | Reliable ordered delivery, bundle transfer ID | Full (RFC 7242 compliant) |
+| **UDP-CL** | Optical ISL | Low-latency, minimal overhead, datagram mode | Full (RFC 7122 compliant) |
 
 ### Custody Transfer
 
@@ -73,3 +84,5 @@ DTN solves this by **decoupling communication from connectivity**.
 - **CCSDS 735.2-B-1** — Bundle Protocol Security (BPSec)
 - **RFC 9171** — Bundle Protocol Version 7
 - **RFC 5326** — Licklider Transmission Protocol (LTP)
+- **RFC 7242** — TCP Convergence Layer Protocol
+- **RFC 7122** — UDP Convergence Layer Protocol

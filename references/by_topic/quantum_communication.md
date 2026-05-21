@@ -56,6 +56,36 @@ AETHERIX uses Quantum Key Distribution (QKD) to establish information-theoretica
 
 > Proposes a practical quantum repeater using atomic ensembles and linear optics (DLCZ protocol). AETHERIX's quantum repeater simulation draws on this architecture for modeling entanglement purification and swapping operations at relay nodes positioned at Lagrange points (ES-L4, ES-L5).
 
+## Entanglement Purification
+
+[65] C. H. Bennett, G. Brassard, S. Popescu, B. Schumacher, J. A. Smolin, and W. K. Wootters, "Purification of Noisy Entanglement and Faithful Teleportation via Noisy Channels," *Physical Review Letters*, vol. 76, no. 5, pp. 722-725, Jan. 1996. doi: 10.1103/PhysRevLett.76.722
+
+> Introduces entanglement purification protocols (DEJMPS and BBPSSW) that distill high-fidelity EPR pairs from multiple noisy pairs using only local operations and classical communication. AETHERIX's repeater chain module implements purification at each relay node to maintain entanglement fidelity above the threshold required for secure key generation across Earth-Mars distances.
+
+[66] W. Dür, H.-J. Briegel, J. I. Cirac, and P. Zoller, "Quantum Repeaters Based on Entanglement Purification," *Physical Review A*, vol. 59, no. 1, pp. 169-181, Jan. 1999. doi: 10.1103/PhysRevA.59.169
+
+> Extends the Briegel et al. quantum repeater concept with explicit purification protocols nested at multiple hierarchy levels. Shows that polynomial resources suffice for long-distance quantum communication even with imperfect local gates. AETHERIX's multi-hop repeater simulation models this nested purification architecture at Lagrange-point relay nodes.
+
+## Error Correction in QKD
+
+[67] G. Van Assche, *Quantum Cryptography and Secret-Key Distillation*. Cambridge, UK: Cambridge University Press, 2006.
+
+> Comprehensive textbook on QKD including the CASCADE error correction protocol. CASCADE is an interactive bit-level error correction protocol that achieves high reconciliation efficiency (close to the Shannon limit) by iteratively detecting and correcting parity discrepancies in randomly shuffled blocks. AETHERIX's QKD module implements CASCADE for raw key reconciliation before privacy amplification.
+
+[68] D. Pearson, "High-Speed QKD Reconciliation Using Forward Error Correction," in *Proc. 7th Int. Conf. Quantum Communication, Measurement and Computing*, 2004, pp. 299-302.
+
+> Presents an alternative to CASCADE using LDPC forward error correction codes for one-way reconciliation, achieving higher throughput at the cost of slightly lower efficiency. AETHERIX's design notes include LDPC reconciliation as a production optimization for high-rate QKD links where CASCADE's interactive nature adds unacceptable latency.
+
+## Privacy Amplification
+
+[69] C. H. Bennett, G. Brassard, C. Crepeau, and U. M. Maurer, "Generalized Privacy Amplification," *IEEE Trans. Inf. Theory*, vol. 41, no. 6, pp. 1915-1923, Nov. 1995. doi: 10.1109/18.476316
+
+> Introduces generalized privacy amplification using universal hash functions (specifically Toeplitz matrices) to compress a partially secret key into a shorter, nearly perfectly secret key. AETHERIX's privacy amplification module uses Toeplitz-matrix hashing to distill secure keys from CASCADE-corrected raw keys, with compression ratio bounded by the Csiszár-Körner secrecy rate.
+
+[70] I. Csiszár and J. Körner, "Broadcast Channels with Confidential Messages," *IEEE Trans. Inf. Theory*, vol. 24, no. 3, pp. 339-348, May 1978. doi: 10.1109/TIT.1978.1055892
+
+> The foundational Csiszár-Körner theorem establishing the secrecy capacity of a wiretap channel: the maximum rate at which information can be reliably communicated to the intended receiver while keeping it asymptotically independent of the eavesdropper's observation. AETHERIX applies the CK bound to determine the minimum compression ratio for privacy amplification: the final key length l must satisfy l < n(1 - h(QBER)), where n is the sifted key length and h is binary entropy.
+
 ## Post-Quantum Cryptography
 
 [21] D. J. Bernstein and T. Lange, "Post-Quantum Cryptography," *Nature*, vol. 549, no. 7671, pp. 188-194, Sep. 2017. doi: 10.1038/nature23461

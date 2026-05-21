@@ -1,6 +1,6 @@
 # Network Topology — Five-Tier Architecture
 
-## AETHERIX Network: 232 Nodes Across 5 Tiers
+## AETHERIX Network: 241 Nodes Across 5 Tiers
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
@@ -45,7 +45,7 @@
          │                     │                     │
          ▼                     ▼                     ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                    TIER 5: Mars Surface Network (167 nodes)          │
+│                    TIER 5: Mars Surface Network (176 nodes)          │
 │  ┌────────┐    ┌────────┐    ┌────────┐    ┌────────┐             │
 │  │ Base-α │    │ Base-β │    │Rovers  │    │ Drones │             │
 │  └───┬────┘    └───┬────┘    └───┬────┘    └───┬────┘             │
@@ -62,7 +62,15 @@
 | 2 | Earth Orbital | 51 | 3 GEO relays + 48 LEO laser sats | Optical ISL, RF |
 | 3 | Deep Space | 4 | ES-L4, ES-L5 + transfer orbit relays | Optical, quantum |
 | 4 | Mars Orbital | 4 | 2 areostationary + 2 polar orbiters | Optical ISL, RF |
-| 5 | Mars Surface | 167 | Bases, rovers, drones, sensors | UHF, short-range optical |
+| 5 | Mars Surface | 176 | Bases, rovers, drones, sensors | UHF, short-range optical |
+| **Total** | | **241** | | |
+
+### Routing & Graph Modules
+
+- **Contact Graph Module** — Models scheduled contact windows between all node pairs with start time, duration, and data rate
+- **BFS Routing** — Breadth-first search across the contact graph for minimum-hop path discovery
+- **Shortest-path algorithms** — Weighted routing by latency, hop count, or link quality
+- **Multi-path discovery** — Identifies redundant paths for fault tolerance
 
 ### Design Principles
 
