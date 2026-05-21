@@ -9,7 +9,6 @@
   <meta name="author" content="Muhammad Abdullah Tariq">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://matx104.github.io/AETHERIX/">
-
   <meta property="og:type" content="website">
   <meta property="og:title" content="AETHERIX — Interplanetary DTN Platform">
   <meta property="og:description" content="Live simulation platform for Earth-Mars delay-tolerant networking with quantum key distribution, RL routing, and optical link budgets.">
@@ -18,19 +17,15 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="AETHERIX">
-
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AETHERIX — Interplanetary DTN Platform">
   <meta name="twitter:description" content="Earth-Mars delay-tolerant networking simulation with QKD, RL routing, and optical communications.">
   <meta name="twitter:image" content="https://matx104.github.io/AETHERIX/og-image.svg">
-
   <meta name="theme-color" content="#050a14">
   <meta name="msapplication-TileColor" content="#050a14">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="apple-touch-icon" href="favicon.svg">
-
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
-
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -45,57 +40,84 @@
     "keywords": ["DTN", "interplanetary communication", "Bundle Protocol", "quantum key distribution", "reinforcement learning", "optical communications", "Mars"]
   }
   </script>
-
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <canvas id="cosmos-canvas" aria-hidden="true"></canvas>
   <div class="toast-container" id="toast-container" role="status" aria-live="polite"></div>
 
-  <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')" aria-label="Toggle navigation">&#9776;</button>
-
-  <nav class="sidebar" role="navigation" aria-label="Main navigation">
-    <div class="sidebar-header">
-      <div class="sidebar-logo">AETHERIX</div>
-      <div class="sidebar-subtitle">Interplanetary DTN Platform</div>
-      <div class="sidebar-status"><span class="status-dot"></span> Systems Nominal — All Networks Online</div>
-    </div>
-    <ul class="nav-links" role="menubar">
-      <li class="active" data-route="dashboard" role="menuitem" tabindex="0"><span class="nav-icon">&#9672;</span> Mission Control</li>
-      <li data-route="link-budget" role="menuitem" tabindex="0"><span class="nav-icon">&#9733;</span> Link Budget</li>
-      <li data-route="routing" role="menuitem" tabindex="0"><span class="nav-icon">&#10070;</span> RL Routing</li>
-      <li data-route="qkd" role="menuitem" tabindex="0"><span class="nav-icon">&#10023;</span> QKD Protocol</li>
-      <li data-route="orbital" role="menuitem" tabindex="0"><span class="nav-icon">&#9788;</span> Orbital Mechanics</li>
-      <li data-route="bundle" role="menuitem" tabindex="0"><span class="nav-icon">&#9638;</span> Bundle Protocol</li>
-      <li data-route="dtn-engine" role="menuitem" tabindex="0"><span class="nav-icon">&#9881;</span> DTN Engine</li>
-      <li data-route="rf-budget" role="menuitem" tabindex="0"><span class="nav-icon">&#9889;</span> RF Link Budget</li>
-      <li data-route="simulation" role="menuitem" tabindex="0"><span class="nav-icon">&#127919;</span> Simulation</li>
-      <li data-route="mission" role="menuitem" tabindex="0"><span class="nav-icon">&#9883;</span> Mars Mission</li>
-      <li data-route="study" role="menuitem" tabindex="0"><span class="nav-icon">&#128218;</span> Study Resources</li>
-      <li data-route="presentation" role="menuitem" tabindex="0" class="nav-presentation"><span class="nav-icon">&#9654;</span> Presentation</li>
+  <nav class="topnav" role="navigation" aria-label="Main navigation">
+    <div class="topnav-brand" data-route="welcome">AETHERIX</div>
+    <ul class="topnav-center" role="menubar">
+      <li class="topnav-link" data-route="welcome" role="menuitem" tabindex="0"><span class="nav-icon">&#127914;</span> Welcome</li>
+      <li class="topnav-dropdown">
+        <span class="topnav-link"><span class="nav-icon">&#128218;</span> Learn <span style="font-size:0.6rem;opacity:0.5">&#9662;</span></span>
+        <ul class="topnav-dropdown-menu">
+          <li class="topnav-dropdown-item" data-route="what-is-dtn" tabindex="0">&#128225; What is DTN?</li>
+          <li class="topnav-dropdown-item" data-route="how-it-works" tabindex="0">&#9881; How It Works</li>
+          <li class="topnav-dropdown-item" data-route="why-it-matters" tabindex="0">&#127919; Why It Matters</li>
+        </ul>
+      </li>
+      <li class="topnav-dropdown">
+        <span class="topnav-link"><span class="nav-icon">&#128752;</span> Demo <span style="font-size:0.6rem;opacity:0.5">&#9662;</span></span>
+        <ul class="topnav-dropdown-menu">
+          <li class="topnav-dropdown-item" data-route="dashboard" tabindex="0">&#9672; Mission Control</li>
+          <li class="topnav-dropdown-item" data-route="link-budget" tabindex="0">&#9733; Link Budget</li>
+          <li class="topnav-dropdown-item" data-route="routing" tabindex="0">&#10070; RL Routing</li>
+          <li class="topnav-dropdown-item" data-route="qkd" tabindex="0">&#10023; QKD Protocol</li>
+          <li class="topnav-dropdown-item" data-route="orbital" tabindex="0">&#9788; Orbital Mechanics</li>
+          <li class="topnav-dropdown-item" data-route="bundle" tabindex="0">&#9638; Bundle Protocol</li>
+          <li class="topnav-dropdown-item" data-route="dtn-engine" tabindex="0">&#9881; DTN Engine</li>
+          <li class="topnav-dropdown-item" data-route="rf-budget" tabindex="0">&#9889; RF Link Budget</li>
+          <li class="topnav-dropdown-item" data-route="simulation" tabindex="0">&#127919; Simulation</li>
+          <li class="topnav-dropdown-item" data-route="mission" tabindex="0">&#9883; Mars Mission</li>
+        </ul>
+      </li>
+      <li class="topnav-link" data-route="study" role="menuitem" tabindex="0"><span class="nav-icon">&#128214;</span> Resources</li>
+      <li class="topnav-link" data-route="presentation" role="menuitem" tabindex="0"><span class="nav-icon">&#9654;</span> Presentation</li>
     </ul>
-    <div class="sidebar-footer">
-      AETHERIX v2.0<br>
-      RFC 9171 · CCSDS 735.1-B-1 · CCSDS 141.0-B-1
+    <div class="topnav-right">
+      <button class="theme-toggle" id="theme-toggle" onclick="ThemeManager.toggle()" aria-label="Toggle theme">&#127769;</button>
     </div>
+    <button class="topnav-hamburger" id="hamburger-btn" aria-label="Toggle menu">&#9776;</button>
   </nav>
 
-  <main class="main-content" role="main">
+  <div class="topnav-mobile-menu" id="mobile-menu">
+    <div class="topnav-mobile-link" data-route="welcome" style="font-weight:600;color:var(--accent)">&#127914; Welcome</div>
+    <div class="topnav-mobile-section">Learn</div>
+    <div class="topnav-mobile-link" data-route="what-is-dtn">&#128225; What is DTN?</div>
+    <div class="topnav-mobile-link" data-route="how-it-works">&#9881; How It Works</div>
+    <div class="topnav-mobile-link" data-route="why-it-matters">&#127919; Why It Matters</div>
+    <div class="topnav-mobile-section">Demo</div>
+    <div class="topnav-mobile-link" data-route="dashboard">&#9672; Mission Control</div>
+    <div class="topnav-mobile-link" data-route="link-budget">&#9733; Link Budget</div>
+    <div class="topnav-mobile-link" data-route="routing">&#10070; RL Routing</div>
+    <div class="topnav-mobile-link" data-route="qkd">&#10023; QKD Protocol</div>
+    <div class="topnav-mobile-link" data-route="orbital">&#9788; Orbital Mechanics</div>
+    <div class="topnav-mobile-link" data-route="bundle">&#9638; Bundle Protocol</div>
+    <div class="topnav-mobile-link" data-route="dtn-engine">&#9881; DTN Engine</div>
+    <div class="topnav-mobile-link" data-route="rf-budget">&#9889; RF Link Budget</div>
+    <div class="topnav-mobile-link" data-route="simulation">&#127919; Simulation</div>
+    <div class="topnav-mobile-link" data-route="mission">&#9883; Mars Mission</div>
+    <div class="topnav-mobile-section">More</div>
+    <div class="topnav-mobile-link" data-route="study">&#128214; Study Resources</div>
+    <div class="topnav-mobile-link" data-route="presentation">&#9654; Presentation</div>
+  </div>
+
+  <main class="main-content no-sidebar" role="main">
     <div class="live-ticker" id="live-ticker" aria-label="Live telemetry"></div>
 
-    <section id="dashboard" class="tab active" aria-label="Mission Control Dashboard">
+    <section id="welcome" class="tab active" aria-label="Welcome">
       <div class="hero-section">
         <div class="quantum-grid-bg"></div>
         <div class="hero-title">AETHERIX</div>
-        <div class="hero-subtitle">Autonomous Extraterrestrial High-throughput Enhancing Routing and Inter-planetary eXchange — a delay-tolerant networking simulation platform for Earth-Mars communication</div>
+        <div class="hero-subtitle">Building the Internet for Mars — A communication platform that sends data reliably between Earth and Mars, despite 3 to 22 minutes of signal delay.</div>
         <div class="hero-badge-row">
-          <span class="hero-badge hb-quantum">BPv7 · RFC 9171</span>
-          <span class="hero-badge hb-nebula">QKD · BB84 / E91</span>
+          <span class="hero-badge hb-accent">BPv7 &#183; RFC 9171</span>
+          <span class="hero-badge hb-nebula">QKD &#183; BB84 / E91</span>
           <span class="hero-badge hb-accent">1550nm Optical</span>
           <span class="hero-badge hb-mars">RL Routing</span>
-          <span class="hero-badge hb-success">5-Tier Architecture</span>
-          <span class="hero-badge hb-success">149 Tests</span>
-          <span class="hero-badge hb-nebula">3 Conv. Layers</span>
+          <span class="hero-badge hb-success">5-Tier Network</span>
         </div>
         <div class="metrics-bar">
           <div class="metric-item"><div class="metric-value" style="color:var(--accent)" id="mv-tiers">5</div><div class="metric-label">Network Tiers</div></div>
@@ -105,22 +127,398 @@
           <div class="metric-item"><div class="metric-value" style="color:var(--nebula)" id="mv-synodic">780</div><div class="metric-label">Day Synodic Period</div></div>
           <div class="metric-item"><div class="metric-value" style="color:var(--success)" id="mv-tests">149</div><div class="metric-label">Unit Tests</div></div>
         </div>
+        <div class="hero-cta">
+          <button class="btn btn-primary" onclick="Router.navigate('what-is-dtn')">Start Your Journey &#8594;</button>
+          <button class="btn btn-quantum" onclick="Router.navigate('dashboard')">Jump to Demo</button>
+        </div>
       </div>
 
-      <header class="section-title"><span class="section-icon">&#9733;</span> Link Budget — Quick Scenarios</header>
+      <div class="info-bubble" style="margin-top:36px">
+        <div class="info-bubble-icon">&#128640;</div>
+        <div>
+          <div class="info-bubble-title">What is AETHERIX?</div>
+          <div class="info-bubble-text">AETHERIX is a communication system designed to send data reliably between Earth and Mars. Think of it as building the internet — but for outer space. Regular internet protocols can't handle the extreme delays and intermittent connections of deep space. AETHERIX solves this with four key innovations: <strong>delay-tolerant networking</strong>, <strong>AI-powered routing</strong>, <strong>quantum-secure encryption</strong>, and <strong>laser communications</strong>.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:36px"><span class="section-icon">&#9889;</span> The Challenge</header>
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Earth&#8211;Mars Distance</div>
+          <p style="line-height:1.7">Mars orbits the Sun at a different speed than Earth, meaning the distance between them constantly changes over a 780-day cycle:</p>
+          <div class="callout callout-fact" style="margin-top:12px">
+            <div class="callout-icon">&#128207;</div>
+            <div>
+              <div class="callout-title">Distance Range</div>
+              <div class="callout-text"><strong>Closest:</strong> 55 million km (3 min signal delay) &#183; <strong>Average:</strong> 225 million km (12.5 min) &#183; <strong>Farthest:</strong> 401 million km (22 min)</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Why the Internet Doesn&#8217;t Work in Space</div>
+          <p style="line-height:1.7">TCP/IP &#8212; the protocol that powers the internet &#8212; assumes instant responses and continuous connections. In space, those assumptions break down:</p>
+          <div class="callout callout-warning" style="margin-top:12px">
+            <div class="callout-icon">&#9888;</div>
+            <div>
+              <div class="callout-title">The Problem</div>
+              <div class="callout-text">A round-trip to Mars takes <strong>6 to 44 minutes</strong>. During solar conjunction (when Mars is behind the Sun), there&#8217;s a <strong>2-week complete blackout</strong>. TCP would time out and fail.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:36px"><span class="section-icon">&#10070;</span> The Solution &#8212; Four Key Innovations</header>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-card-icon">&#128230;</div>
+          <h3>Delay-Tolerant Networking</h3>
+          <p>Messages are packaged into &#8220;bundles&#8221; that hop from node to node, waiting at each stop until the next connection is available. Like postal mail &#8212; not a phone call.</p>
+          <div style="margin-top:12px"><span class="badge accent">RFC 9171</span> <span class="badge quantum">CCSDS 735.1-B-1</span></div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">&#129302;</div>
+          <h3>AI-Powered Routing</h3>
+          <p>Instead of fixed routing tables, our AI agent learns the best paths through the network by trial and error, adapting to changing conditions in real time.</p>
+          <div style="margin-top:12px"><span class="badge nebula">Q-Learning</span> <span class="badge mars">Multi-Agent</span></div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">&#128272;</div>
+          <h3>Quantum Security</h3>
+          <p>Using the laws of quantum physics to create unbreakable encryption. Any eavesdropping attempt is physically detectable &#8212; secured by nature itself.</p>
+          <div style="margin-top:12px"><span class="badge quantum">BB84</span> <span class="badge nebula">E91</span> <span class="badge success">QBER &lt; 11%</span></div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">&#128300;</div>
+          <h3>Optical Communications</h3>
+          <p>Using infrared lasers instead of radio waves for 10&#8211;100&#215; faster data transfer. Like upgrading from dial-up to fiber optic &#8212; in space.</p>
+          <div style="margin-top:12px"><span class="badge accent">1550nm</span> <span class="badge mars">2&#8211;200 Mbps</span></div>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:28px">
+        <div class="info-bubble-icon">&#127919;</div>
+        <div>
+          <div class="info-bubble-title">Start Your Journey</div>
+          <div class="info-bubble-text">Click &#8220;Start Your Journey&#8221; above to learn how each of these technologies works, or jump straight to the interactive demos to see them in action. No prior knowledge required &#8212; we&#8217;ll guide you from zero to expert.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="what-is-dtn" class="tab" aria-label="What is Delay-Tolerant Networking?">
+      <div class="page-header">
+        <h1>What is Delay-Tolerant Networking?</h1>
+        <p>The technology that makes interplanetary communication possible &#8212; sending data reliably across millions of kilometers, hours of delay, and intermittent connections.</p>
+        <div class="header-badges">
+          <span class="badge accent">RFC 9171</span>
+          <span class="badge quantum">CCSDS 735.1-B-1</span>
+          <span class="badge nebula">CCSDS 734.2-B-1</span>
+        </div>
+      </div>
+
+      <div class="info-bubble">
+        <div class="info-bubble-icon">&#128161;</div>
+        <div>
+          <div class="info-bubble-title">Think of it Like the Postal Service</div>
+          <div class="info-bubble-text">When you send a letter, it doesn&#8217;t travel directly from sender to recipient. It goes through post offices, sorting centers, and delivery trucks &#8212; stopping at each one before moving to the next. DTN works the same way for data in space. Each stop (called a &#8220;node&#8221;) receives the data, keeps it safe, and forwards it when a connection becomes available.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#9888;</span> Why TCP/IP Doesn&#8217;t Work in Space</header>
+      <div class="grid grid-2">
+        <div class="card" style="border-color:rgba(var(--danger-rgb),0.2)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> What the Internet Expects</div>
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px">
+            <li style="display:flex;gap:8px;align-items:flex-start"><span style="color:var(--danger)">&#10007;</span> <span style="color:var(--text-secondary)">Instant response (&lt; 1 second round trip)</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><span style="color:var(--danger)">&#10007;</span> <span style="color:var(--text-secondary)">Continuous, unbroken connection</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><span style="color:var(--danger)">&#10007;</span> <span style="color:var(--text-secondary)">Data arrives in perfect order</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><span style="color:var(--danger)">&#10007;</span> <span style="color:var(--text-secondary)">Both sides active simultaneously</span></li>
+          </ul>
+        </div>
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.2)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> What Space Actually Provides</div>
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px">
+            <li style="display:flex;gap:8px;align-items:flex-start"><span style="color:var(--success)">&#10003;</span> <span style="color:var(--text-secondary)">6 to 44 minute round-trip delay</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><span style="color:var(--success)">&#10003;</span> <span style="color:var(--text-secondary)">Intermittent, scheduled connections</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><span style="color:var(--success)">&#10003;</span> <span style="color:var(--text-secondary)">Data may arrive out of order</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><span style="color:var(--success)">&#10003;</span> <span style="color:var(--text-secondary)">2-week solar conjunction blackouts</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout callout-fact" style="margin-top:20px">
+        <div class="callout-icon">&#9889;</div>
+        <div>
+          <div class="callout-title">The Fundamental Insight</div>
+          <div class="callout-text">TCP/IP was designed for Earth, where computers are always connected and signals travel in milliseconds. Space has none of those luxuries. We need a completely different approach &#8212; one that <strong>embraces delay and disconnection as normal operating conditions</strong>.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#128230;</span> How Store-and-Forward Works</header>
+      <p style="color:var(--text-secondary);margin-bottom:20px;max-width:700px">Instead of requiring an end-to-end connection, DTN breaks the journey into hops. At each hop, the data is stored safely until the next connection window opens.</p>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Create</h3>
+            <p>The sender packages data into a &#8220;bundle&#8221; with a destination address, priority level, and lifetime. Think of it as addressing a package with tracking information.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Store</h3>
+            <p>The bundle waits at the current node until a communication link to the next hop becomes available. This could be minutes, hours, or even days &#8212; the data is safe.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Forward</h3>
+            <p>When the link opens, the bundle is transmitted to the next node in the path. Each transmission is confirmed before the bundle moves on.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Custody Transfer</h3>
+            <p>The receiving node takes legal &#8220;custody&#8221; of the bundle &#8212; it&#8217;s now responsible for safe delivery. If anything goes wrong, the data isn&#8217;t lost. It&#8217;s like registered mail with guaranteed delivery.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h3>Deliver</h3>
+            <p>Steps 2&#8211;4 repeat until the bundle reaches its final destination. The entire journey might take hours, but the data arrives intact and verified.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:28px">
+        <div class="info-bubble-icon">&#128203;</div>
+        <div>
+          <div class="info-bubble-title">What is a Bundle?</div>
+          <div class="info-bubble-text">A bundle is like a data packet but much smarter. It includes: <strong>source and destination addresses</strong> (like dtn://mars.rover-01/science), <strong>priority level</strong> (Emergency &#8594; Bulk, 5 levels), <strong>lifetime</strong> (how long it&#8217;s valid), <strong>custody tracking</strong> (who&#8217;s responsible right now), and the <strong>payload</strong> (actual data &#8212; up to gigabytes). Unlike regular packets, bundles can be millions of times larger.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#128220;</span> Bundle Protocol v7 &#8212; The Standard</header>
+      <div class="card">
+        <div class="card-title"><span class="ct-dot"></span> RFC 9171 &#8212; IETF Standard (January 2022)</div>
+        <p style="line-height:1.7">Bundle Protocol v7 (BPv7) is the official IETF standard for delay-tolerant networking, developed jointly with CCSDS (the international body for space communications). It defines how bundles are created, addressed, routed, and delivered across challenged networks &#8212; from deep space to disaster zones.</p>
+        <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+          <span class="badge accent">RFC 9171</span>
+          <span class="badge quantum">CCSDS 735.1-B-1</span>
+          <span class="badge nebula">CCSDS 734.2-B-1</span>
+          <span class="badge success">RFC 5326 LTP</span>
+        </div>
+        <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-primary btn-sm" onclick="Router.navigate('how-it-works')">Next: How It Works &#8594;</button>
+          <button class="btn btn-quantum btn-sm" onclick="Router.navigate('bundle')">Try Bundle Protocol Demo &#8594;</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="tab" aria-label="How AETHERIX Works">
+      <div class="page-header">
+        <h1>How AETHERIX Works</h1>
+        <p>Four key innovations working together to enable reliable, high-speed, quantum-secure communication between Earth and Mars.</p>
+        <div class="header-badges">
+          <span class="badge accent">Optical</span>
+          <span class="badge quantum">RL Routing</span>
+          <span class="badge nebula">QKD</span>
+          <span class="badge mars">5-Tier Network</span>
+        </div>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-card-icon">&#128300;</div>
+          <h3>Optical Link Budget</h3>
+          <h4 style="color:var(--text-secondary);font-weight:400;margin-bottom:12px">Laser Communications at 1550nm</h4>
+          <p>Instead of radio waves, AETHERIX uses infrared lasers (1550nm wavelength) to beam data through space. This allows 10&#8211;100&#215; higher data rates than traditional RF systems.</p>
+          <div class="callout callout-tip" style="margin-top:16px">
+            <div class="callout-icon">&#128202;</div>
+            <div>
+              <div class="callout-title">What this means</div>
+              <div class="callout-text">Where Mars Reconnaissance Orbiter sends 0.5&#8211;6 Mbps via radio, AETHERIX achieves <strong>2&#8211;200 Mbps</strong> via laser &#8212; enough for high-definition video from Mars.</div>
+            </div>
+          </div>
+          <div class="info-bubble" style="margin-top:12px">
+            <div class="info-bubble-icon">&#128207;</div>
+            <div>
+              <div class="info-bubble-title">Why 1550nm?</div>
+              <div class="info-bubble-text">This wavelength is the same used in fiber optic networks on Earth. It&#8217;s well-understood, has minimal atmospheric interference, and is eye-safe &#8212; ideal for high-power space transmitters.</div>
+            </div>
+          </div>
+          <div style="margin-top:14px"><button class="btn btn-sm btn-primary" onclick="Router.navigate('link-budget')">Try Link Budget Calculator &#8594;</button></div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card-icon">&#129302;</div>
+          <h3>Reinforcement Learning Routing</h3>
+          <h4 style="color:var(--text-secondary);font-weight:400;margin-bottom:12px">AI That Learns the Best Path</h4>
+          <p>Traditional space networks use fixed routing tables that must be manually updated. AETHERIX uses a reinforcement learning agent that learns from experience which paths work best.</p>
+          <div class="callout callout-tip" style="margin-top:16px">
+            <div class="callout-icon">&#129504;</div>
+            <div>
+              <div class="callout-title">What this means</div>
+              <div class="callout-text">The network adapts to unexpected outages, congestion, and changing link quality <strong>without human intervention</strong> &#8212; critical when a response from Earth takes 20+ minutes.</div>
+            </div>
+          </div>
+          <div class="info-bubble" style="margin-top:12px">
+            <div class="info-bubble-icon">&#127919;</div>
+            <div>
+              <div class="info-bubble-title">How Does RL Work?</div>
+              <div class="info-bubble-text">The agent tries different routing decisions and gets &#8220;rewards&#8221; for good outcomes (fast delivery) and &#8220;penalties&#8221; for bad ones (delays, drops). Over time, it learns the best strategy &#8212; similar to how humans learn from trial and error.</div>
+            </div>
+          </div>
+          <div style="margin-top:14px"><button class="btn btn-sm btn-quantum" onclick="Router.navigate('routing')">Try RL Routing Demo &#8594;</button></div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card-icon">&#128272;</div>
+          <h3>Quantum Key Distribution</h3>
+          <h4 style="color:var(--text-secondary);font-weight:400;margin-bottom:12px">Unbreakable Encryption from Physics</h4>
+          <p>AETHERIX uses quantum mechanics to securely distribute encryption keys. Any attempt to eavesdrop physically disturbs the quantum states, alerting both parties immediately.</p>
+          <div class="callout callout-tip" style="margin-top:16px">
+            <div class="callout-icon">&#9879;</div>
+            <div>
+              <div class="callout-title">What this means</div>
+              <div class="callout-text">Even a future quantum computer couldn&#8217;t break this encryption. It&#8217;s secured by the <strong>fundamental laws of physics</strong>, not computational difficulty.</div>
+            </div>
+          </div>
+          <div class="info-bubble" style="margin-top:12px">
+            <div class="info-bubble-icon">&#128300;</div>
+            <div>
+              <div class="info-bubble-title">BB84 Protocol Simplified</div>
+              <div class="info-bubble-text">Alice sends photons in random orientations. Bob measures them. They compare which orientations they used (not the actual bits). Where they agree, they keep those bits as a shared key. If the error rate exceeds 11%, someone tried to listen in.</div>
+            </div>
+          </div>
+          <div style="margin-top:14px"><button class="btn btn-sm btn-mars" onclick="Router.navigate('qkd')">Try QKD Simulation &#8594;</button></div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card-icon">&#127760;</div>
+          <h3>5-Tier Network Architecture</h3>
+          <h4 style="color:var(--text-secondary);font-weight:400;margin-bottom:12px">241 Nodes Across 5 Layers</h4>
+          <p>The network spans from Earth&#8217;s surface to Mars&#8217;s surface through 5 distinct tiers, with relay satellites at Lagrange points maintaining connectivity even during solar conjunction blackouts.</p>
+          <div class="callout callout-tip" style="margin-top:16px">
+            <div class="callout-icon">&#127959;</div>
+            <div>
+              <div class="callout-title">The 5 Tiers</div>
+              <div class="callout-text"><strong>T1</strong> Earth Ground (DSN stations) &#8594; <strong>T2</strong> Earth Orbital (GEO + LEO laser mesh) &#8594; <strong>T3</strong> Deep Space (Lagrange relays) &#8594; <strong>T4</strong> Mars Orbital (relay orbiters) &#8594; <strong>T5</strong> Mars Surface (rovers, bases, sensors)</div>
+            </div>
+          </div>
+          <div class="info-bubble" style="margin-top:12px">
+            <div class="info-bubble-icon">&#128752;</div>
+            <div>
+              <div class="info-bubble-title">Why Lagrange Points?</div>
+              <div class="info-bubble-text">The Earth-Sun L4 and L5 points are gravitationally stable positions where relay satellites maintain line-of-sight to both planets &#8212; even when Mars is behind the Sun. This eliminates the 2-week communication blackout.</div>
+            </div>
+          </div>
+          <div style="margin-top:14px"><button class="btn btn-sm btn-primary" onclick="Router.navigate('dashboard')">View Network Topology &#8594;</button></div>
+        </div>
+      </div>
+
+      <div style="margin-top:32px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="Router.navigate('why-it-matters')">Next: Why It Matters &#8594;</button>
+        <button class="btn btn-quantum" onclick="Router.navigate('dashboard')">Explore All Demos &#8594;</button>
+      </div>
+    </section>
+
+    <section id="why-it-matters" class="tab" aria-label="Why AETHERIX Matters">
+      <div class="page-header">
+        <h1>Why AETHERIX Matters</h1>
+        <p>The real-world impact of reliable, high-speed, quantum-secure interplanetary communication.</p>
+        <div class="header-badges">
+          <span class="badge success">10&#8211;100&#215; Faster</span>
+          <span class="badge accent">&gt;95% Availability</span>
+          <span class="badge quantum">Future-Proof Security</span>
+        </div>
+      </div>
+
+      <header class="section-title"><span class="section-icon">&#128202;</span> Performance Comparison</header>
+      <div class="card">
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Metric</th><th>Current (MRO)</th><th>AETHERIX</th><th>Improvement</th></tr></thead>
+            <tbody>
+              <tr><td>Downlink Speed</td><td>0.5&#8211;6 Mbps</td><td>2&#8211;200 Mbps</td><td><span class="badge success">10&#8211;100&#215;</span></td></tr>
+              <tr><td>Daily Data Volume</td><td>5&#8211;10 GB</td><td>50&#8211;100 GB</td><td><span class="badge success">10&#8211;20&#215;</span></td></tr>
+              <tr><td>Availability</td><td>60&#8211;75%</td><td>&gt;95%</td><td><span class="badge accent">+20&#8211;35%</span></td></tr>
+              <tr><td>Routing</td><td>Static (CGR)</td><td>AI-Adaptive (RL)</td><td><span class="badge quantum">Autonomous</span></td></tr>
+              <tr><td>Security</td><td>AES-256</td><td>QKD + Post-Quantum</td><td><span class="badge nebula">Future-proof</span></td></tr>
+              <tr><td>Scalability</td><td>5&#8211;10 assets</td><td>241 nodes</td><td><span class="badge success">10&#8211;100&#215;</span></td></tr>
+              <tr><td>Solar Conjunction</td><td>Complete blackout</td><td>50&#8211;70% via Lagrange relays</td><td><span class="badge success">+50&#8211;70%</span></td></tr>
+              <tr><td>Cost per MB</td><td>$0.10</td><td>$0.01</td><td><span class="badge success">10&#215;</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:24px">
+        <div class="info-bubble-icon">&#127919;</div>
+        <div>
+          <div class="info-bubble-title">What Does This Mean?</div>
+          <div class="info-bubble-text">Current Mars missions return about 5&#8211;10 GB of data per day. AETHERIX could increase that to <strong>50&#8211;100 GB</strong> &#8212; enabling high-resolution video, real-time scientific analysis, and support for multiple simultaneous missions. It&#8217;s the difference between receiving a few photos and streaming HD video.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#127758;</span> Real-World Impact</header>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-card-icon">&#128300;</div>
+          <h3>Scientific Discovery</h3>
+          <p>More data means more science. High-resolution imagery, spectral analysis, atmospheric measurements, and real-time telemetry from rovers, orbiters, and landers.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">&#128104;&#8205;&#128640;</div>
+          <h3>Human Missions</h3>
+          <p>Reliable communication is critical for crewed Mars missions. Astronauts need to communicate with Mission Control, receive emergency updates, and transmit medical data.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">&#129302;</div>
+          <h3>Autonomous Operations</h3>
+          <p>With AI routing, the network operates autonomously during blackouts and unexpected events &#8212; critical when you can&#8217;t wait 20+ minutes for a response from Earth.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">&#128302;</div>
+          <h3>Future-Proof Security</h3>
+          <p>Quantum computers will eventually break current encryption. QKD provides information-theoretic security that no computer, classical or quantum, can ever break.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-fact" style="margin-top:28px">
+        <div class="callout-icon">&#128161;</div>
+        <div>
+          <div class="callout-title">The Bigger Picture</div>
+          <div class="callout-text">AETHERIX isn&#8217;t just faster &#8212; it&#8217;s a fundamentally new approach to space communication. It scales from a single rover to an entire Mars colony, supporting scientific instruments, human habitats, and everything in between. This is the infrastructure humanity will need to become a multi-planetary species.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:32px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="Router.navigate('dashboard')">Explore the Live Demos &#8594;</button>
+        <button class="btn btn-quantum" onclick="Router.navigate('study')">Study Resources &#8594;</button>
+        <button class="btn btn-mars" onclick="Router.navigate('mission')">Run Mars Mission &#8594;</button>
+      </div>
+    </section>
+
+    <section id="dashboard" class="tab" aria-label="Mission Control Dashboard">
+      <div class="page-header">
+        <h1>Mission Control Dashboard</h1>
+        <p>Quick scenarios, distance timeline, and network topology overview.</p>
+        <div class="header-badges">
+          <span class="badge accent">5 Tiers</span>
+          <span class="badge mars">241 Nodes</span>
+          <span class="badge success">149 Tests</span>
+        </div>
+      </div>
       <div class="grid grid-3" id="dashboard-scenarios"></div>
-
-      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#9788;</span> Earth–Mars Distance Over Synodic Period</header>
-      <div class="card">
-        <div class="chart-container"><canvas id="dashTimelineChart"></canvas></div>
-      </div>
-
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#9788;</span> Earth&#8211;Mars Distance Over Synodic Period</header>
+      <div class="card"><div class="chart-container"><canvas id="dashTimelineChart"></canvas></div></div>
       <header class="section-title" style="margin-top:28px"><span class="section-icon">&#10070;</span> Network Topology</header>
-      <div class="card">
-        <canvas id="topologyCanvas" class="topology-canvas"></canvas>
-      </div>
-
-      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128218;</span> Preparation & Research</header>
+      <div class="card"><canvas id="topologyCanvas" class="topology-canvas"></canvas></div>
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128218;</span> Preparation &amp; Research</header>
       <div class="grid grid-4" id="dashboard-study-stats"></div>
     </section>
 
@@ -208,11 +606,11 @@
           <div class="form-row">
             <div class="form-group"><label>Bundle Priority</label>
               <select id="rt-priority">
-                <option value="0">0 — EMERGENCY</option>
-                <option value="1">1 — HIGH_SCIENCE</option>
-                <option value="2" selected>2 — STANDARD</option>
-                <option value="3">3 — HOUSEKEEPING</option>
-                <option value="4">4 — BULK</option>
+                <option value="0">0 &#8212; EMERGENCY</option>
+                <option value="1">1 &#8212; HIGH_SCIENCE</option>
+                <option value="2" selected>2 &#8212; STANDARD</option>
+                <option value="3">3 &#8212; HOUSEKEEPING</option>
+                <option value="4">4 &#8212; BULK</option>
               </select>
             </div>
             <div class="form-group"><label>Buffer Occupancy</label>
@@ -243,8 +641,8 @@
         <h1>Quantum Key Distribution</h1>
         <p>BB84 and E91 protocol simulations with eavesdropper detection via Quantum Bit Error Rate analysis and Bell inequality testing.</p>
         <div class="header-badges">
-          <span class="badge nebula">BB84 · Bennett-Brassard 1984</span>
-          <span class="badge quantum">E91 · Ekert 1991</span>
+          <span class="badge nebula">BB84 &#183; Bennett-Brassard 1984</span>
+          <span class="badge quantum">E91 &#183; Ekert 1991</span>
           <span class="badge accent">QBER &lt; 11%</span>
         </div>
       </div>
@@ -285,7 +683,7 @@
 
     <section id="orbital" class="tab" aria-label="Orbital Mechanics and Contact Windows">
       <div class="page-header">
-        <h1>Orbital Mechanics & Contact Windows</h1>
+        <h1>Orbital Mechanics &amp; Contact Windows</h1>
         <p>Keplerian orbital element propagation, Earth-Mars distance prediction, and communication window scheduling over the 780-day synodic period.</p>
         <div class="header-badges">
           <span class="badge accent">Keplerian Elements</span>
@@ -370,7 +768,7 @@
           </div>
           <div class="btn-group" style="margin-top:14px">
             <button class="btn btn-primary" onclick="App.bundle.create()">&#9638; Create Bundle</button>
-            <button class="btn btn-quantum" onclick="App.bundle.createAndRoute()">&#9883; Create & Route</button>
+            <button class="btn btn-quantum" onclick="App.bundle.createAndRoute()">&#9883; Create &amp; Route</button>
           </div>
         </div>
         <div>
@@ -553,31 +951,21 @@
 
     <section id="study" class="tab" aria-label="Study Resources">
       <div class="page-header">
-        <h1>Study Resources & Preparation</h1>
+        <h1>Study Resources &amp; Preparation</h1>
         <p>Curated learning materials used to prepare for this presentation, organized by the six EduQual Level 6 learning objectives. All resources are free and publicly accessible.</p>
         <div class="header-badges">
           <span class="badge success">64 Academic References</span>
           <span class="badge accent">7 CCSDS Standards</span>
-          <span class="badge quantum">Free Courses & MOOCs</span>
+          <span class="badge quantum">Free Courses &amp; MOOCs</span>
         </div>
       </div>
-
       <div id="study-lo-grid" class="grid grid-2"></div>
-
-      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#127891;</span> Free Courses & Certificates</header>
-      <div class="card">
-        <div id="study-courses-content"></div>
-      </div>
-
-      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128736;</span> Tools & Software Used</header>
-      <div class="card">
-        <div id="study-tools-content"></div>
-      </div>
-
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#127891;</span> Free Courses &amp; Certificates</header>
+      <div class="card"><div id="study-courses-content"></div></div>
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128736;</span> Tools &amp; Software Used</header>
+      <div class="card"><div id="study-tools-content"></div></div>
       <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128214;</span> Key References (IEEE Format)</header>
-      <div class="card">
-        <div id="study-refs-content"></div>
-      </div>
+      <div class="card"><div id="study-refs-content"></div></div>
     </section>
 
     <section id="presentation" class="tab presentation-mode" aria-label="Presentation">
@@ -617,8 +1005,8 @@
   </main>
 
   <footer style="display:none">
-    <span>AETHERIX — Interplanetary DTN Platform</span>
-    <span>RFC 9171 · CCSDS 735.1-B-1 · CCSDS 141.0-B-1</span>
+    <span>AETHERIX &#8212; Interplanetary DTN Platform</span>
+    <span>RFC 9171 &#183; CCSDS 735.1-B-1 &#183; CCSDS 141.0-B-1</span>
   </footer>
 
   <script src="js/engine.js"></script>
