@@ -55,6 +55,9 @@
         <ul class="topnav-dropdown-menu">
           <li class="topnav-dropdown-item" data-route="what-is-dtn" tabindex="0">&#128225; What is DTN?</li>
           <li class="topnav-dropdown-item" data-route="how-it-works" tabindex="0">&#9881; How It Works</li>
+          <li class="topnav-dropdown-item" data-route="journey-to-mars" tabindex="0">&#128640; Journey to Mars</li>
+          <li class="topnav-dropdown-item" data-route="the-network" tabindex="0">&#127760; The Network</li>
+          <li class="topnav-dropdown-item" data-route="space-security" tabindex="0">&#128274; Space Security</li>
           <li class="topnav-dropdown-item" data-route="why-it-matters" tabindex="0">&#127919; Why It Matters</li>
         </ul>
       </li>
@@ -87,6 +90,9 @@
     <div class="topnav-mobile-section">Learn</div>
     <div class="topnav-mobile-link" data-route="what-is-dtn">&#128225; What is DTN?</div>
     <div class="topnav-mobile-link" data-route="how-it-works">&#9881; How It Works</div>
+    <div class="topnav-mobile-link" data-route="journey-to-mars">&#128640; Journey to Mars</div>
+    <div class="topnav-mobile-link" data-route="the-network">&#127760; The Network</div>
+    <div class="topnav-mobile-link" data-route="space-security">&#128274; Space Security</div>
     <div class="topnav-mobile-link" data-route="why-it-matters">&#127919; Why It Matters</div>
     <div class="topnav-mobile-section">Demo</div>
     <div class="topnav-mobile-link" data-route="dashboard">&#9672; Mission Control</div>
@@ -202,6 +208,30 @@
           <div class="info-bubble-text">Click &#8220;Start Your Journey&#8221; above to learn how each of these technologies works, or jump straight to the interactive demos to see them in action. No prior knowledge required &#8212; we&#8217;ll guide you from zero to expert.</div>
         </div>
       </div>
+
+      <div class="info-bubble" style="margin-top:16px">
+        <div class="info-bubble-icon">&#128218;</div>
+        <div>
+          <div class="info-bubble-title">Built on Real Standards</div>
+          <div class="info-bubble-text">AETHERIX isn&#8217;t science fiction. It&#8217;s built on <strong>RFC 9171</strong> (the IETF standard for Bundle Protocol v7), <strong>CCSDS standards</strong> (used by NASA, ESA, and JAXA), and well-established quantum cryptography protocols (BB84, E91). Every calculation in the demos uses real physics and real orbital mechanics.</div>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:16px">
+        <div class="info-bubble-icon">&#127891;</div>
+        <div>
+          <div class="info-bubble-title">Who Is This For?</div>
+          <div class="info-bubble-text">Whether you&#8217;re a student curious about space communication, an engineer interested in DTN protocols, or a researcher exploring quantum security &#8212; AETHERIX has something for you. Start with the &#8220;Learn&#8221; section for plain-language explanations, then explore the interactive demos for hands-on experience.</div>
+        </div>
+      </div>
+
+      <div class="callout callout-tip" style="margin-top:20px">
+        <div class="callout-icon">&#128161;</div>
+        <div>
+          <div class="callout-title">Reading Time</div>
+          <div class="callout-text">The full learning journey (Welcome &#8594; What is DTN &#8594; How It Works &#8594; Journey to Mars &#8594; The Network &#8594; Space Security &#8594; Why It Matters) takes about <strong>15&#8211;20 minutes</strong>. Each page builds on the previous one, but you can also jump to any topic independently.</div>
+        </div>
+      </div>
     </section>
 
     <section id="what-is-dtn" class="tab" aria-label="What is Delay-Tolerant Networking?">
@@ -298,6 +328,39 @@
         <div>
           <div class="info-bubble-title">What is a Bundle?</div>
           <div class="info-bubble-text">A bundle is like a data packet but much smarter. It includes: <strong>source and destination addresses</strong> (like dtn://mars.rover-01/science), <strong>priority level</strong> (Emergency &#8594; Bulk, 5 levels), <strong>lifetime</strong> (how long it&#8217;s valid), <strong>custody tracking</strong> (who&#8217;s responsible right now), and the <strong>payload</strong> (actual data &#8212; up to gigabytes). Unlike regular packets, bundles can be millions of times larger.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#128276;</span> Priority Levels Explained</header>
+      <p style="color:var(--text-secondary);margin-bottom:16px;max-width:700px">Not all data is equally urgent. BPv7 defines 5 priority classes so the network can make intelligent decisions about what to send first when bandwidth is limited.</p>
+      <div class="grid grid-3" style="gap:14px">
+        <div class="card" style="border-color:rgba(var(--danger-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> Emergency</div>
+          <p style="font-size:0.88em;color:var(--text-secondary)">Life-threatening alerts, abort commands. Must be delivered immediately &#8212; bypasses all other traffic. Think: &#8220;Solar flare incoming, take cover now.&#8221;</p>
+        </div>
+        <div class="card" style="border-color:rgba(var(--accent-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Priority &amp; Normal</div>
+          <p style="font-size:0.88em;color:var(--text-secondary)">Telemetry, navigation updates, time-sensitive science data. Standard operational traffic &#8212; the majority of daily communications.</p>
+        </div>
+        <div class="card" style="border-color:rgba(var(--nebula-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--nebula)"></span> Expedited &amp; Bulk</div>
+          <p style="font-size:0.88em;color:var(--text-secondary)">Software updates, archive dumps, high-res image batches. Can wait for off-peak windows &#8212; delivered when capacity allows.</p>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:24px">
+        <div class="info-bubble-icon">&#128268;</div>
+        <div>
+          <div class="info-bubble-title">What Are Convergence Layers?</div>
+          <div class="info-bubble-text">Bundles don&#8217;t travel raw &#8212; they ride on &#8220;convergence layers&#8221; adapted to each link type. <strong>TCPCL</strong> (RFC 7242) handles reliable Earth-segment links. <strong>LTP</strong> (RFC 5326, named after J.C.R. Licklider) handles long-delay deep-space links with retransmission. <strong>UDPCL</strong> handles fast optical inter-satellite links. Each layer translates bundles into the right format for its physical connection.</div>
+        </div>
+      </div>
+
+      <div class="callout callout-fact" style="margin-top:20px">
+        <div class="callout-icon">&#128640;</div>
+        <div>
+          <div class="callout-title">DTN in the Real World</div>
+          <div class="callout-text">DTN isn&#8217;t theoretical &#8212; it&#8217;s already deployed. NASA&#8217;s <strong>Disruption Tolerant Networking</strong> experiment on the ISS successfully demonstrated interplanetary protocols in 2016. The <strong>Mars 2020 Perseverance rover</strong> uses DTN principles for data relay through orbiters. Even terrestrial networks use DTN for disaster response, Arctic communications, and military tactical networks where connectivity is unreliable.</div>
         </div>
       </div>
 
@@ -420,9 +483,427 @@
         </div>
       </div>
 
+      <div class="info-bubble" style="margin-top:24px">
+        <div class="info-bubble-icon">&#128200;</div>
+        <div>
+          <div class="info-bubble-title">The Reward Function</div>
+          <div class="info-bubble-text">The RL agent optimizes a multi-objective reward: <strong>R = &#945;(delivery) &#8722; &#946;(delay) &#8722; &#947;(hops) &#8722; &#948;(drops) &#8722; &#949;(energy)</strong>. Each Greek letter is a tunable weight &#8212; mission operators can prioritize speed for emergency traffic or energy efficiency for bulk science data. The agent learns the optimal trade-offs through thousands of simulated contact windows.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128736;</span> Convergence Layers &#8212; The Translation Layer</header>
+      <div class="grid grid-3" style="gap:14px">
+        <div class="card" style="border-color:rgba(var(--accent-rgb),0.2)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> TCPCL (RFC 7242)</div>
+          <p style="font-size:0.88em;color:var(--text-secondary)">Earth-segment links between ground stations and GEO relays. Reliable, ordered delivery over TCP &#8212; similar to how web browsers communicate, but carrying space bundles.</p>
+        </div>
+        <div class="card" style="border-color:rgba(var(--quantum-rgb),0.2)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> LTP (RFC 5326)</div>
+          <p style="font-size:0.88em;color:var(--text-secondary)">Deep-space links between Lagrange relays and Mars orbiters. Handles 3&#8211;22 minute delays with selective retransmission &#8212; only resend what was lost, not the whole bundle.</p>
+        </div>
+        <div class="card" style="border-color:rgba(var(--nebula-rgb),0.2)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--nebula)"></span> UDPCL (Optical ISL)</div>
+          <p style="font-size:0.88em;color:var(--text-secondary)">Inter-satellite laser links within constellations. Fragmented delivery with simulated packet loss &#8212; optimized for speed over the LEO and GEO laser mesh.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-warning" style="margin-top:24px">
+        <div class="callout-icon">&#9888;</div>
+        <div>
+          <div class="callout-title">Why Not Just Use Contact Graph Routing?</div>
+          <div class="callout-text">Traditional Contact Graph Routing (CGR) uses pre-computed routing tables based on known contact schedules. But space is unpredictable &#8212; solar storms disrupt links, satellites drift, and equipment fails. CGR requires manual updates sent from Earth (taking 20+ minutes to arrive). The RL agent <strong>adapts in real-time</strong>, learning from actual network conditions rather than relying on plans that may already be outdated.</div>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:20px">
+        <div class="info-bubble-icon">&#129504;</div>
+        <div>
+          <div class="info-bubble-title">Multi-Agent Federated Learning</div>
+          <div class="info-bubble-text">Each node runs its own RL agent with local observations. Periodically, agents share learned Q-tables (routing experience) and aggregate them &#8212; similar to how a team of explorers shares maps they&#8217;ve each drawn. This means every node benefits from the collective experience of the entire network, without sending raw data centrally.</div>
+        </div>
+      </div>
+
       <div style="margin-top:32px;display:flex;gap:10px;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="Router.navigate('why-it-matters')">Next: Why It Matters &#8594;</button>
+        <button class="btn btn-primary" onclick="Router.navigate('journey-to-mars')">Next: Journey to Mars &#8594;</button>
         <button class="btn btn-quantum" onclick="Router.navigate('dashboard')">Explore All Demos &#8594;</button>
+      </div>
+    </section>
+
+    <section id="journey-to-mars" class="tab" aria-label="The Journey to Mars">
+      <div class="page-header">
+        <h1>The Journey to Mars</h1>
+        <p>Understanding the physics of Earth&#8211;Mars communication &#8212; distances, delays, orbital mechanics, and why timing is everything.</p>
+        <div class="header-badges">
+          <span class="badge mars">780-Day Cycle</span>
+          <span class="badge accent">3&#8211;22 min Delay</span>
+          <span class="badge nebula">Keplerian Orbits</span>
+        </div>
+      </div>
+
+      <div class="info-bubble">
+        <div class="info-bubble-icon">&#127757;</div>
+        <div>
+          <div class="info-bubble-title">How Far Is Mars, Really?</div>
+          <div class="info-bubble-text">Mars and Earth both orbit the Sun, but at different speeds. Earth completes an orbit in 365 days, Mars in 687 days. This means the distance between them is constantly changing &#8212; from as close as 55 million km to as far as 401 million km. That&#8217;s a <strong>7&#215; difference</strong> in distance over the course of the synodic period.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128207;</span> Distance Ranges Explained</header>
+      <div class="grid grid-3">
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> Closest Approach (Opposition)</div>
+          <div class="card-value" style="color:var(--success)">55M <span class="card-unit">km</span></div>
+          <p style="margin-top:8px">Signal delay: <strong>~3 minutes</strong> one way. Data rates can reach 200 Mbps &#8212; comparable to home broadband. This is the golden window.</p>
+          <div class="callout callout-tip" style="margin-top:12px">
+            <div class="callout-icon">&#9201;</div>
+            <div><div class="callout-text">Happens roughly every <strong>26 months</strong>. Last opportunity: Jan 2025. Next: Feb 2027.</div></div>
+          </div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--accent-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Average Distance</div>
+          <div class="card-value" style="color:var(--accent)">225M <span class="card-unit">km</span></div>
+          <p style="margin-top:8px">Signal delay: <strong>~12.5 minutes</strong> one way. Data rates: 10&#8211;20 Mbps. This is the typical operating condition.</p>
+          <div class="callout callout-fact" style="margin-top:12px">
+            <div class="callout-icon">&#128161;</div>
+            <div><div class="callout-text">225M km is about <strong>1.5 AU</strong> &#8212; 1.5 times the distance from Earth to the Sun.</div></div>
+          </div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--mars-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--mars)"></span> Maximum Distance (Conjunction)</div>
+          <div class="card-value" style="color:var(--mars)">401M <span class="card-unit">km</span></div>
+          <p style="margin-top:8px">Signal delay: <strong>~22 minutes</strong> one way. Data rates drop to 2&#8211;5 Mbps. And Mars is behind the Sun &#8212; direct communication is blocked.</p>
+          <div class="callout callout-warning" style="margin-top:12px">
+            <div class="callout-icon">&#9888;</div>
+            <div><div class="callout-text"><strong>2-week blackout</strong> during solar conjunction. No direct communication possible.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#9201;</span> The Speed of Light Problem</header>
+      <div class="info-bubble">
+        <div class="info-bubble-icon">&#9889;</div>
+        <div>
+          <div class="info-bubble-title">Why Can&#8217;t We Just Speed Up the Signal?</div>
+          <div class="info-bubble-text">Radio signals, lasers, and all electromagnetic radiation travel at the speed of light &#8212; approximately <strong>300,000 km per second</strong>. This is the absolute speed limit of the universe (Einstein&#8217;s special relativity). No amount of engineering can make data travel faster. AETHERIX works <em>around</em> this limit using delay-tolerant networking &#8212; accepting the delay and designing systems that work reliably despite it.</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px">
+        <div class="card-title"><span class="ct-dot"></span> Light-Time Delay &#8212; A Thought Experiment</div>
+        <p style="line-height:1.7">Imagine you&#8217;re an astronaut on Mars and you send a message to Mission Control: <em>&#8220;We found something interesting!&#8221;</em></p>
+        <ul style="list-style:none;padding:0;margin-top:14px;display:flex;flex-direction:column;gap:10px">
+          <li style="display:flex;gap:10px;align-items:flex-start"><span class="badge accent" style="flex-shrink:0">T+0 min</span> <span style="color:var(--text-secondary)">You send the message from Mars</span></li>
+          <li style="display:flex;gap:10px;align-items:flex-start"><span class="badge quantum" style="flex-shrink:0">T+12 min</span> <span style="color:var(--text-secondary)">Message arrives at Earth (average distance)</span></li>
+          <li style="display:flex;gap:10px;align-items:flex-start"><span class="badge nebula" style="flex-shrink:0">T+12 min</span> <span style="color:var(--text-secondary)">Mission Control reads it and immediately replies: <em>&#8220;Tell us more!&#8221;</em></span></li>
+          <li style="display:flex;gap:10px;align-items:flex-start"><span class="badge mars" style="flex-shrink:0">T+24 min</span> <span style="color:var(--text-secondary)">You receive the reply. <strong>25 minutes</strong> for a simple back-and-forth.</span></li>
+        </ul>
+        <div class="info-bubble" style="margin-top:16px">
+          <div class="info-bubble-icon">&#128161;</div>
+          <div>
+            <div class="info-bubble-title">The Implication</div>
+            <div class="info-bubble-text">Real-time conversation is impossible. Mars astronauts must be able to make decisions autonomously. The communication system must be able to handle delayed, asynchronous exchanges &#8212; exactly what DTN is designed for.</div>
+          </div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#127759;</span> The Synodic Period &#8212; Why Conditions Repeat Every 780 Days</header>
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Orbital Dance</div>
+          <p style="line-height:1.7">Earth orbits the Sun every <strong>365.25 days</strong>. Mars takes <strong>686.98 days</strong>. Because they move at different speeds, Earth &#8220;laps&#8221; Mars roughly every 780 days (the synodic period). This creates a repeating pattern:</p>
+          <div style="margin-top:14px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:10px"><span class="badge success">Day 0</span> <span style="color:var(--text-secondary)">Opposition &#8212; closest, best conditions</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="badge accent">Day 195</span> <span style="color:var(--text-secondary)">Quadrature &#8212; moderate distance, good comms</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="badge mars">Day 390</span> <span style="color:var(--text-secondary)">Conjunction &#8212; farthest, solar blackout</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="badge quantum">Day 585</span> <span style="color:var(--text-secondary)">Quadrature again &#8212; conditions improving</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="badge success">Day 780</span> <span style="color:var(--text-secondary)">Back to opposition &#8212; cycle repeats</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Contact Windows</div>
+          <p style="line-height:1.7">Communication isn&#8217;t available 24/7. Contact windows are scheduled periods when a ground station on Earth has line-of-sight to a Mars orbiter or relay:</p>
+          <div class="callout callout-tip" style="margin-top:12px">
+            <div class="callout-icon">&#128197;</div>
+            <div>
+              <div class="callout-title">Typical Contact Schedule</div>
+              <div class="callout-text"><strong>Opposition:</strong> 8&#8211;12 hrs/day &#183; <strong>Quadrature:</strong> 4&#8211;8 hrs/day &#183; <strong>Conjunction:</strong> 0 hrs (direct) or 2&#8211;4 hrs (via Lagrange relays)</div>
+            </div>
+          </div>
+          <div class="info-bubble" style="margin-top:12px">
+            <div class="info-bubble-icon">&#128300;</div>
+            <div>
+              <div class="info-bubble-title">Try It Yourself</div>
+              <div class="info-bubble-text">The <strong>Orbital Mechanics</strong> demo in the Demo section lets you calculate contact windows for any time period. You can see exactly when communication is possible and what data rates to expect.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:28px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="Router.navigate('the-network')">Next: The Network &#8594;</button>
+        <button class="btn btn-sm" onclick="Router.navigate('orbital')">Try Orbital Mechanics Demo &#8594;</button>
+      </div>
+    </section>
+
+    <section id="the-network" class="tab" aria-label="The Network Architecture">
+      <div class="page-header">
+        <h1>The Network Architecture</h1>
+        <p>A 5-tier, 241-node network spanning from Earth&#8217;s surface to Mars&#8217;s surface &#8212; with relay satellites at strategic points to maintain connectivity around the clock.</p>
+        <div class="header-badges">
+          <span class="badge accent">5 Tiers</span>
+          <span class="badge mars">241 Nodes</span>
+          <span class="badge nebula">Redundant Paths</span>
+        </div>
+      </div>
+
+      <div class="info-bubble">
+        <div class="info-bubble-icon">&#127760;</div>
+        <div>
+          <div class="info-bubble-title">Why Do We Need 241 Nodes?</div>
+          <div class="info-bubble-text">The internet works because there are thousands of routers creating redundant paths between any two points. Space is no different &#8212; we need multiple relay points between Earth and Mars to ensure data always has a path forward. <strong>241 nodes</strong> across 5 tiers provides enough redundancy that the network survives individual satellite failures, scheduled maintenance, and solar conjunction blackouts.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#127959;</span> The 5 Tiers Explained</header>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number" style="background:var(--accent)">T1</div>
+          <div class="step-content">
+            <h3>Earth Ground Stations</h3>
+            <p><strong>6 nodes</strong> &#8212; NASA&#8217;s Deep Space Network (DSN): Goldstone (California), Madrid (Spain), Canberra (Australia), plus Mission Operations Center, Network Operations Center, and Science Operations Center.</p>
+            <div class="info-bubble" style="margin-top:8px;padding:12px 16px">
+              <div class="info-bubble-icon">&#128225;</div>
+              <div>
+                <div class="info-bubble-title">Why 3 DSN Sites?</div>
+                <div class="info-bubble-text">Placed roughly 120&#176; apart around the globe so at least one station always has line-of-sight to any point in deep space, 24 hours a day.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number" style="background:var(--quantum)">T2</div>
+          <div class="step-content">
+            <h3>Earth Orbital Relays</h3>
+            <p><strong>51 nodes</strong> &#8212; 3 GEO relay satellites for continuous Earth coverage, plus 48 LEO satellites forming a laser inter-satellite mesh (similar to SpaceX Starlink, but for deep space backhaul).</p>
+            <div class="info-bubble" style="margin-top:8px;padding:12px 16px">
+              <div class="info-bubble-icon">&#128300;</div>
+              <div>
+                <div class="info-bubble-title">Laser Mesh in LEO</div>
+                <div class="info-bubble-text">The 48 LEO satellites use laser links to communicate with each other, creating a high-bandwidth backbone in orbit. Data can be routed through the mesh to reach any ground station, regardless of which satellite first received the Mars transmission.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number" style="background:var(--mars)">T3</div>
+          <div class="step-content">
+            <h3>Deep Space Transit</h3>
+            <p><strong>4 nodes</strong> &#8212; Relay satellites at Earth-Sun Lagrange points L4 and L5, plus 2 transfer orbit satellites. These are the critical &#8220;bridge&#8221; nodes between the Earth and Mars systems.</p>
+            <div class="info-bubble" style="margin-top:8px;padding:12px 16px">
+              <div class="info-bubble-icon">&#128736;</div>
+              <div>
+                <div class="info-bubble-title">Why Lagrange Points?</div>
+                <div class="info-bubble-text">L4 and L5 are gravitationally stable points 60&#176; ahead of and behind Earth in its orbit. Satellites placed here can &#8220;see&#8221; both Earth and Mars even during solar conjunction &#8212; when Mars is behind the Sun from Earth&#8217;s perspective. This eliminates the 2-week communication blackout.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number" style="background:var(--danger)">T4</div>
+          <div class="step-content">
+            <h3>Mars Orbital Relays</h3>
+            <p><strong>4 nodes</strong> &#8212; 2 areostationary orbiters (Mars&#8217; equivalent of geostationary satellites at 17,032 km altitude) providing continuous coverage of fixed surface locations, plus 2 polar orbiters for global coverage.</p>
+            <div class="info-bubble" style="margin-top:8px;padding:12px 16px">
+              <div class="info-bubble-icon">&#128225;</div>
+              <div>
+                <div class="info-bubble-title">Areostationary Orbit</div>
+                <div class="info-bubble-text">Mars rotates once every 24.6 hours. A satellite at 17,032 km altitude orbits at the same rate, appearing stationary from the surface &#8212; just like GEO satellites on Earth, but for Mars.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number" style="background:var(--warning)">T5</div>
+          <div class="step-content">
+            <h3>Mars Surface Assets</h3>
+            <p><strong>177 nodes</strong> &#8212; Human habitats, scientific bases, exploration rovers, reconnaissance drones, weather stations, and environmental sensors. These are the &#8220;endpoints&#8221; generating and consuming data.</p>
+            <div class="info-bubble" style="margin-top:8px;padding:12px 16px">
+              <div class="info-bubble-icon">&#128161;</div>
+              <div>
+                <div class="info-bubble-title">Why So Many Surface Nodes?</div>
+                <div class="info-bubble-text">A Mars colony needs ubiquitous connectivity &#8212; everything from life-support monitoring (critical, low bandwidth) to high-resolution science cameras (bulk, high bandwidth). The large node count supports diverse data priorities and ensures coverage across the entire Martian surface.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#128279;</span> How Data Flows Through the Network</header>
+      <div class="card">
+        <div class="card-title"><span class="ct-dot"></span> Example: Mars Rover &#8594; Earth Mission Control</div>
+        <div class="callout callout-tip">
+          <div class="callout-icon">&#128640;</div>
+          <div>
+            <div class="callout-title">Step-by-Step Journey</div>
+            <div class="callout-text">
+              <strong>1.</strong> Rover takes a photo and creates a bundle (T5 &#8594; T5)<br>
+              <strong>2.</strong> Bundle transmitted via UHF to areostationary orbiter (T5 &#8594; T4)<br>
+              <strong>3.</strong> Orbiter forwards via optical laser to deep space relay (T4 &#8594; T3)<br>
+              <strong>4.</strong> Deep space relay beams toward Earth&#8217;s LEO mesh (T3 &#8594; T2)<br>
+              <strong>5.</strong> LEO mesh routes to the nearest DSN-capable satellite (T2 &#8594; T2)<br>
+              <strong>6.</strong> Satellite downlinks to DSN ground station (T2 &#8594; T1)<br>
+              <strong>7.</strong> Ground station delivers to Mission Control (T1 &#8594; T1)<br>
+              <strong>Total: 7 hops, ~12.5 minutes</strong> (mostly light-time delay)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:20px">
+        <div class="info-bubble-icon">&#128273;</div>
+        <div>
+          <div class="info-bubble-title">What Happens If a Node Fails?</div>
+          <div class="info-bubble-text">The DTN routing automatically finds an alternative path. If the areostationary orbiter is down, the bundle can route through the polar orbiter instead. If the L4 relay is in maintenance, the L5 relay takes over. This is why having multiple redundant paths across 5 tiers is essential &#8212; the network degrades gracefully rather than failing catastrophically.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:28px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="Router.navigate('space-security')">Next: Space Security &#8594;</button>
+        <button class="btn btn-sm" onclick="Router.navigate('dashboard')">View Network Topology Demo &#8594;</button>
+      </div>
+    </section>
+
+    <section id="space-security" class="tab" aria-label="Space Security">
+      <div class="page-header">
+        <h1>Space Security</h1>
+        <p>Why interplanetary communication needs quantum-proof security, and how quantum physics provides an unbreakable solution.</p>
+        <div class="header-badges">
+          <span class="badge quantum">BB84 Protocol</span>
+          <span class="badge nebula">E91 Entanglement</span>
+          <span class="badge success">QBER &lt; 11%</span>
+        </div>
+      </div>
+
+      <div class="info-bubble">
+        <div class="info-bubble-icon">&#128274;</div>
+        <div>
+          <div class="info-bubble-title">Why Can&#8217;t We Just Use Regular Encryption?</div>
+          <div class="info-bubble-text">Current encryption (like AES-256) relies on the difficulty of certain mathematical problems. But quantum computers will eventually solve these problems efficiently, breaking today&#8217;s encryption. For a Mars mission planned decades in advance, we need security that will hold up <strong>not just today, but in 20&#8211;30 years</strong>. That&#8217;s where quantum key distribution comes in.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#9888;</span> The Quantum Threat</header>
+      <div class="grid grid-2">
+        <div class="card" style="border-color:rgba(var(--danger-rgb),0.2)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> What Quantum Computers Will Break</div>
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px">
+            <li style="display:flex;gap:8px;align-items:flex-start"><span style="color:var(--danger)">&#10007;</span> <span style="color:var(--text-secondary)"><strong>RSA</strong> &#8212; Used in most internet security (HTTPS, SSH)</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><span style="color:var(--danger)">&#10007;</span> <span style="color:var(--text-secondary)"><strong>ECC</strong> &#8212; Elliptic curve cryptography</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><span style="color:var(--danger)">&#10007;</span> <span style="color:var(--text-secondary)"><strong>Diffie-Hellman</strong> &#8212; Key exchange protocols</span></li>
+          </ul>
+          <div class="callout callout-danger" style="margin-top:14px">
+            <div class="callout-icon">&#9888;</div>
+            <div><div class="callout-text">An adversary could <strong>record encrypted Mars communications today</strong> and decrypt them years later when quantum computers become available. This is called &#8220;harvest now, decrypt later.&#8221;</div></div>
+          </div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.2)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> What Quantum Key Distribution Provides</div>
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px">
+            <li style="display:flex;gap:8px;align-items:flex-start"><span style="color:var(--success)">&#10003;</span> <span style="color:var(--text-secondary)"><strong>Information-theoretic security</strong> &#8212; based on physics, not math</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><span style="color:var(--success)">&#10003;</span> <span style="color:var(--text-secondary)"><strong>Eavesdropper detection</strong> &#8212; any interception is immediately visible</span></li>
+            <li style="display:flex;gap:8px;align-items:flex-start"><span style="color:var(--success)">&#10003;</span> <span style="color:var(--text-secondary)"><strong>Future-proof</strong> &#8212; no computer can ever break the laws of physics</span></li>
+          </ul>
+          <div class="callout callout-tip" style="margin-top:14px">
+            <div class="callout-icon">&#9879;</div>
+            <div><div class="callout-text">QKD security comes from the <strong>No-Cloning Theorem</strong>: it&#8217;s physically impossible to make an exact copy of an unknown quantum state. Any measurement disturbs the state, revealing the eavesdropper.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#9879;</span> BB84 Protocol &#8212; Step by Step</header>
+      <div class="info-bubble" style="margin-bottom:16px">
+        <div class="info-bubble-icon">&#128161;</div>
+        <div>
+          <div class="info-bubble-title">The Key Insight</div>
+          <div class="info-bubble-text">BB84 works because measuring a quantum particle changes it. If Alice sends a photon in a specific orientation and Eve tries to intercept it, Eve&#8217;s measurement changes the photon. When Bob later measures it, the error rate goes up &#8212; and Alice and Bob can detect that someone was listening.</div>
+        </div>
+      </div>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Quantum Transmission</h3>
+            <p>Alice (Earth) sends a stream of photons, each representing a random bit (0 or 1) in a randomly chosen basis (rectilinear or diagonal). Think of it as sending letters in randomly chosen alphabets.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Measurement</h3>
+            <p>Bob (Mars) measures each photon in a randomly chosen basis. When his basis matches Alice&#8217;s, he gets the correct bit. When it doesn&#8217;t, he gets a random result. About 50% of bases will match.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Sifting</h3>
+            <p>Alice and Bob publicly compare which bases they used (not the actual bits). They keep only the bits where their bases matched. This is their &#8220;sifted key.&#8221;</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Error Check (QBER)</h3>
+            <p>They compare a subset of the sifted key to calculate the Quantum Bit Error Rate (QBER). If QBER &lt; 11%, no eavesdropper was detected. If QBER &#8805; 11%, someone was listening &#8212; they abort and try again.</p>
+            <div class="info-bubble" style="margin-top:8px;padding:10px 14px">
+              <div class="info-bubble-icon">&#128225;</div>
+              <div><div class="info-bubble-title">Why 11%?</div>
+              <div class="info-bubble-text">This threshold comes from quantum information theory. Below 11%, privacy amplification can extract a perfectly secure key. Above 11%, too much information has leaked to the eavesdropper.</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h3>Privacy Amplification</h3>
+            <p>They apply a mathematical function to the sifted key that compresses it, removing any partial information an eavesdropper might have gained. The result is a shared secret key that is provably secure.</p>
+          </div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#128640;</span> Deployment Roadmap</header>
+      <div class="grid grid-3">
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.2)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> Phase 1: Earth &#8596; LEO</div>
+          <div class="card-value" style="color:var(--success);font-size:1.3rem">1&#8211;10 <span class="card-unit">kbps</span></div>
+          <p style="margin-top:8px;font-size:0.9rem">Satellite-to-ground QKD (similar to China&#8217;s Micius satellite). Proven technology. Range: 500&#8211;2,000 km.</p>
+          <span class="badge success" style="margin-top:8px">Proven</span>
+        </div>
+        <div class="card" style="border-color:rgba(var(--accent-rgb),0.2)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Phase 2: Earth &#8596; GEO</div>
+          <div class="card-value" style="color:var(--accent);font-size:1.3rem">100&#8211;1000 <span class="card-unit">bps</span></div>
+          <p style="margin-top:8px;font-size:0.9rem">Entanglement-based QKD (E91) with higher photon loss at 36,000 km. Requires quantum repeaters at LEO.</p>
+          <span class="badge accent" style="margin-top:8px">Near-term</span>
+        </div>
+        <div class="card" style="border-color:rgba(var(--nebula-rgb),0.2)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--nebula)"></span> Phase 3: Earth &#8596; Mars</div>
+          <div class="card-value" style="color:var(--nebula);font-size:1.3rem">1&#8211;10 <span class="card-unit">bps</span></div>
+          <p style="margin-top:8px;font-size:0.9rem">Quantum repeaters at Lagrange points enable entanglement swapping across 225M km. Low rate but provably secure.</p>
+          <span class="badge nebula" style="margin-top:8px">Future</span>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:24px">
+        <div class="info-bubble-icon">&#128161;</div>
+        <div>
+          <div class="info-bubble-title">Defense in Depth</div>
+          <div class="info-bubble-text">AETHERIX uses both QKD and Post-Quantum Cryptography (PQC). QKD provides information-theoretic security for key exchange, while PQC algorithms (CRYSTALS-Kyber, CRYSTALS-Dilithium &#8212; recently standardized by NIST as FIPS 203/204) provide computational security as a backup layer. Together, they create a defense-in-depth security architecture that&#8217;s resilient against both classical and quantum attacks.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:28px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="Router.navigate('why-it-matters')">Next: Why It Matters &#8594;</button>
+        <button class="btn btn-sm btn-mars" onclick="Router.navigate('qkd')">Try QKD Simulation &#8594;</button>
       </div>
     </section>
 
@@ -493,6 +974,55 @@
         <div>
           <div class="callout-title">The Bigger Picture</div>
           <div class="callout-text">AETHERIX isn&#8217;t just faster &#8212; it&#8217;s a fundamentally new approach to space communication. It scales from a single rover to an entire Mars colony, supporting scientific instruments, human habitats, and everything in between. This is the infrastructure humanity will need to become a multi-planetary species.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#128197;</span> Deployment Roadmap</header>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Phase 1: Earth &#8594; Lunar (2028&#8211;2030)</h3>
+            <p>Deploy QKD between ground stations and lunar orbiters. Validate optical links at &#8804;400,000 km with 1.3s round-trip delay. Establish the first quantum-secured space link.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Phase 2: Earth &#8594; Mars Relay (2030&#8211;2035)</h3>
+            <p>Deploy Lagrange-point relays and Mars orbiters. RL routing agents begin training on real contact windows. Target: 50 Mbps average, &gt;90% availability.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Phase 3: Full Network (2035+)</h3>
+            <p>Scale to 241 nodes across all 5 tiers. Federated RL agents across the full mesh. QKD key exchange via quantum repeaters. Target: 200 Mbps at closest approach, supporting human missions.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:24px">
+        <div class="info-bubble-icon">&#127758;</div>
+        <div>
+          <div class="info-bubble-title">Not Just Space &#8212; Earth Applications Too</div>
+          <div class="info-bubble-text">DTN technology developed for space has immediate terrestrial applications: <strong>disaster response</strong> (networks when infrastructure is destroyed), <strong>maritime and Arctic communications</strong> (intermittent satellite coverage), <strong>military tactical networks</strong> (hostile jamming environments), and <strong>remote IoT sensors</strong> (agriculture, environmental monitoring with limited connectivity). The same protocols that work between planets work between disconnected areas on Earth.</div>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:16px">
+        <div class="info-bubble-icon">&#128176;</div>
+        <div>
+          <div class="info-bubble-title">The Economics</div>
+          <div class="info-bubble-text">Current Mars data return costs roughly <strong>$0.10 per MB</strong>. AETHERIX targets <strong>$0.01 per MB</strong> &#8212; a 10&#215; reduction driven by higher data rates, autonomous operations (fewer ground staff), and multi-mission sharing of relay infrastructure. For a 500-day surface mission returning 50 GB/day, that&#8217;s a savings of over <strong>$2 billion</strong> in data delivery costs.</div>
+        </div>
+      </div>
+
+      <div class="callout callout-tip" style="margin-top:20px">
+        <div class="callout-icon">&#128218;</div>
+        <div>
+          <div class="callout-title">Standards Compliance</div>
+          <div class="callout-text">AETHERIX is built on international standards: <strong>RFC 9171</strong> (BPv7), <strong>RFC 5326</strong> (LTP), <strong>RFC 7242</strong> (TCPCL), <strong>CCSDS 734.2-B-1</strong> (DTN Architecture), <strong>CCSDS 141.0-B-1</strong> (Optical Communications), and <strong>CCSDS 401.0-B-30</strong> (RF). This ensures interoperability with existing and future space agency infrastructure worldwide.</div>
         </div>
       </div>
 
