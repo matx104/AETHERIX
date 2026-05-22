@@ -1,57 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 480" width="920" height="480" style="background:#050a14">
-<rect width="920" height="480" fill="#050a14"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540">
+<rect width="960" height="540" fill="#050a14"/>
 
 <defs>
-<marker id="ntA" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5" fill="none" stroke="#5a6578" stroke-width="1"/></marker>
-<linearGradient id="ntE" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#0d47a1"/><stop offset="100%" stop-color="#1e88e5"/></linearGradient>
-<linearGradient id="ntM" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#d84315"/><stop offset="100%" stop-color="#ff7043"/></linearGradient>
+  <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="none" stroke="#5a6578" stroke-width="1.2"/></marker>
+  <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00d4ff" stop-opacity="0.15"/><stop offset="50%" stop-color="#7c5cf7" stop-opacity="0.4"/><stop offset="100%" stop-color="#ff6b35" stop-opacity="0.15"/></linearGradient>
+  <linearGradient id="gEarth" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#0d47a1"/><stop offset="100%" stop-color="#1e88e5"/></linearGradient>
+  <linearGradient id="gMars" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#bf360c"/><stop offset="100%" stop-color="#ff7043"/></linearGradient>
+  <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="softGlow"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
 </defs>
-<ellipse cx="220" cy="80" rx="170" ry="60" fill="none" stroke="#1e88e5" stroke-width="1" stroke-opacity="0.3" stroke-dasharray="4,3"/>
-<text x="220" y="18" text-anchor="middle" fill="#1e88e5" font-size="10" font-weight="600" letter-spacing="1">EARTH</text>
-<rect x="80" y="46" width="90" height="30" rx="4" fill="url(#ntE)" fill-opacity="0.7"/><text x="125" y="66" text-anchor="middle" fill="white" font-size="9" font-weight="600">Goldstone</text>
-<rect x="185" y="38" width="70" height="30" rx="4" fill="url(#ntE)" fill-opacity="0.7"/><text x="220" y="58" text-anchor="middle" fill="white" font-size="9" font-weight="600">Madrid</text>
-<rect x="270" y="46" width="90" height="30" rx="4" fill="url(#ntE)" fill-opacity="0.7"/><text x="315" y="66" text-anchor="middle" fill="white" font-size="9" font-weight="600">Canberra</text>
-<text x="220" y="95" text-anchor="middle" fill="#5a6578" font-size="8">T1: Earth Ground (6 nodes)</text>
 
-<ellipse cx="220" cy="150" rx="200" ry="30" fill="none" stroke="#42a5f5" stroke-width="1" stroke-opacity="0.3" stroke-dasharray="4,3"/>
-<rect x="60" y="133" width="60" height="24" rx="4" fill="#42a5f5" fill-opacity="0.5"/><text x="90" y="150" text-anchor="middle" fill="white" font-size="8" font-weight="600">GEO-1</text>
-<rect x="130" y="133" width="60" height="24" rx="4" fill="#42a5f5" fill-opacity="0.5"/><text x="160" y="150" text-anchor="middle" fill="white" font-size="8" font-weight="600">GEO-2</text>
-<rect x="200" y="133" width="60" height="24" rx="4" fill="#42a5f5" fill-opacity="0.5"/><text x="230" y="150" text-anchor="middle" fill="white" font-size="8" font-weight="600">GEO-3</text>
-<text x="330" y="145" text-anchor="middle" fill="#42a5f5" font-size="9" font-weight="600">+ 48 LEO laser mesh</text>
-<text x="220" y="175" text-anchor="middle" fill="#5a6578" font-size="8">T2: Earth Orbital (51 nodes)</text>
+<!-- Star field -->
+<g opacity="0.35">
+  <circle cx="50" cy="40" r="0.8" fill="#c8d6e5"/><circle cx="180" cy="25" r="0.6" fill="#c8d6e5"/>
+  <circle cx="350" cy="15" r="0.7" fill="#c8d6e5"/><circle cx="500" cy="30" r="0.9" fill="#c8d6e5"/>
+  <circle cx="650" cy="20" r="0.6" fill="#c8d6e5"/><circle cx="800" cy="35" r="0.8" fill="#c8d6e5"/>
+  <circle cx="900" cy="12" r="0.7" fill="#c8d6e5"/><circle cx="100" cy="510" r="0.6" fill="#c8d6e5"/>
+  <circle cx="860" cy="500" r="0.8" fill="#c8d6e5"/><circle cx="450" cy="520" r="0.7" fill="#c8d6e5"/>
+</g>
 
-<line x1="220" y1="100" x2="220" y2="120" stroke="#5a6578" stroke-width="1" marker-end="url(#ntA)"/>
-<line x1="220" y1="180" x2="220" y2="200" stroke="#5a6578" stroke-width="1" marker-end="url(#ntA)"/>
-<text x="240" y="195" fill="#7c5cf7" font-size="8">1550nm optical</text>
+<!-- ===== LEFT SIDE: EARTH ===== -->
+<text x="220" y="28" text-anchor="middle" fill="#1e88e5" font-size="12" font-weight="700" letter-spacing="3" font-family="Inter,system-ui,sans-serif">EARTH</text>
 
-<rect x="140" y="205" width="160" height="50" rx="6" fill="rgba(124,92,247,0.1)" stroke="#7c5cf7" stroke-opacity="0.3"/>
-<text x="220" y="222" text-anchor="middle" fill="#7c5cf7" font-size="10" font-weight="700">DEEP SPACE TRANSIT</text>
-<text x="220" y="238" text-anchor="middle" fill="#8892a4" font-size="9">ES-L4 · ES-L5 Lagrange relays</text>
-<text x="220" y="250" text-anchor="middle" fill="#5a6578" font-size="8">T3: 4 nodes</text>
+<!-- T1: Earth Ground -->
+<rect x="50" y="42" width="340" height="52" rx="8" fill="rgba(13,71,161,0.12)" stroke="#1e88e5" stroke-opacity="0.25" stroke-width="1"/>
+<rect x="62" y="52" width="88" height="32" rx="5" fill="url(#gEarth)" fill-opacity="0.7"/><text x="106" y="73" text-anchor="middle" fill="white" font-size="10" font-weight="600" font-family="Inter,sans-serif">Goldstone</text>
+<rect x="160" y="52" width="70" height="32" rx="5" fill="url(#gEarth)" fill-opacity="0.7"/><text x="195" y="73" text-anchor="middle" fill="white" font-size="10" font-weight="600" font-family="Inter,sans-serif">Madrid</text>
+<rect x="240" y="52" width="90" height="32" rx="5" fill="url(#gEarth)" fill-opacity="0.7"/><text x="285" y="73" text-anchor="middle" fill="white" font-size="10" font-weight="600" font-family="Inter,sans-serif">Canberra</text>
+<text x="220" y="87" text-anchor="middle" fill="#5a6578" font-size="8" font-family="Inter,sans-serif">T1: Earth Ground — 6 nodes</text>
 
-<text x="460" y="305" text-anchor="middle" fill="#5a6578" font-size="9" font-style="italic">~225 million km average</text>
-<line x1="310" y1="235" x2="580" y2="235" stroke="#5a6578" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#ntA)"/>
-<text x="445" y="230" text-anchor="middle" fill="#00d4ff" font-size="8">interplanetary optical link</text>
-<text x="445" y="248" text-anchor="middle" fill="#5a6578" font-size="8">12.5 min one-way light time</text>
+<!-- Arrow T1 -> T2 -->
+<line x1="220" y1="94" x2="220" y2="108" stroke="#42a5f5" stroke-width="1.5" marker-end="url(#arr)"/>
 
-<ellipse cx="700" cy="80" rx="170" ry="60" fill="none" stroke="#ff7043" stroke-width="1" stroke-opacity="0.3" stroke-dasharray="4,3"/>
-<text x="700" y="18" text-anchor="middle" fill="#ff7043" font-size="10" font-weight="600" letter-spacing="1">MARS</text>
-<rect x="560" y="46" width="80" height="30" rx="4" fill="url(#ntM)" fill-opacity="0.7"/><text x="600" y="66" text-anchor="middle" fill="white" font-size="9" font-weight="600">MRS-Alpha</text>
-<rect x="655" y="46" width="80" height="30" rx="4" fill="url(#ntM)" fill-opacity="0.7"/><text x="695" y="66" text-anchor="middle" fill="white" font-size="9" font-weight="600">MRS-Beta</text>
-<rect x="750" y="46" width="80" height="30" rx="4" fill="url(#ntM)" fill-opacity="0.7"/><text x="790" y="66" text-anchor="middle" fill="white" font-size="9" font-weight="600">MRS-Polar</text>
-<text x="700" y="95" text-anchor="middle" fill="#5a6578" font-size="8">T4: Mars Orbital (13 nodes)</text>
+<!-- T2: Earth Orbital -->
+<rect x="30" y="112" width="380" height="44" rx="8" fill="rgba(66,165,245,0.08)" stroke="#42a5f5" stroke-opacity="0.2" stroke-width="1"/>
+<rect x="42" y="120" width="55" height="26" rx="4" fill="#42a5f5" fill-opacity="0.45"/><text x="69" y="138" text-anchor="middle" fill="white" font-size="9" font-weight="600" font-family="Inter,sans-serif">GEO-1</text>
+<rect x="106" y="120" width="55" height="26" rx="4" fill="#42a5f5" fill-opacity="0.45"/><text x="133" y="138" text-anchor="middle" fill="white" font-size="9" font-weight="600" font-family="Inter,sans-serif">GEO-2</text>
+<rect x="170" y="120" width="55" height="26" rx="4" fill="#42a5f5" fill-opacity="0.45"/><text x="197" y="138" text-anchor="middle" fill="white" font-size="9" font-weight="600" font-family="Inter,sans-serif">GEO-3</text>
+<text x="290" y="137" text-anchor="start" fill="#42a5f5" font-size="9" font-weight="600" font-family="Inter,sans-serif">+ 48 LEO laser mesh</text>
+<text x="220" y="151" text-anchor="middle" fill="#5a6578" font-size="8" font-family="Inter,sans-serif">T2: Earth Orbital — 51 nodes</text>
 
-<ellipse cx="700" cy="150" rx="170" ry="30" fill="none" stroke="#d29922" stroke-width="1" stroke-opacity="0.3" stroke-dasharray="4,3"/>
-<rect x="560" y="137" width="55" height="22" rx="4" fill="#d29922" fill-opacity="0.5"/><text x="587" y="152" text-anchor="middle" fill="white" font-size="8">Base-1</text>
-<rect x="625" y="137" width="55" height="22" rx="4" fill="#d29922" fill-opacity="0.5"/><text x="652" y="152" text-anchor="middle" fill="white" font-size="8">Base-2</text>
-<rect x="690" y="137" width="55" height="22" rx="4" fill="#d29922" fill-opacity="0.5"/><text x="717" y="152" text-anchor="middle" fill="white" font-size="8">Rover</text>
-<text x="800" y="148" text-anchor="middle" fill="#d29922" font-size="9" font-weight="600">+ 164 more</text>
-<text x="700" y="175" text-anchor="middle" fill="#5a6578" font-size="8">T5: Mars Surface (167 nodes)</text>
+<!-- Arrow T2 -> T3 -->
+<line x1="220" y1="156" x2="220" y2="174" stroke="#7c5cf7" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="240" y="170" fill="#7c5cf7" font-size="7.5" font-family="Inter,sans-serif">1550nm optical</text>
 
-<line x1="700" y1="100" x2="700" y2="120" stroke="#5a6578" stroke-width="1" marker-end="url(#ntA)"/>
+<!-- T3: Deep Space Transit -->
+<rect x="100" y="178" width="240" height="56" rx="8" fill="rgba(124,92,247,0.1)" stroke="#7c5cf7" stroke-opacity="0.3" stroke-width="1.5" filter="url(#glow)"/>
+<text x="220" y="198" text-anchor="middle" fill="#7c5cf7" font-size="11" font-weight="700" font-family="Inter,sans-serif">DEEP SPACE TRANSIT</text>
+<text x="220" y="214" text-anchor="middle" fill="#8892a4" font-size="9.5" font-family="Inter,sans-serif">ES-L4 · ES-L5 Lagrange Relays</text>
+<text x="220" y="228" text-anchor="middle" fill="#5a6578" font-size="8" font-family="Inter,sans-serif">T3: 4 nodes</text>
 
-<text x="460" y="370" text-anchor="middle" fill="#00d4ff" font-size="11" font-weight="600">241 Nodes · 5 Tiers · 3 Redundant Paths · No Single Point of Failure</text>
-<rect x="60" y="385" width="800" height="4" rx="2" fill="url(#ga1)" opacity="0.3"/>
+<!-- ===== INTERPLANETARY LINK ===== -->
+<line x1="340" y1="206" x2="600" y2="206" stroke="url(#beam)" stroke-width="4" filter="url(#softGlow)"/>
+<line x1="340" y1="206" x2="600" y2="206" stroke="url(#beam)" stroke-width="14" opacity="0.06"/>
+<text x="470" y="196" text-anchor="middle" fill="#00d4ff" font-size="9" font-weight="600" font-family="Inter,sans-serif">Interplanetary Optical Link</text>
+<text x="470" y="222" text-anchor="middle" fill="#5a6578" font-size="8.5" font-family="Inter,sans-serif">~225M km · 12.5 min one-way · 2–200 Mbps</text>
+
+<!-- Redundant path labels -->
+<path d="M310,195 Q470,150 620,195" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="4,3" stroke-opacity="0.5"/>
+<text x="470" y="168" text-anchor="middle" fill="#3fb950" font-size="7" font-opacity="0.7" font-family="Inter,sans-serif">Redundant via ES-L5</text>
+
+<!-- ===== RIGHT SIDE: MARS ===== -->
+<text x="740" y="28" text-anchor="middle" fill="#ff7043" font-size="12" font-weight="700" letter-spacing="3" font-family="Inter,system-ui,sans-serif">MARS</text>
+
+<!-- T4: Mars Orbital -->
+<rect x="590" y="42" width="300" height="52" rx="8" fill="rgba(191,54,12,0.12)" stroke="#ff7043" stroke-opacity="0.25" stroke-width="1"/>
+<rect x="600" y="52" width="85" height="32" rx="5" fill="url(#gMars)" fill-opacity="0.7"/><text x="642" y="73" text-anchor="middle" fill="white" font-size="9" font-weight="600" font-family="Inter,sans-serif">MRS-Alpha</text>
+<rect x="695" y="52" width="75" height="32" rx="5" fill="url(#gMars)" fill-opacity="0.7"/><text x="732" y="73" text-anchor="middle" fill="white" font-size="9" font-weight="600" font-family="Inter,sans-serif">MRS-Beta</text>
+<rect x="780" y="52" width="85" height="32" rx="5" fill="url(#gMars)" fill-opacity="0.7"/><text x="822" y="73" text-anchor="middle" fill="white" font-size="9" font-weight="600" font-family="Inter,sans-serif">MRS-Polar</text>
+<text x="740" y="87" text-anchor="middle" fill="#5a6578" font-size="8" font-family="Inter,sans-serif">T4: Mars Orbital — 13 nodes</text>
+
+<!-- Arrow T4 -> T5 -->
+<line x1="740" y1="94" x2="740" y2="108" stroke="#d29922" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<!-- T5: Mars Surface -->
+<rect x="570" y="112" width="340" height="44" rx="8" fill="rgba(210,153,34,0.08)" stroke="#d29922" stroke-opacity="0.2" stroke-width="1"/>
+<rect x="582" y="120" width="55" height="26" rx="4" fill="#d29922" fill-opacity="0.45"/><text x="609" y="138" text-anchor="middle" fill="white" font-size="8.5" font-weight="600" font-family="Inter,sans-serif">Base-1</text>
+<rect x="646" y="120" width="55" height="26" rx="4" fill="#d29922" fill-opacity="0.45"/><text x="673" y="138" text-anchor="middle" fill="white" font-size="8.5" font-weight="600" font-family="Inter,sans-serif">Base-2</text>
+<rect x="710" y="120" width="50" height="26" rx="4" fill="#d29922" fill-opacity="0.45"/><text x="735" y="138" text-anchor="middle" fill="white" font-size="8.5" font-weight="600" font-family="Inter,sans-serif">Rover</text>
+<text x="800" y="137" text-anchor="start" fill="#d29922" font-size="9" font-weight="600" font-family="Inter,sans-serif">+ 164 more</text>
+<text x="740" y="151" text-anchor="middle" fill="#5a6578" font-size="8" font-family="Inter,sans-serif">T5: Mars Surface — 167 nodes</text>
+
+<!-- ===== SUMMARY BAR ===== -->
+<rect x="50" y="260" width="860" height="4" rx="2" fill="url(#beam)" opacity="0.4"/>
+
+<!-- Stats row -->
+<rect x="60" y="285" width="190" height="60" rx="8" fill="rgba(0,212,255,0.06)" stroke="#00d4ff" stroke-opacity="0.2"/>
+<text x="155" y="312" text-anchor="middle" fill="#00d4ff" font-size="22" font-weight="800" font-family="Inter,sans-serif">241</text>
+<text x="155" y="330" text-anchor="middle" fill="#5a6578" font-size="9" font-family="Inter,sans-serif">Total Nodes</text>
+
+<rect x="270" y="285" width="190" height="60" rx="8" fill="rgba(124,92,247,0.06)" stroke="#7c5cf7" stroke-opacity="0.2"/>
+<text x="365" y="312" text-anchor="middle" fill="#7c5cf7" font-size="22" font-weight="800" font-family="Inter,sans-serif">5</text>
+<text x="365" y="330" text-anchor="middle" fill="#5a6578" font-size="9" font-family="Inter,sans-serif">Network Tiers</text>
+
+<rect x="480" y="285" width="190" height="60" rx="8" fill="rgba(63,185,80,0.06)" stroke="#3fb950" stroke-opacity="0.2"/>
+<text x="575" y="312" text-anchor="middle" fill="#3fb950" font-size="22" font-weight="800" font-family="Inter,sans-serif">3</text>
+<text x="575" y="330" text-anchor="middle" fill="#5a6578" font-size="9" font-family="Inter,sans-serif">Redundant Paths</text>
+
+<rect x="690" y="285" width="190" height="60" rx="8" fill="rgba(255,107,53,0.06)" stroke="#ff6b35" stroke-opacity="0.2"/>
+<text x="785" y="312" text-anchor="middle" fill="#ff6b35" font-size="22" font-weight="800" font-family="Inter,sans-serif">0</text>
+<text x="785" y="330" text-anchor="middle" fill="#5a6578" font-size="9" font-family="Inter,sans-serif">Single Points of Failure</text>
+
+<!-- Legend -->
+<g transform="translate(60,370)" font-family="Inter,sans-serif">
+  <rect width="840" height="140" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <text x="420" y="22" text-anchor="middle" fill="#8892a4" font-size="10" font-weight="600" letter-spacing="2">LINK CHARACTERISTICS</text>
+  
+  <circle cx="30" cy="50" r="6" fill="#1e88e5" fill-opacity="0.5"/><text x="45" y="54" fill="#8892a4" font-size="9">T1→T2</text><text x="110" y="54" fill="#c9d1d9" font-size="9" font-weight="600">DSN uplink</text><text x="210" y="54" fill="#5a6578" font-size="9">Ka-band · GEO relay</text>
+  
+  <circle cx="30" cy="75" r="6" fill="#42a5f5" fill-opacity="0.5"/><text x="45" y="79" fill="#8892a4" font-size="9">T2→T3</text><text x="110" y="79" fill="#c9d1d9" font-size="9" font-weight="600">1550nm optical</text><text x="210" y="79" fill="#5a6578" font-size="9">100 Mbps · Laser uplink</text>
+  
+  <circle cx="30" cy="100" r="6" fill="#7c5cf7" fill-opacity="0.5"/><text x="45" y="104" fill="#8892a4" font-size="9">T3→T4</text><text x="110" y="104" fill="#c9d1d9" font-size="9" font-weight="600">Deep space laser</text><text x="210" y="104" fill="#5a6578" font-size="9">2–200 Mbps · 225M km</text>
+  
+  <circle cx="30" cy="125" r="6" fill="#d29922" fill-opacity="0.5"/><text x="45" y="129" fill="#8892a4" font-size="9">T4→T5</text><text x="110" y="129" fill="#c9d1d9" font-size="9" font-weight="600">UHF/X-band</text><text x="210" y="129" fill="#5a6578" font-size="9">2 Mbps · Surface downlink</text>
+  
+  <text x="480" y="54" fill="#8892a4" font-size="9">LEO ISL</text><text x="560" y="54" fill="#c9d1d9" font-size="9" font-weight="600">Optical mesh</text><text x="660" y="54" fill="#5a6578" font-size="9">10 Gbps · 48 satellites</text>
+  <text x="480" y="79" fill="#8892a4" font-size="9">Latency</text><text x="560" y="79" fill="#c9d1d9" font-size="9" font-weight="600">3–22 min one-way</text><text x="660" y="79" fill="#5a6578" font-size="9">Distance dependent</text>
+  <text x="480" y="104" fill="#8892a4" font-size="9">Conjunction</text><text x="560" y="104" fill="#3fb950" font-size="9" font-weight="600">50–70% via Lagrange</text><text x="660" y="104" fill="#5a6578" font-size="9">No total blackout</text>
+  <text x="480" y="129" fill="#8892a4" font-size="9">Security</text><text x="560" y="129" fill="#c84cff" font-size="9" font-weight="600">QKD + PQC end-to-end</text><text x="660" y="129" fill="#5a6578" font-size="9">BB84 · ML-KEM</text>
+</g>
 
 </svg>
