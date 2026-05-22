@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 440" width="920" height="440" style="background:#050a14">
+<rect width="920" height="440" fill="#050a14"/>
+
+<defs>
+<linearGradient id="ga1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00d4ff" stop-opacity="0.2"/><stop offset="100%" stop-color="#7c5cf7" stop-opacity="0.1"/></linearGradient>
+<linearGradient id="ga2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b35" stop-opacity="0.15"/><stop offset="100%" stop-color="#f85149" stop-opacity="0.08"/></linearGradient>
+<marker id="arrowW" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="none" stroke="#5a6578" stroke-width="1"/></marker>
+</defs>
+<text x="450" y="32" text-anchor="middle" fill="#00d4ff" font-size="16" font-weight="700" font-family="monospace">AETHERIX PLATFORM</text>
+<rect x="20" y="45" width="860" height="4" rx="2" fill="url(#ga1)"/>
+
+<rect x="20" y="60" width="200" height="130" rx="8" fill="rgba(0,212,255,0.06)" stroke="#00d4ff" stroke-opacity="0.25"/>
+<text x="120" y="82" text-anchor="middle" fill="#00d4ff" font-size="12" font-weight="700" font-family="monospace">INFRASTRUCTURE</text>
+<text x="120" y="100" text-anchor="middle" fill="#8892a4" font-size="10">link_budget.py</text>
+<text x="120" y="116" text-anchor="middle" fill="#8892a4" font-size="10">rf_link_budget.py</text>
+<text x="120" y="136" text-anchor="middle" fill="#5a6578" font-size="9">FSPL, EIRP, margin</text>
+<text x="120" y="152" text-anchor="middle" fill="#5a6578" font-size="9">Ka/X/S/UHF bands</text>
+<text x="120" y="168" text-anchor="middle" fill="#5a6578" font-size="9">CCSDS 141.0-B-1</text>
+
+<rect x="240" y="60" width="200" height="130" rx="8" fill="rgba(124,92,247,0.06)" stroke="#7c5cf7" stroke-opacity="0.25"/>
+<text x="340" y="82" text-anchor="middle" fill="#7c5cf7" font-size="12" font-weight="700" font-family="monospace">ROUTING</text>
+<text x="340" y="100" text-anchor="middle" fill="#8892a4" font-size="10">rl_agent.py</text>
+<text x="340" y="116" text-anchor="middle" fill="#8892a4" font-size="10">bundle.py / ltp.py</text>
+<text x="340" y="136" text-anchor="middle" fill="#5a6578" font-size="9">Q-learning, federated</text>
+<text x="340" y="152" text-anchor="middle" fill="#5a6578" font-size="9">BPv7, LTP, TCPCL, UDP-CL</text>
+<text x="340" y="168" text-anchor="middle" fill="#5a6578" font-size="9">RFC 9171, RFC 5326</text>
+
+<rect x="460" y="60" width="200" height="130" rx="8" fill="rgba(200,76,255,0.06)" stroke="#c84cff" stroke-opacity="0.25"/>
+<text x="560" y="82" text-anchor="middle" fill="#c84cff" font-size="12" font-weight="700" font-family="monospace">SECURITY</text>
+<text x="560" y="100" text-anchor="middle" fill="#8892a4" font-size="10">qkd.py</text>
+<text x="560" y="116" text-anchor="middle" fill="#8892a4" font-size="10">repeater_chain.py</text>
+<text x="560" y="136" text-anchor="middle" fill="#5a6578" font-size="9">BB84, E91 protocols</text>
+<text x="560" y="152" text-anchor="middle" fill="#5a6578" font-size="9">CASCADE reconciliation</text>
+<text x="560" y="168" text-anchor="middle" fill="#5a6578" font-size="9">NIST FIPS 203/204 (PQC)</text>
+
+<rect x="680" y="60" width="200" height="130" rx="8" fill="rgba(255,107,53,0.06)" stroke="#ff6b35" stroke-opacity="0.25"/>
+<text x="780" y="82" text-anchor="middle" fill="#ff6b35" font-size="12" font-weight="700" font-family="monospace">ORBITAL</text>
+<text x="780" y="100" text-anchor="middle" fill="#8892a4" font-size="10">contact_windows.py</text>
+<text x="780" y="116" text-anchor="middle" fill="#8892a4" font-size="10">topology.py / doppler.py</text>
+<text x="780" y="136" text-anchor="middle" fill="#5a6578" font-size="9">5-tier, 241 nodes</text>
+<text x="780" y="152" text-anchor="middle" fill="#5a6578" font-size="9">Synodic period modeling</text>
+<text x="780" y="168" text-anchor="middle" fill="#5a6578" font-size="9">Doppler compensation</text>
+
+<line x1="120" y1="190" x2="120" y2="215" stroke="#5a6578" stroke-width="1.5" marker-end="url(#arrowW)"/>
+<line x1="340" y1="190" x2="340" y2="215" stroke="#5a6578" stroke-width="1.5" marker-end="url(#arrowW)"/>
+<line x1="560" y1="190" x2="560" y2="215" stroke="#5a6578" stroke-width="1.5" marker-end="url(#arrowW)"/>
+<line x1="780" y1="190" x2="780" y2="215" stroke="#5a6578" stroke-width="1.5" marker-end="url(#arrowW)"/>
+
+<rect x="20" y="220" width="860" height="50" rx="8" fill="url(#ga2)" stroke="#ff6b35" stroke-opacity="0.25"/>
+<text x="450" y="242" text-anchor="middle" fill="#ff6b35" font-size="12" font-weight="700" font-family="monospace">SIMULATION ENGINE</text>
+<text x="450" y="260" text-anchor="middle" fill="#8892a4" font-size="10">simulator.py · policy_engine.py · training.py · multi_agent.py · forwarding_engine.py</text>
+
+<line x1="450" y1="270" x2="450" y2="290" stroke="#5a6578" stroke-width="1.5" marker-end="url(#arrowW)"/>
+
+<rect x="130" y="295" width="640" height="45" rx="8" fill="rgba(63,185,80,0.06)" stroke="#3fb950" stroke-opacity="0.25"/>
+<text x="450" y="316" text-anchor="middle" fill="#3fb950" font-size="12" font-weight="700" font-family="monospace">WEB SHOWCASE — 10 Interactive Demos</text>
+<text x="450" y="332" text-anchor="middle" fill="#8892a4" font-size="10">matx104.github.io/AETHERIX · 149 tests · 27 Python modules</text>
+
+<rect x="20" y="360" width="410" height="24" rx="4" fill="rgba(0,212,255,0.04)" stroke="#00d4ff" stroke-opacity="0.15"/>
+<text x="225" y="376" text-anchor="middle" fill="#5a6578" font-size="9">CCSDS 734.2-B-1 · CCSDS 735.1-B-1 · CCSDS 141.0-B-1</text>
+<rect x="470" y="360" width="410" height="24" rx="4" fill="rgba(124,92,247,0.04)" stroke="#7c5cf7" stroke-opacity="0.15"/>
+<text x="675" y="376" text-anchor="middle" fill="#5a6578" font-size="9">RFC 9171 · RFC 5326 · RFC 7242 · NIST FIPS 203/204</text>
+
+</svg>

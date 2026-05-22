@@ -1356,8 +1356,8 @@ body.pres-active .presentation-mode {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px 60px 80px;
-    max-width: 1200px;
+    padding: 36px 48px 72px;
+    max-width: 1440px;
     margin: 0 auto;
     width: 100%;
 }
@@ -1376,7 +1376,7 @@ body.pres-active .presentation-mode {
 .pres-slide-title { display: none; }
 
 .pres-slide-body h2 {
-    font-size: 1.5rem;
+    font-size: 1.65rem;
     margin-bottom: 24px;
     color: var(--text-primary);
     font-weight: 700;
