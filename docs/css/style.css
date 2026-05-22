@@ -1366,6 +1366,7 @@ body.pres-active .presentation-mode {
     width: 100%;
     color: var(--text-primary);
     animation: presSlideIn 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
 }
 
 @keyframes presSlideIn {
@@ -1402,6 +1403,69 @@ body.pres-active .presentation-mode {
 .pres-slide-body h2 .pres-tag.quantum { background: rgba(var(--quantum-rgb), 0.15); color: var(--quantum); border-color: rgba(var(--quantum-rgb), 0.3); }
 .pres-slide-body h2 .pres-tag.success { background: rgba(var(--success-rgb), 0.15); color: var(--success); border-color: rgba(var(--success-rgb), 0.3); }
 .pres-slide-body h2 .pres-tag.live { background: rgba(var(--danger-rgb), 0.15); color: var(--danger); border-color: rgba(var(--danger-rgb), 0.3); animation: presPulse 2s infinite; }
+
+.pres-slide-links {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    max-width: 55%;
+    z-index: 10;
+}
+
+.pres-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.pres-link-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.pres-link-ref {
+    background: rgba(var(--accent-rgb), 0.08);
+    color: var(--accent);
+    border: 1px solid rgba(var(--accent-rgb), 0.2);
+}
+.pres-link-ref:hover {
+    background: rgba(var(--accent-rgb), 0.15);
+    border-color: rgba(var(--accent-rgb), 0.4);
+}
+
+.pres-link-demo {
+    background: rgba(var(--success-rgb), 0.12);
+    color: var(--success);
+    border: 1px solid rgba(var(--success-rgb), 0.25);
+}
+.pres-link-demo:hover {
+    background: rgba(var(--success-rgb), 0.2);
+    border-color: rgba(var(--success-rgb), 0.45);
+}
+
+.pres-link-learn {
+    background: rgba(var(--quantum-rgb), 0.08);
+    color: var(--quantum);
+    border: 1px solid rgba(var(--quantum-rgb), 0.2);
+}
+.pres-link-learn:hover {
+    background: rgba(var(--quantum-rgb), 0.15);
+    border-color: rgba(var(--quantum-rgb), 0.4);
+}
 
 @keyframes presPulse {
     0%, 100% { opacity: 1; }
@@ -1990,6 +2054,8 @@ body.pres-active .presentation-mode {
     .pres-route-hops { gap: 2px; }
     .pres-flow { gap: 4px; }
     .pres-flow-step { min-width: 60px; padding: 8px 8px; }
+    .pres-slide-links { max-width: 70%; top: 4px; right: 4px; }
+    .pres-link-btn { font-size: 0.55rem; padding: 3px 7px; }
     .study-tools-grid { grid-template-columns: 1fr 1fr; }
 }
 

@@ -93,7 +93,7 @@ window.Router = {
     }
     if (hash.startsWith('presentation/')) {
       const slideNum = parseInt(hash.split('/')[1]);
-      if (slideNum >= 1 && slideNum <= 13) App.presentation.goTo(slideNum - 1);
+      if (slideNum >= 1 && slideNum <= 20) App.presentation.goTo(slideNum - 1);
     }
     window.scrollTo(0, 0);
   }
@@ -1695,11 +1695,124 @@ window.App = (() => {
       ];
     },
 
+    slideLinks: {
+      'Introduction': [
+        { type: 'ref', label: 'RFC 4838', url: 'https://www.rfc-editor.org/rfc/rfc4838' }
+      ],
+      'AETHERIX': [
+        { type: 'demo', label: 'Dashboard', hash: 'dashboard' },
+        { type: 'ref', label: 'GitHub', url: 'https://github.com/matx104/AETHERIX' }
+      ],
+      'The Distance': [
+        { type: 'learn', label: 'Journey to Mars', hash: 'journey-to-mars' }
+      ],
+      'The Answer': [
+        { type: 'learn', label: 'What is DTN', hash: 'what-is-dtn' },
+        { type: 'learn', label: 'How It Works', hash: 'how-it-works' }
+      ],
+      'System Architecture': [
+        { type: 'learn', label: 'How It Works', hash: 'how-it-works' },
+        { type: 'ref', label: 'CCSDS 734.2-B-1', url: 'https://public.ccsds.org/Pubs/734x2b1.pdf' }
+      ],
+      'BPv7 Deep Dive': [
+        { type: 'learn', label: 'DTN Protocols', hash: 'what-is-dtn' },
+        { type: 'demo', label: 'Bundle Demo', hash: 'bundle' },
+        { type: 'ref', label: 'RFC 9171', url: 'https://www.rfc-editor.org/rfc/rfc9171' }
+      ],
+      'DTN Store-and-Forward': [
+        { type: 'learn', label: 'DTN Protocols', hash: 'what-is-dtn' },
+        { type: 'demo', label: 'DTN Engine', hash: 'dtn-engine' },
+        { type: 'ref', label: 'RFC 5326', url: 'https://www.rfc-editor.org/rfc/rfc5326' }
+      ],
+      'Network Topology': [
+        { type: 'learn', label: 'The Network', hash: 'the-network' },
+        { type: 'demo', label: 'Dashboard', hash: 'dashboard' }
+      ],
+      '5-Tier Network Diagram': [
+        { type: 'learn', label: 'The Network', hash: 'the-network' },
+        { type: 'ref', label: 'CCSDS 734.2-B-1', url: 'https://public.ccsds.org/Pubs/734x2b1.pdf' }
+      ],
+      'Optical Communications': [
+        { type: 'learn', label: 'Optical Comms', hash: 'optical-comms' },
+        { type: 'demo', label: 'Link Budget', hash: 'link-budget' },
+        { type: 'demo', label: 'RF Budget', hash: 'rf-budget' },
+        { type: 'ref', label: 'CCSDS 141.0-B-1', url: 'https://public.ccsds.org/Pubs/141x0b1.pdf' }
+      ],
+      'Earth-Mars Journey': [
+        { type: 'learn', label: 'Journey to Mars', hash: 'journey-to-mars' },
+        { type: 'demo', label: 'Mission', hash: 'mission' }
+      ],
+      'RL Routing': [
+        { type: 'learn', label: 'RL Routing', hash: 'reinforcement-learning' },
+        { type: 'demo', label: 'Routing Demo', hash: 'routing' },
+        { type: 'ref', label: 'Sutton & Barto', url: 'http://incompleteideas.net/book/the-book.html' }
+      ],
+      'Quantum Security': [
+        { type: 'learn', label: 'Space Security', hash: 'space-security' },
+        { type: 'learn', label: 'QKD Science', hash: 'qkd-science' },
+        { type: 'demo', label: 'QKD Demo', hash: 'qkd' },
+        { type: 'ref', label: 'NIST FIPS 203', url: 'https://csrc.nist.gov/pubs/fips/203/final' }
+      ],
+      'Orbital Mechanics': [
+        { type: 'learn', label: 'Journey to Mars', hash: 'journey-to-mars' },
+        { type: 'demo', label: 'Orbital Demo', hash: 'orbital' }
+      ],
+      'End-to-End Mission': [
+        { type: 'demo', label: 'Mission', hash: 'mission' },
+        { type: 'demo', label: 'Simulation', hash: 'simulation' }
+      ],
+      'Data Flow Diagram': [
+        { type: 'learn', label: 'DTN Protocols', hash: 'what-is-dtn' },
+        { type: 'demo', label: 'DTN Engine', hash: 'dtn-engine' },
+        { type: 'ref', label: 'RFC 7242', url: 'https://www.rfc-editor.org/rfc/rfc7242' }
+      ],
+      'Performance': [
+        { type: 'demo', label: 'Dashboard', hash: 'dashboard' }
+      ],
+      'Implementation': [
+        { type: 'learn', label: 'Standards', hash: 'deep-space-standards' },
+        { type: 'demo', label: 'Dashboard', hash: 'dashboard' },
+        { type: 'ref', label: 'CCSDS 735.1-B-1', url: 'https://public.ccsds.org/Pubs/735x1b1.pdf' }
+      ],
+      'Roadmap': [
+        { type: 'learn', label: 'Standards', hash: 'deep-space-standards' },
+        { type: 'ref', label: 'CCSDS 142.0-B-2', url: 'https://public.ccsds.org/Pubs/142x0b2.pdf' }
+      ],
+      'Thank You': [
+        { type: 'demo', label: 'Dashboard', hash: 'dashboard' }
+      ],
+      'Conclusion': [
+        { type: 'demo', label: 'Dashboard', hash: 'dashboard' },
+        { type: 'ref', label: 'GitHub', url: 'https://github.com/matx104/AETHERIX' }
+      ]
+    },
+
+    linksHtml(links) {
+      if (!links || !links.length) return '';
+      return '<div class="pres-slide-links">' + links.map(l => {
+        if (l.type === 'ref') {
+          return '<a href="' + l.url + '" target="_blank" rel="noopener" class="pres-link-btn pres-link-ref" title="' + l.label + '">&#128196; ' + l.label + '</a>';
+        } else if (l.type === 'demo') {
+          return '<a href="#' + l.hash + '" class="pres-link-btn pres-link-demo" data-nav="' + l.hash + '" title="Demo: ' + l.label + '">&#9654; ' + l.label + '</a>';
+        } else {
+          return '<a href="#' + l.hash + '" class="pres-link-btn pres-link-learn" data-nav="' + l.hash + '" title="Learn: ' + l.label + '">&#128218; ' + l.label + '</a>';
+        }
+      }).join('') + '</div>';
+    },
+
     render() {
       const slide = this.slides[this.currentSlide];
       const el = $('pres-slide-content');
       if (!el) return;
-      el.innerHTML = '<div class="pres-slide-title">' + slide.title + '</div>' + (slide.subtitle ? '<div class="pres-slide-subtitle">' + slide.subtitle + '</div>' : '') + '<div class="pres-slide-body">' + slide.content + '</div>';
+      const links = this.slideLinks[slide.title] || [];
+      el.innerHTML = '<div class="pres-slide-title">' + slide.title + '</div>' + (slide.subtitle ? '<div class="pres-slide-subtitle">' + slide.subtitle + '</div>' : '') + '<div class="pres-slide-body">' + slide.content + '</div>' + this.linksHtml(links);
+      el.querySelectorAll('[data-nav]').forEach(a => {
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.exit();
+          setTimeout(() => { window.location.hash = '#' + a.dataset.nav; }, 150);
+        });
+      });
       $('pres-counter').textContent = (this.currentSlide + 1) + ' / ' + this.slides.length;
       $('pres-progress').style.width = ((this.currentSlide + 1) / this.slides.length * 100) + '%';
       if (this.notesVisible) {
