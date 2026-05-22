@@ -1698,10 +1698,6 @@ window.App = (() => {
       'Introduction': [
         { type: 'ref', label: 'RFC 4838', url: 'https://www.rfc-editor.org/rfc/rfc4838' }
       ],
-      'AETHERIX': [
-        { type: 'demo', label: 'Dashboard', hash: 'dashboard' },
-        { type: 'ref', label: 'GitHub', url: 'https://github.com/matx104/AETHERIX' }
-      ],
       'What is AETHERIX': [
         { type: 'learn', label: 'What is DTN', hash: 'what-is-dtn' },
         { type: 'learn', label: 'Why It Matters', hash: 'why-it-matters' }
