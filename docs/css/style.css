@@ -1677,18 +1677,13 @@ body.pres-active .presentation-mode {
     padding: 12px;
 }
 
-.pres-mermaid-wrap {
-    background: rgba(13, 21, 37, 0.5);
+.pres-diagram-img {
+    background: rgba(5, 10, 20, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: var(--radius-lg);
     padding: 16px;
-    overflow-x: auto;
+    overflow: hidden;
     backdrop-filter: blur(8px);
-}
-
-.pres-mermaid-wrap .mermaid svg {
-    max-width: 100%;
-    height: auto;
 }
 
 .pres-stack { display: flex; flex-direction: column; gap: 6px; }

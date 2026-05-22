@@ -1,24 +1,3 @@
-async function renderMermaidInContainer(container) {
-  if (typeof mermaid === 'undefined') return;
-  const diagrams = (window.App && App.presentation) ? App.presentation.mermaidDiagrams : {};
-  const els = container.querySelectorAll('.mermaid-diagram');
-  for (const el of els) {
-    const key = el.getAttribute('data-diagram');
-    if (el.getAttribute('data-processed')) continue;
-    const src = diagrams[key];
-    if (!src) continue;
-    try {
-      const id = 'mmd-' + Math.random().toString(36).slice(2, 9);
-      const { svg } = await mermaid.render(id, src);
-      el.innerHTML = svg;
-      el.setAttribute('data-processed', 'true');
-    } catch (e) {
-      console.warn('Mermaid:', e);
-      el.innerHTML = '<div style="color:#f85149;font-size:0.8rem;padding:8px">Diagram error</div>';
-    }
-  }
-}
-
 window.ThemeManager = {
   init() {
     const saved = localStorage.getItem('aetherix-theme') || 'dark';
@@ -116,7 +95,6 @@ window.Router = {
       const slideNum = parseInt(hash.split('/')[1]);
       if (slideNum >= 1 && slideNum <= App.presentation.slides.length) App.presentation.goTo(slideNum - 1);
     }
-    if (target) renderMermaidInContainer(target);
     window.scrollTo(0, 0);
   }
 };
@@ -1606,97 +1584,6 @@ window.App = (() => {
       this.startTimer();
     },
 
-    mermaidDiagrams: {
-      'system-architecture': 'graph TB\n'
-        + '  subgraph SRC[Python Source]\n'
-        + '    INFRA[Infrastructure - link_budget + rf_link_budget]\n'
-        + '    ROUTE[Routing - rl_agent + bundle + ltp + tcpcl]\n'
-        + '    SEC[Security - qkd + repeater_chain]\n'
-        + '    ORBIT[Orbital - contact_windows + topology + doppler]\n'
-        + '  end\n'
-        + '  subgraph ENGINE[Simulation Engine]\n'
-        + '    SIM[simulator]\n'
-        + '    POLICY[policy_engine]\n'
-        + '    TRAIN[training + multi_agent]\n'
-        + '    FWD[forwarding_engine]\n'
-        + '  end\n'
-        + '  subgraph WEB[Web Showcase - 10 Demos]\n'
-        + '    DASH[Mission Control]\n'
-        + '    LB[Link Budget]\n'
-        + '    RL[RL Routing]\n'
-        + '    QKD[QKD Protocol]\n'
-        + '    ORB[Orbital Mechanics]\n'
-        + '    DTN[DTN Engine]\n'
-        + '    MISS[Mars Mission]\n'
-        + '  end\n'
-        + '  INFRA --> SIM\n'
-        + '  ROUTE --> SIM\n'
-        + '  SEC --> SIM\n'
-        + '  ORBIT --> SIM\n'
-        + '  SIM --> POLICY\n'
-        + '  SIM --> TRAIN\n'
-        + '  SIM --> FWD\n'
-        + '  POLICY --> DASH\n'
-        + '  FWD --> DTN\n'
-        + '  ROUTE --> RL\n'
-        + '  SEC --> QKD\n'
-        + '  ORBIT --> ORB\n'
-        + '  INFRA --> LB\n'
-        + '  SIM --> MISS',
-      'network-topology': 'graph LR\n'
-        + '  subgraph EARTH[EARTH]\n'
-        + '    T1[T1 Earth Ground - 6 Nodes]\n'
-        + '    T2[T2 Earth Orbital - 51 Nodes]\n'
-        + '  end\n'
-        + '  subgraph DEEP[DEEP SPACE]\n'
-        + '    T3[T3 Transit - 4 Nodes]\n'
-        + '  end\n'
-        + '  subgraph MARS[MARS]\n'
-        + '    T4[T4 Mars Orbital - 13 Nodes]\n'
-        + '    T5[T5 Mars Surface - 167 Nodes]\n'
-        + '  end\n'
-        + '  T1 -->|100 Mbps| T2\n'
-        + '  T2 -->|10 Gbps ISL| T3\n'
-        + '  T3 -->|2 to 200 Mbps| T4\n'
-        + '  T4 -->|2 Mbps UHF| T5\n'
-        + '  T2 -.->|Redundant L5| T3\n'
-        + '  T3 -.->|Direct optical| T4',
-      'data-flow': 'graph TD\n'
-        + '  subgraph APP[Application Layer]\n'
-        + '    SRC[1 Source Node]\n'
-        + '    BP[2 Bundle Protocol BPv7]\n'
-        + '    RL[3 RL Routing]\n'
-        + '    QE[4 QKD Encrypt]\n'
-        + '  end\n'
-        + '  subgraph CONV[Convergence Layer]\n'
-        + '    LTP[5 LTP Segmentation]\n'
-        + '    STORE[6 Store and Wait]\n'
-        + '    FWD[7 Forward and Custody]\n'
-        + '  end\n'
-        + '  subgraph PHYS[Physical Layer]\n'
-        + '    UHF[Mars UHF]\n'
-        + '    ISL[Optical ISL]\n'
-        + '    DEEP[Deep Space 1550nm]\n'
-        + '    KAB[DSN Ka-band]\n'
-        + '  end\n'
-        + '  subgraph DELIV[Delivery]\n'
-        + '    RASM[8 LTP Reassemble]\n'
-        + '    DEC[9 QKD Decrypt]\n'
-        + '    DEL[10 Delivered to JPL]\n'
-        + '  end\n'
-        + '  SRC --> BP --> RL --> QE\n'
-        + '  QE --> LTP --> STORE --> FWD\n'
-        + '  FWD --> UHF\n'
-        + '  FWD --> ISL\n'
-        + '  FWD --> DEEP\n'
-        + '  FWD --> KAB\n'
-        + '  UHF --> RASM\n'
-        + '  ISL --> RASM\n'
-        + '  DEEP --> RASM\n'
-        + '  KAB --> RASM\n'
-        + '  RASM --> DEC --> DEL'
-    },
-
     buildSlides() {
       return [
         {
@@ -1721,7 +1608,7 @@ window.App = (() => {
         },
         {
           title: 'System Architecture',
-          content: '<h2><span class="pres-tag accent">Architecture</span> System Component Overview</h2><div class="pres-grid-2" style="margin-bottom:16px"><div class="pres-card"><div class="pres-card-title">Five Core Modules</div><ul class="pres-list"><li><strong style="color:#00d4ff">Infrastructure</strong> &mdash; Optical + RF link budget calculators (FSPL, EIRP, margin). CCSDS 141.0-B-1.</li><li><strong style="color:#7c5cf7">Routing</strong> &mdash; Q-learning RL agent, BPv7 bundle protocol, LTP/TCPCL/UDP-CL. RFC 9171.</li><li><strong style="color:#c84cff">Security</strong> &mdash; BB84 &amp; E91 QKD, quantum repeater chains, CASCADE reconciliation. NIST FIPS 203/204.</li><li><strong style="color:#ff6b35">Orbital</strong> &mdash; Contact window prediction, 5-tier topology (241 nodes), Doppler compensation.</li><li><strong style="color:#3fb950">Simulation</strong> &mdash; Scenario engine, policy routing, RL training, multi-agent federated learning.</li></ul></div><div class="pres-card"><div class="pres-card-title">Module &rarr; Engine &rarr; Showcase</div><table class="pres-table"><tr><td><strong>Source</strong></td><td>27 Python modules across 5 packages</td></tr><tr><td><strong>Engine</strong></td><td>simulator + policy_engine + training + multi_agent + forwarding</td></tr><tr><td><strong>Showcase</strong></td><td>10 interactive browser demos (JS engine port)</td></tr><tr><td><strong>Tests</strong></td><td>149 unit tests across 10 test files</td></tr><tr><td><strong>Standards</strong></td><td>CCSDS 734.2/735.1/141.0/142.0 + RFC 9171/5326/7242</td></tr></table></div></div><div class="pres-mermaid-wrap" style="margin-bottom:16px"><div class="mermaid-diagram" data-diagram="system-architecture"></div></div>',
+          content: '<h2><span class="pres-tag accent">Architecture</span> System Component Overview</h2><div class="pres-grid-2" style="margin-bottom:16px"><div class="pres-card"><div class="pres-card-title">Five Core Modules</div><ul class="pres-list"><li><strong style="color:#00d4ff">Infrastructure</strong> &mdash; Optical + RF link budget calculators (FSPL, EIRP, margin). CCSDS 141.0-B-1.</li><li><strong style="color:#7c5cf7">Routing</strong> &mdash; Q-learning RL agent, BPv7 bundle protocol, LTP/TCPCL/UDP-CL. RFC 9171.</li><li><strong style="color:#c84cff">Security</strong> &mdash; BB84 &amp; E91 QKD, quantum repeater chains, CASCADE reconciliation. NIST FIPS 203/204.</li><li><strong style="color:#ff6b35">Orbital</strong> &mdash; Contact window prediction, 5-tier topology (241 nodes), Doppler compensation.</li><li><strong style="color:#3fb950">Simulation</strong> &mdash; Scenario engine, policy routing, RL training, multi-agent federated learning.</li></ul></div><div class="pres-card"><div class="pres-card-title">Module &rarr; Engine &rarr; Showcase</div><table class="pres-table"><tr><td><strong>Source</strong></td><td>27 Python modules across 5 packages</td></tr><tr><td><strong>Engine</strong></td><td>simulator + policy_engine + training + multi_agent + forwarding</td></tr><tr><td><strong>Showcase</strong></td><td>10 interactive browser demos (JS engine port)</td></tr><tr><td><strong>Tests</strong></td><td>149 unit tests across 10 test files</td></tr><tr><td><strong>Standards</strong></td><td>CCSDS 734.2/735.1/141.0/142.0 + RFC 9171/5326/7242</td></tr></table></div></div><div class="pres-diagram-img" style="margin-bottom:16px;text-align:center"><img src="img/diagrams/system_architecture.svg" alt="System Architecture Diagram" style="width:100%;max-width:900px;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1)"></div>',
           speakerNotes: 'Show the architecture. Five core modules feed into the simulation engine, which feeds the web showcase. Standards compliance at the bottom. Point to each module as you explain. (1 minute)'
         },
         {
@@ -1741,7 +1628,7 @@ window.App = (() => {
         },
         {
           title: '5-Tier Network Diagram',
-          content: '<h2><span class="pres-tag accent">Network</span> 5-Tier Interplanetary Network &mdash; 241 Nodes</h2><div class="pres-grid-2" style="margin-bottom:16px"><div class="pres-card"><div class="pres-card-title">Tier Breakdown</div><table class="pres-table"><tr><td><strong style="color:#00d4ff">T1 Earth Ground</strong></td><td>6 nodes</td><td>DSN: Goldstone, Madrid, Canberra + MOC, NOC, SOC</td></tr><tr><td><strong style="color:#7c5cf7">T2 Earth Orbital</strong></td><td>51 nodes</td><td>3 GEO relays + 48 LEO laser mesh constellation</td></tr><tr><td><strong style="color:#ff6b35">T3 Deep Space</strong></td><td>4 nodes</td><td>ES-L4 &amp; ES-L5 Lagrange relays + 2 transfer orbit sats</td></tr><tr><td><strong style="color:#f85149">T4 Mars Orbital</strong></td><td>13 nodes</td><td>2 areostationary + 2 polar orbiters + 9 relay sats</td></tr><tr><td><strong style="color:#d29922">T5 Mars Surface</strong></td><td>167 nodes</td><td>Habitats, rovers, drones, sensor networks</td></tr></table></div><div class="pres-card"><div class="pres-card-title">Link Characteristics</div><table class="pres-table"><tr><td>Earth &harr; Deep Space</td><td>100 Mbps</td><td>1550nm optical</td></tr><tr><td>Deep Space &harr; Mars</td><td>2&ndash;200 Mbps</td><td>Distance dependent</td></tr><tr><td>Mars Orb &harr; Surface</td><td>2 Mbps</td><td>UHF/X-band</td></tr><tr><td>LEO ISL</td><td>10 Gbps</td><td>Optical inter-satellite</td></tr></table><div style="margin-top:12px;font-size:0.82rem;color:var(--text-secondary)"><strong style="color:var(--accent)">3 redundant paths</strong> &middot; No single point of failure &middot; Lagrange relays for conjunction coverage</div></div></div><div class="pres-mermaid-wrap" style="margin-bottom:16px"><div class="mermaid-diagram" data-diagram="network-topology"></div></div>',
+          content: '<h2><span class="pres-tag accent">Network</span> 5-Tier Interplanetary Network &mdash; 241 Nodes</h2><div class="pres-grid-2" style="margin-bottom:16px"><div class="pres-card"><div class="pres-card-title">Tier Breakdown</div><table class="pres-table"><tr><td><strong style="color:#00d4ff">T1 Earth Ground</strong></td><td>6 nodes</td><td>DSN: Goldstone, Madrid, Canberra + MOC, NOC, SOC</td></tr><tr><td><strong style="color:#7c5cf7">T2 Earth Orbital</strong></td><td>51 nodes</td><td>3 GEO relays + 48 LEO laser mesh constellation</td></tr><tr><td><strong style="color:#ff6b35">T3 Deep Space</strong></td><td>4 nodes</td><td>ES-L4 &amp; ES-L5 Lagrange relays + 2 transfer orbit sats</td></tr><tr><td><strong style="color:#f85149">T4 Mars Orbital</strong></td><td>13 nodes</td><td>2 areostationary + 2 polar orbiters + 9 relay sats</td></tr><tr><td><strong style="color:#d29922">T5 Mars Surface</strong></td><td>167 nodes</td><td>Habitats, rovers, drones, sensor networks</td></tr></table></div><div class="pres-card"><div class="pres-card-title">Link Characteristics</div><table class="pres-table"><tr><td>Earth &harr; Deep Space</td><td>100 Mbps</td><td>1550nm optical</td></tr><tr><td>Deep Space &harr; Mars</td><td>2&ndash;200 Mbps</td><td>Distance dependent</td></tr><tr><td>Mars Orb &harr; Surface</td><td>2 Mbps</td><td>UHF/X-band</td></tr><tr><td>LEO ISL</td><td>10 Gbps</td><td>Optical inter-satellite</td></tr></table><div style="margin-top:12px;font-size:0.82rem;color:var(--text-secondary)"><strong style="color:var(--accent)">3 redundant paths</strong> &middot; No single point of failure &middot; Lagrange relays for conjunction coverage</div></div></div><div class="pres-diagram-img" style="margin-bottom:16px;text-align:center"><img src="img/diagrams/5tier_network.svg" alt="5-Tier Network Diagram" style="width:100%;max-width:900px;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1)"></div>',
         },
         {
           title: 'Optical Communications',
@@ -1775,7 +1662,7 @@ window.App = (() => {
         },
         {
           title: 'Data Flow Diagram',
-          content: '<h2><span class="pres-tag quantum">Data Flow</span> End-to-End Bundle Journey Through the Stack</h2><div class="pres-grid-2" style="margin-bottom:16px"><div class="pres-card"><div class="pres-card-title">Application &rarr; Transport</div><ol class="pres-list"><li><strong style="color:#00d4ff">Source Node</strong> &mdash; Science data generated (500 MB camera image)</li><li><strong style="color:#7c5cf7">Bundle Protocol</strong> &mdash; BPv7 wraps data + metadata (priority P2, lifetime 24h)</li><li><strong style="color:#3fb950">RL Routing</strong> &mdash; Agent evaluates state, selects optimal next hop</li><li><strong style="color:#c84cff">QKD Encrypt</strong> &mdash; BB84 shared key applied (256-bit AES-256)</li></ol></div><div class="pres-card"><div class="pres-card-title">Convergence &rarr; Physical &rarr; Delivery</div><ol class="pres-list"><li><strong style="color:#ff6b35">LTP Segmentation</strong> &mdash; Bundle split into blocks, RS encoding, retransmission</li><li><strong style="color:#d29922">Store &amp; Wait</strong> &mdash; Buffer at relay until link becomes available</li><li><strong style="color:#00d4ff">Physical TX</strong> &mdash; UHF &rarr; Optical ISL &rarr; 1550nm deep space &rarr; Ka-band</li><li><strong style="color:#3fb950">LTP Reassemble</strong> &rarr; QKD Decrypt &rarr; Delivered to JPL MOC &#10003;</li></ol></div></div><div class="pres-callout" style="margin-bottom:16px">Each hop repeats: <strong style="color:#00d4ff">BPv7</strong> &rarr; <strong style="color:#7c5cf7">LTP</strong> &rarr; <strong style="color:#ff6b35">Physical</strong> &rarr; <strong style="color:#3fb950">Store/Forward</strong> &rarr; <strong style="color:#c84cff">Custody Transfer</strong></div><div class="pres-mermaid-wrap" style="margin-bottom:16px"><div class="mermaid-diagram" data-diagram="data-flow"></div></div>',
+          content: '<h2><span class="pres-tag quantum">Data Flow</span> End-to-End Bundle Journey Through the Stack</h2><div class="pres-grid-2" style="margin-bottom:16px"><div class="pres-card"><div class="pres-card-title">Application &rarr; Transport</div><ol class="pres-list"><li><strong style="color:#00d4ff">Source Node</strong> &mdash; Science data generated (500 MB camera image)</li><li><strong style="color:#7c5cf7">Bundle Protocol</strong> &mdash; BPv7 wraps data + metadata (priority P2, lifetime 24h)</li><li><strong style="color:#3fb950">RL Routing</strong> &mdash; Agent evaluates state, selects optimal next hop</li><li><strong style="color:#c84cff">QKD Encrypt</strong> &mdash; BB84 shared key applied (256-bit AES-256)</li></ol></div><div class="pres-card"><div class="pres-card-title">Convergence &rarr; Physical &rarr; Delivery</div><ol class="pres-list"><li><strong style="color:#ff6b35">LTP Segmentation</strong> &mdash; Bundle split into blocks, RS encoding, retransmission</li><li><strong style="color:#d29922">Store &amp; Wait</strong> &mdash; Buffer at relay until link becomes available</li><li><strong style="color:#00d4ff">Physical TX</strong> &mdash; UHF &rarr; Optical ISL &rarr; 1550nm deep space &rarr; Ka-band</li><li><strong style="color:#3fb950">LTP Reassemble</strong> &rarr; QKD Decrypt &rarr; Delivered to JPL MOC &#10003;</li></ol></div></div><div class="pres-callout" style="margin-bottom:16px">Each hop repeats: <strong style="color:#00d4ff">BPv7</strong> &rarr; <strong style="color:#7c5cf7">LTP</strong> &rarr; <strong style="color:#ff6b35">Physical</strong> &rarr; <strong style="color:#3fb950">Store/Forward</strong> &rarr; <strong style="color:#c84cff">Custody Transfer</strong></div><div class="pres-diagram-img" style="margin-bottom:16px;text-align:center"><img src="img/diagrams/data_flow.svg" alt="Data Flow Diagram" style="width:100%;max-width:900px;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1)"></div>',
         },
         {
           title: 'Performance',
@@ -1918,7 +1805,6 @@ window.App = (() => {
       if (!el) return;
       const links = this.slideLinks[slide.title] || [];
       el.innerHTML = '<div class="pres-slide-title">' + slide.title + '</div>' + (slide.subtitle ? '<div class="pres-slide-subtitle">' + slide.subtitle + '</div>' : '') + '<div class="pres-slide-body">' + slide.content + '</div>' + this.linksHtml(links);
-      renderMermaidInContainer(el);
       el.querySelectorAll('[data-nav]').forEach(a => {
         a.addEventListener('click', (e) => {
           e.preventDefault();
