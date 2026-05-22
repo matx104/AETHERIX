@@ -1631,6 +1631,52 @@ body.pres-active .presentation-mode {
 
 .pres-highlight-good { color: var(--success) !important; font-weight: 700; }
 
+.pres-diagram-detail {
+    margin-top: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-md);
+    background: rgba(13, 21, 37, 0.4);
+    backdrop-filter: blur(8px);
+    overflow: hidden;
+}
+
+.pres-diagram-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    list-style: none;
+    transition: color 0.2s, background 0.2s;
+    user-select: none;
+}
+
+.pres-diagram-toggle:hover {
+    color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.06);
+}
+
+.pres-diagram-toggle::before {
+    content: '\25B6';
+    font-size: 0.55rem;
+    transition: transform 0.2s;
+}
+
+.pres-diagram-detail[open] > .pres-diagram-toggle::before {
+    transform: rotate(90deg);
+}
+
+.pres-diagram-detail[open] > .pres-diagram-toggle {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.pres-diagram-detail > div {
+    padding: 12px;
+}
+
 .pres-stack { display: flex; flex-direction: column; gap: 6px; }
 .pres-stack-layer {
     padding: 12px 18px;
