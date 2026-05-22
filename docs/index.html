@@ -27,6 +27,30 @@
   <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
   <link rel="apple-touch-icon" href="img/logo.svg">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'dark',
+      themeVariables: {
+        primaryColor: '#0d1525',
+        primaryTextColor: '#c9d1d9',
+        primaryBorderColor: '#00d4ff',
+        lineColor: '#5a6578',
+        secondaryColor: '#1a1f35',
+        tertiaryColor: '#0d1525',
+        fontFamily: 'Inter, system-ui, sans-serif',
+        fontSize: '12px',
+        nodeBorder: '#00d4ff',
+        mainBkg: '#0d1525',
+        clusterBkg: 'rgba(0,212,255,0.04)',
+        clusterBorder: 'rgba(0,212,255,0.2)',
+        titleColor: '#00d4ff'
+      },
+      flowchart: { htmlLabels: true, curve: 'basis', padding: 12, nodeSpacing: 30, rankSpacing: 40 },
+      sequence: { actorMargin: 50, mirrorActors: false }
+    });
+  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
