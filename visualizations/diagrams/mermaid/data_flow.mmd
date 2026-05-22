@@ -1,51 +1,34 @@
 graph TD
-    subgraph APP["Application Layer"]
-        SRC["1. Source Node<br/>Science data 500 MB<br/>Perseverance Camera"]
-        BP["2. Bundle Protocol<br/>BPv7 wraps data + metadata<br/>Priority P2 · Lifetime 24h"]
-        RL["3. RL Routing<br/>Agent evaluates state<br/>Selects optimal next hop"]
-        QE["4. QKD Encrypt<br/>BB84 shared key<br/>256-bit AES-256"]
-    end
-
-    subgraph CONV["Convergence Layer"]
-        LTP["5. LTP Segmentation<br/>Bundle → blocks<br/>RS encoding · retransmission"]
-        STORE["6. Store & Wait<br/>Buffer at relay<br/>Until link available"]
-        FWD["7. Forward & Custody<br/>Transmit + custody transfer<br/>Next node takes responsibility"]
-    end
-
-    subgraph PHYS["Physical Layer"]
-        UHF["Mars UHF<br/>400 MHz · 2 Mbps"]
-        ISL["Optical ISL<br/>10 Gbps · LEO mesh"]
-        DEEP["Deep Space 1550nm<br/>10–200 Mbps · 225M km"]
-        KAB["DSN Ka-band<br/>Fiber backbone"]
-    end
-
-    subgraph RECV["Delivery"]
-        REASM["8. LTP Reassembly"]
-        DEC["9. QKD Decrypt"]
-        DEL["10. Delivered ✓<br/>JPL Mission Ops Center"]
-    end
-
-    SRC --> BP --> RL --> QE
-    QE --> LTP --> STORE --> FWD
-    FWD --> UHF
-    FWD --> ISL
-    FWD --> DEEP
-    FWD --> KAB
-    UHF --> REASM
-    ISL --> REASM
-    DEEP --> REASM
-    KAB --> REASM
-    REASM --> DEC --> DEL
-
-    style APP fill:rgba(0,212,255,0.06),stroke:#00d4ff,stroke-width:2px
-    style CONV fill:rgba(255,107,53,0.06),stroke:#ff6b35,stroke-width:2px
-    style PHYS fill:rgba(210,153,34,0.06),stroke:#d29922,stroke-width:2px
-    style RECV fill:rgba(63,185,80,0.06),stroke:#3fb950,stroke-width:2px
-    style SRC fill:rgba(0,212,255,0.12),stroke:#00d4ff,color:#00d4ff
-    style BP fill:rgba(124,92,247,0.12),stroke:#7c5cf7,color:#7c5cf7
-    style RL fill:rgba(63,185,80,0.12),stroke:#3fb950,color:#3fb950
-    style QE fill:rgba(200,76,255,0.12),stroke:#c84cff,color:#c84cff
-    style LTP fill:rgba(255,107,53,0.12),stroke:#ff6b35,color:#ff6b35
-    style STORE fill:rgba(210,153,34,0.12),stroke:#d29922,color:#d29922
-    style FWD fill:rgba(0,212,255,0.12),stroke:#00d4ff,color:#00d4ff
-    style DEL fill:rgba(63,185,80,0.2),stroke:#3fb950,color:#3fb950
+  subgraph APP[Application Layer]
+    SRC[1 Source Node]
+    BP[2 Bundle Protocol BPv7]
+    RL[3 RL Routing]
+    QE[4 QKD Encrypt]
+  end
+  subgraph CONV[Convergence Layer]
+    LTP[5 LTP Segmentation]
+    STORE[6 Store and Wait]
+    FWD[7 Forward and Custody]
+  end
+  subgraph PHYS[Physical Layer]
+    UHF[Mars UHF]
+    ISL[Optical ISL]
+    DEEP[Deep Space 1550nm]
+    KAB[DSN Ka-band]
+  end
+  subgraph DELIV[Delivery]
+    RASM[8 LTP Reassemble]
+    DEC[9 QKD Decrypt]
+    DEL[10 Delivered to JPL]
+  end
+  SRC --> BP --> RL --> QE
+  QE --> LTP --> STORE --> FWD
+  FWD --> UHF
+  FWD --> ISL
+  FWD --> DEEP
+  FWD --> KAB
+  UHF --> RASM
+  ISL --> RASM
+  DEEP --> RASM
+  KAB --> RASM
+  RASM --> DEC --> DEL

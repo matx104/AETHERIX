@@ -1,65 +1,36 @@
 graph TB
-    subgraph SRC["Python Source — 27 Modules"]
-        INFRA["🏗️ Infrastructure<br/>link_budget.py · rf_link_budget.py<br/>FSPL · EIRP · Margin<br/>CCSDS 141.0-B-1"]
-        ROUTE["🧠 Routing<br/>rl_agent.py · bundle.py · ltp.py<br/>tcpcl.py · udp_cl.py<br/>RFC 9171 · RFC 5326"]
-        SEC["🔐 Security<br/>qkd.py · repeater_chain.py<br/>privacy_amplification.py<br/>BB84 · E91 · CASCADE"]
-        ORBIT["🪐 Orbital<br/>contact_windows.py · topology.py<br/>doppler.py · bodies.py<br/>5-Tier · 241 Nodes"]
-    end
-
-    subgraph ENGINE["Simulation Engine"]
-        SIM["simulator.py"]
-        POLICY["policy_engine.py"]
-        TRAIN["training.py"]
-        MULTI["multi_agent.py"]
-        FWD["forwarding_engine.py"]
-    end
-
-    subgraph SHOWCASE["Web Showcase — 10 Interactive Demos"]
-        DASH["Mission Control<br/>Dashboard"]
-        LB["Link Budget<br/>Calculator"]
-        RL["RL Routing<br/>Agent"]
-        QKD["QKD Protocol<br/>Simulation"]
-        ORB["Orbital Mechanics<br/>& Contact Windows"]
-        BUN["Bundle Protocol<br/>BPv7"]
-        DTN["DTN Engine<br/>Store & Forward"]
-        RFB["RF Link Budget<br/>Ka/X/S/UHF"]
-        MISS["Mars Mission<br/>Simulation"]
-        IMS["Integrated Mission<br/>Scenario"]
-    end
-
-    subgraph STD["Standards Compliance"]
-        CCSDS["CCSDS 734.2 · 735.1 · 141.0 · 142.0"]
-        RFC["RFC 9171 · 5326 · 7242"]
-        NIST["NIST FIPS 203/204"]
-    end
-
-    subgraph TEST["149 Unit Tests"]
-        T1["test_link_budget · test_rl_agent"]
-        T2["test_qkd · test_orbital"]
-        T3["test_bundle · test_topology"]
-        T4["test_forwarding · test_training"]
-    end
-
-    INFRA --> SIM
-    ROUTE --> SIM
-    SEC --> SIM
-    ORBIT --> SIM
-
-    SIM --> POLICY
-    SIM --> TRAIN
-    TRAIN --> MULTI
-    SIM --> FWD
-
-    POLICY --> DASH
-    FWD --> DTN
-    ROUTE --> RL
-    SEC --> QKD
-    ORBIT --> ORB
-    INFRA --> LB
-    INFRA --> RFB
-    SIM --> MISS
-    MISS --> IMS
-
-    STD -.-> INFRA
-    STD -.-> ROUTE
-    NIST -.-> SEC
+  subgraph SRC[Python Source]
+    INFRA[Infrastructure - link_budget + rf_link_budget]
+    ROUTE[Routing - rl_agent + bundle + ltp + tcpcl]
+    SEC[Security - qkd + repeater_chain]
+    ORBIT[Orbital - contact_windows + topology + doppler]
+  end
+  subgraph ENGINE[Simulation Engine]
+    SIM[simulator]
+    POLICY[policy_engine]
+    TRAIN[training + multi_agent]
+    FWD[forwarding_engine]
+  end
+  subgraph WEB[Web Showcase - 10 Demos]
+    DASH[Mission Control]
+    LB[Link Budget]
+    RL[RL Routing]
+    QKD[QKD Protocol]
+    ORB[Orbital Mechanics]
+    DTN[DTN Engine]
+    MISS[Mars Mission]
+  end
+  INFRA --> SIM
+  ROUTE --> SIM
+  SEC --> SIM
+  ORBIT --> SIM
+  SIM --> POLICY
+  SIM --> TRAIN
+  SIM --> FWD
+  POLICY --> DASH
+  FWD --> DTN
+  ROUTE --> RL
+  SEC --> QKD
+  ORBIT --> ORB
+  INFRA --> LB
+  SIM --> MISS

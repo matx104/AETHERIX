@@ -1,31 +1,18 @@
 graph LR
-    subgraph EARTH["🌍 EARTH"]
-        T1["T1: Earth Ground<br/>6 Nodes<br/>Goldstone · Madrid · Canberra<br/>MOC · NOC · SOC"]
-        T2["T2: Earth Orbital<br/>51 Nodes<br/>3 GEO Relays<br/>48 LEO Laser Mesh"]
-    end
-
-    subgraph DEEP["🌌 DEEP SPACE"]
-        T3["T3: Transit<br/>4 Nodes<br/>ES-L4 · ES-L5<br/>Lagrange Relays"]
-    end
-
-    subgraph MARS["🔴 MARS"]
-        T4["T4: Mars Orbital<br/>13 Nodes<br/>2 Areostationary<br/>2 Polar · 9 Relay"]
-        T5["T5: Mars Surface<br/>167 Nodes<br/>Habitats · Rovers<br/>Drones · Sensors"]
-    end
-
-    T1 -->|"1550nm Optical<br/>100 Mbps"| T2
-    T2 -->|"Optical Uplink<br/>10 Gbps ISL"| T3
-    T3 -->|"Deep Space Laser<br/>2–200 Mbps<br/>12.5 min delay"| T4
-    T4 -->|"UHF/X-band<br/>2 Mbps"| T5
-
-    T2 -.->|"Redundant Path 2<br/>via ES-L5"| T3
-    T3 -.->|"Redundant Path 3<br/>direct optical"| T4
-
-    style EARTH fill:rgba(30,136,229,0.08),stroke:#1e88e5,stroke-width:2px
-    style DEEP fill:rgba(124,92,247,0.08),stroke:#7c5cf7,stroke-width:2px
-    style MARS fill:rgba(255,112,67,0.08),stroke:#ff7043,stroke-width:2px
-    style T1 fill:rgba(30,136,229,0.15),stroke:#42a5f5,color:#42a5f5
-    style T2 fill:rgba(66,165,245,0.15),stroke:#42a5f5,color:#42a5f5
-    style T3 fill:rgba(124,92,247,0.15),stroke:#7c5cf7,color:#7c5cf7
-    style T4 fill:rgba(255,112,67,0.15),stroke:#ff7043,color:#ff7043
-    style T5 fill:rgba(210,153,34,0.15),stroke:#d29922,color:#d29922
+  subgraph EARTH[EARTH]
+    T1[T1 Earth Ground - 6 Nodes]
+    T2[T2 Earth Orbital - 51 Nodes]
+  end
+  subgraph DEEP[DEEP SPACE]
+    T3[T3 Transit - 4 Nodes]
+  end
+  subgraph MARS[MARS]
+    T4[T4 Mars Orbital - 13 Nodes]
+    T5[T5 Mars Surface - 167 Nodes]
+  end
+  T1 -->|100 Mbps| T2
+  T2 -->|10 Gbps ISL| T3
+  T3 -->|2 to 200 Mbps| T4
+  T4 -->|2 Mbps UHF| T5
+  T2 -.->|Redundant L5| T3
+  T3 -.->|Direct optical| T4
