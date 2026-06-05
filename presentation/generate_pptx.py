@@ -206,11 +206,23 @@ def add_slide_transition(slide, transition_type="fade", duration_ms=700):
     slide_element.insert(1, parse_xml(trans_xml))
 
 
-def add_footer(slide, slide_num, total=25):
+# Total slide count shown in footers (title slide 1 + Thank-You have no footer).
+TOTAL_SLIDES = 27
+# Auto-incrementing footer counter so inserting slides never requires renumbering.
+# Starts at 1 (the title slide is slide 1 and carries no footer); each footered
+# slide is numbered in document order.
+_footer_counter = [1]
+
+
+def add_footer(slide, slide_num=None, total=None):
+    # slide_num is ignored (kept for call-site compatibility); numbering is
+    # derived from document order so slides can be inserted freely.
+    _footer_counter[0] += 1
+    n = _footer_counter[0]
     add_textbox(slide, Inches(0.5), Inches(7.0), Inches(5), Inches(0.4),
                 "AETHERIX — Interplanetary Communication Network", font_size=10, color=MED_GRAY)
     add_textbox(slide, Inches(11.0), Inches(7.0), Inches(2), Inches(0.4),
-                f"{slide_num} / {total}", font_size=10, color=MED_GRAY, alignment=PP_ALIGN.RIGHT)
+                f"{n} / {TOTAL_SLIDES}", font_size=10, color=MED_GRAY, alignment=PP_ALIGN.RIGHT)
 
 
 def add_stat_card(slide, x, y, w, h, value, label, value_color=ACCENT_BLUE, val_size=24):
@@ -273,19 +285,22 @@ agenda_items = [
     ("06", "RL Routing", "Multi-agent federated Q-learning", ACCENT_CYAN),
     ("07", "Quantum Security", "BB84/E91 + repeater chains", ACCENT_PURPLE),
     ("08", "Orbital Mechanics", "Contact windows & synodic period", ACCENT_BLUE),
-    ("09", "Mars Mission", "End-to-end simulation walkthrough", ACCENT_ORANGE),
-    ("10", "Performance", "AETHERIX vs current systems", GREEN),
-    ("11", "Roadmap", "CCSDS, IETF, deployment phases", ACCENT_CYAN),
-    ("12", "Q&A", "Summary and live demo", WHITE),
+    ("09", "Radiation Hardening", "SEU/TID, TMR, ECC, scrubbing, FDIR", ACCENT_RED),
+    ("10", "Data Prioritization", "QoS triage, compression, preemption", ACCENT_ORANGE),
+    ("11", "Mars Mission", "End-to-end simulation walkthrough", ACCENT_ORANGE),
+    ("12", "Performance", "AETHERIX vs current systems", GREEN),
+    ("13", "Roadmap", "CCSDS, IETF, deployment phases", ACCENT_CYAN),
+    ("14", "Q&A", "Summary and live demo", WHITE),
 ]
 
+_per_col = 7
 for i, (num, title, desc, color) in enumerate(agenda_items):
-    col_x = Inches(0.7) if i < 6 else Inches(6.8)
-    row_y = Inches(1.3) + Inches(0.92) * (i % 6)
-    card = add_card(slide, col_x, row_y, Inches(5.8), Inches(0.82), border=color)
-    add_textbox(slide, col_x + Inches(0.15), row_y + Inches(0.08), Inches(5.5), Inches(0.35), f"{num}  {title}", font_size=14, color=WHITE, bold=True)
-    add_textbox(slide, col_x + Inches(0.15), row_y + Inches(0.42), Inches(5.5), Inches(0.35), desc, font_size=11, color=LIGHT_GRAY)
-    add_entrance_animation(slide, card, delay_ms=100 * i, anim_type="fade")
+    col_x = Inches(0.7) if i < _per_col else Inches(6.8)
+    row_y = Inches(1.25) + Inches(0.80) * (i % _per_col)
+    card = add_card(slide, col_x, row_y, Inches(5.8), Inches(0.72), border=color)
+    add_textbox(slide, col_x + Inches(0.15), row_y + Inches(0.06), Inches(5.5), Inches(0.32), f"{num}  {title}", font_size=13, color=WHITE, bold=True)
+    add_textbox(slide, col_x + Inches(0.15), row_y + Inches(0.38), Inches(5.5), Inches(0.3), desc, font_size=10, color=LIGHT_GRAY)
+    add_entrance_animation(slide, card, delay_ms=80 * i, anim_type="fade")
 
 # --- SLIDE 3 — What is AETHERIX ---
 print("Creating Slide 3: What is AETHERIX...")
@@ -1042,7 +1057,118 @@ add_image_safe(
 )
 
 add_footer(slide, 17)
-# ── SLIDE 18 — End-to-End Mission ──────────────────────────────────────────────
+
+# ── SLIDE 18 ── Radiation-Hardened Computing ──────────────────────────────────
+slide = new_slide()
+set_slide_bg(slide, BG_DARK)
+add_slide_transition(slide, "fade")
+
+txBox = add_textbox(slide, Inches(0.6), Inches(0.3), Inches(11), Inches(0.6))
+p = txBox.text_frame.paragraphs[0]
+p.text = "RADIATION-HARDENED COMPUTING"
+p.font.size, p.font.bold, p.font.color.rgb, p.alignment = Pt(30), True, WHITE, PP_ALIGN.LEFT
+
+txBox2 = add_textbox(slide, Inches(0.6), Inches(0.9), Inches(11), Inches(0.4))
+p2 = txBox2.text_frame.paragraphs[0]
+p2.text = "Surviving SEUs, latchup and total dose on the way to Mars"
+p2.font.size, p2.font.color.rgb = Pt(15), ACCENT_CYAN
+
+add_accent_line(slide, Inches(0.6), Inches(1.35), Inches(2.5), ACCENT_RED)
+
+effect_data = [
+    ["Effect", "What it does", "Mitigation"],
+    ["SEU", "Single bit flip", "SECDED ECC"],
+    ["MBU", "Multi-bit flip (1 ion)", "Bit interleaving"],
+    ["SEL", "Latchup (destructive)", "Current limit + power-cycle"],
+    ["TID", "Cumulative dose", "Rad-hard parts (RAD750)"],
+]
+add_table(slide, Inches(0.3), Inches(1.6), Inches(6.4), Inches(2.4),
+          len(effect_data), len(effect_data[0]), effect_data, header_color=ACCENT_RED)
+
+mitig_card = add_card(
+    slide, Inches(7.0), Inches(1.6), Inches(6.0), Inches(2.4),
+    title="Defense-in-Depth Stack",
+    body_lines=[
+        "• TMR — triple replicas, majority vote (masks logic faults)",
+        "• SECDED (39,32) ECC — correct 1 bit, detect 2",
+        "• Scrubbing — rewrite memory before a 2nd upset accumulates",
+        "• FDIR + watchdog — detect → isolate → reset → SAFE-MODE",
+    ],
+    title_color=ACCENT_RED,
+)
+
+add_stat_card(slide, Inches(0.3), Inches(4.4), Inches(3.0), Inches(1.2),
+              "200x", "Fewer errors (ECC + scrub + interleave)", value_color=ACCENT_CYAN)
+add_stat_card(slide, Inches(3.5), Inches(4.4), Inches(3.0), Inches(1.2),
+              "3,334x", "TMR reliability gain (p=1e-4/op)", value_color=ACCENT_BLUE)
+add_stat_card(slide, Inches(6.7), Inches(4.4), Inches(3.0), Inches(1.2),
+              "200 krad", "RAD750 TID tolerance (>2000x margin)", value_color=ACCENT_ORANGE)
+add_stat_card(slide, Inches(9.9), Inches(4.4), Inches(3.1), Inches(1.2),
+              "~0.9 / day", "Residual uncorrectable, Earth-Mars transit", value_color=ACCENT_PURPLE)
+
+note = add_textbox(slide, Inches(0.6), Inches(5.85), Inches(12.2), Inches(0.9))
+pn = note.text_frame.paragraphs[0]
+pn.text = ("Model: 512 Mbit, ~210-day GCR cruise. ~37,000 raw bit upsets reduced to "
+           "~186 uncorrectable over the mission. Heritage: NASA RAD750 (Curiosity/"
+           "Perseverance), ESA LEON3FT.  →  src/computing/radiation.py")
+pn.font.size, pn.font.color.rgb = Pt(11), MED_GRAY
+add_footer(slide)
+
+# ── SLIDE 19 ── Mission-Critical Data Prioritization ──────────────────────────
+slide = new_slide()
+set_slide_bg(slide, BG_DARK)
+add_slide_transition(slide, "push")
+
+txBox = add_textbox(slide, Inches(0.6), Inches(0.3), Inches(11), Inches(0.6))
+p = txBox.text_frame.paragraphs[0]
+p.text = "MISSION-CRITICAL DATA PRIORITIZATION"
+p.font.size, p.font.bold, p.font.color.rgb, p.alignment = Pt(28), True, WHITE, PP_ALIGN.LEFT
+
+txBox2 = add_textbox(slide, Inches(0.6), Inches(0.9), Inches(11), Inches(0.4))
+p2 = txBox2.text_frame.paragraphs[0]
+p2.text = "Bandwidth triage: get the right bits home first"
+p2.font.size, p2.font.color.rgb = Pt(15), ACCENT_CYAN
+
+add_accent_line(slide, Inches(0.6), Inches(1.35), Inches(2.5), ACCENT_ORANGE)
+
+tier_data = [
+    ["Tier", "Class", "Examples"],
+    ["P0", "Emergency / Safety", "Health telemetry, collision avoidance"],
+    ["P1", "Mission-critical", "Command ACKs, time-sensitive science"],
+    ["P2", "High-priority", "Routine telemetry, scheduled science"],
+    ["P4", "Low / Bulk", "Housekeeping logs, file transfers"],
+]
+add_table(slide, Inches(0.3), Inches(1.6), Inches(7.0), Inches(2.4),
+          len(tier_data), len(tier_data[0]), tier_data, header_color=ACCENT_ORANGE)
+
+comp_data = [
+    ["Data type", "Standard", "Ratio"],
+    ["Telemetry", "CCSDS 121", "3x"],
+    ["Imagery (lossy)", "CCSDS 122", "10x"],
+    ["Video", "H.265", "50x"],
+]
+add_table(slide, Inches(7.6), Inches(1.6), Inches(5.4), Inches(2.0),
+          len(comp_data), len(comp_data[0]), comp_data, header_color=ACCENT_PURPLE)
+
+add_stat_card(slide, Inches(0.3), Inches(4.4), Inches(3.0), Inches(1.2),
+              "100%", "Link utilization (no wasted bandwidth)", value_color=ACCENT_CYAN)
+add_stat_card(slide, Inches(3.5), Inches(4.4), Inches(3.0), Inches(1.2),
+              "5 / 6", "Items fully delivered by priority", value_color=GREEN)
+add_stat_card(slide, Inches(6.7), Inches(4.4), Inches(3.0), Inches(1.2),
+              "BPv7", "Fragmentation defers bulk remainder", value_color=ACCENT_BLUE)
+add_stat_card(slide, Inches(9.9), Inches(4.4), Inches(3.1), Inches(1.2),
+              "Preempt", "Emergency uses direct-to-Earth backup", value_color=ACCENT_RED)
+
+note = add_textbox(slide, Inches(0.6), Inches(5.85), Inches(12.2), Inches(0.9))
+pn = note.text_frame.paragraphs[0]
+pn.text = ("Scenario: 30 Mbps, 15-min contact, oversubscribed. Deadline-aware, "
+           "preemptive QoS scheduler delivers emergency + mission + science first; "
+           "6 GB software update fragmented to the next pass.  →  "
+           "src/routing/prioritization.py")
+pn.font.size, pn.font.color.rgb = Pt(11), MED_GRAY
+add_footer(slide)
+
+# ── SLIDE 20 — End-to-End Mission ──────────────────────────────────────────────
 
 slide = new_slide()
 set_slide_bg(slide, BG_DARK)

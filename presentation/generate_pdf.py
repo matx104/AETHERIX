@@ -60,11 +60,19 @@ def draw_bottom_bar(c, color=ACCENT_BLUE):
     c.rect(0, 0, PAGE_W, 6, fill=1, stroke=0)
 
 
-def draw_footer(c, num, total=25):
+TOTAL_SLIDES = 27
+# Auto-incrementing page counter (title page is page 1 and carries no footer);
+# inserting pages never requires renumbering the call sites.
+_footer_counter = [1]
+
+
+def draw_footer(c, num=None, total=None):
+    _footer_counter[0] += 1
+    n = _footer_counter[0]
     c.setFont("Helvetica", 8)
     c.setFillColor(MED_GRAY)
     c.drawString(30, 18, "AETHERIX \u2014 Interplanetary Communication Network")
-    c.drawRightString(PAGE_W - 30, 18, f"{num} / {total}")
+    c.drawRightString(PAGE_W - 30, 18, f"{n} / {TOTAL_SLIDES}")
 
 
 def draw_card(c, x, y, w, h, border_color=ACCENT_BLUE):
@@ -802,9 +810,99 @@ c.showPage()
 
 
 # ================================================================
-# PAGE 18 — End-to-End Mission
+# PAGE 18 — Radiation-Hardened Computing
 # ================================================================
-print("Creating Page 18: End-to-End Mission...")
+print("Creating Page 18: Radiation-Hardened Computing...")
+draw_bg(c)
+draw_text(c, "RADIATION-HARDENED COMPUTING", 40, PAGE_H - 50, size=26, color=WHITE, bold=True)
+draw_text(c, "Surviving SEUs, latchup and total dose en route to Mars", 40, PAGE_H - 73, size=13, color=ACCENT_RED)
+draw_accent_line(c, 40, PAGE_H - 83, 180, ACCENT_RED)
+
+rad_effects = [
+    ["Effect", "What it does", "Mitigation"],
+    ["SEU", "Single bit flip", "SECDED ECC"],
+    ["MBU", "Multi-bit flip (1 ion)", "Bit interleaving"],
+    ["SEL", "Latchup (destructive)", "Current limit + power-cycle"],
+    ["TID", "Cumulative dose", "Rad-hard parts (RAD750)"],
+]
+draw_table(c, rad_effects, 40, PAGE_H - 95, [70, 150, 170], ACCENT_RED)
+
+draw_text(c, "DEFENSE-IN-DEPTH STACK", 470, PAGE_H - 100, size=13, color=ACCENT_RED, bold=True)
+rad_stack = [
+    "TMR — triple replicas, majority vote (masks logic faults)",
+    "SECDED (39,32) ECC — correct 1 bit, detect 2",
+    "Scrubbing — rewrite memory before a 2nd upset lands",
+    "FDIR + watchdog — detect, isolate, reset, SAFE-MODE",
+]
+for i, s in enumerate(rad_stack):
+    draw_text(c, "•  " + s, 470, PAGE_H - 125 - 20 * i, size=10, color=LIGHT_GRAY)
+
+rad_stats = [
+    ("200x", "Fewer errors (ECC + scrub + interleave)", ACCENT_CYAN),
+    ("3,334x", "TMR reliability gain (p=1e-4/op)", ACCENT_BLUE),
+    ("200 krad", "RAD750 TID tolerance (>2000x margin)", ACCENT_ORANGE),
+    ("~0.9/day", "Residual uncorrectable, Mars transit", ACCENT_PURPLE),
+]
+for i, (val, lab, col) in enumerate(rad_stats):
+    x = 40 + i * 198
+    draw_card(c, x, 120, 188, 70, col)
+    draw_text(c, val, x + 14, 168, size=20, color=col, bold=True)
+    draw_text(c, lab, x + 14, 140, size=8, color=LIGHT_GRAY)
+
+draw_multiline(c, "Model: 512 Mbit, ~210-day GCR cruise. ~37,000 raw bit upsets reduced to ~186 uncorrectable\nover the mission. Heritage: NASA RAD750 (Curiosity/Perseverance), ESA LEON3FT.  ->  src/computing/radiation.py",
+               40, 95, size=9, color=MED_GRAY, leading=13)
+draw_footer(c, 18)
+c.showPage()
+
+
+# ================================================================
+# PAGE 19 — Mission-Critical Data Prioritization
+# ================================================================
+print("Creating Page 19: Data Prioritization...")
+draw_bg(c)
+draw_text(c, "MISSION-CRITICAL DATA PRIORITIZATION", 40, PAGE_H - 50, size=24, color=WHITE, bold=True)
+draw_text(c, "Bandwidth triage: get the right bits home first", 40, PAGE_H - 73, size=13, color=ACCENT_ORANGE)
+draw_accent_line(c, 40, PAGE_H - 83, 180, ACCENT_ORANGE)
+
+tiers = [
+    ["Tier", "Class", "Examples"],
+    ["P0", "Emergency / Safety", "Health telemetry, collision avoidance"],
+    ["P1", "Mission-critical", "Command ACKs, time-sensitive science"],
+    ["P2", "High-priority", "Routine telemetry, scheduled science"],
+    ["P4", "Low / Bulk", "Housekeeping logs, file transfers"],
+]
+draw_table(c, tiers, 40, PAGE_H - 95, [50, 130, 230], ACCENT_ORANGE)
+
+comp = [
+    ["Data type", "Standard", "Ratio"],
+    ["Telemetry", "CCSDS 121", "3x"],
+    ["Imagery (lossy)", "CCSDS 122", "10x"],
+    ["Video", "H.265", "50x"],
+]
+draw_table(c, comp, 480, PAGE_H - 95, [110, 100, 60], ACCENT_PURPLE)
+
+pri_stats = [
+    ("100%", "Link utilization (no wasted bandwidth)", ACCENT_CYAN),
+    ("5 / 6", "Items fully delivered by priority", GREEN),
+    ("BPv7", "Fragmentation defers bulk remainder", ACCENT_BLUE),
+    ("Preempt", "Emergency uses direct-to-Earth backup", ACCENT_RED),
+]
+for i, (val, lab, col) in enumerate(pri_stats):
+    x = 40 + i * 198
+    draw_card(c, x, 120, 188, 70, col)
+    draw_text(c, val, x + 14, 168, size=18, color=col, bold=True)
+    draw_text(c, lab, x + 14, 140, size=8, color=LIGHT_GRAY)
+
+draw_multiline(c, "Scenario: 30 Mbps, 15-min contact, oversubscribed. Deadline-aware, preemptive QoS scheduler\ndelivers emergency + mission + science first; 6 GB software update fragmented to the next pass.  ->  src/routing/prioritization.py",
+               40, 95, size=9, color=MED_GRAY, leading=13)
+draw_footer(c, 19)
+c.showPage()
+
+
+# ================================================================
+# PAGE 20 — End-to-End Mission
+# ================================================================
+print("Creating Page 20: End-to-End Mission...")
 draw_bg(c)
 draw_text(c, "END-TO-END MISSION SCENARIO", 40, PAGE_H - 50, size=28, color=WHITE, bold=True)
 draw_text(c, "Perseverance 500 MB Science Data Upload", 40, PAGE_H - 75, size=14, color=ACCENT_ORANGE)
@@ -1113,4 +1211,4 @@ c.showPage()
 
 c.save()
 print(f"\n\u2713 PDF saved: {pdf_path}")
-print(f"  Pages: 25")
+print(f"  Pages: {TOTAL_SLIDES}")
