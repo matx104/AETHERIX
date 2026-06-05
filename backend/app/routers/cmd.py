@@ -249,15 +249,16 @@ async def run_command(cmd_id: str, args: Optional[str] = Query(default=None)):
         raise HTTPException(404, f"Command '{cmd_id}' not found")
 
     entry = _FLAT[cmd_id]
-    cmd_str = entry["cmd"]
-    if args:
-        cmd_str = f"{cmd_str} {args}"
+    base_cmd = entry["cmd"]
+    extra = args.split() if args else []
 
     async def stream():
-        yield f"data: {json.dumps({'type': 'meta', 'cmd': cmd_str, 'id': cmd_id, 'label': entry['label']})}\n\n"
+        yield f"data: {json.dumps({'type': 'meta', 'text': f'$ {base_cmd}' + (' ' + args if args else '')})}\n\n"
 
-        shell = True if cmd_str.startswith("./") else False
-        cmd_list = cmd_str if shell else cmd_str.split()
+        if base_cmd.startswith("./"):
+            cmd_list = ["bash", base_cmd] + extra
+        else:
+            cmd_list = base_cmd.split() + extra
 
         try:
             proc = await asyncio.create_subprocess_exec(
