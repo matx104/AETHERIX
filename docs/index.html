@@ -63,6 +63,8 @@
           <li class="topnav-dropdown-item" data-route="deep-space-standards" tabindex="0">&#128218; Deep Space Standards</li>
           <li class="topnav-dropdown-item" data-route="qkd-science" tabindex="0">&#10023; Science Behind QKD</li>
           <li class="topnav-dropdown-item" data-route="reinforcement-learning" tabindex="0">&#129302; Reinforcement Learning</li>
+          <li class="topnav-dropdown-item" data-route="radiation" tabindex="0">&#9762; Radiation Hardening</li>
+          <li class="topnav-dropdown-item" data-route="prioritization" tabindex="0">&#128290; Data Prioritization</li>
           <li class="topnav-dropdown-item" data-route="why-it-matters" tabindex="0">&#127919; Why It Matters</li>
         </ul>
       </li>
@@ -79,11 +81,16 @@
           <li class="topnav-dropdown-item" data-route="rf-budget" tabindex="0">&#9889; RF Link Budget</li>
           <li class="topnav-dropdown-item" data-route="simulation" tabindex="0">&#127919; Simulation</li>
           <li class="topnav-dropdown-item" data-route="mission" tabindex="0">&#9883; Mars Mission</li>
+          <li class="topnav-dropdown-item" data-route="radiation-demo" tabindex="0">&#9762; Radiation Sim</li>
+          <li class="topnav-dropdown-item" data-route="priority-demo" tabindex="0">&#9200; Priority Scheduler</li>
         </ul>
       </li>
       <li class="topnav-link" data-route="study" role="menuitem" tabindex="0"><span class="nav-icon">&#128214;</span> Resources</li>
       <li class="topnav-link" data-route="glossary" role="menuitem" tabindex="0"><span class="nav-icon">&#128218;</span> Glossary</li>
       <li class="topnav-link" data-route="built-by" role="menuitem" tabindex="0"><span class="nav-icon">&#128100;</span> Built By</li>
+      <li class="topnav-link" data-route="usage" role="menuitem" tabindex="0"><span class="nav-icon">&#128214;</span> Usage</li>
+      <li class="topnav-link" data-route="coverage" role="menuitem" tabindex="0"><span class="nav-icon">&#9989;</span> Coverage</li>
+      <li class="topnav-link" data-route="quiz" role="menuitem" tabindex="0"><span class="nav-icon">&#10003;</span> Quiz</li>
       <li class="topnav-link" data-route="presentation" role="menuitem" tabindex="0"><span class="nav-icon">&#9654;</span> Presentation</li>
     </ul>
     <div class="topnav-right">
@@ -104,6 +111,8 @@
     <div class="topnav-mobile-link" data-route="deep-space-standards">&#128218; Deep Space Standards</div>
     <div class="topnav-mobile-link" data-route="qkd-science">&#10023; Science Behind QKD</div>
     <div class="topnav-mobile-link" data-route="reinforcement-learning">&#129302; Reinforcement Learning</div>
+    <div class="topnav-mobile-link" data-route="radiation">&#9762; Radiation Hardening</div>
+    <div class="topnav-mobile-link" data-route="prioritization">&#128290; Data Prioritization</div>
     <div class="topnav-mobile-link" data-route="why-it-matters">&#127919; Why It Matters</div>
     <div class="topnav-mobile-section">Demo</div>
     <div class="topnav-mobile-link" data-route="dashboard">&#9672; Mission Control</div>
@@ -116,10 +125,15 @@
     <div class="topnav-mobile-link" data-route="rf-budget">&#9889; RF Link Budget</div>
     <div class="topnav-mobile-link" data-route="simulation">&#127919; Simulation</div>
     <div class="topnav-mobile-link" data-route="mission">&#9883; Mars Mission</div>
+    <div class="topnav-mobile-link" data-route="radiation-demo">&#9762; Radiation Sim</div>
+    <div class="topnav-mobile-link" data-route="priority-demo">&#9200; Priority Scheduler</div>
     <div class="topnav-mobile-section">More</div>
     <div class="topnav-mobile-link" data-route="study">&#128214; Study Resources</div>
     <div class="topnav-mobile-link" data-route="glossary">&#128218; Glossary</div>
     <div class="topnav-mobile-link" data-route="built-by">&#128100; Built By</div>
+    <div class="topnav-mobile-link" data-route="usage">&#128214; Usage Guide</div>
+    <div class="topnav-mobile-link" data-route="coverage">&#9989; Coverage</div>
+    <div class="topnav-mobile-link" data-route="quiz">&#10003; Quiz</div>
     <div class="topnav-mobile-link" data-route="presentation">&#9654; Presentation</div>
   </div>
 
@@ -1540,6 +1554,156 @@
       </div>
     </section>
 
+    <section id="radiation" class="tab" aria-label="Radiation-Hardened Computing">
+      <div class="page-header">
+        <h1>Radiation-Hardened Computing</h1>
+        <p>Space radiation flips bits, latches up circuits, and degrades chips. Here is how a spacecraft computer keeps running correctly all the way to Mars.</p>
+        <div class="header-badges">
+          <span class="badge mars">SEU / SEL / TID</span>
+          <span class="badge accent">TMR</span>
+          <span class="badge quantum">SECDED ECC</span>
+          <span class="badge success">FDIR</span>
+        </div>
+      </div>
+
+      <div class="callout callout-tip" style="margin-top:20px">
+        <div class="callout-icon">&#9762;</div>
+        <div>
+          <div class="callout-title">The Analogy</div>
+          <div class="callout-text">Think of cosmic rays as microscopic bullets constantly striking the computer. Most pass through harmlessly, but some flip a memory bit from 0 to 1 &#8212; corrupting data or crashing software. On Earth, the atmosphere and magnetic field shield us. In deep space there is no shield, so the computer must <strong>detect and repair its own errors</strong> in real time.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#9888;</span> Radiation Effects</header>
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--mars)"></span> Single Event Effects (transient)</div>
+          <p style="line-height:1.7"><strong>SEU</strong> (Single Event Upset) &#8212; one ion flips one bit. <strong>MBU</strong> (Multiple Bit Upset) &#8212; one ion flips several adjacent bits at once. <strong>SET</strong> &#8212; a transient glitch in logic. These are <em>soft</em> errors: recoverable if caught.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--nebula)"></span> Destructive &amp; cumulative</div>
+          <p style="line-height:1.7"><strong>SEL</strong> (Single Event Latchup) &#8212; a parasitic short that can burn out the chip unless power is cycled. <strong>TID</strong> (Total Ionizing Dose) &#8212; slow cumulative degradation measured in krad. <strong>DD</strong> &#8212; displacement damage to the silicon lattice (solar cells, sensors).</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128737;</span> Defense-in-Depth</header>
+      <div class="card">
+        <div class="card-title"><span class="ct-dot"></span> Four layers that work together</div>
+        <div style="display:grid;gap:16px;margin-top:14px">
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <span class="badge accent" style="min-width:28px;text-align:center">1</span>
+            <div><strong>TMR (Triple Modular Redundancy):</strong> three copies of a computation run in parallel; a voter outputs the majority. A single faulty replica is silently overruled. Failure needs <em>two</em> replicas wrong at once &#8212; roughly 3p&#178; vs p, a huge reliability gain.</div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <span class="badge accent" style="min-width:28px;text-align:center">2</span>
+            <div><strong>SECDED ECC memory:</strong> a Hamming code (39,32) that <strong>S</strong>ingle <strong>E</strong>rror <strong>C</strong>orrects and <strong>D</strong>ouble <strong>E</strong>rror <strong>D</strong>etects. One flipped bit per word is fixed transparently; two are detected. Cost: 21.9% extra storage.</div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <span class="badge accent" style="min-width:28px;text-align:center">3</span>
+            <div><strong>Memory scrubbing:</strong> a background task continuously re-reads and rewrites memory, fixing single-bit errors <em>before</em> a second one accumulates in the same word (which SECDED could not correct). Bit-interleaving spreads each logical word across physical cells so one ion rarely hits two bits of the same word.</div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <span class="badge success" style="min-width:28px;text-align:center">4</span>
+            <div><strong>FDIR + watchdog:</strong> Fault Detection, Isolation &amp; Recovery. A watchdog timer must be &#8220;kicked&#8221; by healthy software; if it expires, the system resets and reloads a golden image. After exhausting its recovery budget, it drops to a minimal-power <strong>SAFE-MODE</strong> and waits for ground.</div>
+          </div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128202;</span> By the Numbers</header>
+      <div class="grid grid-4">
+        <div class="card stat-card accent"><div class="card-value" style="color:var(--accent)">~200&#215;</div><div class="card-title">Fewer errors with ECC + scrubbing + interleaving</div></div>
+        <div class="card stat-card quantum"><div class="card-value" style="color:var(--quantum)">3,334&#215;</div><div class="card-title">TMR reliability gain (p = 1e&#8722;4 / op)</div></div>
+        <div class="card stat-card mars"><div class="card-value" style="color:var(--mars)">200 krad</div><div class="card-title">RAD750 dose tolerance (&gt;2000&#215; Mars margin)</div></div>
+        <div class="card stat-card nebula"><div class="card-value" style="color:var(--nebula)">~0.9/day</div><div class="card-title">Residual uncorrectable over Earth&#8211;Mars transit</div></div>
+      </div>
+
+      <div class="callout callout-fact" style="margin-top:20px">
+        <div class="callout-icon">&#128300;</div>
+        <div>
+          <div class="callout-title">Flight Heritage</div>
+          <div class="callout-text">NASA&#8217;s <strong>RAD750</strong> (Curiosity &amp; Perseverance command computers) tolerates ~200 krad and is latchup-immune. ESA uses the <strong>LEON3FT / GR712RC</strong> fault-tolerant SPARC processor. AETHERIX models this stack in <code>src/computing/radiation.py</code> (Earth&#8211;Mars transit: ~37,000 raw upsets &#8594; ~186 uncorrectable).</div>
+        </div>
+      </div>
+
+      <div style="margin-top:24px;text-align:center;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-sm btn-primary" onclick="Router.navigate('radiation-demo')">Try the Radiation Demo &#8594;</button>
+        <button class="btn btn-sm btn-quantum" onclick="Router.navigate('glossary')">Glossary &#8594;</button>
+      </div>
+    </section>
+
+    <section id="prioritization" class="tab" aria-label="Mission-Critical Data Prioritization">
+      <div class="page-header">
+        <h1>Mission-Critical Data Prioritization</h1>
+        <p>The Earth&#8211;Mars link is precious and only open in short windows. When everything cannot be sent at once, what goes first? This is bandwidth triage.</p>
+        <div class="header-badges">
+          <span class="badge mars">4-Tier QoS</span>
+          <span class="badge accent">CCSDS Compression</span>
+          <span class="badge quantum">Deadline-Aware</span>
+          <span class="badge success">Preemption</span>
+        </div>
+      </div>
+
+      <div class="callout callout-tip" style="margin-top:20px">
+        <div class="callout-icon">&#127919;</div>
+        <div>
+          <div class="callout-title">The Analogy</div>
+          <div class="callout-text">It works like an emergency room. A patient in cardiac arrest (a spacecraft fault alert) is seen immediately, ahead of someone with a routine check-up (a bulk file transfer) &#8212; even if the routine patient arrived first. AETHERIX <strong>triages every bundle</strong> by urgency and deadline before it touches the downlink.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128290;</span> Four-Tier Classification</header>
+      <div class="card">
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Tier</th><th>Class</th><th>Examples</th><th>BPv7 priority</th></tr></thead>
+            <tbody>
+              <tr><td><strong>P0</strong></td><td>Emergency / Safety-critical</td><td>Health telemetry, collision avoidance, fault alerts</td><td>EMERGENCY</td></tr>
+              <tr><td><strong>P1</strong></td><td>Mission-critical</td><td>Command acknowledgements, time-sensitive science</td><td>HIGH_SCIENCE</td></tr>
+              <tr><td><strong>P2</strong></td><td>High-priority</td><td>Routine telemetry, scheduled science</td><td>STANDARD</td></tr>
+              <tr><td><strong>P4</strong></td><td>Low / Bulk</td><td>Housekeeping logs, file transfers, software images</td><td>BULK</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#9881;</span> Three Levers</header>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> Compression</div>
+          <p style="line-height:1.7">Shrink data before sending. Lossless telemetry via <strong>CCSDS 121.0-B-3</strong> (Rice) &#8776; 3&#215;; lossy imagery via <strong>CCSDS 122.0-B-2</strong> (wavelet) &#8776; 10&#215;; video (H.265) &#8776; 50&#215;.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Deadline-aware scheduling</div>
+          <p style="line-height:1.7">A preemptive QoS scheduler orders traffic by priority, then by earliest deadline. Items that cannot meet their deadline this contact are deferred to the next one &#8212; no point sending stale data.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--mars)"></span> BPv7 fragmentation</div>
+          <p style="line-height:1.7">A huge low-priority bundle does not block the link: the scheduler sends the portion that fits this contact and defers the remainder, keeping utilization at 100%.</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128202;</span> By the Numbers</header>
+      <div class="grid grid-4">
+        <div class="card stat-card accent"><div class="card-value" style="color:var(--accent)">100%</div><div class="card-title">Link utilization (no wasted bandwidth)</div></div>
+        <div class="card stat-card success"><div class="card-value" style="color:var(--success)">5 / 6</div><div class="card-title">Items fully delivered, by priority</div></div>
+        <div class="card stat-card quantum"><div class="card-value" style="color:var(--quantum)">BPv7</div><div class="card-title">Bulk fragmented to the next pass</div></div>
+        <div class="card stat-card mars"><div class="card-value" style="color:var(--mars)">Preempt</div><div class="card-title">Emergency uses direct-to-Earth backup</div></div>
+      </div>
+
+      <div class="callout callout-fact" style="margin-top:20px">
+        <div class="callout-icon">&#128225;</div>
+        <div>
+          <div class="callout-title">Worked Scenario</div>
+          <div class="callout-text">A 30 Mbps, 15-minute oversubscribed contact: emergency health telemetry, command ACKs, a seismic event capture and the daily panorama all get through; a 6 GB software update is fragmented (41% now, the rest next pass). Modeled in <code>src/routing/prioritization.py</code>.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:24px;text-align:center;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-sm btn-primary" onclick="Router.navigate('priority-demo')">Try the Prioritization Demo &#8594;</button>
+        <button class="btn btn-sm btn-quantum" onclick="Router.navigate('bundle')">Bundle Protocol &#8594;</button>
+      </div>
+    </section>
+
     <section id="why-it-matters" class="tab" aria-label="Why AETHERIX Matters">
       <div class="page-header">
         <h1>Why AETHERIX Matters</h1>
@@ -2070,6 +2234,93 @@
         <div>
           <div class="callout-title">Continue Learning</div>
           <div class="callout-text">This glossary covers every technical term used across the AETHERIX platform. For deeper explanations, visit the <strong>Learn</strong> pages &#8212; each topic is explained from the ground up with interactive demos. Start with <strong>What is DTN?</strong> for a guided introduction.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#9762;</span> Radiation-Hardened Computing</header>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> SEU &#8212; Single Event Upset</div>
+          <p style="line-height:1.7">A single charged particle flips one bit in memory or a register. The most common soft error in space; corrected by ECC.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> MBU &#8212; Multiple Bit Upset</div>
+          <p style="line-height:1.7">One energetic ion flips two or more adjacent bits at once. SECDED cannot correct it &#8212; defeated by physically interleaving the bits of a word.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> SEL &#8212; Single Event Latchup</div>
+          <p style="line-height:1.7">A particle triggers a parasitic short that can destroy the chip unless power is cycled. Mitigated with current limiting and latchup-immune (rad-hard) parts.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> TID &#8212; Total Ionizing Dose</div>
+          <p style="line-height:1.7">Cumulative radiation dose (measured in krad) that slowly degrades electronics. The RAD750 tolerates ~200 krad &#8212; far above a Mars-mission dose.</p>
+          <div style="margin-top:10px"><span class="badge mars">krad(Si)</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> TMR &#8212; Triple Modular Redundancy</div>
+          <p style="line-height:1.7">Three identical units compute in parallel; a voter outputs the majority, masking any single faulty unit. Fails only if two agree wrongly (&#8776;3p&#178; vs p).</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> SECDED / ECC</div>
+          <p style="line-height:1.7"><strong>S</strong>ingle <strong>E</strong>rror <strong>C</strong>orrect, <strong>D</strong>ouble <strong>E</strong>rror <strong>D</strong>etect. A Hamming-code memory (e.g. 39,32) that fixes one flipped bit per word and flags two. ~22% storage overhead.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Memory Scrubbing</div>
+          <p style="line-height:1.7">A background process that periodically re-reads and rewrites memory, repairing single-bit errors before a second upset accumulates and becomes uncorrectable.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> FDIR</div>
+          <p style="line-height:1.7"><strong>F</strong>ault <strong>D</strong>etection, <strong>I</strong>solation &amp; <strong>R</strong>ecovery. The autonomous logic that spots an anomaly, isolates the faulty unit, attempts recovery, and falls back to SAFE-MODE if it cannot.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Watchdog Timer</div>
+          <p style="line-height:1.7">A hardware timer that healthy software must periodically &#8220;kick.&#8221; If it expires (a hung CPU), it forces a reset &#8212; a last line of defense against radiation-induced lock-ups.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> RAD750</div>
+          <p style="line-height:1.7">BAE Systems&#8217; radiation-hardened flight processor used on Curiosity and Perseverance. ~200 krad tolerance, latchup-immune. ESA&#8217;s equivalent is the LEON3FT / GR712RC.</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#128290;</span> Data Prioritization &amp; QoS</header>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> QoS &#8212; Quality of Service</div>
+          <p style="line-height:1.7">Treating traffic differently by importance. AETHERIX maps every bundle to one of four priority tiers so urgent data is always sent first.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Priority Tiers (P0&#8211;P4)</div>
+          <p style="line-height:1.7">P0 Emergency/Safety, P1 Mission-critical, P2 High-priority, P4 Low/Bulk &#8212; mapped onto BPv7 bundle priority for scheduling and preemption.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Preemption</div>
+          <p style="line-height:1.7">An emergency bundle interrupts an in-progress lower-priority transfer, is sent immediately (often via a low-rate direct-to-Earth backup), then normal traffic resumes.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Deadline-Aware Scheduling</div>
+          <p style="line-height:1.7">Ordering transmissions by priority and then by earliest deadline; data that cannot arrive in time this contact is deferred rather than wasting the link.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Lossless Compression</div>
+          <p style="line-height:1.7">Shrinks data with no information loss (telemetry via CCSDS 121.0-B-3, Rice coding &#8776; 3&#215;). Used where every bit matters.</p>
+          <div style="margin-top:10px"><span class="badge accent">CCSDS 121.0-B-3</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Lossy Compression</div>
+          <p style="line-height:1.7">Discards perceptually-minor detail for much higher ratios (imagery via CCSDS 122.0-B-2, wavelet &#8776; 10&#215;; video &#8776; 50&#215;). Used for bulk imagery.</p>
+          <div style="margin-top:10px"><span class="badge nebula">CCSDS 122.0-B-2</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Bundle Fragmentation</div>
+          <p style="line-height:1.7">Splitting a large BPv7 bundle so the portion that fits the current contact is sent and the remainder is deferred &#8212; keeping the link at full utilization.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> SAFE-MODE</div>
+          <p style="line-height:1.7">A minimal-power, beacon-only spacecraft state entered after repeated failures, preserving the vehicle while it waits for ground intervention.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Doppler Shift</div>
+          <p style="line-height:1.7">The frequency change caused by relative motion between spacecraft and ground. Predicted and compensated so the receiver stays locked &#8212; modeled in <code>src/orbital/doppler.py</code> (classical &amp; relativistic).</p>
         </div>
       </div>
 
@@ -3116,6 +3367,218 @@
       </div>
     </section>
 
+    <section id="radiation-demo" class="tab" aria-label="Radiation Hardening Simulator">
+      <div class="page-header">
+        <h1>Radiation Hardening Simulator</h1>
+        <p>Simulate the impact of space radiation on spacecraft electronics during an Earth&#8211;Mars transit, and see how TMR, SECDED ECC, memory scrubbing, and FDIR protect the computer.</p>
+        <div class="header-badges">
+          <span class="badge accent">&#9762; SEU/MBU/SEL/TID</span>
+          <span class="badge quantum">&#128274; TMR + SECDED ECC</span>
+          <span class="badge nebula">&#128737; FDIR + Watchdog</span>
+        </div>
+      </div>
+      <div class="callout callout-tip" style="margin-top:20px">
+        <div class="callout-icon">&#127919;</div>
+        <div>
+          <div class="callout-title">What This Simulator Does</div>
+          <div class="callout-text">This tool simulates the rate of bit upsets (Single Event Upsets, SEUs) in a spacecraft computer&#8217;s memory during an Earth&#8211;Mars transit. It shows how the defense-in-depth stack &#8212; Error Correction Code (SECDED ECC), periodic memory scrubbing, Triple Modular Redundancy (TMR), and Fault Detection Isolation and Recovery (FDIR) &#8212; reduces uncorrectable errors by approximately 200&#215; compared to unprotected memory.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128207;</span> Parameters Explained</header>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Environment</div>
+          <p style="line-height:1.7"><strong>LEO:</strong> Low Earth Orbit &#8212; shielded by Earth&#8217;s magnetosphere, lowest upset rate.<br><strong>Van Allen Belt:</strong> Trapped proton/electron belts &#8212; 10&#8211;100&#215; higher rate than LEO.<br><strong>Interplanetary Cruise:</strong> No magnetic shielding, galactic cosmic rays dominate.<br><strong>Solar Particle Event:</strong> Worst case &#8212; solar flare injects massive proton flux.<br><strong>Mars Surface:</strong> Thin atmosphere provides partial shielding (&#8776;50% reduction vs. interplanetary).</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> Memory Size</div>
+          <p style="line-height:1.7">Total memory in MB exposed to radiation. More memory = more bits that can be upset. A typical spacecraft computer has 256&#8211;2048 MB. Each bit has an independent probability of being flipped by an energetic particle.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--nebula)"></span> Scrub Interval</div>
+          <p style="line-height:1.7">How often the ECC engine reads and corrects every memory word. Shorter intervals catch more errors before they accumulate. 60s is typical for interplanetary missions. During solar events, 1&#8211;10s scrubbing may be required to prevent multi-bit upset accumulation.</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128200;</span> Preset Test Cases</header>
+      <div class="grid grid-3">
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> Quiet Interplanetary Cruise</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Interplanetary, 512 MB, 60s scrub</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> &#8776;186 uncorrectable errors/day residual after all mitigations. TMR + ECC handle the vast majority.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> Nominal operating scenario. Galactic cosmic rays produce a steady but manageable upset rate. The defense stack keeps residual errors to a level FDIR can handle.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('rad-env').value='interplanetary';document.getElementById('rad-mem-size').value='512';document.getElementById('rad-scrub').value='60';document.getElementById('rad-scrub-val').textContent='60s';App.radiationDemo.run()">Run Cruise &#8594;</button></div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--danger-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> Solar Particle Event</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> SPE, 512 MB, 60s scrub</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Thousands of upsets &#8212; ECC overwhelmed without shorter scrub interval.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> Solar flares increase upset rates 100&#8211;1000&#215;. Stress-tests whether scrub interval is short enough to prevent uncorrectable multi-bit errors.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('rad-env').value='spe';document.getElementById('rad-mem-size').value='512';document.getElementById('rad-scrub').value='60';document.getElementById('rad-scrub-val').textContent='60s';App.radiationDemo.run()">Run SPE &#8594;</button></div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--quantum-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> Rad-hard Part (100&#215; fewer upsets)</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> Interplanetary, 512 MB, 10s scrub</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Near-zero residual uncorrectable errors.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> Radiation-hardened parts reduce upset rates by 100&#215;. Combined with fast scrubbing, this is the gold standard for critical missions.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('rad-env').value='interplanetary';document.getElementById('rad-mem-size').value='512';document.getElementById('rad-scrub').value='10';document.getElementById('rad-scrub-val').textContent='10s';App.radiationDemo.run()">Run Rad-hard &#8594;</button></div>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:20px">
+        <div class="info-bubble-icon">&#9762;</div>
+        <div>
+          <div class="info-bubble-title">Understanding the Output</div>
+          <div class="info-bubble-text"><strong>Raw SEU Rate:</strong> Total bit upsets per day without any protection. <strong>After ECC:</strong> Remaining errors after single-error correction. <strong>After Scrubbing:</strong> Errors that accumulate between scrub passes. <strong>After TMR:</strong> Residual errors after triple-voting. <strong>Uncorrectable:</strong> Final errors requiring FDIR intervention. <strong>Protection Factor:</strong> How many &#215; the defense stack reduced errors vs. raw rate.</div>
+        </div>
+      </div>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Simulation Configuration</div>
+          <div class="form-group"><label>Environment</label>
+            <select id="rad-env">
+              <option value="leo">LEO (Low Earth Orbit)</option>
+              <option value="van-allen">Van Allen Belt</option>
+              <option value="interplanetary" selected>Interplanetary Cruise</option>
+              <option value="spe">Solar Particle Event (SPE)</option>
+              <option value="mars-surface">Mars Surface</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Memory Size (MB)</label><input type="number" id="rad-mem-size" value="512" min="1" max="8192"></div>
+          </div>
+          <div class="form-group">
+            <label>Scrub Interval</label>
+            <input type="range" id="rad-scrub" min="1" max="600" value="60">
+            <span id="rad-scrub-val" style="font-family:var(--font-mono);font-size:0.8rem;color:var(--accent)">60s</span>
+          </div>
+          <div class="btn-group" style="margin-top:14px">
+            <button class="btn btn-primary" onclick="App.radiationDemo.run()">&#9762; Run Simulation</button>
+          </div>
+        </div>
+        <div>
+          <div class="card" id="rad-result" style="display:none">
+            <div class="card-title"><span class="ct-dot"></span> Simulation Results</div>
+            <div id="rad-result-content"></div>
+          </div>
+          <div class="card" id="rad-chart-card" style="display:none;margin-top:18px">
+            <div class="card-title"><span class="ct-dot"></span> Upsets vs. Mitigations</div>
+            <div class="chart-container"><canvas id="radChart"></canvas></div>
+            <p style="font-size:0.85em;color:var(--text-secondary);margin-top:8px">Cumulative reduction in error rate as each mitigation layer is applied: raw upsets &#8594; ECC &#8594; scrubbing &#8594; TMR &#8594; residual.</p>
+          </div>
+        </div>
+      </div>
+      <div class="btn-group" style="margin-top:24px">
+        <button class="btn btn-sm btn-primary" onclick="Router.navigate('radiation')">&#8592; Back to Learn</button>
+        <button class="btn btn-sm btn-quantum" onclick="Router.navigate('glossary')">Glossary</button>
+      </div>
+    </section>
+
+    <section id="priority-demo" class="tab" aria-label="Data Prioritization Scheduler">
+      <div class="page-header">
+        <h1>Data Prioritization Scheduler</h1>
+        <p>Schedule an oversubscribed Earth&#8211;Mars contact window with 4-tier QoS, CCSDS compression, and deadline-aware preemption.</p>
+        <div class="header-badges">
+          <span class="badge accent">&#128202; 4-Tier QoS</span>
+          <span class="badge mars">&#128300; CCSDS Compression</span>
+          <span class="badge quantum">&#9200; Deadline-Aware</span>
+        </div>
+      </div>
+      <div class="callout callout-tip" style="margin-top:20px">
+        <div class="callout-icon">&#127919;</div>
+        <div>
+          <div class="callout-title">What This Scheduler Does</div>
+          <div class="callout-text">Given a limited contact window (duration &#215; data rate), this scheduler decides which bundles to transmit in priority order. It applies CCSDS compression, respects bundle deadlines, and can preempt lower-priority traffic when emergencies arrive mid-contact.</div>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128207;</span> Parameters Explained</header>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Contact Duration</div>
+          <p style="line-height:1.7">Length of the Earth&#8211;Mars communication window in minutes. Typical DSN passes are 8&#8211;15 minutes; high-elevation windows can reach 30&#8211;60 minutes. Shorter windows force harder prioritization decisions.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--mars)"></span> Link Rate</div>
+          <p style="line-height:1.7">Data rate in Mbps. Optical links: 2&#8211;200 Mbps depending on distance. RF backup: 0.5&#8211;6 Mbps. Duration &#215; rate = total capacity available.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> Traffic Oversubscription</div>
+          <p style="line-height:1.7">How much data is waiting vs. capacity. 150% = 1.5&#215; more data than fits. 200%+ = severe contention. The scheduler must choose what to send and what to defer.</p>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128200;</span> Preset Test Cases</header>
+      <div class="grid grid-3">
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> Typical Contact</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> 15 min, 30 Mbps, 150% oversubscribed</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Emergency + mission-critical + science delivered. Bulk fragmented. Compression saves &#8776;40%.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> Standard operating scenario &#8212; enough capacity for critical data, bulk must wait.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('pri-duration').value='15';document.getElementById('pri-duration-val').textContent='15 min';document.getElementById('pri-rate').value='30';document.getElementById('pri-rate-val').textContent='30 Mbps';document.getElementById('pri-oversub').value='150';App.priorityDemo.run()">Run Typical &#8594;</button></div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--danger-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> Short Emergency Window</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> 5 min, 10 Mbps, 200% oversubscribed</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Only P0 + P1 delivered. Heavy preemption.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> Degraded link or emergency situation &#8212; only highest-priority data survives.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('pri-duration').value='5';document.getElementById('pri-duration-val').textContent='5 min';document.getElementById('pri-rate').value='10';document.getElementById('pri-rate-val').textContent='10 Mbps';document.getElementById('pri-oversub').value='200';App.priorityDemo.run()">Run Emergency &#8594;</button></div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--quantum-rgb),0.25)">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> High-Capacity Link</div>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Setup:</strong> 30 min, 100 Mbps, 120% oversubscribed</p>
+          <p style="font-size:0.9em;line-height:1.7"><strong>Expected:</strong> Nearly everything fits &#8212; only small fraction of bulk deferred.</p>
+          <p style="font-size:0.9em;line-height:1.7;color:var(--text-secondary)"><strong>Why:</strong> Best-case near opposition with high-rate optical link.</p>
+          <div style="margin-top:8px"><button class="btn btn-sm btn-primary" onclick="document.getElementById('pri-duration').value='30';document.getElementById('pri-duration-val').textContent='30 min';document.getElementById('pri-rate').value='100';document.getElementById('pri-rate-val').textContent='100 Mbps';document.getElementById('pri-oversub').value='120';App.priorityDemo.run()">Run High-Cap &#8594;</button></div>
+        </div>
+      </div>
+
+      <div class="info-bubble" style="margin-top:20px">
+        <div class="info-bubble-icon">&#128202;</div>
+        <div>
+          <div class="info-bubble-title">Reading the Schedule Output</div>
+          <div class="info-bubble-text"><strong>Window Capacity:</strong> Total bytes available (duration &#215; rate). <strong>Scheduled:</strong> Bundles that fit in priority order. <strong>Deferred:</strong> Bundles pushed to next window. <strong>Preempted:</strong> Lower-priority bundles evicted for emergencies. <strong>Compression Savings:</strong> Bytes saved by CCSDS compression. <strong>Utilization:</strong> Percentage of the window filled.</div>
+        </div>
+      </div>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot"></span> Scheduler Configuration</div>
+          <div class="form-group">
+            <label>Contact Duration</label>
+            <input type="range" id="pri-duration" min="1" max="60" value="15">
+            <span id="pri-duration-val" style="font-family:var(--font-mono);font-size:0.8rem;color:var(--accent)">15 min</span>
+          </div>
+          <div class="form-group">
+            <label>Link Rate (Mbps)</label>
+            <input type="range" id="pri-rate" min="1" max="200" value="30">
+            <span id="pri-rate-val" style="font-family:var(--font-mono);font-size:0.8rem;color:var(--mars)">30 Mbps</span>
+          </div>
+          <div class="form-group"><label>Traffic Oversubscription (%)</label><input type="number" id="pri-oversub" value="150" min="100" max="500"></div>
+          <div class="btn-group" style="margin-top:14px">
+            <button class="btn btn-primary" onclick="App.priorityDemo.run()">&#9200; Run Scheduler</button>
+          </div>
+        </div>
+        <div>
+          <div class="card" id="pri-result" style="display:none">
+            <div class="card-title"><span class="ct-dot"></span> Schedule Results</div>
+            <div id="pri-result-content"></div>
+          </div>
+          <div class="card" id="pri-chart-card" style="display:none;margin-top:18px">
+            <div class="card-title"><span class="ct-dot"></span> Scheduled Items Timeline</div>
+            <div class="chart-container"><canvas id="priChart"></canvas></div>
+            <p style="font-size:0.85em;color:var(--text-secondary);margin-top:8px">Gantt-style chart showing each bundle&#8217;s position in the contact window, colored by priority tier.</p>
+          </div>
+        </div>
+      </div>
+      <div class="btn-group" style="margin-top:24px">
+        <button class="btn btn-sm btn-primary" onclick="Router.navigate('prioritization')">&#8592; Back to Learn</button>
+        <button class="btn btn-sm btn-quantum" onclick="Router.navigate('bundle')">Bundle Protocol</button>
+      </div>
+    </section>
+
     <section id="study" class="tab" aria-label="Study Resources">
       <div class="page-header">
         <h1>Study Resources &amp; Preparation</h1>
@@ -3134,6 +3597,523 @@
       <div class="card"><div id="study-tools-content"></div></div>
       <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128214;</span> Key References (IEEE Format)</header>
       <div class="card"><div id="study-refs-content"></div></div>
+    </section>
+
+    <section id="usage" class="tab" aria-label="Usage Guide">
+      <div class="page-header">
+        <h1>Usage Guide</h1>
+        <p>Everything you need to set up, run, and explore the AETHERIX platform &#8212; from cloning the repo to serving the live showcase.</p>
+        <div class="header-badges">
+          <span class="badge accent">Python 3.9+</span>
+          <span class="badge success">189 Tests</span>
+          <span class="badge quantum">12 Live Demos</span>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#9889;</span> Quick Start</header>
+      <div class="card">
+        <div class="card-title"><span class="ct-dot"></span> Clone &amp; Initialize</div>
+        <pre style="background:var(--bg-secondary);padding:16px;border-radius:var(--radius-md);overflow-x:auto;font-size:0.85rem;line-height:1.8"><code>git clone https://github.com/matx104/AETHERIX.git
+cd AETHERIX
+./scripts/init.sh          # set up venv + install deps
+./scripts/run_tests.sh     # verify: 189 tests pass</code></pre>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128736;</span> Scripts</header>
+      <div class="card">
+        <div class="table-wrapper"><table>
+          <thead><tr><th>Script</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>./scripts/init.sh</code></td><td>Set up virtual environment and install dependencies</td></tr>
+            <tr><td><code>./scripts/init.sh --dev</code></td><td>Include development tools (linting, formatting)</td></tr>
+            <tr><td><code>./scripts/run_tests.sh</code></td><td>Run the full test suite</td></tr>
+            <tr><td><code>./scripts/run_tests.sh -v</code></td><td>Verbose test output</td></tr>
+            <tr><td><code>./scripts/run_demos.sh</code></td><td>Interactive demo menu (6 Python demos)</td></tr>
+            <tr><td><code>./scripts/lint.sh</code></td><td>Code quality checks (ruff)</td></tr>
+            <tr><td><code>./scripts/lint.sh --fix</code></td><td>Auto-fix code style issues</td></tr>
+            <tr><td><code>./scripts/clean.sh</code></td><td>Clean artifacts and caches</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128187;</span> Running Modules</header>
+      <div class="card">
+        <div class="table-wrapper"><table>
+          <thead><tr><th>Command</th><th>Module</th></tr></thead>
+          <tbody>
+            <tr><td><code>python src/infrastructure/link_budget.py</code></td><td>Optical link budget calculations</td></tr>
+            <tr><td><code>python src/infrastructure/rf_link_budget.py</code></td><td>RF link budget (Ka/X/S/UHF)</td></tr>
+            <tr><td><code>python src/routing/rl_agent.py</code></td><td>RL routing agent demo</td></tr>
+            <tr><td><code>python src/routing/bundle.py</code></td><td>BPv7 bundle protocol demo</td></tr>
+            <tr><td><code>python src/routing/prioritization.py</code></td><td>Data prioritization scheduler</td></tr>
+            <tr><td><code>python src/routing/forwarding_engine.py</code></td><td>Store-and-forward demo</td></tr>
+            <tr><td><code>python src/routing/training.py</code></td><td>RL training loop</td></tr>
+            <tr><td><code>python src/security/qkd.py</code></td><td>QKD protocol simulation (BB84/E91)</td></tr>
+            <tr><td><code>python src/security/repeater_chain.py</code></td><td>Quantum repeater chain</td></tr>
+            <tr><td><code>python src/security/privacy_amplification.py</code></td><td>CASCADE reconciliation</td></tr>
+            <tr><td><code>python src/orbital/contact_windows.py</code></td><td>Contact window prediction</td></tr>
+            <tr><td><code>python src/orbital/doppler.py</code></td><td>Doppler shift calculations</td></tr>
+            <tr><td><code>python src/orbital/topology.py</code></td><td>5-tier network topology</td></tr>
+            <tr><td><code>python src/computing/radiation.py</code></td><td>Radiation hardening simulation</td></tr>
+            <tr><td><code>python src/simulation/simulator.py</code></td><td>Full simulation engine</td></tr>
+            <tr><td><code>python src/simulation/policy_engine.py</code></td><td>Policy-based routing</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#127760;</span> Web Showcase</header>
+      <div class="card">
+        <div class="card-title"><span class="ct-dot"></span> Serve Locally</div>
+        <pre style="background:var(--bg-secondary);padding:16px;border-radius:var(--radius-md);overflow-x:auto;font-size:0.85rem;line-height:1.8"><code>cd docs
+python -m http.server 8080
+# Open http://localhost:8080</code></pre>
+        <p style="margin-top:12px;line-height:1.7">The showcase includes 12 interactive browser demos: Mission Control Dashboard, Optical Link Budget, RF Link Budget, RL Routing Agent, QKD Protocol, Orbital Mechanics, Bundle Protocol, DTN Engine, Simulation, Mars Mission, Radiation Simulator, and Priority Scheduler.</p>
+        <p style="line-height:1.7">Live at <a href="https://matx104.github.io/AETHERIX/" target="_blank" rel="noopener" style="color:var(--accent)">matx104.github.io/AETHERIX</a></p>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128196;</span> Presentation</header>
+      <div class="card">
+        <div class="card-title"><span class="ct-dot"></span> Generate PPTX / PDF</div>
+        <pre style="background:var(--bg-secondary);padding:16px;border-radius:var(--radius-md);overflow-x:auto;font-size:0.85rem;line-height:1.8"><code>cd presentation
+pip install python-pptx reportlab   # if not installed
+python generate_pptx.py             # &#8594; AETHERIX_Presentation.pptx
+python generate_pdf.py              # &#8594; AETHERIX_Presentation.pdf</code></pre>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128268;</span> Troubleshooting</header>
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> ImportError</div>
+          <p style="line-height:1.7">Run <code>./scripts/init.sh</code> to install dependencies. Activate the virtual environment first: <code>source venv/bin/activate</code></p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--mars)"></span> Tests failing</div>
+          <p style="line-height:1.7">Ensure the virtual environment is activated and all dependencies are installed: <code>source venv/bin/activate &amp;&amp; pip install -r requirements.txt</code></p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> Site not loading</div>
+          <p style="line-height:1.7">The site must be served via HTTP, not opened as a file. Use <code>python -m http.server 8080</code> inside the <code>docs/</code> directory.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> PPTX generation fails</div>
+          <p style="line-height:1.7">Install the required package: <code>pip install python-pptx</code>. For PDF: <code>pip install reportlab</code>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz" class="tab" aria-label="Quiz">
+      <div class="page-header">
+        <h1>Exam Quiz Engine</h1>
+        <p>3,170 auto-graded questions across all Topic 59 learning objectives. Practice, test yourself with a timed mock exam, or use flashcards to reinforce key facts.</p>
+        <div class="header-badges">
+          <span class="badge accent">3,170 Questions</span>
+          <span class="badge quantum">8 Topics</span>
+          <span class="badge success">4 Difficulty Levels</span>
+        </div>
+      </div>
+
+      <div id="quiz-welcome"></div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#9881;</span> Filters</header>
+      <div id="quiz-filters"></div>
+
+      <div id="quiz-progress" style="display:none"></div>
+      <div id="quiz-area" style="display:none"></div>
+      <div id="quiz-results" style="display:none"></div>
+      <div id="quiz-review" style="display:none"></div>
+    </section>
+
+    <section id="coverage" class="tab" aria-label="Deliverables Coverage Matrix">
+      <div class="page-header">
+        <h1>Deliverables Coverage Matrix</h1>
+        <p>Every Topic 59 learning objective, presentation section, and interview area traced to code, slides, web pages, and quiz questions &#8212; fully green across all four surfaces.</p>
+        <div class="header-badges">
+          <span class="badge accent">8 Objectives</span>
+          <span class="badge quantum">4 Presentation Sections</span>
+          <span class="badge success">7 Interview Areas</span>
+          <span class="badge mars">14 Success Criteria</span>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#127919;</span> Learning Objectives (a&#8211;h) &#215; Surfaces</header>
+      <div class="card">
+        <div class="table-wrapper" style="overflow-x:auto">
+          <table class="pres-table">
+            <thead>
+              <tr>
+                <th style="min-width:180px">Objective</th>
+                <th style="min-width:260px">Code Module</th>
+                <th style="min-width:160px">Slide(s)</th>
+                <th style="min-width:200px">Web Section</th>
+                <th style="min-width:140px">Questions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>a.</strong> DTN protocols (BPv7, LTP, convergence layers)</td>
+                <td>
+                  <code>src/routing/bundle.py</code> &mdash; BPv7 Bundle, EndpointID, BundlePriority<br>
+                  <code>src/routing/ltp.py</code> &mdash; LTP segmentation, retransmission<br>
+                  <code>src/routing/tcpcl.py</code> &mdash; TCP Convergence Layer (RFC 7242)<br>
+                  <code>src/routing/udp_cl.py</code> &mdash; UDP Convergence Layer, optical ISL<br>
+                  <code>src/routing/forwarding_engine.py</code> &mdash; store-and-forward, BundleQueue<br>
+                  <code>src/routing/contact_graph.py</code> &mdash; contact graph BFS pathfinding<br>
+                  <code>src/routing/node.py</code> &mdash; DTN node model, buffer management
+                </td>
+                <td>8: <em>BPv7 Deep Dive</em><br>9: <em>DTN Store-and-Forward</em></td>
+                <td>
+                  <a href="#" onclick="Router.navigate('what-is-dtn');return false" style="color:var(--accent);text-decoration:none">What is DTN?</a><br>
+                  <a href="#" onclick="Router.navigate('how-it-works');return false" style="color:var(--accent);text-decoration:none">How It Works</a><br>
+                  <a href="#" onclick="Router.navigate('bundle');return false" style="color:var(--accent);text-decoration:none">BPv7 Interactive Demo</a><br>
+                  <a href="#" onclick="Router.navigate('dtn-engine');return false" style="color:var(--accent);text-decoration:none">DTN Engine Demo</a><br>
+                  <a href="#" onclick="Router.navigate('deep-space-standards');return false" style="color:var(--accent);text-decoration:none">Deep Space Standards</a><br>
+                  <a href="#" onclick="Router.navigate('glossary');return false" style="color:var(--accent);text-decoration:none">Glossary</a>
+                </td>
+                <td><code>dtn_protocols</code> &#9989;</td>
+              </tr>
+              <tr>
+                <td><strong>b.</strong> Quantum communications/crypto (BB84, E91, QKD, repeaters)</td>
+                <td>
+                  <code>src/security/qkd.py</code> &mdash; BB84Protocol (QBER), E91Protocol, QuantumRepeater<br>
+                  <code>src/security/repeater_chain.py</code> &mdash; multi-hop repeater chain, purification<br>
+                  <code>src/security/privacy_amplification.py</code> &mdash; CASCADE, universal hashing
+                </td>
+                <td>16: <em>Quantum Security</em></td>
+                <td>
+                  <a href="#" onclick="Router.navigate('space-security');return false" style="color:var(--accent);text-decoration:none">Space Security</a><br>
+                  <a href="#" onclick="Router.navigate('qkd-science');return false" style="color:var(--accent);text-decoration:none">Science Behind QKD</a><br>
+                  <a href="#" onclick="Router.navigate('qkd');return false" style="color:var(--accent);text-decoration:none">QKD Interactive Demo</a>
+                </td>
+                <td><code>quantum_comms</code> &#9989;</td>
+              </tr>
+              <tr>
+                <td><strong>c.</strong> Space infrastructure (DSN, 5-tier topology, optical/RF)</td>
+                <td>
+                  <code>src/orbital/topology.py</code> &mdash; 241-node 5-tier network<br>
+                  <code>src/infrastructure/link_budget.py</code> &mdash; OpticalLinkBudget<br>
+                  <code>src/infrastructure/rf_link_budget.py</code> &mdash; Ka/X/S/UHF bands
+                </td>
+                <td>6: <em>System Architecture</em><br>7: <em>Architecture Diagram</em><br>10: <em>Network Topology</em><br>11: <em>5-Tier Diagram</em><br>12: <em>Network Diagram</em><br>13: <em>Optical Comms</em></td>
+                <td>
+                  <a href="#" onclick="Router.navigate('the-network');return false" style="color:var(--accent);text-decoration:none">5-Tier Topology Explorer</a><br>
+                  <a href="#" onclick="Router.navigate('optical-comms');return false" style="color:var(--accent);text-decoration:none">Optical Communications</a><br>
+                  <a href="#" onclick="Router.navigate('link-budget');return false" style="color:var(--accent);text-decoration:none">Link Budget Calculator</a><br>
+                  <a href="#" onclick="Router.navigate('rf-budget');return false" style="color:var(--accent);text-decoration:none">RF Band Comparison</a>
+                </td>
+                <td><code>space_infrastructure</code> &#9989;</td>
+              </tr>
+              <tr>
+                <td><strong>d.</strong> Orbital mechanics/link prediction (contact windows, Doppler)</td>
+                <td>
+                  <code>src/orbital/contact_windows.py</code> &mdash; distance, light-time, contact windows<br>
+                  <code>src/orbital/bodies.py</code> &mdash; celestial body database<br>
+                  <code>src/orbital/doppler.py</code> &mdash; classical/relativistic Doppler
+                </td>
+                <td>14: <em>Earth-Mars Journey</em><br>17: <em>Orbital Mechanics</em></td>
+                <td>
+                  <a href="#" onclick="Router.navigate('orbital');return false" style="color:var(--accent);text-decoration:none">Contact Window Predictor</a><br>
+                  <a href="#" onclick="Router.navigate('journey-to-mars');return false" style="color:var(--accent);text-decoration:none">Distance Timeline</a>
+                </td>
+                <td><code>orbital_mechanics</code> &#9989;</td>
+              </tr>
+              <tr>
+                <td><strong>e.</strong> Radiation-hardened computing (SEU, TMR, ECC, FDIR)</td>
+                <td>
+                  <code>src/computing/radiation.py</code> &mdash; SEU, TMR, ECC, FDIR, scrubbing
+                </td>
+                <td>18: <em>Radiation Hardening</em></td>
+                <td>
+                  <a href="#" onclick="Router.navigate('radiation');return false" style="color:var(--accent);text-decoration:none">Radiation Effects</a><br>
+                  <a href="#" onclick="Router.navigate('radiation-demo');return false" style="color:var(--accent);text-decoration:none">Mitigation Demo</a>
+                </td>
+                <td><code>radiation_hardening</code> &#9989;</td>
+              </tr>
+              <tr>
+                <td><strong>f.</strong> Mission-critical data prioritization (QoS, preemption)</td>
+                <td>
+                  <code>src/routing/prioritization.py</code> &mdash; QoS classes, compression, preemption
+                </td>
+                <td>19: <em>Data Prioritization</em></td>
+                <td>
+                  <a href="#" onclick="Router.navigate('prioritization');return false" style="color:var(--accent);text-decoration:none">QoS Learn Page</a><br>
+                  <a href="#" onclick="Router.navigate('priority-demo');return false" style="color:var(--accent);text-decoration:none">Priority Queue Demo</a>
+                </td>
+                <td><code>data_prioritization</code> &#9989;</td>
+              </tr>
+              <tr>
+                <td><strong>g.</strong> Industry application (standards, real-world context)</td>
+                <td>
+                  CCSDS 734.2-B-1, RFC 4838, RFC 9171, RFC 5326, CCSDS 734.3-B-1, CCSDS 141.0-B-1, CCSDS 401.0-B-30 citations across docstrings and demos
+                </td>
+                <td>5: <em>The Answer</em><br>13: <em>Optical Comms</em><br>20: <em>End-to-End Mission</em><br>25: <em>Roadmap</em></td>
+                <td>
+                  <a href="#" onclick="Router.navigate('deep-space-standards');return false" style="color:var(--accent);text-decoration:none">Standards Catalogue</a><br>
+                  <a href="#" onclick="Router.navigate('why-it-matters');return false" style="color:var(--accent);text-decoration:none">Why It Matters</a><br>
+                  <a href="#" onclick="Router.navigate('journey-to-mars');return false" style="color:var(--accent);text-decoration:none">Mission Scenario</a>
+                </td>
+                <td><code>standards</code> &#9989;</td>
+              </tr>
+              <tr>
+                <td><strong>h.</strong> Tools (Python, simulation, web showcase, testing)</td>
+                <td>
+                  <code>src/simulation/simulator.py</code> &mdash; full simulation engine<br>
+                  <code>src/simulation/policy_engine.py</code> &mdash; policy-based routing<br>
+                  <code>src/routing/training.py</code> &mdash; RL training, convergence detection<br>
+                  <code>src/routing/multi_agent.py</code> &mdash; federated learning<br>
+                  <code>src/routing/rl_agent.py</code> &mdash; Q-learning agent
+                </td>
+                <td>15: <em>RL Routing</em><br>23: <em>Performance</em><br>24: <em>Implementation</em></td>
+                <td>
+                  <a href="#" onclick="Router.navigate('dashboard');return false" style="color:var(--accent);text-decoration:none">Dashboard</a><br>
+                  <a href="#" onclick="Router.navigate('simulation');return false" style="color:var(--accent);text-decoration:none">Simulation Runner</a><br>
+                  <a href="#" onclick="Router.navigate('routing');return false" style="color:var(--accent);text-decoration:none">RL Routing Demo</a><br>
+                  <a href="#" onclick="Router.navigate('usage');return false" style="color:var(--accent);text-decoration:none">Usage Guide</a><br>
+                  <a href="#" onclick="Router.navigate('study');return false" style="color:var(--accent);text-decoration:none">Study Mode</a><br>
+                  <a href="#" onclick="Router.navigate('built-by');return false" style="color:var(--accent);text-decoration:none">Technology Stack</a>
+                </td>
+                <td><code>aetherix_specific</code> &#9989;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128196;</span> Presentation Sections &#215; Coverage</header>
+      <div class="card">
+        <div class="table-wrapper" style="overflow-x:auto">
+          <table class="pres-table">
+            <thead>
+              <tr>
+                <th style="min-width:180px">Section</th>
+                <th style="min-width:240px">Slides</th>
+                <th style="min-width:300px">Code Demonstrated</th>
+                <th style="min-width:180px">Web Demo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. Network Architecture</strong></td>
+                <td>
+                  3: <em>What is AETHERIX</em><br>4: <em>The Distance</em><br>5: <em>The Answer</em><br>6: <em>System Architecture</em><br>7: <em>Architecture Diagram</em><br>8: <em>BPv7 Deep Dive</em><br>9: <em>DTN Store-and-Forward</em><br>10: <em>Network Topology</em><br>11: <em>5-Tier Network Diagram</em><br>12: <em>Network Diagram</em><br>15: <em>RL Routing</em>
+                </td>
+                <td>
+                  <code>src/routing/bundle.py</code>, <code>src/routing/ltp.py</code>, <code>src/routing/tcpcl.py</code>, <code>src/routing/udp_cl.py</code>, <code>src/routing/forwarding_engine.py</code>, <code>src/routing/contact_graph.py</code>, <code>src/routing/node.py</code>, <code>src/routing/rl_agent.py</code>, <code>src/routing/training.py</code>, <code>src/routing/multi_agent.py</code>, <code>src/orbital/topology.py</code>, <code>src/simulation/simulator.py</code>, <code>src/simulation/policy_engine.py</code>
+                </td>
+                <td>
+                  <a href="#" onclick="Router.navigate('what-is-dtn');return false" style="color:var(--accent);text-decoration:none">What is DTN</a><br>
+                  <a href="#" onclick="Router.navigate('how-it-works');return false" style="color:var(--accent);text-decoration:none">How It Works</a><br>
+                  <a href="#" onclick="Router.navigate('the-network');return false" style="color:var(--accent);text-decoration:none">The Network</a><br>
+                  <a href="#" onclick="Router.navigate('bundle');return false" style="color:var(--accent);text-decoration:none">Bundle Demo</a><br>
+                  <a href="#" onclick="Router.navigate('dtn-engine');return false" style="color:var(--accent);text-decoration:none">DTN Engine</a><br>
+                  <a href="#" onclick="Router.navigate('routing');return false" style="color:var(--accent);text-decoration:none">RL Routing</a><br>
+                  <a href="#" onclick="Router.navigate('dashboard');return false" style="color:var(--accent);text-decoration:none">Dashboard</a><br>
+                  <a href="#" onclick="Router.navigate('simulation');return false" style="color:var(--accent);text-decoration:none">Simulation</a>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>2. Quantum Comms</strong></td>
+                <td>16: <em>Quantum Security</em></td>
+                <td>
+                  <code>src/security/qkd.py</code>, <code>src/security/repeater_chain.py</code>, <code>src/security/privacy_amplification.py</code>
+                </td>
+                <td>
+                  <a href="#" onclick="Router.navigate('space-security');return false" style="color:var(--accent);text-decoration:none">Space Security</a><br>
+                  <a href="#" onclick="Router.navigate('qkd-science');return false" style="color:var(--accent);text-decoration:none">QKD Science</a><br>
+                  <a href="#" onclick="Router.navigate('qkd');return false" style="color:var(--accent);text-decoration:none">QKD Demo</a>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>3. Infrastructure</strong></td>
+                <td>
+                  13: <em>Optical Comms</em><br>14: <em>Earth-Mars Journey</em><br>17: <em>Orbital Mechanics</em><br>18: <em>Radiation Hardening</em><br>19: <em>Data Prioritization</em>
+                </td>
+                <td>
+                  <code>src/infrastructure/link_budget.py</code>, <code>src/infrastructure/rf_link_budget.py</code>, <code>src/orbital/contact_windows.py</code>, <code>src/orbital/bodies.py</code>, <code>src/orbital/doppler.py</code>, <code>src/computing/radiation.py</code>, <code>src/routing/prioritization.py</code>
+                </td>
+                <td>
+                  <a href="#" onclick="Router.navigate('optical-comms');return false" style="color:var(--accent);text-decoration:none">Optical Comms</a><br>
+                  <a href="#" onclick="Router.navigate('rf-budget');return false" style="color:var(--accent);text-decoration:none">RF Budget</a><br>
+                  <a href="#" onclick="Router.navigate('link-budget');return false" style="color:var(--accent);text-decoration:none">Link Budget</a><br>
+                  <a href="#" onclick="Router.navigate('orbital');return false" style="color:var(--accent);text-decoration:none">Orbital</a><br>
+                  <a href="#" onclick="Router.navigate('journey-to-mars');return false" style="color:var(--accent);text-decoration:none">Journey to Mars</a><br>
+                  <a href="#" onclick="Router.navigate('radiation-demo');return false" style="color:var(--accent);text-decoration:none">Radiation Demo</a><br>
+                  <a href="#" onclick="Router.navigate('priority-demo');return false" style="color:var(--accent);text-decoration:none">Priority Demo</a>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>4. Scenario Analysis</strong></td>
+                <td>
+                  20: <em>End-to-End Mission</em><br>21: <em>Data Flow Diagram</em><br>22: <em>Data Flow Visual</em><br>23: <em>Performance</em><br>24: <em>Implementation</em><br>25: <em>Roadmap</em>
+                </td>
+                <td>
+                  <code>src/simulation/simulator.py</code>, <code>src/simulation/policy_engine.py</code>, <code>src/routing/training.py</code>
+                </td>
+                <td>
+                  <a href="#" onclick="Router.navigate('mission');return false" style="color:var(--accent);text-decoration:none">Mission</a><br>
+                  <a href="#" onclick="Router.navigate('dashboard');return false" style="color:var(--accent);text-decoration:none">Dashboard</a><br>
+                  <a href="#" onclick="Router.navigate('simulation');return false" style="color:var(--accent);text-decoration:none">Simulation</a><br>
+                  <a href="#" onclick="Router.navigate('why-it-matters');return false" style="color:var(--accent);text-decoration:none">Why It Matters</a><br>
+                  <a href="#" onclick="Router.navigate('deep-space-standards');return false" style="color:var(--accent);text-decoration:none">Standards</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#127909;</span> Interview Areas &#215; Coverage</header>
+      <div class="card">
+        <div class="table-wrapper" style="overflow-x:auto">
+          <table class="pres-table">
+            <thead>
+              <tr>
+                <th style="min-width:200px">Area</th>
+                <th style="min-width:240px">Code</th>
+                <th style="min-width:180px">Learn Page</th>
+                <th style="min-width:140px">Demo</th>
+                <th style="min-width:140px">Questions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. DTN Protocols &amp; Bundle Protocol</strong></td>
+                <td><code>bundle.py</code>, <code>ltp.py</code>, <code>tcpcl.py</code>, <code>udp_cl.py</code>, <code>forwarding_engine.py</code>, <code>contact_graph.py</code>, <code>node.py</code></td>
+                <td>
+                  <a href="#" onclick="Router.navigate('what-is-dtn');return false" style="color:var(--accent);text-decoration:none">What is DTN</a>,
+                  <a href="#" onclick="Router.navigate('how-it-works');return false" style="color:var(--accent);text-decoration:none">How It Works</a>,
+                  <a href="#" onclick="Router.navigate('bundle');return false" style="color:var(--accent);text-decoration:none">Bundle</a>,
+                  <a href="#" onclick="Router.navigate('deep-space-standards');return false" style="color:var(--accent);text-decoration:none">Standards</a>
+                </td>
+                <td>bundle, dtn-engine, simulation</td>
+                <td><code>dtn_protocols</code> &#9989;</td>
+              </tr>
+              <tr>
+                <td><strong>2. Quantum Key Distribution</strong></td>
+                <td><code>qkd.py</code>, <code>repeater_chain.py</code>, <code>privacy_amplification.py</code></td>
+                <td>
+                  <a href="#" onclick="Router.navigate('space-security');return false" style="color:var(--accent);text-decoration:none">Space Security</a>,
+                  <a href="#" onclick="Router.navigate('qkd-science');return false" style="color:var(--accent);text-decoration:none">QKD Science</a>
+                </td>
+                <td>qkd</td>
+                <td><code>quantum_comms</code> &#9989;</td>
+              </tr>
+              <tr>
+                <td><strong>3. Space Infrastructure &amp; Topology</strong></td>
+                <td><code>topology.py</code>, <code>link_budget.py</code>, <code>rf_link_budget.py</code></td>
+                <td>
+                  <a href="#" onclick="Router.navigate('the-network');return false" style="color:var(--accent);text-decoration:none">The Network</a>,
+                  <a href="#" onclick="Router.navigate('optical-comms');return false" style="color:var(--accent);text-decoration:none">Optical Comms</a>
+                </td>
+                <td>link-budget, rf-budget</td>
+                <td><code>space_infrastructure</code> &#9989;</td>
+              </tr>
+              <tr>
+                <td><strong>4. Orbital Mechanics &amp; Link Budget</strong></td>
+                <td><code>contact_windows.py</code>, <code>bodies.py</code>, <code>doppler.py</code></td>
+                <td>
+                  <a href="#" onclick="Router.navigate('orbital');return false" style="color:var(--accent);text-decoration:none">Orbital</a>,
+                  <a href="#" onclick="Router.navigate('journey-to-mars');return false" style="color:var(--accent);text-decoration:none">Journey to Mars</a>
+                </td>
+                <td>orbital</td>
+                <td><code>orbital_mechanics</code> &#9989;</td>
+              </tr>
+              <tr>
+                <td><strong>5. Radiation Hardening &amp; Fault Tolerance</strong></td>
+                <td><code>radiation.py</code></td>
+                <td>
+                  <a href="#" onclick="Router.navigate('radiation');return false" style="color:var(--accent);text-decoration:none">Radiation</a>
+                </td>
+                <td>radiation-demo</td>
+                <td><code>radiation_hardening</code> &#9989;</td>
+              </tr>
+              <tr>
+                <td><strong>6. Data Prioritization &amp; QoS</strong></td>
+                <td><code>prioritization.py</code></td>
+                <td>
+                  <a href="#" onclick="Router.navigate('prioritization');return false" style="color:var(--accent);text-decoration:none">Prioritization</a>
+                </td>
+                <td>priority-demo</td>
+                <td><code>data_prioritization</code> &#9989;</td>
+              </tr>
+              <tr>
+                <td><strong>7. RL Routing &amp; AI</strong></td>
+                <td><code>rl_agent.py</code>, <code>training.py</code>, <code>multi_agent.py</code>, <code>policy_engine.py</code></td>
+                <td>
+                  <a href="#" onclick="Router.navigate('reinforcement-learning');return false" style="color:var(--accent);text-decoration:none">Reinforcement Learning</a>
+                </td>
+                <td>routing</td>
+                <td><code>aetherix_specific</code> &#9989;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#9989;</span> Success Checklist</header>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px">
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.2);padding:16px">
+          <div style="font-size:0.88rem;font-weight:700;color:var(--success);margin-bottom:6px">&#9989; 1. BPv7, LTP &amp; Convergence Layers</div>
+          <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.6">7 code modules, 2 slides, 5 web pages, <code>dtn_protocols</code> questions, 12 test files</div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.2);padding:16px">
+          <div style="font-size:0.88rem;font-weight:700;color:var(--success);margin-bottom:6px">&#9989; 2. Quantum Key Distribution</div>
+          <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.6">3 code modules (BB84, E91, repeater, privacy amplification), 1 slide, 3 web pages</div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.2);padding:16px">
+          <div style="font-size:0.88rem;font-weight:700;color:var(--success);margin-bottom:6px">&#9989; 3. 5-Tier Space Network Architecture</div>
+          <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.6">3 code modules (topology, optical, RF), 5 slides, 4 web pages</div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.2);padding:16px">
+          <div style="font-size:0.88rem;font-weight:700;color:var(--success);margin-bottom:6px">&#9989; 4. Orbital Distances &amp; Contact Windows</div>
+          <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.6">3 code modules (contact_windows, bodies, doppler), 2 slides, 2 web pages</div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.2);padding:16px">
+          <div style="font-size:0.88rem;font-weight:700;color:var(--success);margin-bottom:6px">&#9989; 5. Radiation Effects &amp; Mitigation</div>
+          <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.6"><code>radiation.py</code> (SEU, TMR, ECC, FDIR, scrubbing), 1 slide, 2 web pages</div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.2);padding:16px">
+          <div style="font-size:0.88rem;font-weight:700;color:var(--success);margin-bottom:6px">&#9989; 6. Data Prioritization &amp; QoS</div>
+          <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.6"><code>prioritization.py</code> (QoS classes, compression, preemption), 1 slide, 2 web pages</div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.2);padding:16px">
+          <div style="font-size:0.88rem;font-weight:700;color:var(--success);margin-bottom:6px">&#9989; 7. Industry Standards (CCSDS, RFC)</div>
+          <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.6">Standards cited across all module docstrings, <code>#deep-space-standards</code> page, <code>standards</code> questions</div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.2);padding:16px">
+          <div style="font-size:0.88rem;font-weight:700;color:var(--success);margin-bottom:6px">&#9989; 8. Python, Simulation &amp; Testing</div>
+          <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.6">27 modules, 189 tests across 12 files, simulation engine, <code>#usage</code> and <code>#built-by</code> pages</div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.2);padding:16px">
+          <div style="font-size:0.88rem;font-weight:700;color:var(--success);margin-bottom:6px">&#9989; 9. Presentation: All 4 Graded Sections</div>
+          <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.6">29 slides mapped to Architecture, Quantum, Infrastructure, Scenario</div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.2);padding:16px">
+          <div style="font-size:0.88rem;font-weight:700;color:var(--success);margin-bottom:6px">&#9989; 10. Interactive Web Showcase</div>
+          <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.6">31 tabs: 12 learn pages, 12 interactive demos, glossary, quiz with 3,170 questions</div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.2);padding:16px">
+          <div style="font-size:0.88rem;font-weight:700;color:var(--success);margin-bottom:6px">&#9989; 11. Question Bank: 7 Interview Areas</div>
+          <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.6">8 topics mapped to all 7 interview areas</div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.2);padding:16px">
+          <div style="font-size:0.88rem;font-weight:700;color:var(--success);margin-bottom:6px">&#9989; 12. Code Tested &amp; Runnable</div>
+          <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.6">189 tests, every module has <code>__main__</code> block, <code>run_tests.sh</code> and <code>run_demos.sh</code> validated</div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.2);padding:16px">
+          <div style="font-size:0.88rem;font-weight:700;color:var(--success);margin-bottom:6px">&#9989; 13. Technical Depth (40%)</div>
+          <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.6">27 modules, 12,000+ lines implementing BPv7, LTP, BB84, E91, Q-learning with mathematical foundations</div>
+        </div>
+        <div class="card" style="border-color:rgba(var(--success-rgb),0.2);padding:16px">
+          <div style="font-size:0.88rem;font-weight:700;color:var(--success);margin-bottom:6px">&#9989; 14. Problem-Solving (20%)</div>
+          <div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.6">RL routing outperforms static CGR, hybrid optical/RF, multi-hop QKD repeaters, configurable policy engine</div>
+        </div>
+      </div>
+
+      <div style="margin-top:32px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="Router.navigate('welcome')">Back to Welcome &#8594;</button>
+        <button class="btn btn-quantum" onclick="Router.navigate('study')">Study Resources</button>
+        <button class="btn btn-mars" onclick="Router.navigate('quiz')">Quiz &#8594;</button>
+      </div>
     </section>
 
     <section id="built-by" class="tab" aria-label="Built By">
@@ -3329,5 +4309,6 @@
 
   <script src="js/engine.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
 </body>
 </html>

@@ -73,6 +73,8 @@ def draw_footer(c, num=None, total=None):
     c.setFillColor(MED_GRAY)
     c.drawString(30, 18, "AETHERIX \u2014 Interplanetary Communication Network")
     c.drawRightString(PAGE_W - 30, 18, f"{n} / {TOTAL_SLIDES}")
+    if n in _SPEAKER_NOTES:
+        _draw_speaker_notes(c, _SPEAKER_NOTES[n])
 
 
 def draw_card(c, x, y, w, h, border_color=ACCENT_BLUE):
@@ -149,6 +151,72 @@ def draw_table(c, data, x, y, col_widths, header_color=ACCENT_BLUE):
     return th
 
 
+_SPEAKER_NOTES = {
+    1: "State your name clearly. Read the topic number and title exactly as on the exam paper. Pause to let examiners see it. Point to the logo. This is your first impression. (30 seconds)",
+    2: "Quick overview of what we will cover. 13 topics across 29 slides. About 20 minutes. (20 seconds)",
+    3: "This slide sets up the narrative arc. First explain what AETHERIX is in plain language - it's like the postal service for interplanetary space. Then pivot to the problem: TCP/IP was never designed for space. 22-minute delays break every assumption. Solar conjunction blackouts. Static routing. Vulnerable crypto. Each problem maps to one of our solutions. (1.5 minutes)",
+    4: "Start with the scale. 54.6M to 401M km. Light itself takes 3-22 minutes one way. TCP/IP was designed for sub-second round trips. In space, by the time a packet acknowledgment returns, the link may be gone. Solar conjunction causes 2-week blackout. This is why NASA calls it Delay-Tolerant Networking. (1.5 minutes)",
+    5: "The key insight: instead of requiring an end-to-end connection like TCP, DTN works like the postal service. Each node takes custody of your data and forwards it when a link becomes available. Three pillars: BPv7 for the protocol, RL for intelligent routing, QKD for security. (1.5 minutes)",
+    6: "Show the architecture. Six core modules feed into the simulation engine, which feeds the web showcase. Standards compliance at the bottom. Point to each module as you explain. (1 minute)",
+    7: "Architecture diagram showing source modules feeding simulation engine and web demos.",
+    8: "BPv7 is the postal service protocol. Walk through the stack: Application at top, BPv7 as the store-and-forward layer, three convergence layers for different link types, physical at bottom. Custody transfer is the key innovation - each node takes legal responsibility. Priority P0 (emergency) to P4 (bulk). (2 minutes)",
+    9: "Walk through the store-and-forward process. Bundle arrives, gets stored, node waits for next contact opportunity, then forwards. If link drops, bundle stays stored and retries. No data loss. This is fundamentally different from TCP's end-to-end retransmission. (1.5 minutes)",
+    10: "241 nodes across 5 tiers. Walk through each tier. Earth Ground is the DSN - three stations around the globe for 24/7 coverage. Earth Orbital has LEO laser mesh for optical backhaul. Deep Space has Lagrange point relays - these are the critical innovation for conjunction coverage. Mars Orbital has areostationary relays at 17,032 km. Mars Surface is the most populated tier. (2 minutes)",
+    11: "Visual overview of the 5-tier topology with 3 redundant paths.",
+    12: "Network topology visualization.",
+    13: "RUN THE LIVE DEMO from the Link Budget page. Show the 3 distance scenarios. 1550nm was chosen for telecom heritage and eye safety. FSPL at average distance is -365 dB. The telescope apertures are realistic for spacecraft. RF backup for reliability. (2 minutes)",
+    14: "Interactive journey visualization.",
+    15: "CGR is what NASA uses today. It's static - you have to pre-compute schedules. Our RL agent learns from experience. 8 state variables, 4 actions. The reward function balances delivery probability against delay, hops, drops, and energy. Multi-agent federated learning means agents at each node share knowledge. (2 minutes)",
+    16: "BB84 is beautifully simple: send qubits, measure, compare bases, check QBER. If QBER is below 11%, no one listened in. CASCADE reconciliation and privacy amplification clean the key. E91 uses entanglement. Quantum repeaters at Lagrange points extend range. Post-quantum crypto as backup layer. (2 minutes)",
+    17: "Mars and Earth dance around the Sun with a 26-month synodic period. Everything changes - distance, delay, bandwidth. At opposition we get great bandwidth. At conjunction, the Sun blocks everything. Our Lagrange relays at ES-L4 and ES-L5 maintain 50-70% capacity during conjunction. Doppler shift of 15 GHz at optical wavelengths requires real-time compensation. (1.5 minutes)",
+    18: "Space radiation is relentless. SEUs flip bits constantly - about 37,000 during a Mars transit. Our defense-in-depth: TMR masks logic faults (3,334x reliability gain), SECDED ECC corrects single-bit errors, scrubbing prevents double-bit accumulation, and FDIR with a watchdog catches everything else. The RAD750 can tolerate 200 krad - far above what a Mars mission needs. (1.5 minutes)",
+    19: "Like an emergency room. P0 emergency gets sent immediately - it can even preempt an in-progress transfer. P1 mission-critical next. P2 routine science. P4 bulk data fills remaining bandwidth. Compression multiplies effective capacity: 3x for telemetry, 10x for images, 50x for video. Our scheduler keeps the link at 100% utilization by fragmenting large bundles. (1.5 minutes)",
+    20: "Walk through the 7-hop journey. 500MB from Perseverance to JPL. Total transit ~13 min vs 12.5 min light-time - near speed of light! DTN overhead under 5%. Key point: if link drops at hop 5, the bundle stays stored at hop 4 and retries. No data loss. RUN LIVE DEMO if time permits. (2 minutes)",
+    21: "End-to-end bundle journey through all protocol layers.",
+    22: "Visual data flow through the protocol stack.",
+    23: "Hit these numbers with confidence. 10-100x faster. >95% availability vs 60-75%. Quantum-secure. 241 nodes vs 5-10 assets. The conjunction improvement is thanks to Lagrange relays. All metrics are backed by our simulation engine. (1 minute)",
+    24: "This is real, working code. 27 Python modules, 189 tests, 12 interactive demos. All the physics is real - no mocked data. The showcase site has live calculators you can use right now. Standards compliance is complete - CCSDS, IETF, and NIST. (1.5 minutes)",
+    25: "Phases 1-4 are done - this is what you see today. Phase 5: ns-3 simulation for realistic network modeling. Phase 6: Upgrade to DQN and integrate with NASA's ION-DTN implementation. Phase 7: Hardware prototypes with SDRs and optical links. (1.5 minutes)",
+    26: "Summarize the problem and solution clearly. Re-read the exam topic verbatim. Point to the numbers. Offer to show live demos or answer questions. Thank the examiners. (1 minute)",
+    27: "Summarize the four key numbers: 10-100x faster, >95% availability, AI-powered routing, quantum-secure. Invite questions confidently. Make eye contact. Point to the live demo link. Thank the audience. (30 seconds)",
+}
+
+
+def _draw_speaker_notes(c, text):
+    c.saveState()
+    nf = "Helvetica-Oblique"
+    ns = 6
+    lh = 7.5
+    ml = 4
+    bh = 14 + lh * ml
+    by = 30
+    c.setFillColor(Color(0.04, 0.05, 0.10, alpha=0.92))
+    c.rect(25, by, PAGE_W - 50, bh, fill=1, stroke=0)
+    c.setFillColor(HexColor("#FFD93D"))
+    c.setFont("Helvetica-Bold", 6)
+    c.drawString(30, by + bh - 10, "Speaker Notes:")
+    c.setFillColor(HexColor("#B0B8CC"))
+    c.setFont(nf, ns)
+    mw = PAGE_W - 65
+    words = text.split()
+    lines = []
+    cur = ""
+    for w in words:
+        t = cur + (" " if cur else "") + w
+        if c.stringWidth(t, nf, ns) <= mw:
+            cur = t
+        else:
+            if cur:
+                lines.append(cur)
+            cur = w
+    if cur:
+        lines.append(cur)
+    y = by + bh - 20
+    for i, ln in enumerate(lines[:ml]):
+        c.drawString(30, y - lh * i, ln)
+    c.restoreState()
+
+
 # ================================================================
 # PAGE 1 — Title
 # ================================================================
@@ -167,6 +235,7 @@ draw_accent_line(c, PAGE_W / 2 - 150, PAGE_H - 275, 300, ACCENT_BLUE, 2)
 draw_text(c, "Muhammad Abdullah Tariq", PAGE_W / 2, PAGE_H - 310, size=18, color=WHITE, bold=True, align="center")
 draw_text(c, "EduQual Level 6 Diploma in AI Operations  |  Topic 59  |  January 2026", PAGE_W / 2, PAGE_H - 335, size=12, color=MED_GRAY, align="center")
 draw_text(c, "matx104.github.io/AETHERIX  |  github.com/matx104/AETHERIX", PAGE_W / 2, PAGE_H - 390, size=11, color=ACCENT_BLUE, align="center")
+_draw_speaker_notes(c, _SPEAKER_NOTES[1])
 c.showPage()
 
 
@@ -1207,6 +1276,7 @@ draw_text(c, "matx104.github.io/AETHERIX \u2014 Interactive simulations", PAGE_W
 draw_text(c, "github.com/matx104/AETHERIX \u2014 Source code + documentation", PAGE_W / 2, 105, size=11, color=LIGHT_GRAY, align="center")
 draw_text(c, "EduQual Level 6 Diploma in AI Operations | Topic 59 | January 2026", PAGE_W / 2, 82, size=9, color=MED_GRAY, align="center")
 
+_draw_speaker_notes(c, _SPEAKER_NOTES[27])
 c.showPage()
 
 c.save()

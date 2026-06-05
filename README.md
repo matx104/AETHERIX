@@ -1,634 +1,357 @@
-<div align="center">
+# AETHERIX
 
-<!-- HERO SECTION -->
-<img src="https://img.shields.io/badge/🚀-AETHERIX-blueviolet?style=for-the-badge&labelColor=1a1a2e" alt="AETHERIX" height="60"/>
+**A**utonomous **E**xtraterrestrial **T**hrough-space **H**igh-throughput **E**nhancing **R**outing and **I**nterplanetary e**X**change
 
-# 🌌 AETHERIX
-
-### **A**utonomous **E**xtraterrestrial **T**hrough-space **H**igh-throughput **E**nhancing **R**outing and **I**nterplanetary e**X**change
-
-<br/>
-
-[![Live Demo](https://img.shields.io/badge/LIVE_DEMO-GitHub_Pages-00d4aa?style=for-the-badge&logo=github&logoColor=white)](https://matx104.github.io/AETHERIX/)
+[![Tests](https://img.shields.io/badge/Tests-189_passing-00d4aa?style=for-the-badge)]()
 [![Python](https://img.shields.io/badge/Python-3.9+-3776ab?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![License](https://img.shields.io/badge/License-Research-00d4aa?style=for-the-badge)](LICENSE)
-[![DTN](https://img.shields.io/badge/Protocol-Bundle_v7-f9ca24?style=for-the-badge)](https://www.rfc-editor.org/rfc/rfc9171.html)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/)
-[![Tests](https://img.shields.io/badge/Tests-189_passing-00d4aa?style=for-the-badge)]()
+[![Live Demo](https://img.shields.io/badge/Live_Demo-GitHub_Pages-00d4aa?style=for-the-badge&logo=github&logoColor=white)](https://matx104.github.io/AETHERIX/)
 
-<br/>
-
-**🛸 AI-Driven • 🔐 Quantum-Secure • 🌍 Earth-to-Mars • ⚡ Delay-Tolerant**
-
-<br/>
-
-<img src="https://img.shields.io/badge/🔴_Mars_Ready-Interplanetary_Communications-e74c3c?style=flat-square" alt="Mars Ready"/>
-<img src="https://img.shields.io/badge/🤖_AI_Routing-Reinforcement_Learning-9b59b6?style=flat-square" alt="AI Routing"/>
-<img src="https://img.shields.io/badge/🔒_Quantum_Security-QKD_&_Entanglement-1abc9c?style=flat-square" alt="Quantum Security"/>
-<img src="https://img.shields.io/badge/📡_CCSDS-Standards_Compliant-3498db?style=flat-square" alt="CCSDS Compliant"/>
+Research / proof-of-concept architecture for delay-tolerant networking (DTN) between Earth and Mars. Implements Bundle Protocol v7, reinforcement-learning routing, quantum key distribution, hybrid optical/RF link budgets, radiation-hardened computing, and mission data prioritization across a 5-tier, 241-node interplanetary topology.
 
 ---
 
-*Next-generation space communication infrastructure for humanity's journey to Mars and beyond*
+## Table of Contents
 
-</div>
-
-<br/>
-
-## 🎯 Mission Statement
-
-> **AETHERIX replaces static space networking with autonomous AI routing, quantum-secured command links, and mission-grade resilience — engineered for Mars, the Moon, and the outer solar system.**
-
-AETHERIX is a comprehensive **AI-driven, quantum-secure space operations platform** enabling resilient interplanetary communications across extreme delays (3-22 minute light-time) and disruptions (solar conjunctions, atmospheric effects).
-
-<br/>
-
----
-
-## ✨ Key Features
-
-<table>
-<tr>
-<td width="50%">
-
-### 🧠 AI-Driven Routing
-- **Reinforcement Learning agents** replace static Contact Graph Routing
-- Autonomous decision-making per bundle
-- Adaptive to real-time link conditions
-- Multi-agent federated learning
-
-</td>
-<td width="50%">
-
-### 🔐 Quantum Security
-- **BB84 & E91 QKD protocols** implemented
-- Entanglement-based security for Mars links
-- Quantum repeaters with entanglement purification
-- Privacy amplification with CASCADE reconciliation
-
-</td>
-</tr>
-<tr>
-<td width="50%">
-
-### 📡 Optical Communications
-- **10-100× faster** than traditional RF
-- 2-200 Mbps Earth-Mars data rates
-- Hybrid optical/RF for reliability
-- Comprehensive link budget analysis (optical + RF)
-
-</td>
-<td width="50%">
-
-### 🌐 DTN Architecture
-- **Bundle Protocol v7** (RFC 9171)
-- Store-and-forward with custody tracking
-- 5-tier hierarchical topology (241 nodes)
-- LTP, TCPCL, and UDP convergence layers
-
-</td>
-</tr>
-</table>
-
-<br/>
+- [Overview](#overview)
+- [Key Technologies](#key-technologies)
+- [Architecture](#architecture)
+- [Network Topology](#network-topology)
+- [Getting Started](#getting-started)
+- [Modules](#modules)
+- [Testing](#testing)
+- [Web Showcase](#web-showcase)
+- [Presentation](#presentation)
+- [Standards Compliance](#standards-compliance)
+- [Interview Preparation](#interview-preparation)
+- [License](#license)
 
 ---
 
-## 🚀 Project Status
+## Overview
 
-<div align="center">
-
-| Phase | Status | Description |
-|:-----:|:------:|-------------|
-| 🏗️ **Phase 1** | ✅ Complete | Network topology & link budget analysis |
-| 🔧 **Phase 2** | ✅ Complete | Core implementation (DTN, RL agents) |
-| 🔮 **Phase 3** | ✅ Complete | Quantum integration |
-| 🧪 **Phase 4** | ✅ Complete | Simulation & validation |
-| 🚀 **Phase 5** | 🔄 In Progress | Optimization & scale |
-
-</div>
-
-### Current Implementation
-
-| Module | Status | Description |
-|--------|:------:|-------------|
-| `src/infrastructure/link_budget.py` | ✅ | Optical link budget calculator (CCSDS 141.0-B-1) |
-| `src/infrastructure/rf_link_budget.py` | ✅ | RF link budget for Ka/X/S/UHF bands |
-| `src/routing/bundle.py` | ✅ | BPv7 bundle data structures (RFC 9171) |
-| `src/routing/rl_agent.py` | ✅ | Q-learning routing agent with epsilon-greedy policy |
-| `src/routing/node.py` | ✅ | DTN node model with capabilities & buffer management |
-| `src/routing/contact_graph.py` | ✅ | Contact graph with BFS pathfinding |
-| `src/routing/forwarding_engine.py` | ✅ | Store-and-forward engine with priority queue & custody tracking |
-| `src/routing/ltp.py` | ✅ | Licklider Transmission Protocol convergence layer (RFC 5326) |
-| `src/routing/tcpcl.py` | ✅ | TCP Convergence Layer (RFC 7242) |
-| `src/routing/udp_cl.py` | ✅ | UDP Convergence Layer for optical ISL |
-| `src/routing/training.py` | ✅ | RL training loop with experience replay & convergence detection |
-| `src/routing/multi_agent.py` | ✅ | Multi-agent federated learning with Q-table aggregation |
-| `src/security/qkd.py` | ✅ | BB84 & E91 QKD protocols |
-| `src/security/repeater_chain.py` | ✅ | Multi-hop quantum repeater chain with entanglement purification |
-| `src/security/privacy_amplification.py` | ✅ | CASCADE reconciliation, universal hashing, Csiszár-Körner bound |
-| `src/orbital/contact_windows.py` | ✅ | Orbital mechanics & contact window prediction |
-| `src/orbital/bodies.py` | ✅ | Celestial body database (Sun, Earth, Mars, Moon) |
-| `src/orbital/doppler.py` | ✅ | Classical & relativistic Doppler shift |
-| `src/orbital/topology.py` | ✅ | Full 5-tier network topology (241 nodes) |
-| `src/simulation/simulator.py` | ✅ | Simulation engine integrating topology, forwarding & bundles |
-| `src/simulation/policy_engine.py` | ✅ | 5 default routing policies (congestion control, emergency fast-path, etc.) |
-| `src/computing/radiation.py` | ✅ | Radiation-hardened computing: SEU/SEL/TID, TMR, SECDED ECC, scrubbing, FDIR |
-| `src/routing/prioritization.py` | ✅ | Mission data prioritization: 4-tier QoS, CCSDS compression, deadline scheduler |
-| `demos/` | ✅ | Interactive demonstration suite |
-
-<br/>
+AETHERIX is a demo-stage Python project simulating an interplanetary DTN. It replaces static Contact Graph Routing with Q-learning agents, secures command links via BB84/E91 QKD, models hybrid 1550 nm optical and Ka/X/S/UHF RF links, and adds radiation-hardened computing and deadline-aware data prioritization. All modules are accompanied by browser-based interactive demos and a 29-slide presentation package.
 
 ---
 
-## 🧪 Test Coverage
+## Key Technologies
 
-<div align="center">
-
-![Tests](https://img.shields.io/badge/Total_Tests-189-brightgreen?style=for-the-badge)
-![Passing](https://img.shields.io/badge/Pass_Rate-100%25-brightgreen?style=for-the-badge)
-![Files](https://img.shields.io/badge/Test_Files-12-blue?style=for-the-badge)
-
-</div>
-
-| Test File | Module | Coverage |
-|-----------|--------|:--------:|
-| `tests/test_link_budget.py` | Optical & RF link budgets | ✅ |
-| `tests/test_bundle.py` | BPv7 bundle data structures | ✅ |
-| `tests/test_rl_agent.py` | RL routing agent | ✅ |
-| `tests/test_training.py` | RL training loop | ✅ |
-| `tests/test_forwarding.py` | Store-and-forward engine | ✅ |
-| `tests/test_topology.py` | 5-tier network topology & contact graph | ✅ |
-| `tests/test_qkd.py` | BB84 & E91 QKD protocols | ✅ |
-| `tests/test_quantum_extended.py` | Repeater chains & privacy amplification | ✅ |
-| `tests/test_orbital.py` | Orbital mechanics, Doppler, celestial bodies | ✅ |
-| `tests/test_policy_engine.py` | Routing policy engine | ✅ |
-| `tests/test_radiation.py` | Radiation effects, TMR, SECDED ECC, scrubbing, FDIR | ✅ |
-| `tests/test_prioritization.py` | Data prioritization, compression, QoS scheduler | ✅ |
-
-<br/>
+- **Bundle Protocol v7 (BPv7)** — store-and-forward DTN with custody tracking, LTP/TCPCL/UDP convergence layers (RFC 9171, RFC 5326, RFC 7242)
+- **Reinforcement Learning routing** — Q-learning agent with epsilon-greedy policy, multi-agent federated learning, experience replay, convergence detection
+- **Quantum Key Distribution** — BB84 and E91 protocols, quantum repeater chains with entanglement purification, CASCADE reconciliation and privacy amplification
+- **Hybrid optical/RF communications** — 1550 nm optical link budgets (CCSDS 141.0-B-1), RF link budgets for Ka/X/S/UHF bands
+- **Radiation-hardened computing** — SEU/SEL/TID modelling, Triple Modular Redundancy, SECDED ECC, memory scrubbing, FDIR state machine
+- **Data prioritization** — 4-tier mission QoS scheduler, CCSDS lossless/wavelet compression, deadline-aware preemption
 
 ---
 
-## 🧩 AETHERIX Product Suite
+## Architecture
 
-<div align="center">
-
-| Product | Description | Status |
-|:-------:|-------------|:------:|
-| **🛰️ AETHERIX Relay** | DTN + AI routing layer for autonomous data forwarding | ✅ |
-| **🔐 AETHERIX Quantum** | QKD & entanglement security stack for command links | ✅ |
-| **📊 AETHERIX Ops** | Mission monitoring & control dashboard | 📅 |
-| **🔬 AETHERIX Sim** | Simulation engine with policy-driven routing | ✅ |
-| **⚙️ AETHERIX Forge** | Policy, configuration & automation engine | ✅ |
-
-</div>
-
-<br/>
+```
+AETHERIX/
+├── src/
+│   ├── infrastructure/        # Optical and RF link budget calculators
+│   ├── routing/               # BPv7 bundles, RL agent, forwarding, convergence layers
+│   ├── security/              # QKD protocols, repeater chains, privacy amplification
+│   ├── orbital/               # Contact windows, celestial bodies, Doppler, topology
+│   ├── computing/             # Radiation-hardened computing models
+│   └── simulation/            # Simulation engine, policy-based routing
+├── tests/                     # 189 unit tests across 12 test files
+├── demos/                     # 6 interactive Python demos
+├── docs/                      # Web showcase (GitHub Pages SPA)
+├── presentation/              # 29-slide PPTX/PDF/web presentation with speaker notes
+├── visualizations/            # Charts and diagrams
+├── interview_prep/            # Technical Q&A, cheat sheets, topic summaries
+├── references/                # Academic references and standards documents
+├── scripts/                   # init, test, demo, lint, clean
+├── web/                       # Dockerfile (nginx:alpine)
+├── docker-compose.yml
+└── requirements.txt
+```
 
 ---
 
-## 🌍 Network Architecture
+## Network Topology
 
-The AETHERIX network implements a **5-tier hierarchical, delay-tolerant architecture** spanning from Earth's surface to Mars:
+5-tier hierarchical delay-tolerant network, 241 nodes total:
+
+| Tier | Segment | Assets |
+|:----:|---------|--------|
+| 1 | Earth Ground | DSN stations (Goldstone, Madrid, Canberra) |
+| 2 | Earth Orbital | GEO relays + LEO laser constellation (48 satellites) |
+| 3 | Deep Space Transit | Lagrange point relays (ES-L4, ES-L5) |
+| 4 | Mars Orbital | Areostationary + polar orbit relays |
+| 5 | Mars Surface | Bases, rovers, drones, distributed sensor network |
+
+Key parameters: 54.6 M km (perihelion) to 401 M km (aphelion), 3--22 min one-way light-time, 2--200 Mbps downlink.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│                    🌍 Tier 1: Earth Ground Segment                   │
+│                    Tier 1: Earth Ground Segment                      │
 │  ┌──────────────┐      ┌──────────────┐      ┌──────────────┐      │
 │  │ DSN Goldstone│◄────►│  DSN Madrid  │◄────►│ DSN Canberra │      │
 │  └──────┬───────┘      └──────┬───────┘      └──────┬───────┘      │
-└─────────┼─────────────────────┼─────────────────────┼────────────────┘
-          │                     │                     │
+└─────────┼─────────────────────┼─────────────────────┼───────────────┘
           ▼                     ▼                     ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                    🛰️ Tier 2: Earth Orbital Assets                   │
-│     ┌────────┐           ┌────────┐           ┌────────┐           │
-│     │GEO Sat1│◄─────────►│GEO Sat2│◄─────────►│GEO Sat3│           │
-│     └───┬────┘           └───┬────┘           └───┬────┘           │
-│         └───────────────────┬┴──────────────────┬─┘                 │
-│             LEO Laser Constellation (48 satellites)                  │
-└─────────────────────────────┼────────────────────────────────────────┘
-                              │ ⚡ Optical/RF Links (3-22 min)
+│                    Tier 2: Earth Orbital Assets                       │
+│     GEO relays  ◄──►  LEO Laser Constellation (48 satellites)       │
+└─────────────────────────────┼───────────────────────────────────────┘
+                              │ Optical/RF (3-22 min)
                               ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                 🌌 Tier 3: Deep Space Transit Relays                 │
+│                 Tier 3: Deep Space Transit Relays                    │
 │  ┌────────────┐         ┌────────────┐         ┌────────────┐      │
 │  │ ES-L4 Relay│◄───────►│ ES-L5 Relay│◄───────►│Transit Sats│      │
 │  └─────┬──────┘         └─────┬──────┘         └─────┬──────┘      │
-└─────────┼─────────────────────┼─────────────────────┼────────────────┘
-          │                     │                     │
+└─────────┼─────────────────────┼─────────────────────┼───────────────┘
           ▼                     ▼                     ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                    🔴 Tier 4: Mars Orbital Assets                    │
-│  ┌───────────┐   ISL   ┌───────────┐   ISL   ┌───────────┐        │
-│  │MRS-Alpha  │◄───────►│MRS-Beta   │◄───────►│MRS-Gamma  │        │
-│  │(Areostat) │         │(Areostat) │         │(Polar)    │        │
-│  └─────┬─────┘         └─────┬─────┘         └─────┬─────┘        │
-└────────┼─────────────────────┼─────────────────────┼────────────────┘
-         │                     │                     │
+│                    Tier 4: Mars Orbital Assets                       │
+│  MRS-Alpha (Areostat) ◄──► MRS-Beta (Areostat) ◄──► MRS-Gamma     │
+└────────┼─────────────────────┼─────────────────────┼───────────────┘
          ▼                     ▼                     ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                    🏠 Tier 5: Mars Surface Network                   │
-│  ┌────────┐    ┌────────┐    ┌────────┐    ┌────────┐             │
-│  │ Base-α │    │ Base-β │    │Rovers  │    │ Drones │             │
-│  └───┬────┘    └───┬────┘    └───┬────┘    └───┬────┘             │
-│      └─────────────┴─────────────┴─────────────┘                    │
-│           Distributed Sensor Network (UHF/Optical)                   │
+│                    Tier 5: Mars Surface Network                      │
+│  Base-α  ◄──►  Base-β  ◄──►  Rovers  ◄──►  Drones / Sensors       │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-### 📊 Performance Characteristics
-
-| Link Segment | Data Rate | Latency | Availability |
-|:-------------|:---------:|:-------:|:------------:|
-| 🌍 Earth Ground ↔ Earth Orbit | 1-100 Gbps | ~120 ms | 99.9% |
-| 🌍↔🔴 Earth ↔ Mars (optical) | 2-200 Mbps | 3-22 min | 85-95% |
-| 🔴 Mars Orbit ↔ Mars Surface | 2-100 Mbps | 2-40 ms | 70-90% |
-| 🛰️ Inter-Satellite Links (ISL) | 1-10 Gbps | 1-10 ms | 98% |
-
-<br/>
-
 ---
 
-## 🌐 Live Web Demo
+## Getting Started
 
-> **Try it now: [matx104.github.io/AETHERIX](https://matx104.github.io/AETHERIX/)**
+### Prerequisites
 
-The interactive web demo runs entirely client-side — no backend required. All simulations (link budget, QKD, RL routing, orbital mechanics, bundle protocol, Mars mission) execute in the browser via JavaScript ports of the Python modules.
+- Python 3.9+
 
-| Tab | What It Does |
-|:----|:-------------|
-| **Dashboard** | System overview with live telemetry ticker and network topology visualization |
-| **Link Budget** | Calculate optical link performance for any Earth-Mars distance scenario |
-| **RL Routing** | Train and visualize a Q-learning routing agent across the 5-tier network |
-| **QKD** | Simulate BB84 / E91 quantum key distribution with eavesdropper detection |
-| **Orbital Mechanics** | Earth-Mars distance timeline, contact windows, light-time delay |
-| **Bundle Protocol** | Create BPv7 bundles, simulate custody transfer and store-and-forward |
-| **Mars Mission** | End-to-end mission scenario with timeline and data throughput |
-
-### Run Locally with Docker
+### Quick Start
 
 ```bash
 git clone https://github.com/matx104/AETHERIX.git
 cd AETHERIX
-docker compose up --build
-# Open http://localhost:8080
+
+# Set up virtual environment and install dependencies
+./scripts/init.sh
+
+# Run all tests (189 tests)
+./scripts/run_tests.sh
+
+# Run interactive demos
+./scripts/run_demos.sh
 ```
 
-Or serve the `docs/` folder with any static file server (Python, nginx, Caddy, etc.):
+### Available Scripts
+
+| Script | Description |
+|--------|-------------|
+| `./scripts/init.sh` | Set up virtual environment and install dependencies |
+| `./scripts/init.sh --dev` | Include development tools (linting, formatting) |
+| `./scripts/run_tests.sh` | Run the test suite |
+| `./scripts/run_tests.sh -v` | Verbose test output |
+| `./scripts/run_demos.sh` | Interactive demo menu |
+| `./scripts/lint.sh` | Code quality checks |
+| `./scripts/lint.sh --fix` | Auto-fix code style issues |
+| `./scripts/clean.sh` | Clean build artifacts and caches |
+
+### Running Individual Modules
 
 ```bash
-# Python one-liner
+python src/infrastructure/link_budget.py     # Optical link budget
+python src/infrastructure/rf_link_budget.py  # RF link budget
+python src/routing/rl_agent.py               # RL routing agent
+python src/routing/bundle.py                 # Bundle protocol
+python src/security/qkd.py                   # QKD simulation
+python src/orbital/contact_windows.py        # Orbital mechanics
+python src/computing/radiation.py            # Radiation hardening
+```
+
+---
+
+## Modules
+
+### `src/infrastructure/` — Link Budgets
+
+| File | Description |
+|------|-------------|
+| `link_budget.py` | `OpticalLinkBudget` dataclass + `LinkBudgetCalculator` — free-space loss, EIRP, received power, link margin (CCSDS 141.0-B-1). Convenience method `calculate_mars_earth_link(scenario)` for minimum/average/maximum distance. |
+| `rf_link_budget.py` | RF link budget calculator for Ka/X/S/UHF bands (CCSDS 401.0-B-30). |
+
+### `src/routing/` — DTN Routing and AI
+
+| File | Description |
+|------|-------------|
+| `bundle.py` | BPv7 bundle data structures — `Bundle`, `EndpointID`, `BundlePriority` (5 levels: EMERGENCY to BULK). RFC 9171. |
+| `rl_agent.py` | `RLRoutingAgent` with epsilon-greedy policy and Q-table. `NetworkState` representation, `RoutingAction` (forward/store/drop/split). Reward: R = alpha\*delivery - beta\*delay - gamma\*hops - delta\*drops - epsilon\*energy. |
+| `node.py` | `DTNNode` with `NodeType`, `NodeCapabilities`, buffer management. |
+| `contact_graph.py` | Contact graph with BFS pathfinding. |
+| `forwarding_engine.py` | Store-and-forward engine — `BundleQueue` priority queue, custody transfer. |
+| `ltp.py` | Licklider Transmission Protocol convergence layer — segmentation, retransmission, reports. RFC 5326. |
+| `tcpcl.py` | TCP Convergence Layer — session management for Earth segment. RFC 7242. |
+| `udp_cl.py` | UDP Convergence Layer — optical ISL fragmentation with loss simulation. |
+| `training.py` | RL training loop — `ExperienceReplay`, `TrainingEnvironment`, convergence detection. |
+| `multi_agent.py` | Multi-agent federated learning — Q-table aggregation across distributed agents. |
+| `prioritization.py` | Mission data prioritization — `DataCategory` (4-tier classification), `Compressor` (CCSDS 121.0-B-3 lossless, 122.0-B-2 wavelet), `QoSScheduler` (deadline-aware, preemptive), `EmergencyProtocol` (safe-mode + preemption). |
+
+### `src/security/` — Quantum Security
+
+| File | Description |
+|------|-------------|
+| `qkd.py` | `BB84Protocol` (Bennett-Brassard 1984) and `E91Protocol` (Ekert 1991) with QBER detection. `QuantumRepeater` — entanglement swapping for extended range. Security threshold: QBER < 11%. |
+| `repeater_chain.py` | Multi-hop quantum repeater chain with entanglement purification. |
+| `privacy_amplification.py` | CASCADE reconciliation, universal hashing, Csiszar-Korner bound. |
+
+### `src/orbital/` — Orbital Mechanics
+
+| File | Description |
+|------|-------------|
+| `contact_windows.py` | `calculate_earth_mars_distance()` (true anomaly), `calculate_light_time()`, `predict_contact_windows()`, `get_distance_timeline()` (synodic period). Handles solar conjunction blackouts. |
+| `bodies.py` | Celestial body database (Sun, Earth, Mars, Moon) with orbital parameters and velocities. |
+| `doppler.py` | Classical and relativistic Doppler shift calculations. |
+| `topology.py` | Full 5-tier network topology (241 nodes) with inter-tier links and BFS routing. |
+
+### `src/computing/` — Radiation-Hardened Computing
+
+| File | Description |
+|------|-------------|
+| `radiation.py` | Radiation environment simulation — SEU, MBU, SEL, SET, TID, DD effects. Mitigations: TMR (Triple Modular Redundancy), SECDED ECC (Hamming), memory scrubbing, FDIR state machine with watchdog timer. |
+
+### `src/simulation/` — Simulation Engine
+
+| File | Description |
+|------|-------------|
+| `simulator.py` | Full simulation engine integrating topology, forwarding, and bundle generation. |
+| `policy_engine.py` | Policy-based routing engine with 5 default policies (congestion control, emergency fast-path, etc.). |
+
+---
+
+## Testing
+
+189 unit tests across 12 test files, all passing.
+
+```bash
+./scripts/run_tests.sh        # run all tests
+./scripts/run_tests.sh -v     # verbose output
+```
+
+| Test File | Covers |
+|-----------|--------|
+| `tests/test_link_budget.py` | Optical and RF link budgets |
+| `tests/test_bundle.py` | BPv7 bundle data structures |
+| `tests/test_rl_agent.py` | RL routing agent |
+| `tests/test_training.py` | RL training loop |
+| `tests/test_forwarding.py` | Store-and-forward engine |
+| `tests/test_topology.py` | 5-tier topology and contact graph |
+| `tests/test_qkd.py` | BB84 and E91 QKD protocols |
+| `tests/test_quantum_extended.py` | Repeater chains and privacy amplification |
+| `tests/test_orbital.py` | Orbital mechanics, Doppler, celestial bodies |
+| `tests/test_policy_engine.py` | Routing policy engine |
+| `tests/test_radiation.py` | Radiation effects, TMR, SECDED ECC, scrubbing, FDIR |
+| `tests/test_prioritization.py` | Data prioritization, compression, QoS scheduler |
+
+---
+
+## Web Showcase
+
+Live at [matx104.github.io/AETHERIX](https://matx104.github.io/AETHERIX/). Runs entirely client-side — all simulations execute in the browser via JavaScript ports of the Python modules.
+
+### 12 Interactive Demos
+
+| Demo | Description |
+|------|-------------|
+| Mission Control Dashboard | System overview with telemetry ticker and topology visualization |
+| Optical Link Budget | Calculate optical link performance for any Earth-Mars distance |
+| RF Link Budget | Ka/X/S/UHF band link budget analysis |
+| RL Routing Agent | Train and visualize Q-learning agent across 5-tier network |
+| QKD Protocol | BB84/E91 simulation with eavesdropper detection |
+| Orbital Mechanics | Earth-Mars distance timeline, contact windows, light-time delay |
+| Bundle Protocol | Create BPv7 bundles, custody transfer, store-and-forward |
+| DTN Engine | Full store-and-forward simulation |
+| Simulation | Policy-driven simulation engine |
+| Mars Mission | End-to-end mission scenario with timeline and throughput |
+| Radiation Simulator | SEU/SEL/TID effects, TMR, ECC, scrubbing, FDIR |
+| Priority Scheduler | 4-tier QoS scheduling with CCSDS compression and preemption |
+
+### Learn Pages (12 topics)
+
+What is DTN, How It Works, Journey to Mars, The Network, Space Security, Optical Communications, Deep Space Standards, Science Behind QKD, Reinforcement Learning, Radiation Hardening, Data Prioritization, Why It Matters.
+
+### Other Pages
+
+- **Glossary** — 90+ technical terms defined
+- **Study Resources** — curated reference material
+- **Usage Guide** — how to use the platform
+- **Presentation Viewer** — embedded slide deck with speaker notes
+
+### Run Locally
+
+```bash
+# Docker
+docker compose up --build
+# Open http://localhost:8080
+
+# Or any static file server
 python -m http.server 8080 --directory docs/
 ```
 
 ---
 
-## 🚀 Quick Start
+## Presentation
 
-### Prerequisites
+29-slide presentation package in `presentation/`:
 
-```bash
-# Python 3.9+ required
-python --version
-```
+- **PPTX** — animated PowerPoint with charts and diagrams (`presentation/output/AETHERIX_Presentation.pptx`)
+- **PDF** — landscape PDF export (`presentation/output/AETHERIX_Presentation.pdf`)
+- **Web** — embedded in the web showcase with speaker notes
+- **Speaker notes** — detailed per-slide notes in `presentation/speaker_notes/`
+- **Handouts** — examiner handouts in `presentation/handouts/`
 
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/matx104/AETHERIX.git
-cd AETHERIX
-
-# Initialize environment and install dependencies
-./scripts/init.sh
-
-# Run tests to verify installation
-./scripts/run_tests.sh
-```
-
-### 📊 Link Budget Demo
-
-```python
-from src.infrastructure import LinkBudgetCalculator
-
-# Create calculator instance
-calculator = LinkBudgetCalculator()
-
-# Calculate link budget for Mars-Earth at different distances
-budget = calculator.calculate_optical_link_budget(
-    distance_km=225_000_000,      # 225 million km (average)
-    tx_power_watts=5.0,           # 5W laser
-    tx_aperture_m=0.22,           # 22 cm aperture
-    rx_aperture_m=1.0,            # 1m ground telescope
-    data_rate_mbps=10.0           # 10 Mbps target
-)
-
-print(budget)
-```
+### Generate
 
 ```bash
-# Or run the built-in demo
-python src/infrastructure/link_budget.py
+# PPTX
+python presentation/generate_pptx.py
+
+# PDF
+python presentation/generate_pdf.py
 ```
 
-### 🤖 RL Routing Agent Demo
-
-```python
-from src.routing.rl_agent import RLRoutingAgent, NetworkState
-
-# Create agent for a Mars relay node
-agent = RLRoutingAgent(node_id="mars.areo.alpha", epsilon=0.1)
-
-# Create network state
-state = NetworkState(
-    current_node="mars.areo.alpha",
-    neighbors=["mars.polar.gamma", "transit.esl4.relay"],
-    link_qualities={"mars.polar.gamma": 0.85, "transit.esl4.relay": 0.72},
-    buffer_occupancy=0.35,
-    bundle_priority=2,
-    bundle_size_mb=500.0,
-    bundle_deadline_hours=24.0,
-    destination_node="earth.control.moc"
-)
-
-# Get routing decision
-decision = agent.select_action(state)
-print(f"Action: {decision.action.value}, Next Hop: {decision.next_hop}")
-```
-
-### 🔐 QKD Simulation
-
-```python
-from src.security.qkd import BB84Protocol
-
-# Run BB84 QKD simulation
-bb84 = BB84Protocol(num_qubits=1000, channel_error=0.0)
-result = bb84.execute()
-
-print(f"Sifted Key: {result.sifted_key_length} bits")
-print(f"QBER: {result.qber:.2%}")
-print(f"Secure: {result.secure}")
-```
-
-### 🎮 Interactive Demos
-
-```bash
-# Run the integrated presentation demo
-python demos/06_integrated_demo/presentation_demo.py
-
-# Or run individual demos
-python demos/01_link_budget_demo/run_demo.py
-python demos/02_dtn_routing_demo/run_demo.py
-python demos/03_orbital_mechanics_demo/run_demo.py
-python demos/04_quantum_key_demo/run_demo.py
-python demos/05_mars_mission_scenario/run_demo.py
-```
-
-<br/>
+Slide content is authored in `presentation/slides/` (Markdown per slide) and compiled by the generators.
 
 ---
 
-## 📁 Project Structure
+## Standards Compliance
 
-```
-AETHERIX/
-├── 📂 docs/                        # 🌐 Web Demo (GitHub Pages)
-│   ├── index.html                  #   Single-page app (7 tabs)
-│   ├── css/style.css               #   Cosmic theme (animated starfield)
-│   ├── js/engine.js                #   Computation engines (JS ports)
-│   ├── js/app.js                   #   UI controllers & canvas viz
-│   ├── og-image.svg / favicon.svg  #   Branding assets
-│   ├── EXECUTIVE_SUMMARY.md        #   Architecture overview
-│   ├── COMPARISON_ANALYSIS.md      #   AETHERIX vs current systems
-│   ├── QUICK_REFERENCE.md          #   Key parameters & specs
-│   └── ...
-│
-├── 📂 src/                         # 🐍 Python Modules
-│   ├── 📂 infrastructure/          #   Link budget calculations
-│   │   ├── link_budget.py          #     OpticalLinkBudget + Calculator (CCSDS 141.0-B-1)
-│   │   └── rf_link_budget.py       #     RF link budget (Ka/X/S/UHF bands)
-│   │
-│   ├── 📂 routing/                 #   DTN routing & AI
-│   │   ├── bundle.py               #     BPv7 bundle data structures (RFC 9171)
-│   │   ├── rl_agent.py             #     Q-learning routing agent (epsilon-greedy)
-│   │   ├── node.py                 #     DTN node model with buffer management
-│   │   ├── contact_graph.py        #     Contact graph with BFS pathfinding
-│   │   ├── forwarding_engine.py    #     Store-and-forward (priority queue, custody)
-│   │   ├── ltp.py                  #     LTP convergence layer (RFC 5326)
-│   │   ├── tcpcl.py                #     TCP Convergence Layer (RFC 7242)
-│   │   ├── udp_cl.py               #     UDP Convergence Layer (optical ISL)
-│   │   ├── training.py             #     RL training loop (experience replay)
-│   │   └── multi_agent.py          #     Federated learning (Q-table aggregation)
-│   │
-│   ├── 📂 security/                #   Quantum security
-│   │   ├── qkd.py                  #     BB84 + E91 QKD protocols
-│   │   ├── repeater_chain.py       #     Multi-hop repeater (entanglement purification)
-│   │   └── privacy_amplification.py #    CASCADE reconciliation, universal hashing
-│   │
-│   ├── 📂 orbital/                 #   Orbital mechanics
-│   │   ├── contact_windows.py      #     Contact window prediction
-│   │   ├── bodies.py               #     Celestial body database (Sun, Earth, Mars, Moon)
-│   │   ├── doppler.py              #     Classical & relativistic Doppler shift
-│   │   └── topology.py             #     5-tier network topology (241 nodes)
-│   │
-│   └── 📂 simulation/              #   Simulation engine
-│       ├── simulator.py            #     Full simulation engine (topology + forwarding)
-│       └── policy_engine.py        #     5 default routing policies
-│
-├── 📂 tests/                       # 🧪 Test Suite (149 tests, 10 files)
-│   ├── test_link_budget.py         #     Optical & RF link budget tests
-│   ├── test_bundle.py              #     BPv7 bundle tests
-│   ├── test_rl_agent.py            #     RL agent tests
-│   ├── test_training.py            #     Training loop tests
-│   ├── test_forwarding.py          #     Forwarding engine tests
-│   ├── test_topology.py            #     Topology & contact graph tests
-│   ├── test_qkd.py                 #     QKD protocol tests
-│   ├── test_quantum_extended.py    #     Repeater & privacy amplification tests
-│   ├── test_orbital.py             #     Orbital mechanics & Doppler tests
-│   └── test_policy_engine.py       #     Policy engine tests
-│
-├── 📂 demos/                       # 🎮 Interactive Demos
-│   ├── 01_link_budget_demo/        #   Optical link calculator
-│   ├── 02_dtn_routing_demo/        #   DTN routing simulation
-│   ├── 03_orbital_mechanics_demo/  #   Orbital visualization
-│   ├── 04_quantum_key_demo/        #   QKD demonstration
-│   ├── 05_mars_mission_scenario/   #   Full mission scenario
-│   └── 06_integrated_demo/         #   Presentation-ready demo
-│
-├── 📂 visualizations/              # 📊 Charts & Diagrams
-│   ├── charts/                     #   20 PNG charts (matplotlib)
-│   ├── diagrams/                   #   Architecture diagrams
-│   └── scripts/generate_charts.py  #   Chart generation script
-│
-├── 📂 presentation/                # 📽️ Presentation Package
-│   ├── AETHERIX_Presentation.md    #   Slide content (13 slides)
-│   ├── speaker_notes/              #   Detailed speaker notes
-│   └── handouts/                   #   Examiner handouts
-│
-├── 📂 references/                  # 📚 Academic References
-│   ├── REFERENCES.md               #   Master list (40+ sources)
-│   ├── by_topic/                   #   Categorized references
-│   └── standards/                  #   CCSDS / IETF standards
-│
-├── 📂 interview_prep/              # 🎯 Interview Preparation
-│   ├── question_bank/              #   Technical Q&A
-│   ├── cheat_sheets/               #   Formulas & constants
-│   └── topic_summaries/            #   Topic deep-dives
-│
-├── 📂 scripts/                     # 🔧 Dev Scripts
-│   ├── init.sh                     #   Environment setup
-│   ├── run_tests.sh                #   Test runner
-│   ├── run_demos.sh                #   Demo runner
-│   ├── lint.sh                     #   Code quality
-│   └── clean.sh                    #   Cleanup
-│
-├── 📂 web/                         # 🐳 Docker
-│   └── Dockerfile                  #   nginx:alpine serving docs/
-│
-├── docker-compose.yml              #   Docker orchestration
-└── requirements.txt                #   Python dependencies
-```
-
-<br/>
-
----
-
-## 📋 Technical Specifications
-
-### Protocol Support
-
-| Protocol | Standard | Status |
-|----------|----------|:------:|
-| Bundle Protocol v7 | RFC 9171 | ✅ |
-| Licklider Transmission Protocol | RFC 5326 | ✅ |
-| TCP Convergence Layer | RFC 7242 | ✅ |
-| CCSDS Space Link Protocols | Blue Books | ✅ |
-| CCSDS Optical Communications | 141.0-B-1 | ✅ |
-
-### Standards Compliance
-
-<div align="center">
-
-![CCSDS](https://img.shields.io/badge/CCSDS-734.2--B--1-blue?style=flat-square)
-![RFC](https://img.shields.io/badge/RFC-9171-green?style=flat-square)
-![LNIS](https://img.shields.io/badge/LNIS-v5-orange?style=flat-square)
-
-</div>
-
-| Standard | Description | Status |
-|----------|-------------|:------:|
-| RFC 9171 | Bundle Protocol Version 7 (BPv7) | ✅ |
-| RFC 4838 | Delay-Tolerant Networking Architecture | ✅ |
-| RFC 5326 | Licklider Transmission Protocol (LTP) | ✅ |
-| RFC 9172 | Bundle Protocol Security (BPSec) | ✅ |
-| RFC 7242 | DTN TCP Convergence Layer | ✅ |
-| CCSDS 734.2-B-1 | CCSDS Bundle Protocol Specification | ✅ |
-| CCSDS 734.3-B-1 | Schedule-Aware Bundle Routing (SABR) — RL baseline | ✅ |
-| CCSDS 141.0-B-1 | Optical Communications Physical Layer | ✅ |
-
-<br/>
-
----
-
-## 🔬 Research & Innovation
-
-### Novel Contributions
-
-1. 🤖 **RL-based autonomous routing** replacing static CGR
-2. 🏗️ **Multi-tiered delay-tolerant architecture** optimized for Mars
-3. 📡 **Hybrid optical/RF** with adaptive switching
-4. 🔐 **Quantum-secured deep space links** via repeater network
-5. 🧠 **Federated learning** across distributed space assets
-6. 🔄 **Multi-hop quantum repeater chains** with entanglement purification
-7. 📊 **Policy-driven simulation engine** with 5 default routing policies
-
-### Comparison with Current Systems
-
-| Metric | Current Mars Missions | AETHERIX | Improvement |
-|--------|:---------------------:|:--------:|:-----------:|
-| Downlink Data Rate | 0.5-6 Mbps (RF) | 10-200 Mbps (optical) | **10-100×** |
-| Uplink Data Rate | 125-500 kbps | 1-10 Mbps | **10-20×** |
-| Routing | Static schedules | RL-adaptive | **Dynamic** |
-| Security | Symmetric crypto | Quantum-secure | **Future-proof** |
-| Availability | 70-85% | >99% | **+15%** |
-
-<br/>
-
----
-
-## 📚 Documentation
-
-| Document | Description |
+| Standard | Description |
 |----------|-------------|
-| [📄 Executive Summary](docs/EXECUTIVE_SUMMARY.md) | High-level architecture overview |
-| [📊 Network Topology](docs/network_topology.md) | 5-tier network architecture details |
-| [🔗 Link Budget Analysis](docs/link-budget/) | Optical link budget calculations |
-| [📋 Quick Reference](docs/QUICK_REFERENCE.md) | Key parameters and specs |
-| [🎮 Demo Guide](demos/README.md) | Interactive demonstration suite |
-
-<br/>
-
----
-
-## 🤝 Contributing
-
-We welcome contributions! Areas of interest:
-
-- 🤖 RL agent algorithms and architectures
-- 📡 Optical link models and simulations
-- 🔐 QKD protocol implementations
-- 🧪 Testing and validation frameworks
-- 📖 Documentation and tutorials
-
-<br/>
+| CCSDS 734.2-B-1 | CCSDS Bundle Protocol Specification |
+| CCSDS 735.1-B-1 | Schedule-Aware Bundle Routing (SABR) |
+| CCSDS 141.0-B-1 | Optical Communications Physical Layer |
+| CCSDS 131.0-B-4 | TM Space Data Link Protocol |
+| CCSDS 121.0-B-3 | Lossless Data Compression |
+| CCSDS 122.0-B-2 | Image Data Compression |
+| RFC 9171 | Bundle Protocol Version 7 (BPv7) |
+| RFC 5326 | Licklider Transmission Protocol (LTP) |
+| RFC 7242 | DTN TCP Convergence Layer (TCPCL) |
+| RFC 4838 | Delay-Tolerant Networking Architecture |
+| NIST FIPS 203 | Module-Lattice-Based Key Encapsulation (ML-KEM) |
+| NIST FIPS 204 | Module-Lattice-Based Digital Signature (ML-DSA) |
 
 ---
 
-## 📖 References
+## Interview Preparation
 
-### Key Papers
+The `interview_prep/` directory contains materials for technical interviews and oral examinations:
 
-1. Burleigh, S. et al. *"Delay-Tolerant Networking: An Approach to Interplanetary Internet"* IEEE Communications Magazine, 2003
-2. Boroson, D. M. et al. *"Overview and results of the Lunar Laser Communication Demonstration"* SPIE, 2014
-3. Bennett & Brassard *"Quantum Cryptography: Public Key Distribution and Coin Tossing"* 1984
-
-### Resources
-
-| Resource | Link |
-|----------|------|
-| 🌐 CCSDS Standards | [public.ccsds.org](https://public.ccsds.org/) |
-| 📡 NASA Deep Space Network | [deepspace.jpl.nasa.gov](https://deepspace.jpl.nasa.gov/) |
-| 🔴 JPL Horizons | [ssd.jpl.nasa.gov/horizons](https://ssd.jpl.nasa.gov/horizons/) |
-| 📦 ION-DTN | [sourceforge.net/projects/ion-dtn](https://sourceforge.net/projects/ion-dtn/) |
-
-<br/>
+| Directory | Contents |
+|-----------|----------|
+| `question_bank/` | Technical Q&A organized by topic |
+| `cheat_sheets/` | Formulas, constants, and quick-reference cards |
+| `topic_summaries/` | Deep-dive summaries of key topics |
+| `practice/` | Practice exercises and worked examples |
 
 ---
 
-<div align="center">
+## License
 
-## 🌟 Star History
-
-If you find AETHERIX useful, please consider giving it a ⭐!
-
-<br/>
-
----
-
-**Built with 💜 for humanity's journey to the stars**
-
-<br/>
-
-![Earth](https://img.shields.io/badge/🌍-Earth-3498db?style=for-the-badge)
-![Mars](https://img.shields.io/badge/🔴-Mars-e74c3c?style=for-the-badge)
-![Beyond](https://img.shields.io/badge/🌌-And_Beyond-9b59b6?style=for-the-badge)
-
-<br/>
-
-**AETHERIX** — *Connecting worlds, one bundle at a time*
-
-<sub>Version 2.0.0 | Live Demo: matx104.github.io/AETHERIX | Last Updated: May 2026 | Maintained by AETHERIX Team</sub>
-
-</div>
+Research / proof-of-concept. See [LICENSE](LICENSE).

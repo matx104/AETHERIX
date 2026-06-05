@@ -91,6 +91,9 @@ window.Router = {
     if (route === 'dashboard') {
       App.ensureDashboard();
     }
+    if (route === 'quiz' && window.QuizEngine) {
+      QuizEngine.init();
+    }
     if (hash.startsWith('presentation/')) {
       const slideNum = parseInt(hash.split('/')[1]);
       if (slideNum >= 1 && slideNum <= App.presentation.slides.length) App.presentation.goTo(slideNum - 1);
@@ -1640,8 +1643,8 @@ window.App = (() => {
         {
           title: 'Agenda',
           content: '<h2><span class="pres-tag accent">Agenda</span> Presentation Overview</h2><div class="pres-grid-2" style="gap:12px">' +
-            ['01 The Challenge|Why space breaks the internet|#00d4ff', '02 AETHERIX Architecture|DTN + AI + Quantum Security|#00d4aa', '03 DTN & Bundle Protocol v7|Store-and-forward foundation|#8b5cf6', '04 5-Tier Network Topology|241 nodes across two worlds|#009eff', '05 Optical Link Budget|1550nm laser analysis|#ff8c00', '06 RL-Based Routing|Multi-agent federated Q-learning|#00d4aa', '07 Quantum Security (QKD)|BB84/E91 + repeater chains|#8b5cf6', '08 Orbital Mechanics|Contact windows & synodic period|#009eff', '09 Mars Mission Scenario|End-to-end simulation walkthrough|#ff8c00', '10 Performance Comparison|AETHERIX vs current systems|#2ecc71', '11 Standards & Roadmap|CCSDS, IETF, deployment phases|#00d4aa', '12 Conclusion & Q&A|Summary and live demo|#ffffff'].map(function(item) { var parts = item.split('|'); return '<div class="pres-card" style="border-color:' + parts[2] + '30;padding:12px 16px"><div style="font-size:0.9rem;font-weight:600;color:' + parts[2] + '">' + parts[0] + '</div><div style="font-size:0.8rem;color:var(--text-muted);margin-top:4px">' + parts[1] + '</div></div>'; }).join('') + '</div>',
-          speakerNotes: 'Quick overview of what we will cover. 12 topics across 25 slides. About 18 minutes. (20 seconds)'
+            ['01 The Challenge|Why space breaks the internet|#00d4ff', '02 AETHERIX Architecture|DTN + AI + Quantum Security|#00d4aa', '03 DTN & Bundle Protocol v7|Store-and-forward foundation|#8b5cf6', '04 5-Tier Network Topology|241 nodes across two worlds|#009eff', '05 Optical Link Budget|1550nm laser analysis|#ff8c00', '06 RL-Based Routing|Multi-agent federated Q-learning|#00d4aa', '07 Quantum Security (QKD)|BB84/E91 + repeater chains|#8b5cf6', '08 Orbital Mechanics|Contact windows & synodic period|#009eff', '09 Radiation Hardening|SEU/TID, TMR, ECC, FDIR, defense-in-depth|#f85149', '10 Data Prioritization|QoS triage, compression, preemption|#d29922', '11 Mars Mission Scenario|End-to-end simulation walkthrough|#ff8c00', '12 Performance & Roadmap|AETHERIX vs current systems, future phases|#2ecc71', '13 Conclusion & Q&A|Summary and live demo|#ffffff'].map(function(item) { var parts = item.split('|'); return '<div class="pres-card" style="border-color:' + parts[2] + '30;padding:12px 16px"><div style="font-size:0.9rem;font-weight:600;color:' + parts[2] + '">' + parts[0] + '</div><div style="font-size:0.8rem;color:var(--text-muted);margin-top:4px">' + parts[1] + '</div></div>'; }).join('') + '</div>',
+          speakerNotes: 'Quick overview of what we will cover. 13 topics across 29 slides. About 20 minutes. (20 seconds)'
         },
         {
           title: 'What is AETHERIX',
@@ -1660,7 +1663,7 @@ window.App = (() => {
         },
         {
           title: 'System Architecture',
-          content: '<h2><span class="pres-tag accent">Architecture</span> System Component Overview</h2><div class="pres-grid-2" style="margin-bottom:16px"><div class="pres-card"><div class="pres-card-title">Five Core Modules</div><ul class="pres-list"><li><strong style="color:#00d4ff">Infrastructure</strong> &mdash; Optical + RF link budget calculators (FSPL, EIRP, margin). CCSDS 141.0-B-1.</li><li><strong style="color:#7c5cf7">Routing</strong> &mdash; Q-learning RL agent, BPv7 bundle protocol, LTP/TCPCL/UDP-CL. RFC 9171.</li><li><strong style="color:#c84cff">Security</strong> &mdash; BB84 &amp; E91 QKD, quantum repeater chains, CASCADE reconciliation. NIST FIPS 203/204.</li><li><strong style="color:#ff6b35">Orbital</strong> &mdash; Contact window prediction, 5-tier topology (241 nodes), Doppler compensation.</li><li><strong style="color:#3fb950">Simulation</strong> &mdash; Scenario engine, policy routing, RL training, multi-agent federated learning.</li></ul></div><div class="pres-card"><div class="pres-card-title">Module &rarr; Engine &rarr; Showcase</div><table class="pres-table"><tr><td><strong>Source</strong></td><td>27 Python modules across 5 packages</td></tr><tr><td><strong>Engine</strong></td><td>simulator + policy_engine + training + multi_agent + forwarding</td></tr><tr><td><strong>Showcase</strong></td><td>10 interactive browser demos (JS engine port)</td></tr><tr><td><strong>Tests</strong></td><td>149 unit tests across 10 test files</td></tr><tr><td><strong>Standards</strong></td><td>CCSDS 734.2/735.1/141.0/142.0 + RFC 9171/5326/7242</td></tr></table></div></div>',
+          content: '<h2><span class="pres-tag accent">Architecture</span> System Component Overview</h2><div class="pres-grid-2" style="margin-bottom:16px"><div class="pres-card"><div class="pres-card-title">Five Core Modules</div><ul class="pres-list"><li><strong style="color:#00d4ff">Infrastructure</strong> &mdash; Optical + RF link budget calculators (FSPL, EIRP, margin). CCSDS 141.0-B-1.</li><li><strong style="color:#7c5cf7">Routing</strong> &mdash; Q-learning RL agent, BPv7 bundle protocol, LTP/TCPCL/UDP-CL. RFC 9171.</li><li><strong style="color:#c84cff">Security</strong> &mdash; BB84 &amp; E91 QKD, quantum repeater chains, CASCADE reconciliation. NIST FIPS 203/204.</li><li><strong style="color:#ff6b35">Orbital</strong> &mdash; Contact window prediction, 5-tier topology (241 nodes), Doppler compensation.</li><li><strong style="color:#f85149">Computing</strong> &mdash; Radiation hardening: TMR, SECDED ECC, memory scrubbing, FDIR controller.</li><li><strong style="color:#d29922">Prioritization</strong> &mdash; QoS scheduler, CCSDS compression, deadline-aware preemption.</li><li><strong style="color:#3fb950">Simulation</strong> &mdash; Scenario engine, policy routing, RL training, multi-agent federated learning.</li></ul></div><div class="pres-card"><div class="pres-card-title">Module &rarr; Engine &rarr; Showcase</div><table class="pres-table"><tr><td><strong>Source</strong></td><td>27 Python modules across 6 packages</td></tr><tr><td><strong>Engine</strong></td><td>simulator + policy_engine + training + multi_agent + forwarding</td></tr><tr><td><strong>Showcase</strong></td><td>10 interactive browser demos (JS engine port)</td></tr><tr><td><strong>Tests</strong></td><td>149 unit tests across 10 test files</td></tr><tr><td><strong>Standards</strong></td><td>CCSDS 734.2/735.1/141.0/142.0 + RFC 9171/5326/7242</td></tr></table></div></div>',
           speakerNotes: 'Show the architecture. Five core modules feed into the simulation engine, which feeds the web showcase. Standards compliance at the bottom. Point to each module as you explain. (1 minute)'
         },
         {
@@ -1718,6 +1721,16 @@ window.App = (() => {
           speakerNotes: 'Mars and Earth dance around the Sun with a 26-month synodic period. Everything changes - distance, delay, bandwidth. At opposition we get great bandwidth. At conjunction, the Sun blocks everything. Our Lagrange relays at ES-L4 and ES-L5 maintain 50-70% capacity during conjunction. Doppler shift of 15 GHz at optical wavelengths requires real-time compensation. (1.5 minutes)'
         },
         {
+          title: 'Radiation Hardening',
+          content: '<h2><span class="pres-tag mars">Radiation</span> Surviving SEUs, Latchup &amp; Total Dose</h2><div class="pres-grid-2" style="margin-bottom:16px"><div class="pres-card pres-card-danger"><div class="pres-card-title">Radiation Effects on Electronics</div><table class="pres-table"><tr><td><strong>Effect</strong></td><td><strong>What it does</strong></td><td><strong>Mitigation</strong></td></tr><tr><td>SEU</td><td>Single bit flip</td><td>SECDED ECC</td></tr><tr><td>MBU</td><td>Multi-bit flip (1 ion)</td><td>Bit interleaving</td></tr><tr><td>SEL</td><td>Latchup (destructive)</td><td>Current limit + power-cycle</td></tr><tr><td>TID</td><td>Cumulative dose</td><td>Rad-hard parts (RAD750)</td></tr></table></div><div class="pres-card"><div class="pres-card-title">Defense-in-Depth Stack</div><ul class="pres-list"><li><strong style="color:#00d4ff">TMR</strong> &mdash; triple replicas, majority vote (masks logic faults)</li><li><strong style="color:#7c5cf7">SECDED (39,32) ECC</strong> &mdash; correct 1 bit, detect 2</li><li><strong style="color:#3fb950">Scrubbing</strong> &mdash; rewrite memory before 2nd upset accumulates</li><li><strong style="color:#ff6b35">FDIR + watchdog</strong> &mdash; detect &rarr; isolate &rarr; reset &rarr; SAFE-MODE</li></ul></div></div><div class="pres-grid-4"><div class="pres-stat-card" style="border-color:rgba(0,212,255,0.2)"><div class="pres-stat-value" style="color:#00d4ff">200&times;</div><div class="pres-stat-unit">Fewer errors (ECC + scrub + interleave)</div></div><div class="pres-stat-card" style="border-color:rgba(0,158,255,0.2)"><div class="pres-stat-value" style="color:#009eff">3,334&times;</div><div class="pres-stat-unit">TMR reliability gain (p=1e-4/op)</div></div><div class="pres-stat-card" style="border-color:rgba(255,140,0,0.2)"><div class="pres-stat-value" style="color:#ff8c00">200 krad</div><div class="pres-stat-unit">RAD750 TID tolerance (&gt;2000&times; margin)</div></div><div class="pres-stat-card" style="border-color:rgba(139,92,246,0.2)"><div class="pres-stat-value" style="color:#8b5cf6">~0.9/day</div><div class="pres-stat-unit">Residual uncorrectable, transit</div></div></div><div class="pres-callout" style="margin-top:16px">Model: 512 Mbit, ~210-day GCR cruise. ~37,000 raw bit upsets reduced to ~186 uncorrectable. Heritage: NASA RAD750 (Curiosity/Perseverance), ESA LEON3FT. &rarr; <code>src/computing/radiation.py</code></div>',
+          speakerNotes: 'Space radiation is relentless. SEUs flip bits constantly - about 37,000 during a Mars transit. Our defense-in-depth: TMR masks logic faults (3,334x reliability gain), SECDED ECC corrects single-bit errors, scrubbing prevents double-bit accumulation, and FDIR with a watchdog catches everything else. The RAD750 can tolerate 200 krad - far above what a Mars mission needs. Modeled in our radiation.py module. (1.5 minutes)'
+        },
+        {
+          title: 'Data Prioritization',
+          content: '<h2><span class="pres-tag warning">Prioritization</span> Bandwidth Triage: Get the Right Bits Home First</h2><div class="pres-grid-2" style="margin-bottom:16px"><div class="pres-card"><div class="pres-card-title">Four-Tier QoS Classification</div><table class="pres-table"><tr><td><strong>Tier</strong></td><td><strong>Class</strong></td><td><strong>Examples</strong></td></tr><tr><td style="color:#f85149"><strong>P0</strong></td><td>Emergency / Safety</td><td>Health telemetry, collision avoidance</td></tr><tr><td style="color:#ff8c00"><strong>P1</strong></td><td>Mission-critical</td><td>Command ACKs, time-sensitive science</td></tr><tr><td style="color:#00d4ff"><strong>P2</strong></td><td>High-priority</td><td>Routine telemetry, scheduled science</td></tr><tr><td style="color:var(--text-muted)"><strong>P4</strong></td><td>Low / Bulk</td><td>Housekeeping logs, file transfers</td></tr></table></div><div class="pres-card"><div class="pres-card-title">Compression Standards</div><table class="pres-table"><tr><td><strong>Data type</strong></td><td><strong>Standard</strong></td><td><strong>Ratio</strong></td></tr><tr><td>Telemetry</td><td>CCSDS 121</td><td>3&times;</td></tr><tr><td>Imagery (lossy)</td><td>CCSDS 122</td><td>10&times;</td></tr><tr><td>Video</td><td>H.265</td><td>50&times;</td></tr></table><div style="margin-top:14px;font-size:0.85rem;color:var(--text-secondary)">Deadline-aware scheduler: priority first, then earliest deadline. Items that cannot arrive in time are deferred. Emergency preempts in-progress transfers.</div></div></div><div class="pres-grid-4"><div class="pres-stat-card" style="border-color:rgba(0,212,255,0.2)"><div class="pres-stat-value" style="color:#00d4ff">100%</div><div class="pres-stat-unit">Link utilization (no wasted bandwidth)</div></div><div class="pres-stat-card" style="border-color:rgba(63,185,80,0.2)"><div class="pres-stat-value" style="color:#3fb950">5 / 6</div><div class="pres-stat-unit">Items fully delivered by priority</div></div><div class="pres-stat-card" style="border-color:rgba(0,158,255,0.2)"><div class="pres-stat-value" style="color:#009eff">BPv7</div><div class="pres-stat-unit">Fragmentation defers bulk remainder</div></div><div class="pres-stat-card" style="border-color:rgba(248,81,73,0.2)"><div class="pres-stat-value" style="color:#f85149">Preempt</div><div class="pres-stat-unit">Emergency uses direct-to-Earth backup</div></div></div><div class="pres-callout" style="margin-top:16px">Scenario: 30 Mbps, 15-min contact, oversubscribed. Deadline-aware, preemptive QoS scheduler delivers emergency + mission + science first; 6 GB software update fragmented to the next pass. &rarr; <code>src/routing/prioritization.py</code></div>',
+          speakerNotes: 'Like an emergency room. P0 emergency gets sent immediately - it can even preempt an in-progress transfer. P1 mission-critical next. P2 routine science. P4 bulk data fills remaining bandwidth. Compression multiplies effective capacity: 3x for telemetry, 10x for images, 50x for video. Our scheduler keeps the link at 100% utilization by fragmenting large bundles. (1.5 minutes)'
+        },
+        {
           title: 'End-to-End Mission',
           content: '<h2><span class="pres-tag live">Live Demo</span> Mars Surface &rarr; Earth &mdash; 500 MB in 7 Hops</h2><div class="pres-card pres-card-glow" style="margin-bottom:20px"><div class="pres-card-title">Scenario: Perseverance Rover &rarr; JPL Mission Operations Center</div><div class="pres-route-hops"><div class="pres-hop"><div class="pres-hop-num">1</div><div class="pres-hop-label">Rover<br><span>500 MB &middot; P2</span></div></div><div class="pres-hop-arrow">&rarr;</div><div class="pres-hop"><div class="pres-hop-num">2</div><div class="pres-hop-label">UHF<br><span>Uplink</span></div></div><div class="pres-hop-arrow">&rarr;</div><div class="pres-hop"><div class="pres-hop-num">3</div><div class="pres-hop-label">MRS-Alpha<br><span>Areostationary</span></div></div><div class="pres-hop-arrow">&rarr;</div><div class="pres-hop"><div class="pres-hop-num">4</div><div class="pres-hop-label">MRS-Polar<br><span>Optical ISL</span></div></div><div class="pres-hop-arrow">&rarr;</div><div class="pres-hop"><div class="pres-hop-num">5</div><div class="pres-hop-label">Deep Space<br><span>1550nm laser</span></div></div><div class="pres-hop-arrow">&rarr;</div><div class="pres-hop"><div class="pres-hop-num">6</div><div class="pres-hop-label">LEO Mesh<br><span>12.5 min</span></div></div><div class="pres-hop-arrow">&rarr;</div><div class="pres-hop"><div class="pres-hop-num">7</div><div class="pres-hop-label">DSN &rarr; MOC<br><span>Delivered &#10003;</span></div></div></div></div><div class="pres-grid-4"><div class="pres-stat-card" style="border-color:rgba(0,212,255,0.2)"><div class="pres-stat-value" style="color:#00d4ff">~13 min</div><div class="pres-stat-unit">Total transit</div></div><div class="pres-stat-card" style="border-color:rgba(63,185,80,0.2)"><div class="pres-stat-value" style="color:#3fb950">&lt;5%</div><div class="pres-stat-unit">DTN overhead</div></div><div class="pres-stat-card" style="border-color:rgba(255,107,53,0.2)"><div class="pres-stat-value" style="color:#ff6b35">7</div><div class="pres-stat-unit">Relay hops</div></div><div class="pres-stat-card" style="border-color:rgba(124,92,247,0.2)"><div class="pres-stat-value" style="color:#7c5cf7">QKD</div><div class="pres-stat-unit">Quantum secured</div></div></div><div class="pres-callout" style="margin-top:20px">If any link drops mid-transfer, the bundle is <strong>not</strong> lost &mdash; it\'s stored and forwarded when the link returns. That\'s the power of DTN.</div>',
           speakerNotes: 'Walk through the 7-hop journey. 500MB from Perseverance to JPL. Total transit ~13 min vs 12.5 min light-time - near speed of light! DTN overhead under 5%. Key point: if link drops at hop 5, the bundle stays stored at hop 4 and retries. No data loss. RUN LIVE DEMO if time permits. (2 minutes)'
@@ -1738,13 +1751,13 @@ window.App = (() => {
         },
         {
           title: 'Implementation',
-          content: '<h2><span class="pres-tag accent">Implementation</span> What We Built &mdash; 10 Interactive Demos</h2><div class="pres-grid-4" style="margin-bottom:20px"><div class="pres-stat-card" style="border-color:rgba(63,185,80,0.2)"><div class="pres-stat-value" style="color:#3fb950">27</div><div class="pres-stat-unit">Python modules</div></div><div class="pres-stat-card" style="border-color:rgba(0,212,255,0.2)"><div class="pres-stat-value" style="color:#00d4ff">149</div><div class="pres-stat-unit">Unit tests</div></div><div class="pres-stat-card" style="border-color:rgba(124,92,247,0.2)"><div class="pres-stat-value" style="color:#7c5cf7">10</div><div class="pres-stat-unit">Live demos</div></div><div class="pres-stat-card" style="border-color:rgba(255,107,53,0.2)"><div class="pres-stat-value" style="color:#ff6b35">5</div><div class="pres-stat-unit">Routing policies</div></div></div><div class="pres-grid-2"><div class="pres-card"><div class="pres-card-title">Core Modules</div><ul class="pres-list"><li><strong>Link Budget</strong> &mdash; Optical + RF (Ka/X/S/UHF) calculators</li><li><strong>RL Agent</strong> &mdash; Q-learning with epsilon-greedy + federated learning</li><li><strong>QKD</strong> &mdash; BB84, E91, quantum repeaters, privacy amplification</li><li><strong>Bundle Protocol</strong> &mdash; BPv7 with custody transfer + LTP</li><li><strong>Topology</strong> &mdash; 241-node 5-tier network with BFS routing</li><li><strong>Simulation</strong> &mdash; Full scenario engine + policy evaluator</li></ul></div><div class="pres-card"><div class="pres-card-title">Standards Compliance</div><table class="pres-table"><tr><td><strong>CCSDS 734.2-B-1</strong></td><td>DTN Architecture</td></tr><tr><td><strong>CCSDS 735.1-B-1</strong></td><td>Bundle Protocol</td></tr><tr><td><strong>CCSDS 141.0-B-1</strong></td><td>Optical Communications</td></tr><tr><td><strong>CCSDS 142.0-B-2</strong></td><td>Space Link Identifiers</td></tr><tr><td><strong>RFC 9171</strong></td><td>Bundle Protocol v7</td></tr><tr><td><strong>NIST FIPS 203/204</strong></td><td>Post-Quantum Crypto</td></tr></table></div></div>',
+          content: '<h2><span class="pres-tag accent">Implementation</span> What We Built &mdash; 10 Interactive Demos</h2><div class="pres-grid-4" style="margin-bottom:20px"><div class="pres-stat-card" style="border-color:rgba(63,185,80,0.2)"><div class="pres-stat-value" style="color:#3fb950">27</div><div class="pres-stat-unit">Python modules</div></div><div class="pres-stat-card" style="border-color:rgba(0,212,255,0.2)"><div class="pres-stat-value" style="color:#00d4ff">149</div><div class="pres-stat-unit">Unit tests</div></div><div class="pres-stat-card" style="border-color:rgba(124,92,247,0.2)"><div class="pres-stat-value" style="color:#7c5cf7">10</div><div class="pres-stat-unit">Live demos</div></div><div class="pres-stat-card" style="border-color:rgba(255,107,53,0.2)"><div class="pres-stat-value" style="color:#ff6b35">5</div><div class="pres-stat-unit">Routing policies</div></div></div><div class="pres-grid-2"><div class="pres-card"><div class="pres-card-title">Core Modules</div><ul class="pres-list"><li><strong>Link Budget</strong> &mdash; Optical + RF (Ka/X/S/UHF) calculators</li><li><strong>RL Agent</strong> &mdash; Q-learning with epsilon-greedy + federated learning</li><li><strong>QKD</strong> &mdash; BB84, E91, quantum repeaters, privacy amplification</li><li><strong>Bundle Protocol</strong> &mdash; BPv7 with custody transfer + LTP</li><li><strong>Topology</strong> &mdash; 241-node 5-tier network with BFS routing</li><li><strong>Radiation Hardening</strong> &mdash; TMR, SECDED ECC, scrubbing, FDIR</li><li><strong>Data Prioritization</strong> &mdash; QoS scheduler, compression, preemption</li><li><strong>Simulation</strong> &mdash; Full scenario engine + policy evaluator</li></ul></div><div class="pres-card"><div class="pres-card-title">Standards Compliance</div><table class="pres-table"><tr><td><strong>CCSDS 734.2-B-1</strong></td><td>DTN Architecture</td></tr><tr><td><strong>CCSDS 735.1-B-1</strong></td><td>Bundle Protocol</td></tr><tr><td><strong>CCSDS 141.0-B-1</strong></td><td>Optical Communications</td></tr><tr><td><strong>CCSDS 131.0-B-4</strong></td><td>Channel Coding (ECC)</td></tr><tr><td><strong>CCSDS 121.0-B-3</strong></td><td>Lossless Compression</td></tr><tr><td><strong>RFC 9171</strong></td><td>Bundle Protocol v7</td></tr></table></div></div>',
           speakerNotes: 'This is real, working code. 27 Python modules, 149 tests, 10 interactive demos. All the physics is real - no mocked data. The showcase site has live calculators you can use right now. Standards compliance is complete - CCSDS, IETF, and NIST. (1.5 minutes)'
         },
         {
           title: 'Roadmap',
-          content: '<h2><span class="pres-tag warning">Future</span> From Demo to Deployment</h2><div class="pres-timeline"><div class="pres-timeline-item"><div class="pres-timeline-dot" style="border-color:#3fb950;background:#3fb950"></div><div class="pres-timeline-title" style="color:#3fb950">Phase 1&ndash;4: Core Architecture <span class="pres-pill success">Complete</span></div><div class="pres-timeline-desc">Topology design &middot; RL routing agent &middot; QKD protocols &middot; Web showcase with 10 live demos &middot; 149 unit tests</div></div><div class="pres-timeline-item"><div class="pres-timeline-dot" style="border-color:#00d4ff"></div><div class="pres-timeline-title">Phase 5: Network Simulation</div><div class="pres-timeline-desc">ns-3 / OMNeT++ integration &middot; Realistic propagation models &middot; Performance benchmarking under simulated link conditions</div></div><div class="pres-timeline-item"><div class="pres-timeline-dot" style="border-color:#7c5cf7"></div><div class="pres-timeline-title">Phase 6: Production Upgrade</div><div class="pres-timeline-desc">Deep Q-Network (DQN) replacing Q-table &middot; ION-DTN integration for real Bundle Protocol &middot; JPL Horizons ephemeris data</div></div><div class="pres-timeline-item"><div class="pres-timeline-dot" style="border-color:#ff6b35"></div><div class="pres-timeline-title">Phase 7: Hardware Validation</div><div class="pres-timeline-desc">Hardware-in-the-loop testing &middot; SDR prototype &middot; Optical link ground demonstration &middot; Mission integration study</div></div></div>',
-          speakerNotes: 'Phases 1-4 are done - this is what you see today. Phase 5: ns-3 simulation for realistic network modeling. Phase 6: Upgrade to DQN and integrate with NASA\'s ION-DTN implementation. Phase 7: Hardware prototypes with SDRs and optical links. The path from demo to deployed system. (1.5 minutes)'
+          content: '<h2><span class="pres-tag warning">Future</span> From Demo to Deployment</h2><div style="background:rgba(210,153,34,0.1);border:1px solid rgba(210,153,34,0.3);border-radius:var(--radius-lg);padding:14px 18px;margin-bottom:20px;text-align:center"><div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#d29922;margin-bottom:6px">Outside Examination Scope</div><div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.55">Phases 5&ndash;7 represent the <strong style="color:var(--text-primary)">production deployment roadmap</strong> and are <strong style="color:#f85149">OUTSIDE the scope</strong> of this Topic 59 examination. They are listed to demonstrate awareness of the full engineering lifecycle.</div></div><div class="pres-timeline"><div class="pres-timeline-item"><div class="pres-timeline-dot" style="border-color:#3fb950;background:#3fb950"></div><div class="pres-timeline-title" style="color:#3fb950">Phase 1&ndash;4: Core Architecture <span class="pres-pill success">Complete</span></div><div class="pres-timeline-desc">Topology design &middot; RL routing agent &middot; QKD protocols &middot; Web showcase with 10 live demos &middot; 149 unit tests</div></div><div class="pres-timeline-item" style="border-left:2px dashed rgba(0,212,255,0.25);opacity:0.85"><div class="pres-timeline-dot" style="border-color:#00d4ff;border-style:dashed"></div><div class="pres-timeline-title">Phase 5: Network Simulation</div><div class="pres-timeline-desc">ns-3 / OMNeT++ integration &middot; Realistic propagation models &middot; Performance benchmarking under simulated link conditions</div><div style="margin-top:6px;font-size:0.72rem;color:#f0883e;line-height:1.45;padding:6px 10px;background:rgba(240,136,62,0.08);border-radius:var(--radius-md)"><strong>Roadblock:</strong> Requires ns-3.38+ or OMNeT++ 6.0+ integration &mdash; specialised simulation frameworks not available in this development environment</div></div><div class="pres-timeline-item" style="border-left:2px dashed rgba(124,92,247,0.25);opacity:0.85"><div class="pres-timeline-dot" style="border-color:#7c5cf7;border-style:dashed"></div><div class="pres-timeline-title">Phase 6: Production Upgrade</div><div class="pres-timeline-desc">Deep Q-Network (DQN) replacing Q-table &middot; ION-DTN integration for real Bundle Protocol &middot; JPL Horizons ephemeris data</div><div style="margin-top:6px;font-size:0.72rem;color:#f0883e;line-height:1.45;padding:6px 10px;background:rgba(240,136,62,0.08);border-radius:var(--radius-md)"><strong>Roadblock:</strong> Requires ION-DTN 4.1.2+ deployment, DQN neural network training infrastructure, and JPL Horizons API credentials</div></div><div class="pres-timeline-item" style="border-left:2px dashed rgba(255,107,53,0.25);opacity:0.85"><div class="pres-timeline-dot" style="border-color:#ff6b35;border-style:dashed"></div><div class="pres-timeline-title">Phase 7: Hardware Validation</div><div class="pres-timeline-desc">Hardware-in-the-loop testing &middot; SDR prototype &middot; Optical link ground demonstration &middot; Mission integration study</div><div style="margin-top:6px;font-size:0.72rem;color:#f0883e;line-height:1.45;padding:6px 10px;background:rgba(240,136,62,0.08);border-radius:var(--radius-md)"><strong>Roadblock:</strong> Requires SDR hardware (e.g. USRP), optical link ground demonstration equipment, and mission integration partnership</div></div></div>',
+          speakerNotes: 'Phases 1 through 4 are what you see today — the complete demo-stage project assessed by this examination. Phases 5 through 7 are the production roadmap. They are outside scope because they require specialised simulation frameworks, NASA\'s ION-DTN implementation, and actual hardware. I include them to show I understand the full engineering lifecycle from proof-of-concept to deployed system. (1 minute)'
         },
         {
           title: 'Conclusion',
@@ -1829,6 +1842,16 @@ window.App = (() => {
       'Orbital Mechanics': [
         { type: 'learn', label: 'Journey to Mars', hash: 'journey-to-mars' },
         { type: 'demo', label: 'Orbital Demo', hash: 'orbital' }
+      ],
+      'Radiation Hardening': [
+        { type: 'learn', label: 'Radiation', hash: 'radiation' },
+        { type: 'demo', label: 'Radiation Demo', hash: 'radiation-demo' },
+        { type: 'ref', label: 'CCSDS 131.0-B-4', url: 'https://public.ccsds.org/Pubs/131x0b4e2.pdf' }
+      ],
+      'Data Prioritization': [
+        { type: 'learn', label: 'Prioritization', hash: 'prioritization' },
+        { type: 'demo', label: 'Priority Demo', hash: 'priority-demo' },
+        { type: 'ref', label: 'CCSDS 121.0-B-3', url: 'https://public.ccsds.org/Pubs/121x0b3e1.pdf' }
       ],
       'End-to-End Mission': [
         { type: 'demo', label: 'Mission', hash: 'mission' },
@@ -1978,6 +2001,12 @@ window.App = (() => {
     if (polBuffer) polBuffer.addEventListener('input', e => { $('pol-buffer-val').textContent = e.target.value + '%'; });
     const polQuality = $('pol-quality');
     if (polQuality) polQuality.addEventListener('input', e => { $('pol-quality-val').textContent = e.target.value + '%'; });
+    const radScrub = $('rad-scrub');
+    if (radScrub) radScrub.addEventListener('input', e => { $('rad-scrub-val').textContent = e.target.value + 's'; });
+    const priDur = $('pri-duration');
+    if (priDur) priDur.addEventListener('input', e => { $('pri-duration-val').textContent = e.target.value + ' min'; });
+    const priRate = $('pri-rate');
+    if (priRate) priRate.addEventListener('input', e => { $('pri-rate-val').textContent = e.target.value + ' Mbps'; });
   }
 
   let dashboardInitialized = false;
@@ -1999,7 +2028,184 @@ window.App = (() => {
     window.addEventListener('resize', () => { resizeCosmos(); });
   }
 
-  return { init, initCosmos, ensureDashboard, linkBudget, routing, qkd, orbital, bundle, mission, dtnEngine, rfBudget, simulation, study, presentation };
+  const radiationDemo = {
+    run() {
+      const envMap = {
+        'leo': { flux: 2.0, tidRate: 0.1, label: 'LEO', tid: 10 },
+        'van-allen': { flux: 50.0, tidRate: 5.0, label: 'Van Allen Belt', tid: 50 },
+        'interplanetary': { flux: 4.0, tidRate: 0.3, label: 'Interplanetary Cruise', tid: 200 },
+        'spe': { flux: 10000.0, tidRate: 20.0, label: 'Solar Particle Event', tid: 200 },
+        'mars-surface': { flux: 0.7, tidRate: 0.05, label: 'Mars Surface', tid: 200 }
+      };
+      const envKey = $('rad-env').value;
+      const env = envMap[envKey];
+      const memMB = Math.max(1, parseInt($('rad-mem-size').value) || 512);
+      const scrubS = Math.max(1, parseInt($('rad-scrub').value) || 60);
+      const sigma = 1e-12;
+      const bitsPerWord = 39;
+      const dataBits = 32;
+      const totalBits = memMB * 1024 * 1024 * 8;
+      const totalWords = totalBits / bitsPerWord;
+      const seuperBitPerS = env.flux * sigma;
+      const seuperBitPerDay = seuperBitPerS * 86400;
+      const rawSEUsPerDay = seuperBitPerDay * totalBits;
+      const rawSEUsPerDayR = Math.round(rawSEUsPerDay);
+      const lamPerWord = seuperBitPerS * bitsPerWord * scrubS;
+      const p0 = Math.exp(-lamPerWord);
+      const p1 = lamPerWord * Math.exp(-lamPerWord);
+      const pGE2 = Math.max(0, 1 - p0 - p1);
+      const intervalsPerDay = 86400 / scrubS;
+      const afterEccScrubPerDay = pGE2 * totalWords * intervalsPerDay;
+      const pReplica = Math.min(0.5, afterEccScrubPerDay / totalWords / intervalsPerDay);
+      const tmrSysErr = 3 * pReplica * pReplica * (1 - pReplica) + Math.pow(pReplica, 3);
+      const afterTMRPerDay = tmrSysErr * totalWords * intervalsPerDay;
+      const transitDays = 210;
+      const transitUncorr = afterTMRPerDay * transitDays;
+      const protectionFactor = afterTMRPerDay > 0 ? Math.round(rawSEUsPerDay / afterTMRPerDay) : Infinity;
+      const tidAccum = env.tidRate * (transitDays / 365.25);
+      const tidMargin = tidAccum > 0 ? env.tid / tidAccum : Infinity;
+      const fmt = n => n >= 1e6 ? (n/1e6).toFixed(1) + 'M' : n >= 1e3 ? (n/1e3).toFixed(1) + 'k' : n.toFixed(1);
+      $('rad-result').style.display = 'block';
+      $('rad-chart-card').style.display = 'block';
+      $('rad-result-content').innerHTML =
+        '<div class="grid grid-4" style="margin-bottom:16px">' +
+          '<div class="card stat-card accent"><div class="card-value" style="color:var(--accent)">' + fmt(rawSEUsPerDayR) + '/day</div><div class="card-title">Raw SEU rate</div></div>' +
+          '<div class="card stat-card mars"><div class="card-value" style="color:var(--mars)">' + fmt(afterEccScrubPerDay) + '/day</div><div class="card-title">After ECC + scrub</div></div>' +
+          '<div class="card stat-card quantum"><div class="card-value" style="color:var(--quantum)">' + fmt(afterTMRPerDay) + '/day</div><div class="card-title">After TMR</div></div>' +
+          '<div class="card stat-card ' + (afterTMRPerDay < 1 ? 'success' : 'danger') + '"><div class="card-value" style="color:' + (afterTMRPerDay < 1 ? 'var(--success)' : 'var(--danger)') + '">' + (protectionFactor === Infinity ? '&#8734;' : protectionFactor + '&#215;') + '</div><div class="card-title">Protection factor</div></div>' +
+        '</div>' +
+        '<div class="grid grid-2"><div class="card"><div class="card-title">Transit Summary (' + transitDays + '-day)</div>' +
+          '<table class="pres-table"><tr><td><strong>Environment</strong></td><td>' + env.label + '</td></tr>' +
+          '<tr><td><strong>Memory</strong></td><td>' + memMB + ' MB (' + totalBits.toExponential(1) + ' bits)</td></tr>' +
+          '<tr><td><strong>Scrub interval</strong></td><td>' + scrubS + 's</td></tr>' +
+          '<tr><td><strong>Raw SEUs / day</strong></td><td>' + fmt(rawSEUsPerDayR) + '</td></tr>' +
+          '<tr><td><strong>After ECC + scrub / day</strong></td><td>' + fmt(afterEccScrubPerDay) + '</td></tr>' +
+          '<tr><td><strong>After TMR / day</strong></td><td>' + fmt(afterTMRPerDay) + '</td></tr>' +
+          '<tr><td><strong>Total uncorrectable (' + transitDays + 'd)</strong></td><td>' + Math.round(transitUncorr) + '</td></tr>' +
+        '</table></div>' +
+        '<div class="card"><div class="card-title">TID Analysis</div>' +
+          '<table class="pres-table"><tr><td><strong>Device tolerance</strong></td><td>' + env.tid + ' krad</td></tr>' +
+          '<tr><td><strong>Accumulated dose</strong></td><td>' + tidAccum.toFixed(1) + ' krad</td></tr>' +
+          '<tr><td><strong>Margin</strong></td><td>' + (tidMargin === Infinity ? '&#8734;' : tidMargin.toFixed(0) + '&#215;') + '</td></tr>' +
+          '<tr><td><strong>ECC overhead</strong></td><td>' + (100 * 7 / 32).toFixed(1) + '% (7 check bits / 32 data)</td></tr>' +
+          '<tr><td><strong>SEU / bit / day</strong></td><td>' + seuperBitPerDay.toExponential(2) + '</td></tr>' +
+          '<tr><td><strong>P(&#8805;2 upsets/word/interval)</strong></td><td>' + pGE2.toExponential(2) + '</td></tr>' +
+        '</table></div></div>';
+      if (window.Chart) {
+        const ctx = $('radChart');
+        if (ctx._chart) ctx._chart.destroy();
+        const stages = ['Raw SEUs', 'After ECC+Scrub', 'After TMR', 'Residual'];
+        const vals = [rawSEUsPerDayR, afterEccScrubPerDay, afterTMRPerDay, afterTMRPerDay];
+        const colors = ['#f85149', '#ff8c00', '#d29922', '#00d4aa'];
+        ctx._chart = new Chart(ctx, {
+          type: 'bar',
+          data: { labels: stages, datasets: [{ label: 'Errors / day', data: vals, backgroundColor: colors.map(c => c + '80'), borderColor: colors, borderWidth: 2 }] },
+          options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { y: { type: 'logarithmic', title: { display: true, text: 'Errors per day (log)' } } }
+          }
+        });
+      }
+    }
+  };
+
+  const priorityDemo = {
+    run() {
+      const durMin = Math.max(1, parseInt($('pri-duration').value) || 15);
+      const rateMbps = Math.max(1, parseInt($('pri-rate').value) || 30);
+      const oversub = Math.max(100, parseInt($('pri-oversub').value) || 150);
+      const durS = durMin * 60;
+      const rateBps = rateMbps * 1e6;
+      const capacityBytes = (rateBps / 8) * durS;
+      const tiers = [
+        { name: 'P0 Emergency', priority: 0, color: '#f85149', sizeMB: 2, dtype: 'telemetry', compRatio: 3.0, deadline: durS * 0.3 },
+        { name: 'P0 Collision Alert', priority: 0, color: '#f85149', sizeMB: 1, dtype: 'telemetry', compRatio: 3.0, deadline: durS * 0.5 },
+        { name: 'P1 Command ACK', priority: 1, color: '#ff8c00', sizeMB: 5, dtype: 'telemetry', compRatio: 3.0, deadline: durS * 0.6 },
+        { name: 'P1 Seismic Event', priority: 1, color: '#ff8c00', sizeMB: 50, dtype: 'image_lossy', compRatio: 10.0, deadline: durS * 0.8 },
+        { name: 'P2 Telemetry Batch', priority: 2, color: '#00d4ff', sizeMB: 100, dtype: 'telemetry', compRatio: 3.0, deadline: durS },
+        { name: 'P2 Science Spectra', priority: 2, color: '#00d4ff', sizeMB: 200, dtype: 'image_lossless', compRatio: 2.0, deadline: durS },
+        { name: 'P3 Housekeeping', priority: 3, color: '#d29922', sizeMB: 20, dtype: 'housekeeping', compRatio: 4.0, deadline: durS * 1.5 },
+        { name: 'P3 Panorama', priority: 3, color: '#d29922', sizeMB: 500, dtype: 'image_lossy', compRatio: 10.0, deadline: durS * 2 },
+        { name: 'P4 SW Update', priority: 4, color: '#8b5cf6', sizeMB: 2000, dtype: 'raw', compRatio: 1.0, deadline: durS * 4 },
+        { name: 'P4 Log Archive', priority: 4, color: '#8b5cf6', sizeMB: 300, dtype: 'text', compRatio: 5.0, deadline: durS * 3 }
+      ];
+      let totalRawBytes = 0;
+      tiers.forEach(t => totalRawBytes += t.sizeMB * 1024 * 1024);
+      const scale = (oversub / 100) * capacityBytes / totalRawBytes;
+      tiers.forEach(t => { t.rawBytes = Math.round(t.sizeMB * 1024 * 1024 * scale); t.compBytes = Math.round(t.rawBytes / t.compRatio); });
+      const sorted = [...tiers].sort((a, b) => a.priority - b.priority);
+      let usedBytes = 0;
+      const schedule = [];
+      const deferred = [];
+      sorted.forEach(item => {
+        const startS = usedBytes / (rateBps / 8);
+        const neededS = item.compBytes / (rateBps / 8);
+        const endS = startS + neededS;
+        if (endS <= durS && startS < item.deadline) {
+          usedBytes += item.compBytes;
+          schedule.push({ ...item, startS, endS, delivered: true, bytesSent: item.compBytes });
+        } else if (usedBytes < capacityBytes && item.rawBytes > 0) {
+          const remaining = capacityBytes - usedBytes;
+          const partialBytes = Math.min(item.compBytes, remaining);
+          usedBytes += partialBytes;
+          schedule.push({ ...item, startS, endS: durS, delivered: false, bytesSent: partialBytes, partial: true });
+        } else {
+          deferred.push(item);
+        }
+      });
+      const utilizationPct = (100 * usedBytes / capacityBytes).toFixed(0);
+      const deliveredCount = schedule.filter(s => s.delivered).length;
+      const partialCount = schedule.filter(s => s.partial).length;
+      const compSavedMB = ((totalRawBytes * scale - usedBytes) / (1024 * 1024)).toFixed(0);
+      $('pri-result').style.display = 'block';
+      $('pri-chart-card').style.display = 'block';
+      $('pri-result-content').innerHTML =
+        '<div class="grid grid-4" style="margin-bottom:16px">' +
+          '<div class="card stat-card accent"><div class="card-value" style="color:var(--accent)">' + utilizationPct + '%</div><div class="card-title">Link utilization</div></div>' +
+          '<div class="card stat-card success"><div class="card-value" style="color:var(--success)">' + deliveredCount + ' / ' + tiers.length + '</div><div class="card-title">Fully delivered</div></div>' +
+          '<div class="card stat-card mars"><div class="card-value" style="color:var(--mars)">' + partialCount + '</div><div class="card-title">Fragmented</div></div>' +
+          '<div class="card stat-card quantum"><div class="card-value" style="color:var(--quantum)">' + compSavedMB + ' MB</div><div class="card-title">Compression saved</div></div>' +
+        '</div>' +
+        '<div class="card"><div class="card-title">Schedule Detail</div>' +
+          '<table class="pres-table"><tr><th>Item</th><th>Priority</th><th>Raw</th><th>Compressed</th><th>Window</th><th>Status</th></tr>' +
+          schedule.map(s => {
+            const status = s.delivered ? '<span style="color:var(--success)">&#10003; Delivered</span>' : '<span style="color:var(--mars)">&#8776; Partial (' + (100 * s.bytesSent / s.compBytes).toFixed(0) + '%)</span>';
+            const rawMB = (s.rawBytes / (1024 * 1024)).toFixed(1);
+            const compMB = (s.compBytes / (1024 * 1024)).toFixed(1);
+            return '<tr><td><strong style="color:' + s.color + '">' + s.name + '</strong></td><td>' + s.priority + '</td><td>' + rawMB + ' MB</td><td>' + compMB + ' MB</td><td>' + s.startS.toFixed(1) + '&#8211;' + s.endS.toFixed(1) + 's</td><td>' + status + '</td></tr>';
+          }).join('') +
+          deferred.map(d => '<tr style="opacity:0.5"><td><strong style="color:' + d.color + '">' + d.name + '</strong></td><td>' + d.priority + '</td><td>' + (d.rawBytes / (1024 * 1024)).toFixed(1) + ' MB</td><td>' + (d.compBytes / (1024 * 1024)).toFixed(1) + ' MB</td><td>&#8212;</td><td><span style="color:var(--text-muted)">Deferred</span></td></tr>').join('') +
+        '</table></div>';
+      if (window.Chart) {
+        const ctx = $('priChart');
+        if (ctx._chart) ctx._chart.destroy();
+        const allItems = [...schedule, ...deferred.map(d => ({ ...d, startS: durS, endS: durS, delivered: false, bytesSent: 0, partial: false }))];
+        ctx._chart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: allItems.map(i => i.name),
+            datasets: [{
+              label: 'Time in window (s)',
+              data: allItems.map(i => [i.startS, i.delivered || i.partial ? i.endS : i.startS]),
+              backgroundColor: allItems.map(i => i.delivered ? i.color + '80' : i.partial ? i.color + '40' : '#55555540'),
+              borderColor: allItems.map(i => i.color),
+              borderWidth: 1
+            }]
+          },
+          options: {
+            indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { min: 0, max: durS, title: { display: true, text: 'Contact window (seconds)' } }
+            }
+          }
+        });
+      }
+    }
+  };
+
+  return { init, initCosmos, ensureDashboard, linkBudget, routing, qkd, orbital, bundle, mission, dtnEngine, rfBudget, simulation, study, presentation, radiationDemo, priorityDemo };
 })();
 
 document.addEventListener('DOMContentLoaded', () => {

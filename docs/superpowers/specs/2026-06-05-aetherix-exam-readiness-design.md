@@ -65,3 +65,26 @@ Both new objectives + Doppler surfacing must appear in:
 
 ## Cut-line (if time runs short)
 Web interactive demos and deck animation polish are cut last; rubric-heavy items (facts, code depth, deck content, Q&A) land first.
+
+---
+
+## Addendum (2026-06-05) — expanded scope (user request)
+
+User added four items; "we have all the time we need" and the question bank/quiz are **saved for last**. Revised ordering:
+
+3. Deck (2 slides) → 4. Showcase Learn/Resources/Glossary/Presentation gaps → **4b. Demo expansion** (2 new interactive demos: radiation, prioritization + enhance existing) → **9. Usage guide** (`docs/USAGE_GUIDE.md` exhaustive + in-site `#usage` page) → **8 (LAST). Question-bank engine + Quiz page** → 6. UI/UX polish → 7. Traceability + verification.
+
+### Question-bank engine (single source of truth)
+- `interview_prep/question_bank/build_bank.py` composes **2500+** (scalable to 5000) auto-gradable questions from a verified fact base → `docs/data/quiz_bank.json`.
+- Types: **MCQ + True/False + Numeric** (tolerance). Tagged by topic (6 objectives + standards + AETHERIX-specific) and difficulty (Foundational/Intermediate/Advanced/Expert). Every item carries an explanation.
+- Correct-by-construction: each generated question derives its answer from the fact base, so answers are verifiable.
+- PLUS curated interview Q&A w/ model answers (`master_exam_bank.md`), flashcards, `mock_exam_simulation.md`; existing 3 files upgraded; `question_bank/README.md` index.
+- A render script emits study markdown from the same JSON so bank ↔ quiz never drift.
+
+### Quiz page (web)
+- `#quiz` section + `docs/js/quiz.js`; routed via existing `getElementById(route)` mechanism + `App.ensureQuiz()` lazy-init hook; top-level "Quiz" nav (desktop + mobile).
+- Modes: **Practice** (instant feedback + explanation), **Timed mock exam** (score breakdown by topic), **Topic & difficulty filters**, **Review wrong answers**, **Flashcard**.
+- Reads `docs/data/quiz_bank.json`; vanilla JS (matches site; no framework).
+
+### Usage guide
+- `docs/USAGE_GUIDE.md`: prereqs, clone, `init.sh`, tests, every module, demos, local serve, Docker (`docker-compose`), GitHub Pages, PPTX/PDF generation, troubleshooting. In-site `#usage` page mirrors it; linked from README.
