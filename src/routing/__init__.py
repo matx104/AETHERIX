@@ -8,6 +8,8 @@ Provides DTN routing capabilities including:
 """
 
 from .bundle import Bundle, BundlePriority, EndpointID, create_science_bundle
+from .prioritization import (Compressor, DataCategory, EmergencyProtocol,
+                             QoSScheduler, TrafficItem, simulate_downlink)
 from .rl_agent import (NetworkState, RLRoutingAgent, RoutingAction,
                        RoutingDecision)
 
@@ -20,4 +22,10 @@ __all__ = [
     'RoutingAction',
     'NetworkState',
     'RoutingDecision',
+    'DataCategory',
+    'Compressor',
+    'QoSScheduler',
+    'TrafficItem',
+    'EmergencyProtocol',
+    'simulate_downlink',
 ]
