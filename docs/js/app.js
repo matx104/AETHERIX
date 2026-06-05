@@ -2209,181 +2209,107 @@ window.App = (() => {
   };
 
   const cmdTerminal = {
-    _commands: [],
+    // Read-only reference catalog (embedded so the static site needs no backend).
+    _commands: [
+      { id: 'init', label: 'Initialize Environment', category: 'scripts', cmd: './scripts/init.sh', description: 'Creates a Python virtual environment and installs runtime dependencies (pytest).', expected: 'Progress messages while the venv is created and pip installs packages, ending with a confirmation that the environment is ready.' },
+      { id: 'init-dev', label: 'Initialize (Dev Mode)', category: 'scripts', cmd: './scripts/init.sh --dev', description: 'Same as init, plus developer tooling (ruff, black, isort, mypy, pytest-cov).', expected: 'Venv created and both runtime and dev dependencies installed; ends with a "dev environment ready" style message.' },
+      { id: 'test', label: 'Run Test Suite', category: 'scripts', cmd: './scripts/run_tests.sh', description: 'Runs the full pytest suite across all 12 test files.', expected: 'A row of dots for passing tests, ending with "189 passed in <n>s".' },
+      { id: 'test-verbose', label: 'Run Tests (Verbose)', category: 'scripts', cmd: './scripts/run_tests.sh -v', description: 'Runs the test suite with one line per test case.', expected: 'Each test id printed with PASSED, ending with "189 passed".' },
+      { id: 'lint', label: 'Code Quality Check', category: 'scripts', cmd: './scripts/lint.sh', description: 'Runs ruff and PEP 8 style checks (read-only, no changes).', expected: '"All checks passed!" when clean, or a list of files/lines with style findings.' },
+      { id: 'lint-fix', label: 'Auto-Fix Code Style', category: 'scripts', cmd: './scripts/lint.sh --fix', description: 'Auto-formats and fixes style issues in place (ruff/black/isort).', expected: 'A summary of files reformatted and issues fixed.' },
+      { id: 'clean', label: 'Clean Artifacts', category: 'scripts', cmd: './scripts/clean.sh', description: 'Removes __pycache__, .pytest_cache, and build artifacts.', expected: 'A list of removed directories/files, ending with a "cleaned" confirmation.' },
+      { id: 'mod-link-budget', label: 'Optical Link Budget', category: 'modules', cmd: 'python3 src/infrastructure/link_budget.py', description: 'Computes the 1550 nm optical link budget for Earth-Mars at min/avg/max distance.', expected: 'A table of EIRP, free-space path loss, received power and link margin (dB) for each distance scenario.' },
+      { id: 'mod-rf-budget', label: 'RF Link Budget', category: 'modules', cmd: 'python3 src/infrastructure/rf_link_budget.py', description: 'Computes RF link budgets across the Ka, X, S and UHF bands.', expected: 'Per-band link-budget breakdown with gains, losses and resulting margin.' },
+      { id: 'mod-rl-agent', label: 'RL Routing Agent', category: 'modules', cmd: 'python3 src/routing/rl_agent.py', description: 'Q-learning routing agent making epsilon-greedy forwarding decisions.', expected: 'Observed network states, chosen actions and Q-values as the agent routes sample bundles.' },
+      { id: 'mod-bundle', label: 'Bundle Protocol', category: 'modules', cmd: 'python3 src/routing/bundle.py', description: 'Creates a BPv7 bundle and prints its primary block and metadata.', expected: '"Created: Bundle[...] mars.surface.rover-01 -> earth.control.moc ..." followed by the serialized bundle fields.' },
+      { id: 'mod-forwarding', label: 'Store-and-Forward Engine', category: 'modules', cmd: 'python3 src/routing/forwarding_engine.py', description: 'DTN store-and-forward engine with a priority queue and custody tracking.', expected: 'Bundles enqueued by priority, custody-accept/forward events, and a final delivery summary.' },
+      { id: 'mod-prioritization', label: 'Priority Scheduler', category: 'modules', cmd: 'python3 src/routing/prioritization.py', description: 'Mission data prioritization: compression, deadline-aware QoS scheduling, emergency preemption.', expected: 'A compression-ratio table, a prioritized schedule (5/6 delivered, ~100% link use, bulk fragmented), and an emergency-preemption log.' },
+      { id: 'mod-training', label: 'RL Training Loop', category: 'modules', cmd: 'python3 src/routing/training.py', description: 'Trains the RL routing agent over many simulated episodes.', expected: 'Per-episode reward trending upward with a convergence message once the policy stabilizes.' },
+      { id: 'mod-qkd', label: 'QKD Protocol (BB84/E91)', category: 'modules', cmd: 'python3 src/security/qkd.py', description: 'Runs the BB84 and E91 quantum key distribution protocols.', expected: 'Sifted key length and QBER, with a "secure" verdict when QBER < 11% (and "eavesdropper detected" above it).' },
+      { id: 'mod-repeater', label: 'Quantum Repeater Chain', category: 'modules', cmd: 'python3 src/security/repeater_chain.py', description: 'Multi-hop quantum repeater chain using entanglement swapping.', expected: 'Per-hop entanglement swapping steps and the resulting end-to-end fidelity over the chain.' },
+      { id: 'mod-privacy', label: 'Privacy Amplification', category: 'modules', cmd: 'python3 src/security/privacy_amplification.py', description: 'CASCADE reconciliation, universal hashing and the Csiszar-Korner bound.', expected: 'Reconciliation rounds, estimated leaked bits, and the final secure key length after amplification.' },
+      { id: 'mod-contact', label: 'Contact Windows', category: 'modules', cmd: 'python3 src/orbital/contact_windows.py', description: 'Predicts Earth-Mars communication windows over the synodic period.', expected: 'Distance and one-way light time, a list of contact windows, and the solar-conjunction blackout period.' },
+      { id: 'mod-doppler', label: 'Doppler Shift', category: 'modules', cmd: 'python3 src/orbital/doppler.py', description: 'Classical and relativistic Doppler shift for a given relative velocity.', expected: 'Classical and relativistic frequency-shift values and the difference between them.' },
+      { id: 'mod-topology', label: 'Network Topology', category: 'modules', cmd: 'python3 src/orbital/topology.py', description: 'Builds the full 5-tier, 241-node interplanetary topology.', expected: 'A per-tier node count summary totaling 241 nodes across the five tiers.' },
+      { id: 'mod-radiation', label: 'Radiation Hardening', category: 'modules', cmd: 'python3 src/computing/radiation.py', description: 'Radiation effects and mitigation over an Earth-Mars transit (SEU/TID, TMR, ECC, scrubbing, FDIR).', expected: 'A transit summary (~37,000 raw upsets reduced to ~186 uncorrectable, ~200x protection), a TMR reliability table, and an FDIR watchdog walkthrough.' },
+      { id: 'mod-simulator', label: 'Simulation Engine', category: 'modules', cmd: 'python3 src/simulation/simulator.py', description: 'End-to-end mission simulation integrating topology, forwarding and bundles.', expected: 'A simulated Earth-Mars run with delivery metrics (delay, hops, delivery ratio).' },
+      { id: 'mod-policy', label: 'Policy Engine', category: 'modules', cmd: 'python3 src/simulation/policy_engine.py', description: 'Applies the 5 default routing policies (congestion control, emergency fast-path, etc.).', expected: 'Each policy listed with the routing decisions it produces for sample traffic.' },
+    ],
     _selected: null,
-    _running: false,
-    _abortCtrl: null,
-    _apiBase: '',
 
     init() {
       const me = this;
-      me._apiBase = window.__AETHERIX_API || '/api';
-
-      const commands = [
-        { id: 'init', label: 'Initialize Environment', category: 'scripts' },
-        { id: 'init-dev', label: 'Initialize (Dev Mode)', category: 'scripts' },
-        { id: 'test', label: 'Run Test Suite', category: 'scripts' },
-        { id: 'test-verbose', label: 'Run Tests (Verbose)', category: 'scripts' },
-        { id: 'lint', label: 'Code Quality Check', category: 'scripts' },
-        { id: 'lint-fix', label: 'Auto-Fix Code Style', category: 'scripts' },
-        { id: 'clean', label: 'Clean Artifacts', category: 'scripts' },
-        { id: 'mod-link-budget', label: 'Optical Link Budget', category: 'modules' },
-        { id: 'mod-rf-budget', label: 'RF Link Budget', category: 'modules' },
-        { id: 'mod-rl-agent', label: 'RL Routing Agent', category: 'modules' },
-        { id: 'mod-bundle', label: 'Bundle Protocol', category: 'modules' },
-        { id: 'mod-forwarding', label: 'Store-and-Forward Engine', category: 'modules' },
-        { id: 'mod-prioritization', label: 'Priority Scheduler', category: 'modules' },
-        { id: 'mod-training', label: 'RL Training Loop', category: 'modules' },
-        { id: 'mod-qkd', label: 'QKD Protocol (BB84/E91)', category: 'modules' },
-        { id: 'mod-repeater', label: 'Quantum Repeater Chain', category: 'modules' },
-        { id: 'mod-privacy', label: 'Privacy Amplification', category: 'modules' },
-        { id: 'mod-contact', label: 'Contact Windows', category: 'modules' },
-        { id: 'mod-doppler', label: 'Doppler Shift', category: 'modules' },
-        { id: 'mod-topology', label: 'Network Topology', category: 'modules' },
-        { id: 'mod-radiation', label: 'Radiation Hardening', category: 'modules' },
-        { id: 'mod-simulator', label: 'Simulation Engine', category: 'modules' },
-        { id: 'mod-policy', label: 'Policy Engine', category: 'modules' },
-      ];
-      me._commands = commands;
-
       const scriptsEl = document.getElementById('cmd-scripts-list');
       const modulesEl = document.getElementById('cmd-modules-list');
       if (!scriptsEl || !modulesEl) return;
+      scriptsEl.innerHTML = '';
+      modulesEl.innerHTML = '';
 
       const renderList = (container, items) => {
         items.forEach(c => {
           const btn = document.createElement('div');
-          btn.className = 'topnav-mobile-link';
-          btn.style.cssText = 'cursor:pointer;padding:6px 10px;font-size:0.85rem;border-radius:var(--radius-sm)';
+          btn.className = 'cmd-list-item';
+          btn.dataset.cmdId = c.id;
+          btn.style.cssText = 'cursor:pointer;padding:6px 10px;font-size:0.85rem;border-radius:var(--radius-sm);color:var(--text-secondary)';
           btn.textContent = c.label;
-          btn.onclick = () => me.select(c);
+          btn.onclick = () => me.select(c.id);
           container.appendChild(btn);
         });
       };
 
-      renderList(scriptsEl, commands.filter(c => c.category === 'scripts'));
-      renderList(modulesEl, commands.filter(c => c.category === 'modules'));
+      renderList(scriptsEl, me._commands.filter(c => c.category === 'scripts'));
+      renderList(modulesEl, me._commands.filter(c => c.category === 'modules'));
+
+      if (me._commands.length) me.select(me._commands[0].id);
     },
 
-    select(cmd) {
+    select(id) {
       const me = this;
-      if (me._running) return;
-      me._selected = cmd;
+      const c = me._commands.find(x => x.id === id);
+      if (!c) return;
+      me._selected = c;
 
       const info = document.getElementById('cmd-selected-info');
-      info.style.display = 'block';
-      document.getElementById('cmd-selected-label').textContent = cmd.label;
+      if (info) info.style.display = 'block';
+      const set = (elId, text) => { const el = document.getElementById(elId); if (el) el.textContent = text; };
+      set('cmd-selected-label', c.label);
+      set('cmd-selected-desc', c.description);
+      set('cmd-selected-cmd', c.cmd);
+      set('cmd-selected-expected', c.expected);
+      const copyBtn = document.getElementById('cmd-copy-btn');
+      if (copyBtn) copyBtn.textContent = 'Copy';
 
-      fetch(me._apiBase + '/cmd/catalog/' + cmd.id)
-        .then(r => r.json())
-        .then(data => {
-          document.getElementById('cmd-selected-desc').textContent = data.description || '';
-          document.getElementById('cmd-selected-cmd').textContent = '$ ' + (data.cmd || cmd.id);
-        })
-        .catch(() => {
-          document.getElementById('cmd-selected-desc').textContent = '';
-          document.getElementById('cmd-selected-cmd').textContent = '$ ' + cmd.id;
-        });
+      document.querySelectorAll('.cmd-list-item').forEach(el => {
+        const active = el.dataset.cmdId === id;
+        el.style.background = active ? 'var(--accent-glow)' : 'transparent';
+        el.style.color = active ? 'var(--accent)' : 'var(--text-secondary)';
+      });
     },
 
-    run() {
+    copy() {
       const me = this;
-      if (!me._selected || me._running) return;
-
-      me._running = true;
-      document.getElementById('cmd-run-btn').style.display = 'none';
-      document.getElementById('cmd-stop-btn').style.display = 'inline-block';
-
-      const output = document.getElementById('cmd-terminal-output');
-      output.innerHTML = '';
-      const args = document.getElementById('cmd-extra-args').value.trim();
-      const qs = args ? '?args=' + encodeURIComponent(args) : '';
-
-      const ctrl = new AbortController();
-      me._abortCtrl = ctrl;
-
-      fetch(me._apiBase + '/cmd/run/' + me._selected.id + qs, { signal: ctrl.signal })
-        .then(response => {
-          const reader = response.body.getReader();
-          const decoder = new TextDecoder();
-          let buf = '';
-
-          function read() {
-            reader.read().then(({ done, value }) => {
-              if (done) { me._finish(); return; }
-              buf += decoder.decode(value, { stream: true });
-              const lines = buf.split('\n');
-              buf = lines.pop() || '';
-              lines.forEach(line => {
-                if (line.startsWith('data: ')) {
-                  try {
-                    const evt = JSON.parse(line.slice(6));
-                    const div = document.createElement('div');
-                    if (evt.type === 'meta') {
-                      div.style.color = 'var(--accent)';
-                      div.textContent = '$ ' + (evt.cmd || '');
-                    } else if (evt.type === 'stdout') {
-                      div.style.color = 'var(--text-secondary)';
-                      div.textContent = evt.text || '';
-                    } else if (evt.type === 'error') {
-                      div.style.color = 'var(--danger)';
-                      div.textContent = '\u2717 ' + (evt.text || '');
-                    } else if (evt.type === 'done') {
-                      div.style.color = evt.exit_code === 0 ? 'var(--success)' : 'var(--danger)';
-                      div.textContent = evt.exit_code === 0
-                        ? '\u2713 Process finished with exit code 0'
-                        : '\u2717 Process exited with code ' + evt.exit_code;
-                    }
-                    output.appendChild(div);
-                    output.scrollTop = output.scrollHeight;
-                  } catch {}
-                }
-              });
-              read();
-            }).catch(e => {
-              if (e.name !== 'AbortError') {
-                const div = document.createElement('div');
-                div.style.color = 'var(--danger)';
-                div.textContent = 'Connection error: ' + e.message;
-                output.appendChild(div);
-              }
-              me._finish();
-            });
-          }
-          read();
-        })
-        .catch(e => {
-          if (e.name !== 'AbortError') {
-            const div = document.createElement('div');
-            div.style.color = 'var(--danger)';
-            div.textContent = 'Connection error: ' + e.message;
-            output.appendChild(div);
-          }
-          me._finish();
-        });
+      if (!me._selected) return;
+      const text = me._selected.cmd;
+      const done = () => {
+        const b = document.getElementById('cmd-copy-btn');
+        if (b) { b.textContent = 'Copied!'; setTimeout(function () { b.textContent = 'Copy'; }, 1500); }
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(function () { me._fallbackCopy(text, done); });
+      } else {
+        me._fallbackCopy(text, done);
+      }
     },
 
-    stop() {
-      const me = this;
-      if (me._abortCtrl) { me._abortCtrl.abort(); me._abortCtrl = null; }
-      me._finish();
-    },
-
-    clear() {
-      const me = this;
-      me.stop();
-      me._selected = null;
-      document.getElementById('cmd-selected-info').style.display = 'none';
-      document.getElementById('cmd-terminal-output').innerHTML =
-        '<span style="color:var(--text-muted)">Select a command from the sidebar and click Run.\nOutput will stream here in real-time via Server-Sent Events.</span>';
-    },
-
-    _finish() {
-      const me = this;
-      me._running = false;
-      me._abortCtrl = null;
-      document.getElementById('cmd-run-btn').style.display = 'inline-block';
-      document.getElementById('cmd-stop-btn').style.display = 'none';
+    _fallbackCopy(text, done) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed;top:-1000px;opacity:0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      done();
     }
   };
 

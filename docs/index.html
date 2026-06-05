@@ -3601,19 +3601,19 @@
       <div class="card"><div id="study-refs-content"></div></div>
     </section>
 
-    <section id="cmd-terminal" class="tab" aria-label="Command Terminal">
+    <section id="cmd-terminal" class="tab" aria-label="Command Reference">
       <div class="page-header">
-        <h1>Command Terminal</h1>
-        <p>Run scripts, tests, and module demos directly from the browser. Select a command, click Run, and watch the output stream in real-time.</p>
+        <h1>Command Reference</h1>
+        <p>Copy any command and run it in your own terminal &#8212; with a note on what it does and the output to expect.</p>
         <div class="header-badges">
-          <span class="badge accent">Full-Stack API</span>
-          <span class="badge success">SSE Streaming</span>
+          <span class="badge accent">Copy &amp; Run</span>
+          <span class="badge success">Stdlib-only modules</span>
           <span class="badge quantum">23 Commands</span>
         </div>
       </div>
 
       <div class="callout callout-tip">
-        <strong>How it works:</strong> The Command Terminal connects to the AETHERIX backend API (<code>/api/cmd</code>) which executes scripts server-side and streams output via Server-Sent Events. This is available when running the full-stack app locally or via Docker.
+        <strong>How to use:</strong> Pick a command on the left, read what it does and what to expect, then copy it and run it from the project root in your own terminal. Nothing is executed by the browser or a server &#8212; this page is a safe reference.
       </div>
 
       <div style="display:grid;grid-template-columns:260px 1fr;gap:20px;margin-top:24px">
@@ -3627,24 +3627,18 @@
 
         <div>
           <div class="card" id="cmd-selected-info" style="display:none">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
-              <div>
-                <strong id="cmd-selected-label"></strong>
-                <span id="cmd-selected-desc" style="margin-left:8px;font-size:0.85rem;color:var(--text-muted)"></span>
-              </div>
-              <div style="display:flex;gap:6px">
-                <input id="cmd-extra-args" placeholder="extra args..." style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);padding:4px 8px;font-size:0.8rem;font-family:var(--font-mono);width:160px">
-                <button class="btn btn-primary" id="cmd-run-btn" onclick="App.cmdTerminal.run()">Run</button>
-                <button class="btn btn-danger" id="cmd-stop-btn" onclick="App.cmdTerminal.stop()" style="display:none">Stop</button>
-                <button class="btn btn-secondary" onclick="App.cmdTerminal.clear()">Clear</button>
-              </div>
-            </div>
-            <code id="cmd-selected-cmd" style="display:block;margin-top:8px;font-size:0.8rem;color:var(--text-muted)"></code>
-          </div>
+            <strong id="cmd-selected-label" style="font-size:1.05rem"></strong>
+            <p id="cmd-selected-desc" style="margin-top:8px;color:var(--text-secondary)"></p>
 
-          <div id="cmd-terminal-output" style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;min-height:420px;max-height:calc(100vh - 360px);overflow-y:auto;font-family:var(--font-mono);font-size:0.85rem;line-height:1.7;white-space:pre-wrap;word-break:break-all">
-<span style="color:var(--text-muted)">Select a command from the sidebar and click Run.
-Output will stream here in real-time via Server-Sent Events.</span>
+            <div style="font-size:0.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:16px">Command</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:6px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px">
+              <code id="cmd-selected-cmd" style="flex:1;font-family:var(--font-mono);font-size:0.85rem;color:var(--accent);word-break:break-all"></code>
+              <button class="btn btn-primary" id="cmd-copy-btn" onclick="App.cmdTerminal.copy()" style="flex-shrink:0">Copy</button>
+            </div>
+            <div style="margin-top:6px;font-size:0.72rem;color:var(--text-muted)">Run from the project root.</div>
+
+            <div style="font-size:0.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:16px">Expected output</div>
+            <div id="cmd-selected-expected" style="margin-top:6px;background:var(--bg-secondary);border:1px solid var(--border);border-left:3px solid var(--success);border-radius:var(--radius-sm);padding:10px 12px;color:var(--text-secondary);font-size:0.88rem;line-height:1.6"></div>
           </div>
         </div>
       </div>
@@ -3750,9 +3744,9 @@ cd AETHERIX
                  <td><a href="#simulation" style="color:var(--accent)">Simulation</a></td>
                </tr>
                <tr>
-                 <td><strong>CMD Terminal</strong> <code>/cmd</code></td>
-                 <td>Browse the command catalog in the left sidebar (shell scripts + Python modules). Select a command, optionally add extra args, click <strong>Run</strong>. Output streams in real time via SSE. Click <strong>Stop</strong> to abort.</td>
-                 <td><a href="#cmd-terminal" style="color:var(--accent)">CMD Terminal</a></td>
+                 <td><strong>Command Reference</strong> <code>/cmd</code></td>
+                 <td>Browse the command catalog in the left sidebar (shell scripts + Python modules). Select a command to see what it does and the expected output, then click <strong>Copy</strong> and run it in your own terminal. Read-only &#8212; nothing runs in the browser.</td>
+                 <td><a href="#cmd-terminal" style="color:var(--accent)">Command Reference</a></td>
                </tr>
              </tbody>
            </table></div>
@@ -4083,7 +4077,7 @@ cd AETHERIX
 
          <!-- MOCK: CMD Terminal -->
          <div class="usage-guide-box" style="margin-top:16px">
-           <strong>CMD Terminal</strong> &#8212; Browse the command catalog in the left sidebar (grouped by Shell Scripts, Python Modules, etc.). Select a command, optionally type extra arguments, click <strong>Run</strong>. Output streams in real-time via Server-Sent Events. Click <strong>Stop</strong> to abort a running command. This is the same as running the scripts from your terminal, but in the browser.
+           <strong>Command Reference</strong> &#8212; Browse the command catalog in the left sidebar (grouped by Shell Scripts, Python Modules, etc.). Select a command to see what it does and the output to expect, then click <strong>Copy</strong> and run it in your own terminal from the project root. It's a safe read-only reference &#8212; nothing is executed by the browser or the server.
          </div>
          <div class="card" style="padding:0;overflow:hidden">
            <div class="mock-browser">

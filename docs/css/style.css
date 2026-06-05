@@ -2479,7 +2479,7 @@ body.pres-active .presentation-mode {
 .quiz-question-card {
     max-width: 800px;
     margin: 0 auto;
-    animation: quizSlideIn 0.35s var(--ease-out);
+    animation: quizSlideIn 0.35s var(--ease-out) forwards;
 }
 
 @keyframes quizSlideIn {
@@ -2991,7 +2991,10 @@ body.pres-active .presentation-mode {
 
 /* Animate-in for cards */
 .animate-in {
-    animation: quizSlideIn 0.35s var(--ease-out);
+    /* `forwards` retains the end state (opacity:1); the base `.animate-in` rule
+       sets opacity:0, so without a forwards fill every animate-in element snaps
+       back to invisible once the animation ends. */
+    animation: quizSlideIn 0.35s var(--ease-out) forwards;
 }
 
 /* Usage page interface tabs */

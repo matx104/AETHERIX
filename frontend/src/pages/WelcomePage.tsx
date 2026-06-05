@@ -6,7 +6,7 @@ const FEATURES = [
   { icon: "◎", title: "Orbital Mechanics", desc: "Earth–Mars distance timeline, light-time delay explorer, and synodic period visualization with true anomaly slider.", page: "/orbital", showcase: "orbital" },
   { icon: "⚷", title: "QKD Security", desc: "BB84 and E91 quantum key distribution simulation. QBER analysis, eavesdropper detection, and session history.", page: "/security", showcase: "qkd" },
   { icon: "▶", title: "Simulations", desc: "Create and manage simulation runs with reproducible seeds and scenarios. End-to-end network simulation engine.", page: "/simulations", showcase: "simulation" },
-  { icon: "⌘", title: "CMD Terminal", desc: "Server-side command execution with real-time SSE streaming. Run scripts, tests, and all 16 Python module demos.", page: "/cmd", showcase: "cmd-terminal" },
+  { icon: "⌘", title: "Command Reference", desc: "Copy-and-run reference for every script and module demo, with what each does and the output to expect.", page: "/cmd", showcase: "cmd-terminal" },
 ];
 
 const QUICK_LINKS = [

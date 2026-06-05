@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { InfoBubble } from "../components/InfoBubble";
-import { FieldInfo } from "../components/FieldInfo";
 
 const API_BASE = import.meta.env.VITE_API_URL || "/api";
 
@@ -9,125 +8,48 @@ interface CommandInfo {
   label: string;
   description: string;
   cmd: string;
+  expected: string;
   icon: string;
   category: string;
   category_label: string;
 }
 
 interface Catalog {
-  categories: Record<
-    string,
-    { label: string; commands: CommandInfo[] }
-  >;
+  categories: Record<string, { label: string; commands: CommandInfo[] }>;
   total: number;
-}
-
-interface OutputLine {
-  type: string;
-  text?: string;
-  exit_code?: number;
 }
 
 export function CmdPage() {
   const [catalog, setCatalog] = useState<Catalog | null>(null);
   const [selected, setSelected] = useState<CommandInfo | null>(null);
-  const [output, setOutput] = useState<OutputLine[]>([]);
-  const [running, setRunning] = useState(false);
-  const [customArgs, setCustomArgs] = useState("");
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const termRef = useRef<HTMLDivElement>(null);
-  const abortRef = useRef<AbortController | null>(null);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     fetch(`${API_BASE}/cmd/catalog`)
       .then((r) => r.json())
-      .then(setCatalog)
+      .then((cat: Catalog) => {
+        setCatalog(cat);
+        const first = Object.values(cat.categories)[0]?.commands[0];
+        if (first) setSelected({ ...first });
+      })
       .catch(() => {});
   }, []);
 
-  useEffect(() => {
-    if (termRef.current) {
-      termRef.current.scrollTop = termRef.current.scrollHeight;
-    }
-  }, [output]);
-
-  const run = async (cmd: CommandInfo) => {
-    if (running) return;
-    setSelected(cmd);
-    setOutput([{ type: "meta", text: `$ ${cmd.cmd}${customArgs ? " " + customArgs : ""}` }]);
-    setRunning(true);
-
-    const abort = new AbortController();
-    abortRef.current = abort;
-
+  const copyCmd = async (cmd: string) => {
     try {
-      const qs = customArgs ? `?args=${encodeURIComponent(customArgs)}` : "";
-      const res = await fetch(`${API_BASE}/cmd/run/${cmd.id}${qs}`, {
-        signal: abort.signal,
-      });
-      const reader = res.body?.getReader();
-      if (!reader) return;
-
-      const decoder = new TextDecoder();
-      let buffer = "";
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split("\n");
-        buffer = lines.pop() || "";
-        for (const line of lines) {
-          if (line.startsWith("data: ")) {
-            try {
-              const evt = JSON.parse(line.slice(6));
-              setOutput((prev) => [...prev, evt]);
-            } catch {}
-          }
-        }
-      }
-    } catch (e: unknown) {
-      if (e instanceof DOMException && e.name === "AbortError") {
-        setOutput((prev) => [...prev, { type: "error", text: "Aborted" }]);
-      } else {
-        setOutput((prev) => [...prev, { type: "error", text: String(e) }]);
-      }
-    } finally {
-      setRunning(false);
-      abortRef.current = null;
+      await navigator.clipboard.writeText(cmd);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      /* clipboard unavailable */
     }
-  };
-
-  const stop = () => {
-    abortRef.current?.abort();
-  };
-
-  const clearOutput = () => {
-    setOutput([]);
-    setSelected(null);
-  };
-
-  const lineColor = (line: OutputLine) => {
-    if (line.type === "error") return "var(--danger)";
-    if (line.type === "done" && line.exit_code === 0) return "var(--success)";
-    if (line.type === "done" && line.exit_code !== 0) return "var(--danger)";
-    if (line.type === "meta") return "var(--accent)";
-    return "var(--text-secondary)";
-  };
-
-  const linePrefix = (line: OutputLine) => {
-    if (line.type === "error") return "✗ ";
-    if (line.type === "done" && line.exit_code === 0) return "✓ ";
-    if (line.type === "done") return `✗ (exit ${line.exit_code}) `;
-    if (line.type === "meta") return "";
-    return "  ";
   };
 
   if (!catalog) {
     return (
       <>
         <div className="page-header">
-          <h2>Command Terminal</h2>
+          <h2>Command Reference</h2>
         </div>
         <div className="card">
           <p style={{ color: "var(--text-muted)" }}>Loading command catalog...</p>
@@ -141,189 +63,113 @@ export function CmdPage() {
   return (
     <>
       <div className="page-header">
-        <h2>Command Terminal</h2>
-        <p>Run scripts, tests, modules, and utilities from the web interface</p>
+        <h2>Command Reference</h2>
+        <p>Copy any command and run it in your own terminal — with what it does and the output to expect.</p>
       </div>
 
-      <InfoBubble title="Command Terminal" learnMoreUrl="https://matx104.github.io/AETHERIX/#cmd-terminal">
+      <InfoBubble title="Command Reference" learnMoreUrl="https://matx104.github.io/AETHERIX/#cmd-terminal">
         <p>
-          This terminal connects to the AETHERIX backend API and executes commands
-          server-side, streaming output in real-time via{" "}
-          <strong>Server-Sent Events (SSE)</strong>. It gives you full access to the
-          project's utility scripts and Python module demos without leaving the browser.
+          A reference for every AETHERIX script and module demo. Pick a command, read
+          what it does and what output to expect, then <strong>copy it</strong> and run
+          it in a terminal at the project root. Nothing is executed by the browser or
+          the server.
         </p>
         <p style={{ marginTop: 8 }}>
-          <strong>Shell Scripts:</strong> Initialize environments, run the 189-test
-          suite, lint code, and clean artifacts — the same scripts used in CI/CD.
-        </p>
-        <p style={{ marginTop: 8 }}>
-          <strong>Python Modules:</strong> Run all 16 module demos (optical/RF link
-          budgets, RL routing, QKD protocols, orbital mechanics, topology, radiation
-          simulation, and more) and see their output instantly.
+          <strong>Shell Scripts</strong> set up the environment, run the 189-test suite,
+          lint, and clean. <strong>Python modules</strong> are stdlib-only, so each demo
+          runs with a plain <code>python3 src/...</code> (no extra dependencies).
         </p>
       </InfoBubble>
 
-      <div className="grid" style={{ gridTemplateColumns: "280px 1fr" }}>
+      <div className="grid" style={{ gridTemplateColumns: "280px 1fr", alignItems: "start" }}>
         {/* Command sidebar */}
-        <div
-          style={{
-            maxHeight: "calc(100vh - 160px)",
-            overflowY: "auto",
-            paddingRight: 8,
-          }}
-        >
+        <div style={{ maxHeight: "calc(100vh - 160px)", overflowY: "auto", paddingRight: 8 }}>
           {catKeys.map((catKey) => {
             const cat = catalog.categories[catKey];
-            const isOpen = activeCategory === catKey || activeCategory === null;
             return (
-              <div key={catKey} style={{ marginBottom: 8 }}>
-                <button
-                  className="nav-item"
-                  style={{ fontWeight: 600, fontSize: 12, padding: "6px 8px" }}
-                  onClick={() =>
-                    setActiveCategory(activeCategory === catKey ? null : catKey)
-                  }
-                >
+              <div key={catKey} style={{ marginBottom: 12 }}>
+                <div style={{ fontWeight: 600, fontSize: 12, padding: "6px 8px", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 0.5 }}>
                   {cat.label} ({cat.commands.length})
-                </button>
-                {isOpen &&
-                  cat.commands.map((cmd) => (
-                    <button
-                      key={cmd.id}
-                      className="nav-item"
-                      style={{
-                        fontSize: 12,
-                        padding: "5px 8px 5px 16px",
-                        background:
-                          selected?.id === cmd.id
-                            ? "var(--accent-glow)"
-                            : "transparent",
-                        color:
-                          selected?.id === cmd.id
-                            ? "var(--accent)"
-                            : "var(--text-secondary)",
-                      }}
-                      onClick={() => {
-                        setSelected(cmd);
-                        setCustomArgs("");
-                      }}
-                      disabled={running}
-                    >
-                      {cmd.label}
-                    </button>
-                  ))}
+                </div>
+                {cat.commands.map((cmd) => (
+                  <button
+                    key={cmd.id}
+                    className="nav-item"
+                    style={{
+                      fontSize: 12,
+                      padding: "5px 8px 5px 16px",
+                      width: "100%",
+                      textAlign: "left",
+                      background: selected?.id === cmd.id ? "var(--accent-glow)" : "transparent",
+                      color: selected?.id === cmd.id ? "var(--accent)" : "var(--text-secondary)",
+                    }}
+                    onClick={() => setSelected({ ...cmd })}
+                  >
+                    {cmd.label}
+                  </button>
+                ))}
               </div>
             );
           })}
         </div>
 
-        {/* Terminal area */}
+        {/* Detail panel */}
         <div>
           {selected && (
-            <div className="card" style={{ marginBottom: 12, padding: 12 }}>
-              <div className="flex items-center justify-between">
-                <div>
-                  <strong>{selected.label}</strong>
-                  <span
-                    style={{
-                      marginLeft: 8,
-                      fontSize: 11,
-                      color: "var(--text-muted)",
-                    }}
-                  >
-                    {selected.description}
-                  </span>
-                </div>
-                <div className="flex gap-2">
-                  <FieldInfo>
-                    <strong>Extra arguments</strong> appended to the command after the base command.
-                    These are passed directly to the script/module. For example, you can pass
-                    flags like <code>-v</code> for verbose output or configuration overrides.
-                    Arguments are URL-encoded and sent to the backend via query string.
-                  </FieldInfo>
-                  <input
-                    value={customArgs}
-                    onChange={(e) => setCustomArgs(e.target.value)}
-                    placeholder="extra args..."
-                    style={{
-                      background: "var(--bg-input)",
-                      border: "1px solid var(--border)",
-                      borderRadius: "var(--radius)",
-                      color: "var(--text-primary)",
-                      padding: "4px 8px",
-                      fontSize: 12,
-                      fontFamily: "var(--font-mono)",
-                      width: 200,
-                    }}
-                    disabled={running}
-                  />
-                  {running ? (
-                    <button className="btn btn-danger btn-sm" onClick={stop}>
-                      Stop
-                    </button>
-                  ) : (
-                    <button
-                      className="btn btn-primary btn-sm"
-                      onClick={() => run(selected)}
-                    >
-                      Run
-                    </button>
-                  )}
-                  <button className="btn btn-secondary btn-sm" onClick={clearOutput}>
-                    Clear
-                  </button>
-                </div>
+            <div className="card">
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, flexWrap: "wrap" }}>
+                <strong style={{ fontSize: 16 }}>{selected.label}</strong>
+                <span style={{ fontSize: 11, color: "var(--text-muted)" }}>{selected.category_label}</span>
               </div>
-              <code
+
+              <p style={{ marginTop: 8, color: "var(--text-secondary)" }}>{selected.description}</p>
+
+              <div style={{ marginTop: 16, fontSize: 12, fontWeight: 600, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 0.5 }}>
+                Command
+              </div>
+              <div
                 style={{
-                  display: "block",
-                  marginTop: 8,
-                  fontSize: 12,
-                  color: "var(--text-muted)",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  marginTop: 6,
+                  background: "var(--bg-input)",
+                  border: "1px solid var(--border)",
+                  borderRadius: "var(--radius)",
+                  padding: "10px 12px",
                 }}
               >
-                $ {selected.cmd}
-                {customArgs ? ` ${customArgs}` : ""}
-              </code>
+                <code style={{ flex: 1, fontFamily: "var(--font-mono)", fontSize: 13, color: "var(--accent)", wordBreak: "break-all" }}>
+                  {selected.cmd}
+                </code>
+                <button className="btn btn-primary btn-sm" onClick={() => copyCmd(selected.cmd)} style={{ flexShrink: 0 }}>
+                  {copied ? "Copied!" : "Copy"}
+                </button>
+              </div>
+              <div style={{ marginTop: 6, fontSize: 11, color: "var(--text-muted)" }}>
+                Run from the project root.
+              </div>
+
+              <div style={{ marginTop: 16, fontSize: 12, fontWeight: 600, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 0.5 }}>
+                Expected output
+              </div>
+              <div
+                style={{
+                  marginTop: 6,
+                  background: "var(--bg-secondary)",
+                  border: "1px solid var(--border)",
+                  borderLeft: "3px solid var(--success)",
+                  borderRadius: "var(--radius)",
+                  padding: "10px 12px",
+                  color: "var(--text-secondary)",
+                  fontSize: 13,
+                  lineHeight: 1.6,
+                }}
+              >
+                {selected.expected}
+              </div>
             </div>
           )}
-
-          <div
-            ref={termRef}
-            style={{
-              background: "var(--bg-input)",
-              border: "1px solid var(--border)",
-              borderRadius: "var(--radius-lg)",
-              padding: 16,
-              minHeight: 400,
-              maxHeight: "calc(100vh - 340px)",
-              overflowY: "auto",
-              fontFamily: "var(--font-mono)",
-              fontSize: 13,
-              lineHeight: 1.6,
-            }}
-          >
-            {output.length === 0 ? (
-              <span style={{ color: "var(--text-muted)" }}>
-                Select a command from the sidebar and click Run.
-                {"\n"}
-                Output will stream here in real-time.
-              </span>
-            ) : (
-              output.map((line, i) => (
-                <div key={i} style={{ color: lineColor(line) }}>
-                  {line.type === "done"
-                    ? line.exit_code === 0
-                      ? "Process finished with exit code 0"
-                      : `Process exited with code ${line.exit_code}`
-                    : `${linePrefix(line)}${line.text || ""}`}
-                </div>
-              ))
-            )}
-            {running && (
-              <span style={{ color: "var(--accent)" }}>▌</span>
-            )}
-          </div>
         </div>
       </div>
     </>

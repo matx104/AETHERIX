@@ -626,20 +626,20 @@ window.QuizEngine = (function () {
         '<div class="grid grid-2" style="margin-bottom:1.5rem">' +
           '<div class="card" style="background:var(--bg-glass)">' +
             '<h3 style="color:var(--quantum)">Score Trend</h3>' +
-            '<canvas id="quiz-trend-chart" height="200"></canvas>' +
+            '<div class="chart-container" style="height:240px"><canvas id="quiz-trend-chart"></canvas></div>' +
           "</div>" +
           '<div class="card" style="background:var(--bg-glass)">' +
             '<h3 style="color:var(--quantum)">Topic Radar</h3>' +
-            '<canvas id="quiz-radar-chart" height="200"></canvas>' +
+            '<div class="chart-container" style="height:240px"><canvas id="quiz-radar-chart"></canvas></div>' +
           "</div>" +
         "</div>" +
         '<div class="card" style="background:var(--bg-glass);margin-bottom:1rem">' +
           '<h3 style="color:var(--quantum)">Activity</h3>' +
-          '<canvas id="quiz-activity-chart" height="120"></canvas>' +
+          '<div class="chart-container" style="height:160px"><canvas id="quiz-activity-chart"></canvas></div>' +
         "</div>" +
         '<div class="card" style="background:var(--bg-glass)">' +
           '<h3 style="color:var(--quantum)">Topic Breakdown</h3>' +
-          '<canvas id="quiz-topic-bar-chart" height="160"></canvas>' +
+          '<div class="chart-container" style="height:220px"><canvas id="quiz-topic-bar-chart"></canvas></div>' +
         "</div>" +
       "</div>";
 
@@ -1431,7 +1431,7 @@ window.QuizEngine = (function () {
 
       '<div class="card" style="margin-top:1rem">' +
         '<h3 style="color:var(--quantum)">Session Performance</h3>' +
-        '<canvas id="quiz-session-chart" height="160"></canvas>' +
+        '<div class="chart-container" style="height:220px"><canvas id="quiz-session-chart"></canvas></div>' +
       "</div>";
 
     show("quiz-results");

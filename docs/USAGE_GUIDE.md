@@ -40,16 +40,16 @@ cd AETHERIX
 | **Orbital** | Distance timeline, light-time delay, contact windows |
 | **QKD Security** | BB84/E91 simulation, QBER analysis, session history |
 | **Simulations** | Create/manage simulation runs with seeds |
-| **CMD Terminal** | Run scripts, tests, and modules from the browser |
+| **Command Reference** | Copy the exact command for any script/module, with expected output |
 
-### CMD Terminal
+### Command Reference
 
-The CMD page streams output from 23 commands in real-time via Server-Sent Events:
+The Command Reference page is a read-only catalog of all 23 commands. For each one it shows the exact command to copy, what it does, and the output to expect:
 
 - **Shell Scripts**: init, test, lint, clean (with variants)
 - **Python Modules**: all 16 module demos (link budget, routing, QKD, orbital, simulation)
 
-Select a command from the sidebar, optionally add extra arguments, and click Run. Output appears in the terminal panel as it's generated.
+Select a command from the sidebar, read the description and expected output, then click **Copy** and run it in your own terminal from the project root. Nothing is executed by the browser or the server.
 
 ### PM2 Management
 

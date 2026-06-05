@@ -1,78 +1,66 @@
-import asyncio
-import json
-import os
-import subprocess
-import sys
-from pathlib import Path
-from typing import Optional
+"""Command catalog (read-only).
 
-from fastapi import APIRouter, Query
-from fastapi.responses import StreamingResponse
+This router exposes a *reference* catalog of the project's scripts and module
+demos: for each command it returns the exact shell command to copy/paste, a
+description of what it does, and a summary of the expected output. It does NOT
+execute anything server-side — commands are meant to be run by the user in
+their own terminal. (An earlier version executed commands via an unauthenticated
+SSE endpoint; that was removed to eliminate the remote-execution / CSRF surface.)
+"""
+
+from pathlib import Path
+
+from fastapi import APIRouter, HTTPException
 
 router = APIRouter(prefix="/cmd", tags=["cmd"])
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
-VENV_PYTHON = str(PROJECT_ROOT / "venv" / "bin" / "python3")
 
 CATEGORIES = {
     "scripts": {
         "label": "Shell Scripts",
         "commands": [
             {
-                "id": "init",
-                "label": "Initialize Environment",
-                "description": "Set up virtual environment and install dependencies",
+                "id": "init", "label": "Initialize Environment", "icon": "setup",
                 "cmd": "./scripts/init.sh",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "setup",
+                "description": "Creates a Python virtual environment and installs runtime dependencies (pytest).",
+                "expected": "Progress messages while the venv is created and pip installs packages, ending with a confirmation that the environment is ready.",
             },
             {
-                "id": "init-dev",
-                "label": "Initialize (Dev Mode)",
-                "description": "Set up venv with dev tools (linting, formatting)",
+                "id": "init-dev", "label": "Initialize (Dev Mode)", "icon": "setup",
                 "cmd": "./scripts/init.sh --dev",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "setup",
+                "description": "Same as init, plus developer tooling (ruff, black, isort, mypy, pytest-cov).",
+                "expected": "Venv created and both runtime and dev dependencies installed; ends with a 'dev environment ready' style message.",
             },
             {
-                "id": "test",
-                "label": "Run Test Suite",
-                "description": "Run all 189 tests",
+                "id": "test", "label": "Run Test Suite", "icon": "test",
                 "cmd": "./scripts/run_tests.sh",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "test",
+                "description": "Runs the full pytest suite across all 12 test files.",
+                "expected": "A row of dots for passing tests, ending with '189 passed in <n>s'.",
             },
             {
-                "id": "test-verbose",
-                "label": "Run Tests (Verbose)",
-                "description": "Run tests with verbose output",
+                "id": "test-verbose", "label": "Run Tests (Verbose)", "icon": "test",
                 "cmd": "./scripts/run_tests.sh -v",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "test",
+                "description": "Runs the test suite with one line per test case.",
+                "expected": "Each test id printed with PASSED, ending with '189 passed'.",
             },
             {
-                "id": "lint",
-                "label": "Code Quality Check",
-                "description": "Run ruff linter and style checks",
+                "id": "lint", "label": "Code Quality Check", "icon": "lint",
                 "cmd": "./scripts/lint.sh",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "lint",
+                "description": "Runs ruff and PEP 8 style checks (read-only, no changes).",
+                "expected": "'All checks passed!' when clean, or a list of files/lines with style findings.",
             },
             {
-                "id": "lint-fix",
-                "label": "Auto-Fix Code Style",
-                "description": "Auto-fix code style issues",
+                "id": "lint-fix", "label": "Auto-Fix Code Style", "icon": "lint",
                 "cmd": "./scripts/lint.sh --fix",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "lint",
+                "description": "Auto-formats and fixes style issues in place (ruff/black/isort).",
+                "expected": "A summary of files reformatted and issues fixed.",
             },
             {
-                "id": "clean",
-                "label": "Clean Artifacts",
-                "description": "Clean build artifacts and caches",
+                "id": "clean", "label": "Clean Artifacts", "icon": "clean",
                 "cmd": "./scripts/clean.sh",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "clean",
+                "description": "Removes __pycache__, .pytest_cache, and build artifacts.",
+                "expected": "A list of removed directories/files, ending with a 'cleaned' confirmation.",
             },
         ],
     },
@@ -80,139 +68,107 @@ CATEGORIES = {
         "label": "Python Modules",
         "commands": [
             {
-                "id": "mod-link-budget",
-                "label": "Optical Link Budget",
-                "description": "Optical link budget calculations",
-                "cmd": f"{VENV_PYTHON} src/infrastructure/link_budget.py",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "link",
+                "id": "mod-link-budget", "label": "Optical Link Budget", "icon": "link",
+                "cmd": "python3 src/infrastructure/link_budget.py",
+                "description": "Computes the 1550 nm optical link budget for Earth–Mars at min/avg/max distance.",
+                "expected": "A table of EIRP, free-space path loss, received power and link margin (dB) for each distance scenario.",
             },
             {
-                "id": "mod-rf-budget",
-                "label": "RF Link Budget",
-                "description": "RF link budget (Ka/X/S/UHF bands)",
-                "cmd": f"{VENV_PYTHON} src/infrastructure/rf_link_budget.py",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "link",
+                "id": "mod-rf-budget", "label": "RF Link Budget", "icon": "link",
+                "cmd": "python3 src/infrastructure/rf_link_budget.py",
+                "description": "Computes RF link budgets across the Ka, X, S and UHF bands.",
+                "expected": "Per-band link-budget breakdown with gains, losses and resulting margin.",
             },
             {
-                "id": "mod-rl-agent",
-                "label": "RL Routing Agent",
-                "description": "Reinforcement learning routing demo",
-                "cmd": f"{VENV_PYTHON} src/routing/rl_agent.py",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "routing",
+                "id": "mod-rl-agent", "label": "RL Routing Agent", "icon": "routing",
+                "cmd": "python3 src/routing/rl_agent.py",
+                "description": "Q-learning routing agent making epsilon-greedy forwarding decisions.",
+                "expected": "Observed network states, chosen actions and Q-values as the agent routes sample bundles.",
             },
             {
-                "id": "mod-bundle",
-                "label": "Bundle Protocol",
-                "description": "BPv7 bundle protocol demo",
-                "cmd": f"{VENV_PYTHON} src/routing/bundle.py",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "bundle",
+                "id": "mod-bundle", "label": "Bundle Protocol", "icon": "bundle",
+                "cmd": "python3 src/routing/bundle.py",
+                "description": "Creates a BPv7 bundle and prints its primary block and metadata.",
+                "expected": "'Created: Bundle[…] mars.surface.rover-01 -> earth.control.moc …' followed by the serialized bundle fields.",
             },
             {
-                "id": "mod-forwarding",
-                "label": "Store-and-Forward Engine",
-                "description": "DTN forwarding engine demo",
-                "cmd": f"{VENV_PYTHON} src/routing/forwarding_engine.py",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "routing",
+                "id": "mod-forwarding", "label": "Store-and-Forward Engine", "icon": "routing",
+                "cmd": "python3 src/routing/forwarding_engine.py",
+                "description": "DTN store-and-forward engine with a priority queue and custody tracking.",
+                "expected": "Bundles enqueued by priority, custody-accept/forward events, and a final delivery summary.",
             },
             {
-                "id": "mod-prioritization",
-                "label": "Priority Scheduler",
-                "description": "Data prioritization scheduler demo",
-                "cmd": f"{VENV_PYTHON} src/routing/prioritization.py",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "routing",
+                "id": "mod-prioritization", "label": "Priority Scheduler", "icon": "routing",
+                "cmd": "python3 src/routing/prioritization.py",
+                "description": "Mission data prioritization: compression, deadline-aware QoS scheduling, emergency preemption.",
+                "expected": "A compression-ratio table, a prioritized schedule (5/6 delivered, ~100% link use, bulk fragmented), and an emergency-preemption log.",
             },
             {
-                "id": "mod-training",
-                "label": "RL Training Loop",
-                "description": "Reinforcement learning training demo",
-                "cmd": f"{VENV_PYTHON} src/routing/training.py",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "routing",
+                "id": "mod-training", "label": "RL Training Loop", "icon": "routing",
+                "cmd": "python3 src/routing/training.py",
+                "description": "Trains the RL routing agent over many simulated episodes.",
+                "expected": "Per-episode reward trending upward with a convergence message once the policy stabilizes.",
             },
             {
-                "id": "mod-qkd",
-                "label": "QKD Protocol (BB84/E91)",
-                "description": "Quantum key distribution simulation",
-                "cmd": f"{VENV_PYTHON} src/security/qkd.py",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "security",
+                "id": "mod-qkd", "label": "QKD Protocol (BB84/E91)", "icon": "security",
+                "cmd": "python3 src/security/qkd.py",
+                "description": "Runs the BB84 and E91 quantum key distribution protocols.",
+                "expected": "Sifted key length and QBER, with a 'secure' verdict when QBER < 11% (and 'eavesdropper detected' above it).",
             },
             {
-                "id": "mod-repeater",
-                "label": "Quantum Repeater Chain",
-                "description": "Multi-hop quantum repeater demo",
-                "cmd": f"{VENV_PYTHON} src/security/repeater_chain.py",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "security",
+                "id": "mod-repeater", "label": "Quantum Repeater Chain", "icon": "security",
+                "cmd": "python3 src/security/repeater_chain.py",
+                "description": "Multi-hop quantum repeater chain using entanglement swapping.",
+                "expected": "Per-hop entanglement swapping steps and the resulting end-to-end fidelity over the chain.",
             },
             {
-                "id": "mod-privacy",
-                "label": "Privacy Amplification",
-                "description": "CASCADE reconciliation demo",
-                "cmd": f"{VENV_PYTHON} src/security/privacy_amplification.py",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "security",
+                "id": "mod-privacy", "label": "Privacy Amplification", "icon": "security",
+                "cmd": "python3 src/security/privacy_amplification.py",
+                "description": "CASCADE reconciliation, universal hashing and the Csiszár–Körner bound.",
+                "expected": "Reconciliation rounds, estimated leaked bits, and the final secure key length after amplification.",
             },
             {
-                "id": "mod-contact",
-                "label": "Contact Windows",
-                "description": "Contact window prediction",
-                "cmd": f"{VENV_PYTHON} src/orbital/contact_windows.py",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "orbital",
+                "id": "mod-contact", "label": "Contact Windows", "icon": "orbital",
+                "cmd": "python3 src/orbital/contact_windows.py",
+                "description": "Predicts Earth–Mars communication windows over the synodic period.",
+                "expected": "Distance and one-way light time, a list of contact windows, and the solar-conjunction blackout period.",
             },
             {
-                "id": "mod-doppler",
-                "label": "Doppler Shift",
-                "description": "Classical and relativistic Doppler calculations",
-                "cmd": f"{VENV_PYTHON} src/orbital/doppler.py",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "orbital",
+                "id": "mod-doppler", "label": "Doppler Shift", "icon": "orbital",
+                "cmd": "python3 src/orbital/doppler.py",
+                "description": "Classical and relativistic Doppler shift for a given relative velocity.",
+                "expected": "Classical and relativistic frequency-shift values and the difference between them.",
             },
             {
-                "id": "mod-topology",
-                "label": "Network Topology",
-                "description": "5-tier network topology (241 nodes)",
-                "cmd": f"{VENV_PYTHON} src/orbital/topology.py",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "orbital",
+                "id": "mod-topology", "label": "Network Topology", "icon": "orbital",
+                "cmd": "python3 src/orbital/topology.py",
+                "description": "Builds the full 5-tier, 241-node interplanetary topology.",
+                "expected": "A per-tier node count summary totaling 241 nodes across the five tiers.",
             },
             {
-                "id": "mod-radiation",
-                "label": "Radiation Hardening",
-                "description": "Radiation tolerance simulation",
-                "cmd": f"{VENV_PYTHON} src/computing/radiation.py",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "sim",
+                "id": "mod-radiation", "label": "Radiation Hardening", "icon": "sim",
+                "cmd": "python3 src/computing/radiation.py",
+                "description": "Radiation effects and mitigation over an Earth–Mars transit (SEU/TID, TMR, ECC, scrubbing, FDIR).",
+                "expected": "A transit summary (~37,000 raw upsets reduced to ~186 uncorrectable, ~200× protection), a TMR reliability table, and an FDIR watchdog walkthrough.",
             },
             {
-                "id": "mod-simulator",
-                "label": "Simulation Engine",
-                "description": "Full simulation engine",
-                "cmd": f"{VENV_PYTHON} src/simulation/simulator.py",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "sim",
+                "id": "mod-simulator", "label": "Simulation Engine", "icon": "sim",
+                "cmd": "python3 src/simulation/simulator.py",
+                "description": "End-to-end mission simulation integrating topology, forwarding and bundles.",
+                "expected": "A simulated Earth–Mars run with delivery metrics (delay, hops, delivery ratio).",
             },
             {
-                "id": "mod-policy",
-                "label": "Policy Engine",
-                "description": "Policy-based routing engine",
-                "cmd": f"{VENV_PYTHON} src/simulation/policy_engine.py",
-                "cwd": str(PROJECT_ROOT),
-                "icon": "sim",
+                "id": "mod-policy", "label": "Policy Engine", "icon": "sim",
+                "cmd": "python3 src/simulation/policy_engine.py",
+                "description": "Applies the 5 default routing policies (congestion control, emergency fast-path, etc.).",
+                "expected": "Each policy listed with the routing decisions it produces for sample traffic.",
             },
         ],
     },
 }
 
 
-def _build_flat_index() -> dict[str, dict]:
+def _build_flat_index() -> dict:
     index = {}
     for cat_key, cat in CATEGORIES.items():
         for cmd in cat["commands"]:
@@ -225,6 +181,7 @@ _FLAT = _build_flat_index()
 
 @router.get("/catalog")
 def get_catalog():
+    """Return the full command reference catalog (read-only)."""
     return {
         "categories": {
             k: {"label": v["label"], "commands": v["commands"]}
@@ -236,69 +193,7 @@ def get_catalog():
 
 @router.get("/catalog/{cmd_id}")
 def get_command(cmd_id: str):
+    """Return a single command's reference entry."""
     if cmd_id not in _FLAT:
-        from fastapi import HTTPException
         raise HTTPException(404, f"Command '{cmd_id}' not found")
     return _FLAT[cmd_id]
-
-
-@router.get("/run/{cmd_id}")
-async def run_command(cmd_id: str, args: Optional[str] = Query(default=None)):
-    if cmd_id not in _FLAT:
-        from fastapi import HTTPException
-        raise HTTPException(404, f"Command '{cmd_id}' not found")
-
-    entry = _FLAT[cmd_id]
-    base_cmd = entry["cmd"]
-    extra = args.split() if args else []
-
-    async def stream():
-        yield f"data: {json.dumps({'type': 'meta', 'text': f'$ {base_cmd}' + (' ' + args if args else '')})}\n\n"
-
-        if base_cmd.startswith("./"):
-            cmd_list = ["bash", base_cmd] + extra
-        else:
-            cmd_list = base_cmd.split() + extra
-
-        try:
-            proc = await asyncio.create_subprocess_exec(
-                *cmd_list,
-                stdout=asyncio.subprocess.PIPE,
-                stderr=asyncio.subprocess.STDOUT,
-                cwd=entry["cwd"],
-                env={**os.environ, "PYTHONUNBUFFERED": "1", "TERM": "dumb"},
-            )
-        except Exception as exc:
-            yield f"data: {json.dumps({'type': 'error', 'text': str(exc)})}\n\n"
-            return
-
-        buf = b""
-        try:
-            while True:
-                chunk = await proc.stdout.read(512)
-                if not chunk:
-                    break
-                buf += chunk
-                while b"\n" in buf:
-                    line, buf = buf.split(b"\n", 1)
-                    text = line.decode("utf-8", errors="replace")
-                    yield f"data: {json.dumps({'type': 'stdout', 'text': text})}\n\n"
-            if buf:
-                text = buf.decode("utf-8", errors="replace")
-                yield f"data: {json.dumps({'type': 'stdout', 'text': text})}\n\n"
-        except asyncio.CancelledError:
-            proc.kill()
-            return
-
-        rc = await proc.wait()
-        yield f"data: {json.dumps({'type': 'done', 'exit_code': rc})}\n\n"
-
-    return StreamingResponse(
-        stream(),
-        media_type="text/event-stream",
-        headers={
-            "Cache-Control": "no-cache",
-            "Connection": "keep-alive",
-            "X-Accel-Buffering": "no",
-        },
-    )
