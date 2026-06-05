@@ -62,7 +62,7 @@ This document outlines the network topology architecture for the AETHERIX Mars i
 - Long contact periods (months to years)
 - Optical/RF dual mode
 - Bundle protocol store-and-forward capability
-- Light-time delay: 4-24 minutes (variable)
+- Light-time delay: 3-22 minutes (variable)
 
 #### Tier 4: Mars Orbital Assets
 **Primary Relay Satellites:**
@@ -107,7 +107,7 @@ This document outlines the network topology architecture for the AETHERIX Mars i
 |------------|------------------|-----------|--------------|---------|
 | Earth Ground | Earth GEO | RF/Optical | 99.9% | ~120 ms |
 | Earth GEO | Earth LEO | Optical ISL | 95% | ~10 ms |
-| Earth Ground | Mars Orbit | Optical/RF | 85% (solar conj.) | 4-24 min |
+| Earth Ground | Mars Orbit | Optical/RF | 85% (solar conj.) | 3-22 min |
 | Earth Ground | Deep Space Relay | Optical | 90% | 2-20 min |
 | Deep Space Relay | Mars Orbit | Optical | 95% | 2-10 min |
 | Mars Orbit | Mars Surface | RF/Optical | 70-90% | 2-40 ms |

@@ -133,13 +133,15 @@ AETHERIX/
 
 ## Standards Compliance
 
-The project follows these standards:
-- **CCSDS 734.2-B-1**: DTN Architecture
-- **CCSDS 735.1-B-1**: Bundle Protocol
-- **CCSDS 142.0-B-2**: LNIS v5 (Space Link Identifiers)
-- **CCSDS 141.0-B-1**: Optical Communications
-- **RFC 9171**: Bundle Protocol Version 7
+The project follows these standards (titles verified against public.ccsds.org /
+rfc-editor.org — see `docs/FACT_CHECK_REPORT.md`):
+- **RFC 9171**: Bundle Protocol Version 7 (BPv7)
+- **RFC 4838**: Delay-Tolerant Networking Architecture
 - **RFC 5326**: Licklider Transmission Protocol (LTP)
+- **RFC 9172**: Bundle Protocol Security (BPSec)
+- **CCSDS 734.2-B-1**: CCSDS Bundle Protocol Specification
+- **CCSDS 734.3-B-1**: Schedule-Aware Bundle Routing (SABR) — the static-routing baseline AETHERIX's RL agent replaces
+- **CCSDS 141.0-B-1**: Optical Communications Physical Layer
 
 ## Implemented Modules
 

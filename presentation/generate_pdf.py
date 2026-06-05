@@ -417,11 +417,12 @@ for i, step in enumerate(steps):
 
 draw_text(c, "STANDARDS COMPLIANCE", 480, PAGE_H - 260, size=12, color=GREEN, bold=True)
 standards = [
-    "CCSDS 734.2-B-1 \u2014 DTN Architecture",
-    "CCSDS 735.1-B-1 \u2014 Bundle Protocol",
     "RFC 9171 \u2014 Bundle Protocol Version 7",
+    "RFC 4838 \u2014 DTN Architecture",
     "RFC 5326 \u2014 Licklider Transmission Protocol",
-    "RFC 7242 \u2014 TCP Convergence Layer",
+    "RFC 9172 \u2014 Bundle Protocol Security (BPSec)",
+    "CCSDS 734.2-B-1 \u2014 CCSDS Bundle Protocol",
+    "CCSDS 734.3-B-1 \u2014 Schedule-Aware Bundle Routing",
 ]
 for i, s in enumerate(standards):
     draw_text(c, s, 480, PAGE_H - 288 - 18 * i, size=9, color=LIGHT_GRAY)
@@ -969,11 +970,12 @@ for i, mod in enumerate(modules):
 
 std_data = [
     ["Standard", "Title", "Status"],
-    ["CCSDS 734.2-B-1", "DTN Architecture", "Compliant"],
-    ["CCSDS 735.1-B-1", "Bundle Protocol", "Compliant"],
-    ["CCSDS 141.0-B-1", "Optical Comm Physical", "Compliant"],
-    ["CCSDS 142.0-B-2", "Space Link ID (LNIS v5)", "Compliant"],
     ["RFC 9171", "Bundle Protocol v7", "Compliant"],
+    ["RFC 4838", "DTN Architecture", "Compliant"],
+    ["CCSDS 734.2-B-1", "CCSDS Bundle Protocol", "Compliant"],
+    ["CCSDS 734.3-B-1", "SABR / contact routing", "Baseline"],
+    ["CCSDS 141.0-B-1", "Optical Comm Physical", "Compliant"],
+    ["RFC 9172", "BPSec (security)", "Referenced"],
     ["RFC 5326", "LTP (deep space)", "Compliant"],
     ["RFC 7242", "TCPCL (Earth)", "Compliant"],
 ]

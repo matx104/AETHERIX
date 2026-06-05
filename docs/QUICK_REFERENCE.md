@@ -310,7 +310,7 @@ mars.surface.weather-001    # Weather station
 ## Troubleshooting Quick Guide
 
 ### High Latency (>30 min end-to-end)
-- ✓ Check Earth-Mars distance (expect 4-24 min light time)
+- ✓ Check Earth-Mars distance (expect 3-22 min light time)
 - ✓ Verify no excessive buffering at relays
 - ✓ Check RL agent routing decisions
 - ✓ Ensure priority setting correct

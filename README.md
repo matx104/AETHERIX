@@ -14,7 +14,7 @@
 [![License](https://img.shields.io/badge/License-Research-00d4aa?style=for-the-badge)](LICENSE)
 [![DTN](https://img.shields.io/badge/Protocol-Bundle_v7-f9ca24?style=for-the-badge)](https://www.rfc-editor.org/rfc/rfc9171.html)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/)
-[![Tests](https://img.shields.io/badge/Tests-149_passing-00d4aa?style=for-the-badge)]()
+[![Tests](https://img.shields.io/badge/Tests-189_passing-00d4aa?style=for-the-badge)]()
 
 <br/>
 
@@ -133,6 +133,8 @@ AETHERIX is a comprehensive **AI-driven, quantum-secure space operations platfor
 | `src/orbital/topology.py` | ✅ | Full 5-tier network topology (241 nodes) |
 | `src/simulation/simulator.py` | ✅ | Simulation engine integrating topology, forwarding & bundles |
 | `src/simulation/policy_engine.py` | ✅ | 5 default routing policies (congestion control, emergency fast-path, etc.) |
+| `src/computing/radiation.py` | ✅ | Radiation-hardened computing: SEU/SEL/TID, TMR, SECDED ECC, scrubbing, FDIR |
+| `src/routing/prioritization.py` | ✅ | Mission data prioritization: 4-tier QoS, CCSDS compression, deadline scheduler |
 | `demos/` | ✅ | Interactive demonstration suite |
 
 <br/>
@@ -143,9 +145,9 @@ AETHERIX is a comprehensive **AI-driven, quantum-secure space operations platfor
 
 <div align="center">
 
-![Tests](https://img.shields.io/badge/Total_Tests-149-brightgreen?style=for-the-badge)
+![Tests](https://img.shields.io/badge/Total_Tests-189-brightgreen?style=for-the-badge)
 ![Passing](https://img.shields.io/badge/Pass_Rate-100%25-brightgreen?style=for-the-badge)
-![Files](https://img.shields.io/badge/Test_Files-10-blue?style=for-the-badge)
+![Files](https://img.shields.io/badge/Test_Files-12-blue?style=for-the-badge)
 
 </div>
 
@@ -161,6 +163,8 @@ AETHERIX is a comprehensive **AI-driven, quantum-secure space operations platfor
 | `tests/test_quantum_extended.py` | Repeater chains & privacy amplification | ✅ |
 | `tests/test_orbital.py` | Orbital mechanics, Doppler, celestial bodies | ✅ |
 | `tests/test_policy_engine.py` | Routing policy engine | ✅ |
+| `tests/test_radiation.py` | Radiation effects, TMR, SECDED ECC, scrubbing, FDIR | ✅ |
+| `tests/test_prioritization.py` | Data prioritization, compression, QoS scheduler | ✅ |
 
 <br/>
 
@@ -205,7 +209,7 @@ The AETHERIX network implements a **5-tier hierarchical, delay-tolerant architec
 │         └───────────────────┬┴──────────────────┬─┘                 │
 │             LEO Laser Constellation (48 satellites)                  │
 └─────────────────────────────┼────────────────────────────────────────┘
-                              │ ⚡ Optical/RF Links (4-24 min)
+                              │ ⚡ Optical/RF Links (3-22 min)
                               ▼
 ┌─────────────────────────────────────────────────────────────────────┐
 │                 🌌 Tier 3: Deep Space Transit Relays                 │
@@ -239,7 +243,7 @@ The AETHERIX network implements a **5-tier hierarchical, delay-tolerant architec
 | Link Segment | Data Rate | Latency | Availability |
 |:-------------|:---------:|:-------:|:------------:|
 | 🌍 Earth Ground ↔ Earth Orbit | 1-100 Gbps | ~120 ms | 99.9% |
-| 🌍↔🔴 Earth ↔ Mars (optical) | 2-200 Mbps | 4-24 min | 85-95% |
+| 🌍↔🔴 Earth ↔ Mars (optical) | 2-200 Mbps | 3-22 min | 85-95% |
 | 🔴 Mars Orbit ↔ Mars Surface | 2-100 Mbps | 2-40 ms | 70-90% |
 | 🛰️ Inter-Satellite Links (ISL) | 1-10 Gbps | 1-10 ms | 98% |
 
@@ -515,13 +519,14 @@ AETHERIX/
 
 | Standard | Description | Status |
 |----------|-------------|:------:|
-| CCSDS 734.2-B-1 | DTN Architecture | ✅ |
-| CCSDS 735.1-B-1 | Bundle Protocol | ✅ |
-| CCSDS 142.0-B-2 | LNIS v5 | ✅ |
-| CCSDS 141.0-B-1 | Optical Communications | ✅ |
-| RFC 9171 | Bundle Protocol Version 7 | ✅ |
-| RFC 5326 | Licklider Transmission Protocol | ✅ |
-| RFC 7242 | TCP Convergence Layer | ✅ |
+| RFC 9171 | Bundle Protocol Version 7 (BPv7) | ✅ |
+| RFC 4838 | Delay-Tolerant Networking Architecture | ✅ |
+| RFC 5326 | Licklider Transmission Protocol (LTP) | ✅ |
+| RFC 9172 | Bundle Protocol Security (BPSec) | ✅ |
+| RFC 7242 | DTN TCP Convergence Layer | ✅ |
+| CCSDS 734.2-B-1 | CCSDS Bundle Protocol Specification | ✅ |
+| CCSDS 734.3-B-1 | Schedule-Aware Bundle Routing (SABR) — RL baseline | ✅ |
+| CCSDS 141.0-B-1 | Optical Communications Physical Layer | ✅ |
 
 <br/>
 

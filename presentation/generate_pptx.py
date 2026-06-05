@@ -515,7 +515,7 @@ for j, step in enumerate(snf_steps):
 
 standards_y = Inches(6.2)
 standards_card = add_card(slide, Inches(0.7), standards_y, Inches(11.6), Inches(0.7), border=ACCENT_BLUE)
-add_textbox(slide, Inches(0.9), standards_y + Inches(0.1), Inches(11.2), Inches(0.5), "Standards: RFC 9171 (BPv7)  •  RFC 5326 (LTP)  •  CCSDS 734.2-B-1 (DTN Arch)  •  CCSDS 735.1-B-1 (BP)  •  CCSDS 142.0-B-2 (Space Link IDs)", font_size=11, color=ACCENT_BLUE, alignment=PP_ALIGN.CENTER)
+add_textbox(slide, Inches(0.9), standards_y + Inches(0.1), Inches(11.2), Inches(0.5), "Standards: RFC 9171 (BPv7)  •  RFC 4838 (DTN Arch)  •  RFC 5326 (LTP)  •  CCSDS 734.2-B-1 (Bundle Protocol)  •  CCSDS 734.3-B-1 (SABR)", font_size=11, color=ACCENT_BLUE, alignment=PP_ALIGN.CENTER)
 # ── SLIDE 9 ── DTN Store-and-Forward ──────────────────────────────────────────
 slide = new_slide()
 set_slide_bg(slide, BG_DARK)
@@ -1300,13 +1300,13 @@ p_std_title.font.size, p_std_title.font.bold, p_std_title.font.color.rgb = Pt(13
 p_std_title.space_after = Pt(6)
 standards_data = [
     ["Standard", "Title"],
-    ["CCSDS 734.2-B-1", "DTN Architecture"],
-    ["CCSDS 735.1-B-1", "Bundle Protocol"],
-    ["CCSDS 141.0-B-1", "Optical Communications"],
-    ["CCSDS 142.0-B-2", "Space Link Identifiers"],
     ["RFC 9171", "Bundle Protocol v7"],
-    ["RFC 5326", "LTP"],
-    ["RFC 7242", "TCPCL"],
+    ["RFC 4838", "DTN Architecture"],
+    ["RFC 5326", "LTP (deep space)"],
+    ["RFC 9172", "BPSec (security)"],
+    ["CCSDS 734.2-B-1", "CCSDS Bundle Protocol"],
+    ["CCSDS 734.3-B-1", "SABR (contact routing)"],
+    ["CCSDS 141.0-B-1", "Optical comms phys."],
 ]
 std_tbl = add_table(
     slide, Inches(5.2), Inches(3.35), Inches(4.4), Inches(1.1), len(standards_data), len(standards_data[0]) if standards_data else 0, standards_data,

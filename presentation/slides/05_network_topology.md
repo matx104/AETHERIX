@@ -85,6 +85,6 @@
 | Link Segment | Data Rate | Latency | Availability |
 |:-------------|:---------:|:-------:|:------------:|
 | Earth Ground ↔ Earth Orbit | 1-100 Gbps | ~120 ms | 99.9% |
-| Earth ↔ Mars (optical) | 2-200 Mbps | 4-24 min | 85-95% |
+| Earth ↔ Mars (optical) | 2-200 Mbps | 3-22 min | 85-95% |
 | Mars Orbit ↔ Mars Surface | 2-100 Mbps | 2-40 ms | 70-90% |
 | Inter-Satellite Links | 1-10 Gbps | 1-10 ms | 98% |
