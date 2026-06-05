@@ -867,12 +867,26 @@ QSTEM_MCQ = [
     "Select the correct statement about {}.",
     "Which answer best describes {}?",
     "What accurately characterizes {}?",
+    "Which of these correctly explains {}?",
+    "Identify the accurate description of {}.",
+    "What do you know about {}?",
+    "Choose the best characterization of {}.",
+    "Which statement about {} is factually correct?",
+    "Regarding {}, which of these is accurate?",
+    "What is the most accurate description of {}?",
+    "How would you correctly describe {}?",
+    "Pick the option that best captures {}.",
+    "Which of the following assertions about {} is valid?",
 ]
 
 QSTEM_TF = [
     "True or False: {}",
     "Is the following statement correct? {}",
     "Evaluate: {}",
+    "Assess whether this is true: {}",
+    "Does the following hold? {}",
+    "Judge the accuracy of: {}",
+    "Is it accurate to say: {}?",
 ]
 
 QSTEM_NUMERIC = [
@@ -905,6 +919,23 @@ def _extract_subject(text: str) -> str:
     if len(text) > 80:
         return text[:77] + "..."
     return text
+
+
+def _make_short_distractor(fact: dict) -> str:
+    text = fact["text"]
+    words = text.replace(".", "").split()
+    if len(words) > 8:
+        rng.shuffle(words)
+        return " ".join(words[:min(len(words), 12)]).capitalize() + "."
+    return text
+
+
+def _pick_distractors_from_topic(topic: str, correct_text: str, n: int = 3) -> list[str]:
+    pool = [f for f in FACT_BASE if f["topic"] == topic and f["text"] != correct_text]
+    if len(pool) < n:
+        pool = [f for f in FACT_BASE if f["text"] != correct_text]
+    chosen = rng.sample(pool, min(n, len(pool)))
+    return [d["text"] for d in chosen]
 
 
 def _difficulty_for(ask_type: str, variant: int) -> str:
@@ -971,7 +1002,6 @@ def _make_tf_questions(fact: dict) -> list[dict]:
     subject = _extract_subject(text)
     questions: list[dict] = []
 
-    # True variants
     for vi, template in enumerate(QSTEM_TF):
         q = {
             "id": _uid(),
@@ -985,10 +1015,10 @@ def _make_tf_questions(fact: dict) -> list[dict]:
         }
         questions.append(q)
 
-    # False variants
     neg_templates = [
         (f"It is NOT true that {text}", f"The actual fact is: {text}"),
         (f"The following is FALSE: {subject}", f"In reality: {text}"),
+        (f"Which is INCORRECT? {subject}", f"Actually: {text}"),
     ]
     if "numeric_value" in fact:
         val = fact["numeric_value"]
@@ -1024,18 +1054,20 @@ def _make_mcq_questions(fact: dict) -> list[dict]:
     distractors = _pick_distractors_from_topic(topic, text, 3)
     questions: list[dict] = []
 
-    for vi in range(5):
+    for vi in range(6):
         stem_template = QSTEM_MCQ[vi % len(QSTEM_MCQ)]
         question_text = stem_template.format(subject)
-        choices = list(distractors[:3]) + [text]
-        rng.shuffle(choices)
+        options = list(distractors[:3]) + [text]
+        rng.shuffle(options)
+        correct_index = options.index(text)
         q = {
             "id": _uid(),
             "type": "mcq",
             "topic": topic,
             "difficulty": _difficulty_for("mcq", vi),
             "question": question_text,
-            "choices": choices,
+            "options": options,
+            "correctIndex": correct_index,
             "answer": text,
             "explanation": f"The correct answer is: {text}",
             "fact_id": fact["id"],
@@ -1104,10 +1136,13 @@ def main() -> None:
                 f"Which of these statements about {subject} is correct?",
                 f"What do we know about {subject}?",
                 f"Select the statement that accurately reflects {subject}.",
+                f"How would you explain {subject}?",
+                f"Which characterization of {subject} is valid?",
             ]
             stem = alt_stems[idx % len(alt_stems)]
-            choices = list(distractors[:3]) + [fact["text"]]
-            rng.shuffle(choices)
+            options = list(distractors[:3]) + [fact["text"]]
+            rng.shuffle(options)
+            correct_index = options.index(fact["text"])
 
             q = {
                 "id": _uid(),
@@ -1115,7 +1150,8 @@ def main() -> None:
                 "topic": topic,
                 "difficulty": rng.choice(DIFFICULTIES),
                 "question": stem,
-                "choices": choices,
+                "options": options,
+                "correctIndex": correct_index,
                 "answer": fact["text"],
                 "explanation": f"The correct answer is: {fact['text']}",
                 "fact_id": fact["id"],
