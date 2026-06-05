@@ -3126,6 +3126,7 @@
           <span class="badge quantum">Free Courses &amp; MOOCs</span>
         </div>
       </div>
+      <div id="study-roadmap"></div>
       <div id="study-lo-grid" class="grid grid-2"></div>
       <header class="section-title" style="margin-top:28px"><span class="section-icon">&#127891;</span> Free Courses &amp; Certificates</header>
       <div class="card"><div id="study-courses-content"></div></div>
@@ -3280,6 +3281,12 @@
     </section>
 
     <section id="presentation" class="tab presentation-mode" aria-label="Presentation">
+      <div id="pres-download-bar" style="display:none;position:fixed;top:0;left:0;right:0;z-index:10000;background:rgba(5,10,20,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,212,255,0.2);padding:10px 24px;gap:16px;align-items:center;justify-content:center;font-family:inherit">
+        <span style="color:var(--text-primary);font-size:0.85rem;font-weight:600;margin-right:12px">&#128196; Download Presentation</span>
+        <a href="downloads/AETHERIX_Presentation.pptx" download class="pres-dl-btn" style="display:inline-flex;align-items:center;gap:6px;padding:7px 18px;border-radius:6px;background:linear-gradient(135deg,#009eff,#00d4aa);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:600;border:none;cursor:pointer;transition:transform 0.15s,box-shadow 0.15s" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 15px rgba(0,158,255,0.3)'" onmouseout="this.style.transform='';this.style.boxShadow=''">&#128196; PPTX (1.3 MB)</a>
+        <a href="downloads/AETHERIX_Presentation.pdf" download class="pres-dl-btn" style="display:inline-flex;align-items:center;gap:6px;padding:7px 18px;border-radius:6px;background:linear-gradient(135deg,#8b5cf6,#c84cff);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:600;border:none;cursor:pointer;transition:transform 0.15s,box-shadow 0.15s" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 15px rgba(139,92,246,0.3)'" onmouseout="this.style.transform='';this.style.boxShadow=''">&#128196; PDF (1.8 MB)</a>
+        <button onclick="document.getElementById('pres-download-bar').style.display='none'" style="margin-left:8px;background:none;border:1px solid rgba(255,255,255,0.15);color:var(--text-muted);padding:5px 12px;border-radius:4px;cursor:pointer;font-size:0.75rem">&#10005;</button>
+      </div>
       <div class="pres-overlay" id="pres-overlay">
         <div class="pres-progress-bar"><div class="pres-progress-fill" id="pres-progress"></div></div>
         <div class="pres-slide-container">
@@ -3288,7 +3295,7 @@
         <div class="pres-controls">
           <div class="pres-controls-left">
             <button class="pres-btn" id="pres-prev" title="Previous (Left Arrow)">&#9664; Prev</button>
-            <span class="pres-counter" id="pres-counter">1 / 24</span>
+            <span class="pres-counter" id="pres-counter">1 / 25</span>
             <button class="pres-btn" id="pres-next" title="Next (Right Arrow / Space)">Next &#9654;</button>
           </div>
           <div class="pres-controls-right">

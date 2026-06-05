@@ -1487,11 +1487,55 @@ window.App = (() => {
     ],
 
     init() {
+      this.renderRoadmap();
       this.renderLOGrid();
       this.renderCourses();
       this.renderTools();
       this.renderRefs();
       this.renderDashboardStats();
+    },
+
+    renderRoadmap() {
+      const el = $('study-roadmap');
+      if (!el) return;
+      const phases = [
+        { title: 'Phase 1: Foundations', weeks: 'Weeks 1-3', color: '#009EFF', items: [
+          'DTN Architecture (RFC 4838 / CCSDS 734.2-B-1)',
+          'Bundle Protocol v7 (RFC 9171 / CCSDS 735.1-B-1)',
+          'LTP & Convergence Layers (RFC 5326, RFC 7242)',
+          'Free-space optical link budgets (CCSDS 141.0-B-1)'
+        ]},
+        { title: 'Phase 2: Core Modules', weeks: 'Weeks 4-7', color: '#00D4AA', items: [
+          'RL routing — Q-learning, multi-agent federated learning',
+          'QKD — BB84, E91, repeater chains, privacy amplification',
+          'Orbital mechanics — synodic period, contact windows, Doppler',
+          '5-tier network topology design (241 nodes)'
+        ]},
+        { title: 'Phase 3: Integration', weeks: 'Weeks 8-10', color: '#8B5CF6', items: [
+          'End-to-end simulation (ns-3 / OMNeT++ API design)',
+          'Policy engine & forwarding engine integration',
+          'Hybrid optical/RF handover logic',
+          'Performance benchmarking vs static CGR'
+        ]},
+        { title: 'Phase 4: Presentation', weeks: 'Weeks 11-12', color: '#FF8C00', items: [
+          'Visualizations & diagrams (Matplotlib, Mermaid)',
+          'Web presentation & PPTX/PDF generation',
+          'Demo scripts & live scenario walkthrough',
+          'Exam-style oral defense preparation'
+        ]}
+      ];
+      el.innerHTML = '<h3 style="margin-bottom:16px;color:var(--accent)">Study Roadmap</h3>' +
+        '<div class="roadmap-timeline" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">' +
+        phases.map(function(p) {
+          return '<div class="pres-card" style="border-color:' + p.color + '30;padding:20px">' +
+            '<div style="font-size:0.8rem;color:' + p.color + ';font-weight:600;margin-bottom:4px">' + p.weeks + '</div>' +
+            '<div style="font-size:1rem;font-weight:700;margin-bottom:12px">' + p.title + '</div>' +
+            '<ul style="list-style:none;padding:0;margin:0">' +
+            p.items.map(function(item) {
+              return '<li style="padding:4px 0;font-size:0.85rem;color:var(--text-secondary);border-bottom:1px solid var(--border)">\u2022 ' + item + '</li>';
+            }).join('') +
+            '</ul></div>';
+        }).join('') + '</div>';
     },
 
     renderLOGrid() {
@@ -1574,6 +1618,8 @@ window.App = (() => {
     slides: [],
 
     init() {
+      const dlBar = document.getElementById('pres-download-bar');
+      if (dlBar) dlBar.style.display = 'flex';
       if (this.initialized) { this.render(); return; }
       this.slides = this.buildSlides();
       this.initialized = true;
@@ -1590,6 +1636,12 @@ window.App = (() => {
           title: 'Introduction',
           content: '<div class="pres-hero"><div style="display:flex;justify-content:center;margin-bottom:16px"><img src="img/logo.svg" alt="AETHERIX" style="width:100px;height:100px;filter:drop-shadow(0 0 20px rgba(0,212,255,0.3))"></div><div class="pres-hero-title" style="font-size:3.2rem;letter-spacing:8px">AETHERIX</div><div class="pres-hero-sub" style="max-width:820px">Autonomous Extraterrestrial High-throughput Enhancing Routing and Inter-planetary eXchange</div><div class="pres-divider"></div><div style="max-width:780px;margin:0 auto;text-align:left"><div style="background:rgba(var(--accent-rgb),0.06);border:1px solid rgba(var(--accent-rgb),0.2);border-radius:var(--radius-lg);padding:18px 22px;margin-bottom:20px"><div style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--accent);margin-bottom:8px">EduQual Level 6 &mdash; Topic 59</div><div style="font-size:0.95rem;color:var(--text-primary);line-height:1.6">Building Interplanetary Communication Network with Delay-Tolerant Networking, Quantum Communication, and Space-Based Infrastructure for Mars Mission Support</div></div><div class="pres-grid-2" style="gap:12px"><div style="text-align:center;padding:14px;background:rgba(var(--quantum-rgb),0.06);border:1px solid rgba(var(--quantum-rgb),0.15);border-radius:var(--radius-md)"><div style="font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Student</div><div style="font-size:0.9rem;color:var(--text-primary);font-weight:600">Muhammad Abdullah Tariq</div></div><div style="text-align:center;padding:14px;background:rgba(var(--quantum-rgb),0.06);border:1px solid rgba(var(--quantum-rgb),0.15);border-radius:var(--radius-md)"><div style="font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Programme</div><div style="font-size:0.9rem;color:var(--text-primary);font-weight:600">Diploma in AI Operations</div></div></div><div style="display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap"><a href="https://matx104.github.io/AETHERIX/" target="_blank" class="pres-link">Live Showcase</a><a href="https://github.com/matx104/AETHERIX" target="_blank" class="pres-link">Source Code</a><a href="https://www.linkedin.com/in/matx104" target="_blank" class="pres-link">LinkedIn</a><a href="https://matx104.com.pk" target="_blank" class="pres-link">Portfolio</a></div></div></div>',
           speakerNotes: 'State your name clearly. Read the topic number and title exactly as on the exam paper. Pause to let examiners see it. Point to the logo. This is your first impression. (30 seconds)'
+        },
+        {
+          title: 'Agenda',
+          content: '<h2><span class="pres-tag accent">Agenda</span> Presentation Overview</h2><div class="pres-grid-2" style="gap:12px">' +
+            ['01 The Challenge|Why space breaks the internet|#00d4ff', '02 AETHERIX Architecture|DTN + AI + Quantum Security|#00d4aa', '03 DTN & Bundle Protocol v7|Store-and-forward foundation|#8b5cf6', '04 5-Tier Network Topology|241 nodes across two worlds|#009eff', '05 Optical Link Budget|1550nm laser analysis|#ff8c00', '06 RL-Based Routing|Multi-agent federated Q-learning|#00d4aa', '07 Quantum Security (QKD)|BB84/E91 + repeater chains|#8b5cf6', '08 Orbital Mechanics|Contact windows & synodic period|#009eff', '09 Mars Mission Scenario|End-to-end simulation walkthrough|#ff8c00', '10 Performance Comparison|AETHERIX vs current systems|#2ecc71', '11 Standards & Roadmap|CCSDS, IETF, deployment phases|#00d4aa', '12 Conclusion & Q&A|Summary and live demo|#ffffff'].map(function(item) { var parts = item.split('|'); return '<div class="pres-card" style="border-color:' + parts[2] + '30;padding:12px 16px"><div style="font-size:0.9rem;font-weight:600;color:' + parts[2] + '">' + parts[0] + '</div><div style="font-size:0.8rem;color:var(--text-muted);margin-top:4px">' + parts[1] + '</div></div>'; }).join('') + '</div>',
+          speakerNotes: 'Quick overview of what we will cover. 12 topics across 25 slides. About 18 minutes. (20 seconds)'
         },
         {
           title: 'What is AETHERIX',
@@ -1710,6 +1762,9 @@ window.App = (() => {
     slideLinks: {
       'Introduction': [
         { type: 'ref', label: 'RFC 4838', url: 'https://www.rfc-editor.org/rfc/rfc4838' }
+      ],
+      'Agenda': [
+        { type: 'learn', label: 'What is DTN', hash: 'what-is-dtn' }
       ],
       'What is AETHERIX': [
         { type: 'learn', label: 'What is DTN', hash: 'what-is-dtn' },
