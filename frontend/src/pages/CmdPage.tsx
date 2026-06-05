@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { InfoBubble } from "../components/InfoBubble";
+import { FieldInfo } from "../components/FieldInfo";
 
 const API_BASE = import.meta.env.VITE_API_URL || "/api";
 
@@ -234,6 +235,12 @@ export function CmdPage() {
                   </span>
                 </div>
                 <div className="flex gap-2">
+                  <FieldInfo>
+                    <strong>Extra arguments</strong> appended to the command after the base command.
+                    These are passed directly to the script/module. For example, you can pass
+                    flags like <code>-v</code> for verbose output or configuration overrides.
+                    Arguments are URL-encoded and sent to the backend via query string.
+                  </FieldInfo>
                   <input
                     value={customArgs}
                     onChange={(e) => setCustomArgs(e.target.value)}

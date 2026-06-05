@@ -406,6 +406,15 @@ a:hover {
   box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
+.form-group select {
+  cursor: pointer;
+}
+
+.form-group select option[value="__custom__"] {
+  color: var(--accent);
+  font-style: italic;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -711,6 +720,104 @@ tr:hover td {
 
 .sidebar-nav a.nav-item[href^="http"]:hover {
   color: var(--accent);
+}
+
+/* Field info inline popover */
+.field-info-wrapper {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+
+.field-info-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 700;
+  font-style: italic;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.field-info-trigger:hover {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+}
+
+.field-info-popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: -8px;
+  z-index: 100;
+  min-width: 240px;
+  max-width: 360px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.field-info-content {
+  padding: 12px 14px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.field-info-content strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.field-info-content code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  background: var(--bg-input);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: var(--accent);
+}
+
+.field-info-content ul {
+  margin: 4px 0 0 16px;
+  padding: 0;
+}
+
+.field-info-content li {
+  margin-bottom: 2px;
+}
+
+/* Card header info icon variant */
+.card-header .field-info-trigger {
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+}
+
+/* Stat card label line with info */
+.stat-card .label-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.stat-card .label-row .label {
+  margin-bottom: 0;
 }
 
 @media (max-width: 1200px) {

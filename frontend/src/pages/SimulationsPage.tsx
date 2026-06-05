@@ -1,8 +1,21 @@
 import { useEffect, useState } from "react";
 import { api, type SimulationRun } from "../api/client";
 import { InfoBubble } from "../components/InfoBubble";
+import { FieldInfo } from "../components/FieldInfo";
+import { PresetSelect } from "../components/PresetSelect";
 import { ResourcesCard } from "../components/ResourcesCard";
 import { SHOWCASE_URL } from "../components/ResourcesCard";
+
+const SEED_PRESETS = [
+  { label: "Random (no seed)", value: "" },
+  { label: "42 — The answer to everything", value: "42" },
+  { label: "7 — Lucky number", value: "7" },
+  { label: "123 — Sequential", value: "123" },
+  { label: "314 — Pi approximation", value: "314" },
+  { label: "1337 — Leet", value: "1337" },
+  { label: "9999 — High entropy", value: "9999" },
+  { label: "1 — Minimal seed", value: "1" },
+];
 
 const RESOURCES = [
   { type: "Paper", title: "Fall — 'A Delay-Tolerant Network Architecture' (2003)", url: "https://dl.acm.org/doi/10.1145/863955.863960", badge: "FOUNDATIONAL" },
@@ -68,14 +81,40 @@ export function SimulationsPage() {
       </InfoBubble>
 
       <div className="card">
-        <div className="card-header"><h3>New Simulation Run</h3></div>
+        <div className="card-header">
+          <h3>New Simulation Run</h3>
+          <FieldInfo>
+            Create a new simulation run by specifying a name, scenario, and optional seed.
+            The simulation engine will model the full 5-tier network topology (241 nodes),
+            generate bundles, apply RL routing decisions, and calculate link budgets for
+            each hop. Results are stored for later analysis and comparison.
+          </FieldInfo>
+        </div>
         <div className="grid grid-3 gap-4">
           <div className="form-group">
-            <label>Name</label>
+            <label>
+              Name
+              <FieldInfo>
+                A <strong>human-readable identifier</strong> for this simulation run.
+                Use descriptive names like "Baseline Run #1" or "Conjunction Test v2"
+                to easily find and compare results later. This is stored with the run metadata.
+              </FieldInfo>
+            </label>
             <input value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Baseline Run #1" />
           </div>
           <div className="form-group">
-            <label>Scenario</label>
+            <label>
+              Scenario
+              <FieldInfo>
+                The <strong>predefined network scenario</strong> to simulate:
+                <ul>
+                  <li><strong>Earth–Mars Baseline</strong> — Average distance (225M km), normal operations</li>
+                  <li><strong>Conjunction Blackout</strong> — Solar conjunction, 2-week communication blackout</li>
+                  <li><strong>Relay Chain</strong> — Multi-hop path via Lagrange point relays (ES-L4, ES-L5)</li>
+                  <li><strong>Emergency Priority</strong> — Life-critical traffic with priority routing</li>
+                </ul>
+              </FieldInfo>
+            </label>
             <select value={scenario} onChange={(e) => setScenario(e.target.value)}>
               <option value="earth-mars-baseline">Earth–Mars Baseline</option>
               <option value="conjunction-blackout">Conjunction Blackout</option>
@@ -84,8 +123,23 @@ export function SimulationsPage() {
             </select>
           </div>
           <div className="form-group">
-            <label>Seed (optional)</label>
-            <input value={seed} onChange={(e) => setSeed(e.target.value)} placeholder="e.g. 42" />
+            <label>
+              Seed (optional)
+              <FieldInfo>
+                A <strong>random seed</strong> for reproducibility. Using the same seed with the same
+                scenario produces identical results every time — essential for scientific reproducibility.
+                Leave empty for a random seed. Record the seed when publishing results so others can
+                verify them.
+              </FieldInfo>
+            </label>
+            <PresetSelect
+              options={SEED_PRESETS}
+              value={seed}
+              onChange={setSeed}
+              placeholder="Select seed..."
+              customPlaceholder="Enter custom seed number"
+              type="number"
+            />
           </div>
         </div>
         <button className="btn btn-primary" onClick={create} disabled={loading || !name.trim()}>
@@ -96,7 +150,15 @@ export function SimulationsPage() {
       <div className="card mt-4">
         <div className="card-header">
           <h3>Simulation Runs ({runs.length})</h3>
-          <button className="btn btn-secondary btn-sm" onClick={load}>Refresh</button>
+          <div className="flex items-center gap-2">
+            <FieldInfo>
+              All simulation runs, showing their scenario, status, seed, and creation time.
+              Status values: <strong>pending</strong> (queued), <strong>running</strong> (in progress),
+              <strong> completed</strong> (finished successfully). Use the same seed to reproduce
+              any run's results exactly.
+            </FieldInfo>
+            <button className="btn btn-secondary btn-sm" onClick={load}>Refresh</button>
+          </div>
         </div>
         {runs.length > 0 ? (
           <table>

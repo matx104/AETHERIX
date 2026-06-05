@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { api, type HealthResponse } from "../api/client";
 import { InfoBubble } from "../components/InfoBubble";
+import { FieldInfo } from "../components/FieldInfo";
 import { ResourcesCard } from "../components/ResourcesCard";
 import { SHOWCASE_URL } from "../components/ResourcesCard";
 
@@ -70,7 +71,14 @@ export function Dashboard() {
 
       <div className="grid grid-4">
         <div className="stat-card">
-          <div className="label">API Status</div>
+          <div className="label-row">
+            <div className="label">API Status</div>
+            <FieldInfo>
+              The <strong>backend API health status</strong>. "ok" means the FastAPI server is running
+              and responding. "down" means the backend is not reachable — start it with
+              <code> ./scripts/dev.sh start</code>. Shows uptime in seconds when connected.
+            </FieldInfo>
+          </div>
           <div
             className={`value ${
               health?.status === "ok" ? "success" : error ? "danger" : "warning"
@@ -85,7 +93,14 @@ export function Dashboard() {
           </div>
         </div>
         <div className="stat-card">
-          <div className="label">Database</div>
+          <div className="label-row">
+            <div className="label">Database</div>
+            <FieldInfo>
+              The <strong>database connection status</strong>. The backend uses SQLite for local
+              development (no setup needed) and PostgreSQL when running via Docker Compose.
+              All simulation runs, link budgets, routing decisions, and QKD sessions are persisted here.
+            </FieldInfo>
+          </div>
           <div
             className={`value ${
               health?.database === "connected" ? "success" : "warning"
@@ -96,12 +111,32 @@ export function Dashboard() {
           <div className="sub">SQLite local / PostgreSQL docker</div>
         </div>
         <div className="stat-card">
-          <div className="label">Earth–Mars Range</div>
+          <div className="label-row">
+            <div className="label">Earth–Mars Range</div>
+            <FieldInfo>
+              The <strong>distance range</strong> between Earth and Mars over their synodic period
+              (~780 days). From 54.6M km at perihelion opposition to 401M km at aphelion conjunction.
+              This 7× distance variation causes data rates to vary from ~200 Mbps to ~2 Mbps.
+            </FieldInfo>
+          </div>
           <div className="value info">54.6–401M km</div>
           <div className="sub">3–22 min one-way light delay</div>
         </div>
         <div className="stat-card">
-          <div className="label">Network Tiers</div>
+          <div className="label-row">
+            <div className="label">Network Tiers</div>
+            <FieldInfo>
+              The AETHERIX network has <strong>5 hierarchical tiers</strong> spanning from Earth to Mars:
+              <ul>
+                <li>Tier 1: Earth Ground (DSN stations)</li>
+                <li>Tier 2: Earth Orbital (GEO + LEO relays)</li>
+                <li>Tier 3: Deep Space (Lagrange point relays)</li>
+                <li>Tier 4: Mars Orbital (relays)</li>
+                <li>Tier 5: Mars Surface (bases, rovers)</li>
+              </ul>
+              Total: <strong>241 nodes</strong>.
+            </FieldInfo>
+          </div>
           <div className="value accent">5</div>
           <div className="sub">241 nodes across 5 tiers</div>
         </div>
@@ -111,6 +146,12 @@ export function Dashboard() {
         <div className="card">
           <div className="card-header">
             <h3>Platform Modules</h3>
+            <FieldInfo>
+              The core AETHERIX modules, each mapping to a dedicated page in the sidebar.
+              Each module is independently functional and can be explored, configured, and
+              tested. Status indicates readiness: <strong>Active</strong> = fully operational,
+              <strong> Demo</strong> = proof-of-concept implementation.
+            </FieldInfo>
           </div>
           <table>
             <thead>
@@ -132,6 +173,11 @@ export function Dashboard() {
         <div className="card">
           <div className="card-header">
             <h3>Quick Actions</h3>
+            <FieldInfo>
+              Key system parameters at a glance. The <strong>optical link wavelength</strong> (1550 nm)
+              and <strong>QKD protocol</strong> (BB84) are the primary communication and security
+              technologies used in AETHERIX. Navigate to each module's page for detailed configuration.
+            </FieldInfo>
           </div>
           <div className="flex flex-col gap-4">
             <p style={{ color: "var(--text-secondary)", fontSize: 14 }}>
@@ -140,12 +186,28 @@ export function Dashboard() {
             </p>
             <div className="grid grid-2">
               <div className="stat-card">
-                <div className="label">Optical Link</div>
+                <div className="label-row">
+                  <div className="label">Optical Link</div>
+                  <FieldInfo>
+                    AETHERIX uses <strong>1550 nm near-infrared laser</strong> for optical
+                    communication — the same wavelength as terrestrial fiber optic networks.
+                    This provides ~100× higher data rates than traditional RF (radio) while
+                    using less power and smaller antennas.
+                  </FieldInfo>
+                </div>
                 <div className="value accent" style={{ fontSize: 22 }}>1550 nm</div>
                 <div className="sub">Near-IR wavelength</div>
               </div>
               <div className="stat-card">
-                <div className="label">QKD Protocol</div>
+                <div className="label-row">
+                  <div className="label">QKD Protocol</div>
+                  <FieldInfo>
+                    <strong>BB84</strong> (Bennett-Brassard 1984) is the primary quantum key
+                    distribution protocol. It provides information-theoretically secure key
+                    exchange guaranteed by the laws of quantum mechanics, not computational
+                    difficulty. QBER below 11% indicates a secure channel.
+                  </FieldInfo>
+                </div>
                 <div className="value success" style={{ fontSize: 22 }}>BB84</div>
                 <div className="sub">QBER &lt; 11%</div>
               </div>
