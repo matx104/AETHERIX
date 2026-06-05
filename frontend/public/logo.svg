@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0e27"/>
+      <stop offset="100%" stop-color="#0c1530"/>
+    </linearGradient>
+    <linearGradient id="beamGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.2"/>
+      <stop offset="20%" stop-color="#00d4ff" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#7c5cf7" stop-opacity="1"/>
+      <stop offset="80%" stop-color="#ff6b35" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#ff6b35" stop-opacity="0.2"/>
+    </linearGradient>
+    <radialGradient id="earthGrad" cx="0.35" cy="0.35">
+      <stop offset="0%" stop-color="#4fc3f7"/>
+      <stop offset="50%" stop-color="#0288d1"/>
+      <stop offset="100%" stop-color="#01579b"/>
+    </radialGradient>
+    <radialGradient id="marsGrad" cx="0.35" cy="0.35">
+      <stop offset="0%" stop-color="#ffab91"/>
+      <stop offset="50%" stop-color="#ff6b35"/>
+      <stop offset="100%" stop-color="#bf360c"/>
+    </radialGradient>
+    <radialGradient id="glowCyan" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#00d4ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowMars" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ff6b35" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#ff6b35" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="textGlow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="248" fill="url(#bgGrad)" stroke="#1a2555" stroke-width="2"/>
+
+  <!-- Outer ring -->
+  <circle cx="256" cy="256" r="240" fill="none" stroke="#1a2555" stroke-width="1" stroke-dasharray="4 8" opacity="0.5"/>
+
+  <!-- Orbital path (elliptical, Earth to Mars) -->
+  <ellipse cx="256" cy="200" rx="175" ry="120" fill="none" stroke="rgba(60,100,180,0.12)" stroke-width="1" transform="rotate(-8, 256, 200)"/>
+
+  <!-- Subtle star field -->
+  <g opacity="0.4">
+    <circle cx="80" cy="90" r="1" fill="#e0e8ff"/>
+    <circle cx="430" cy="110" r="1.2" fill="#e0e8ff"/>
+    <circle cx="120" cy="380" r="0.8" fill="#e0e8ff"/>
+    <circle cx="400" cy="370" r="1" fill="#e0e8ff"/>
+    <circle cx="60" cy="250" r="0.8" fill="#e0e8ff"/>
+    <circle cx="450" cy="240" r="1.1" fill="#e0e8ff"/>
+    <circle cx="200" cy="80" r="0.7" fill="#e0e8ff"/>
+    <circle cx="340" cy="400" r="0.9" fill="#e0e8ff"/>
+    <circle cx="150" cy="150" r="0.6" fill="#e0e8ff"/>
+    <circle cx="380" cy="160" r="0.8" fill="#e0e8ff"/>
+    <circle cx="100" cy="320" r="0.7" fill="#e0e8ff"/>
+    <circle cx="420" cy="300" r="0.9" fill="#e0e8ff"/>
+    <circle cx="300" cy="90" r="1" fill="#e0e8ff"/>
+    <circle cx="180" cy="400" r="0.8" fill="#e0e8ff"/>
+    <circle cx="350" cy="130" r="0.6" fill="#e0e8ff"/>
+    <circle cx="90" cy="180" r="0.9" fill="#e0e8ff"/>
+    <circle cx="440" cy="350" r="0.7" fill="#e0e8ff"/>
+    <circle cx="250" cy="420" r="1" fill="#e0e8ff"/>
+  </g>
+
+  <!-- Main laser beam (Earth to Mars) -->
+  <line x1="128" y1="195" x2="384" y2="168" stroke="url(#beamGrad)" stroke-width="3" filter="url(#softGlow)" opacity="0.9"/>
+
+  <!-- Beam glow trail -->
+  <line x1="128" y1="195" x2="384" y2="168" stroke="url(#beamGrad)" stroke-width="12" opacity="0.08"/>
+
+  <!-- Network nodes along beam (5 tiers) -->
+  <g filter="url(#glow)">
+    <!-- Tier 1: Earth Ground (DSN) -->
+    <circle cx="128" cy="195" r="8" fill="#00b894" opacity="0.3"/>
+    <circle cx="128" cy="195" r="4" fill="#00b894"/>
+
+    <!-- Tier 2: Earth Orbital -->
+    <circle cx="175" cy="190" r="5" fill="#00d4ff" opacity="0.25"/>
+    <circle cx="175" cy="190" r="2.5" fill="#00d4ff"/>
+
+    <!-- Tier 3: Deep Space Transit (Lagrange) -->
+    <circle cx="256" cy="182" r="7" fill="#7c5cf7" opacity="0.3"/>
+    <circle cx="256" cy="182" r="3.5" fill="#7c5cf7"/>
+
+    <!-- Tier 4: Mars Orbital -->
+    <circle cx="338" cy="173" r="5" fill="#ff8855" opacity="0.25"/>
+    <circle cx="338" cy="173" r="2.5" fill="#ff8855"/>
+
+    <!-- Tier 5: Mars Surface -->
+    <circle cx="384" cy="168" r="6" fill="#ff6b35" opacity="0.3"/>
+    <circle cx="384" cy="168" r="3" fill="#ff6b35"/>
+  </g>
+
+  <!-- Earth -->
+  <circle cx="108" cy="230" r="40" fill="url(#glowCyan)" opacity="0.3"/>
+  <circle cx="108" cy="230" r="26" fill="url(#earthGrad)"/>
+  <!-- Earth continents hint -->
+  <path d="M98,222 Q102,218 108,220 Q114,218 118,222 Q120,228 116,234 Q112,238 106,236 Q100,234 98,228Z" fill="#2e7d32" opacity="0.5"/>
+  <path d="M112,226 Q116,224 118,228 Q117,232 114,230Z" fill="#2e7d32" opacity="0.4"/>
+  <!-- Earth atmosphere ring -->
+  <circle cx="108" cy="230" r="29" fill="none" stroke="#4fc3f7" stroke-width="1" opacity="0.3"/>
+
+  <!-- Mars -->
+  <circle cx="404" cy="198" r="32" fill="url(#glowMars)" opacity="0.25"/>
+  <circle cx="404" cy="198" r="21" fill="url(#marsGrad)"/>
+  <!-- Mars surface features hint -->
+  <path d="M396,192 Q400,190 404,191 Q408,190 412,193 Q414,198 410,202 Q406,204 400,202 Q396,198 396,192Z" fill="#d84315" opacity="0.3"/>
+  <!-- Mars thin atmosphere -->
+  <circle cx="404" cy="198" r="24" fill="none" stroke="#ff6b35" stroke-width="0.5" opacity="0.2"/>
+
+  <!-- DSN dish on Earth (pointing up-right) -->
+  <g transform="translate(125, 215) rotate(-30)">
+    <path d="M0,0 Q-6,-12 0,-16 Q6,-12 0,0Z" fill="#00b894" opacity="0.7"/>
+    <line x1="0" y1="-16" x2="0" y2="-20" stroke="#00b894" stroke-width="1.5"/>
+  </g>
+
+  <!-- Relay signal arcs from DSN -->
+  <path d="M130,204 Q140,185 150,194" fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.5" stroke-dasharray="2 2"/>
+
+  <!-- Quantum entanglement symbol (two linked circles) near midpoint -->
+  <g transform="translate(256, 130)" opacity="0.6">
+    <circle cx="-6" cy="0" r="8" fill="none" stroke="#7c5cf7" stroke-width="1.2"/>
+    <circle cx="6" cy="0" r="8" fill="none" stroke="#7c5cf7" stroke-width="1.2"/>
+    <!-- Photon sparkle -->
+    <circle cx="0" cy="0" r="2" fill="#b388ff" filter="url(#textGlow)"/>
+  </g>
+
+  <!-- AETHERIX text -->
+  <text x="256" y="320" text-anchor="middle" font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-size="52" font-weight="700" letter-spacing="8" fill="#e4eaf5" filter="url(#textGlow)">AETHERIX</text>
+
+  <!-- Tagline -->
+  <text x="256" y="350" text-anchor="middle" font-family="'Inter', 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="400" letter-spacing="5" fill="#4a5270" text-transform="uppercase">INTERPLANETARY NETWORK</text>
+
+  <!-- Bottom accent line -->
+  <line x1="166" y1="365" x2="346" y2="365" stroke="url(#beamGrad)" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- Tier legend dots at bottom -->
+  <g transform="translate(106, 388)" opacity="0.6">
+    <circle cx="0" cy="0" r="3" fill="#00b894"/><text x="10" y="4" font-family="'Inter', sans-serif" font-size="8" fill="#4a5270">GROUND</text>
+    <circle cx="70" cy="0" r="3" fill="#00d4ff"/><text x="80" y="4" font-family="'Inter', sans-serif" font-size="8" fill="#4a5270">ORBITAL</text>
+    <circle cx="140" cy="0" r="3" fill="#7c5cf7"/><text x="150" y="4" font-family="'Inter', sans-serif" font-size="8" fill="#4a5270">TRANSIT</text>
+    <circle cx="210" cy="0" r="3" fill="#ff8855"/><text x="220" y="4" font-family="'Inter', sans-serif" font-size="8" fill="#4a5270">MARS ORB</text>
+    <circle cx="290" cy="0" r="3" fill="#ff6b35"/><text x="300" y="4" font-family="'Inter', sans-serif" font-size="8" fill="#4a5270">MARS SRF</text>
+  </g>
+</svg>

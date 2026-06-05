@@ -37,11 +37,14 @@ def get_distance(true_anomaly_deg: float = 0.0):
 
 @router.get("/timeline", response_model=DistanceTimelineResponse)
 def distance_timeline(num_points: int = 100):
-    timeline = get_distance_timeline(num_points=num_points)
-    distances = [
-        {"day": d["day"], "distance_km": d["distance_km"], "light_time_min": d["light_time_min"]}
-        for d in timeline
-    ]
+    raw = get_distance_timeline(num_points=num_points)
+    distances = []
+    for entry in raw:
+        if isinstance(entry, dict):
+            distances.append({"day": entry["day"], "distance_km": entry["distance_km"], "light_time_min": entry["light_time_min"]})
+        else:
+            day, dist_km, lt_min = entry
+            distances.append({"day": day, "distance_km": dist_km, "light_time_min": lt_min})
     dists = [d["distance_km"] for d in distances]
     return DistanceTimelineResponse(
         distances=distances,

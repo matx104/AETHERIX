@@ -16,7 +16,7 @@ router = APIRouter(prefix="/routing", tags=["routing"])
 
 @router.post("/decide", response_model=RoutingResponse)
 def make_routing_decision(req: RoutingRequest, db: Session = Depends(get_db)):
-    agent = RLRoutingAgent()
+    agent = RLRoutingAgent(node_id=req.current_node)
     state = NetworkState(
         current_node=req.current_node,
         neighbors=req.neighbors,
@@ -27,7 +27,7 @@ def make_routing_decision(req: RoutingRequest, db: Session = Depends(get_db)):
         bundle_deadline_hours=req.bundle_deadline_hours,
         destination_node=req.destination_node,
     )
-    decision = agent.decide(state)
+    decision = agent.select_action(state)
 
     log = RoutingDecisionLog(
         current_node=req.current_node,

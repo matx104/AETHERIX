@@ -1,7 +1,10 @@
 import { NavLink, Outlet } from "react-router-dom";
 
+const SHOWCASE = "https://matx104.github.io/AETHERIX";
+
 const navItems = [
-  { to: "/", label: "Dashboard", icon: "▦" },
+  { to: "/", label: "Welcome", icon: "🏠" },
+  { to: "/dashboard", label: "Dashboard", icon: "▦" },
   { to: "/link-budget", label: "Link Budget", icon: "⟡" },
   { to: "/routing", label: "RL Routing", icon: "⟳" },
   { to: "/orbital", label: "Orbital", icon: "◎" },
@@ -15,8 +18,11 @@ export function Layout() {
     <div className="app-layout">
       <aside className="sidebar">
         <div className="sidebar-brand">
-          <h1>AETHERIX</h1>
-          <p>Interplanetary DTN Platform</p>
+          <img src="/logo.svg" alt="AETHERIX" className="sidebar-logo" />
+          <div className="sidebar-brand-text">
+            <h1>AETHERIX</h1>
+            <p>Interplanetary DTN Platform</p>
+          </div>
         </div>
         <nav className="sidebar-nav">
           {navItems.map((item) => (
@@ -32,10 +38,79 @@ export function Layout() {
               {item.label}
             </NavLink>
           ))}
+          <div style={{ marginTop: 12, marginBottom: 4, paddingLeft: 14 }}>
+            <span style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 1, fontWeight: 600 }}>External</span>
+          </div>
+          <a
+            href={`${SHOWCASE}/#welcome`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-item"
+          >
+            <span>🌐</span>
+            Showcase Site
+          </a>
+          <a
+            href={`${SHOWCASE}/#study`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-item"
+          >
+            <span>📚</span>
+            Resources
+          </a>
+          <a
+            href={`${SHOWCASE}/#glossary`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-item"
+          >
+            <span>📖</span>
+            Glossary
+          </a>
+          <a
+            href={`${SHOWCASE}/#quiz`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-item"
+          >
+            <span>✓</span>
+            Quiz
+          </a>
         </nav>
+        <div className="sidebar-footer">
+          Built by{" "}
+          <a
+            href="https://github.com/matx104"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Muhammad Abdullah Tariq
+          </a>
+        </div>
       </aside>
       <main className="main-content">
         <Outlet />
+        <footer className="app-footer">
+          <img src="/logo.svg" alt="" className="footer-logo" />
+          AETHERIX — Autonomous Extraterrestrial High-throughput Enhancing
+          Routing and Inter-planetary eXchange
+          <br />
+          Designed &amp; built by{" "}
+          <span className="author-name">Muhammad Abdullah Tariq</span>{" "}
+          &middot;{" "}
+          <a href="https://github.com/matx104" target="_blank" rel="noopener noreferrer">GitHub</a>{" "}
+          &middot;{" "}
+          <a href="https://www.linkedin.com/in/matx104" target="_blank" rel="noopener noreferrer">LinkedIn</a>{" "}
+          &middot;{" "}
+          <a href="https://matx104.com.pk" target="_blank" rel="noopener noreferrer">Portfolio</a>{" "}
+          &middot;{" "}
+          <a href="https://matx104.com.pk/assets/Muhammad_Abdullah_Tariq_Resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>{" "}
+          &middot;{" "}
+          <a href="https://github.com/matx104/AETHERIX" target="_blank" rel="noopener noreferrer">Repo</a>{" "}
+          &middot;{" "}
+          <a href={SHOWCASE} target="_blank" rel="noopener noreferrer">Showcase</a>
+        </footer>
       </main>
     </div>
   );

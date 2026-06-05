@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/Layout";
+import { WelcomePage } from "./pages/WelcomePage";
 import { Dashboard } from "./pages/Dashboard";
 import { LinkBudgetPage } from "./pages/LinkBudgetPage";
 import { RoutingPage } from "./pages/RoutingPage";
@@ -16,7 +17,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route index element={<Dashboard />} />
+          <Route index element={<WelcomePage />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="link-budget" element={<LinkBudgetPage />} />
           <Route path="routing" element={<RoutingPage />} />
           <Route path="orbital" element={<OrbitalPage />} />

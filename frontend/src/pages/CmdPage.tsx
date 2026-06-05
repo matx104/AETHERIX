@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { InfoBubble } from "../components/InfoBubble";
 
 const API_BASE = import.meta.env.VITE_API_URL || "/api";
 
@@ -142,6 +143,24 @@ export function CmdPage() {
         <h2>Command Terminal</h2>
         <p>Run scripts, tests, modules, and utilities from the web interface</p>
       </div>
+
+      <InfoBubble title="Command Terminal" learnMoreUrl="https://matx104.github.io/AETHERIX/#cmd-terminal">
+        <p>
+          This terminal connects to the AETHERIX backend API and executes commands
+          server-side, streaming output in real-time via{" "}
+          <strong>Server-Sent Events (SSE)</strong>. It gives you full access to the
+          project's utility scripts and Python module demos without leaving the browser.
+        </p>
+        <p style={{ marginTop: 8 }}>
+          <strong>Shell Scripts:</strong> Initialize environments, run the 189-test
+          suite, lint code, and clean artifacts — the same scripts used in CI/CD.
+        </p>
+        <p style={{ marginTop: 8 }}>
+          <strong>Python Modules:</strong> Run all 16 module demos (optical/RF link
+          budgets, RL routing, QKD protocols, orbital mechanics, topology, radiation
+          simulation, and more) and see their output instantly.
+        </p>
+      </InfoBubble>
 
       <div className="grid" style={{ gridTemplateColumns: "280px 1fr" }}>
         {/* Command sidebar */}

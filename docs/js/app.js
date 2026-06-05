@@ -2396,3 +2396,16 @@ document.addEventListener('DOMContentLoaded', () => {
   Router.init();
   App.init();
 });
+
+window.UsageTabs = {
+  current: 'web',
+  switch(tab) {
+    this.current = tab;
+    document.querySelectorAll('.usage-tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.usage-tab-content').forEach(c => c.classList.remove('active'));
+    const btn = document.querySelector('.usage-tab-btn[onclick*="' + tab + '"]');
+    const content = document.getElementById('usage-tab-' + tab);
+    if (btn) btn.classList.add('active');
+    if (content) content.classList.add('active');
+  }
+};

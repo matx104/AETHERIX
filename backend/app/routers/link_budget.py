@@ -22,7 +22,7 @@ def calculate_optical_link(
     calculator = LinkBudgetCalculator()
 
     if req.distance_km is not None:
-        result = calculator.calculate_link_budget(distance_km=req.distance_km)
+        result = calculator.calculate_optical_link_budget(distance_km=req.distance_km)
     else:
         result = calculator.calculate_mars_earth_link(scenario=req.scenario)
 

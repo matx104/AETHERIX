@@ -1,7 +1,18 @@
 import { useState } from "react";
 import { api, type LinkBudgetResult } from "../api/client";
+import { InfoBubble } from "../components/InfoBubble";
+import { ResourcesCard } from "../components/ResourcesCard";
+import { SHOWCASE_URL } from "../components/ResourcesCard";
 
 const SCENARIOS = ["minimum", "average", "maximum"];
+
+const RESOURCES = [
+  { type: "Standard", title: "CCSDS 141.0-B-1 — Optical Communications Physical Layer", url: "https://public.ccsds.org/Pubs/141x0b1.pdf", badge: "CCSDS" },
+  { type: "Paper", title: "Boroson et al. — 'LLCD Overview and Results' (2014)", url: "https://doi.org/10.1117/12.2045508", badge: "HIGH" },
+  { type: "Paper", title: "Biswas et al. — 'DSOC' (2018)", url: "https://doi.org/10.1117/12.2296426", badge: "HIGH" },
+  { type: "Doc", title: "NASA DSN Telecommunications Link Design Handbook (810-005)", url: "https://deepspace.jpl.nasa.gov/dsndocs/810-005/", badge: "DSN BIBLE" },
+  { type: "Video", title: "NASA — Deep Space Optical Communications (DSOC)", url: "https://www.youtube.com/results?search_query=deep+space+optical+communications+NASA", badge: "YOUTUBE" },
+];
 
 export function LinkBudgetPage() {
   const [scenario, setScenario] = useState("average");
@@ -28,18 +39,41 @@ export function LinkBudgetPage() {
   };
 
   const loadHistory = async () => {
-    try {
-      const h = await api.linkBudgetHistory();
-      setHistory(h);
-    } catch {}
+    try { setHistory(await api.linkBudgetHistory()); } catch {}
   };
 
   return (
     <>
       <div className="page-header">
         <h2>Link Budget Calculator</h2>
-        <p>Optical and RF link budget analysis for Earth-Mars communications</p>
+        <p>Optical and RF link budget analysis for Earth–Mars communications</p>
       </div>
+
+      <InfoBubble title="What is a Link Budget?" learnMoreUrl={`${SHOWCASE_URL}/#optical-comms`}>
+        <p>
+          A link budget determines whether a communication link can successfully
+          deliver data. It accounts for <strong>every source of signal loss</strong>{" "}
+          (distance, atmosphere, pointing errors) and{" "}
+          <strong>gain</strong> (telescope size, laser power) to calculate the{" "}
+          <strong>link margin</strong> — the safety buffer between what you have
+          and what you need. A <em>positive</em> margin means the link works.
+        </p>
+        <p style={{ marginTop: 8 }}>
+          Instead of radio waves, AETHERIX uses <strong>infrared lasers at 1550 nm</strong>{" "}
+          — the same wavelength used in fiber optic networks on Earth. Where Mars
+          Reconnaissance Orbiter sends 0.5–6 Mbps via radio, AETHERIX achieves{" "}
+          <strong>2–200 Mbps</strong> via laser — enough for high-definition video
+          from Mars.
+        </p>
+        <p style={{ marginTop: 8 }}>
+          <strong>The challenge:</strong> pointing a laser at a receiver 400 million
+          km away, with beam divergence of only ~5 microradians — equivalent to
+          hitting a coin from 4 km away. Signal strength drops with the{" "}
+          <em>square of the distance</em> (doubling = 4× less signal).
+        </p>
+      </InfoBubble>
+
+      {error && <div className="error-banner">{error}</div>}
 
       <div className="grid grid-2">
         <div className="card">
@@ -57,7 +91,6 @@ export function LinkBudgetPage() {
           <button className="btn btn-primary" onClick={runOptical} disabled={loading}>
             {loading ? "Calculating..." : "Calculate Optical Link"}
           </button>
-          {error && <p style={{ color: "var(--danger)", marginTop: 8 }}>{error}</p>}
         </div>
 
         {result && (
@@ -104,9 +137,7 @@ export function LinkBudgetPage() {
         </div>
         {history.length > 0 ? (
           <table>
-            <thead>
-              <tr><th>Type</th><th>Scenario</th><th>Distance</th><th>Margin</th><th>Data Rate</th></tr>
-            </thead>
+            <thead><tr><th>Type</th><th>Scenario</th><th>Distance</th><th>Margin</th><th>Data Rate</th></tr></thead>
             <tbody>
               {history.slice(0, 20).map((h) => (
                 <tr key={h.id}>
@@ -122,6 +153,10 @@ export function LinkBudgetPage() {
         ) : (
           <p style={{ color: "var(--text-muted)" }}>No history yet. Run a calculation above.</p>
         )}
+      </div>
+
+      <div style={{ marginTop: 16 }}>
+        <ResourcesCard title="Optical Communications Resources" links={RESOURCES} />
       </div>
     </>
   );

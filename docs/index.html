@@ -3650,18 +3650,745 @@ Output will stream here in real-time via Server-Sent Events.</span>
       </div>
     </section>
 
-    <section id="usage" class="tab" aria-label="Usage Guide">
-      <div class="page-header">
-        <h1>Usage Guide</h1>
-        <p>Everything you need to set up, run, and explore the AETHERIX platform &#8212; organized by interface type.</p>
-        <div class="header-badges">
-          <span class="badge accent">Python 3.9+</span>
-          <span class="badge success">189 Tests</span>
-          <span class="badge quantum">3 Interfaces</span>
-        </div>
-      </div>
+     <section id="usage" class="tab" aria-label="Usage Guide">
+       <div class="page-header">
+         <h1>Usage Guide</h1>
+         <p>Everything you need to set up, run, and explore the AETHERIX platform &#8212; select an interface to get started.</p>
+         <div class="header-badges">
+           <span class="badge accent">Python 3.9+</span>
+           <span class="badge success">189 Tests</span>
+           <span class="badge quantum">3 Interfaces</span>
+         </div>
+       </div>
 
-      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#127760;</span> Web Interface (Full-Stack App)</header>
+       <div class="usage-tabs">
+         <button class="usage-tab-btn active" onclick="UsageTabs.switch('web')">
+           <span class="usage-tab-icon">&#127760;</span>
+           <span class="usage-tab-title">Web Interface</span>
+           <span class="usage-tab-desc">React dashboard + FastAPI backend. Recommended for interactive exploration.</span>
+         </button>
+         <button class="usage-tab-btn" onclick="UsageTabs.switch('cli')">
+           <span class="usage-tab-icon">&#128187;</span>
+           <span class="usage-tab-title">CLI (Command Line)</span>
+           <span class="usage-tab-desc">Direct Python module execution. Requires only Python 3.9+.</span>
+         </button>
+         <button class="usage-tab-btn" onclick="UsageTabs.switch('docker')">
+           <span class="usage-tab-icon">&#128051;</span>
+           <span class="usage-tab-title">Docker</span>
+           <span class="usage-tab-desc">Containerized deployment with PostgreSQL, backend, and frontend.</span>
+         </button>
+       </div>
+
+       <!-- ==================== WEB TAB ==================== -->
+       <div id="usage-tab-web" class="usage-tab-content active">
+
+         <div class="usage-guide-box">
+           <strong>The web interface</strong> is a full-stack React + FastAPI application that wraps every AETHERIX module behind interactive pages with real-time calculations, result history, info bubbles, external resources, and a command terminal. It runs locally via <strong>PM2</strong> (SQLite) or <strong>Docker Compose</strong> (PostgreSQL).
+         </div>
+
+         <div class="card">
+           <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Step 1: Install &amp; Start</div>
+           <pre style="background:var(--bg-secondary);padding:16px;border-radius:var(--radius-md);overflow-x:auto;font-size:0.85rem;line-height:1.8"><code>git clone https://github.com/matx104/AETHERIX.git
+cd AETHERIX
+./scripts/dev.sh setup    # install Python deps + Node.js deps
+./scripts/dev.sh start    # start backend (:8000) + frontend (:3000)</code></pre>
+           <div class="usage-guide-box" style="margin-top:12px">
+             <strong>What this does:</strong> <code>dev.sh setup</code> creates a Python venv, installs dependencies, and runs <code>npm install</code> in <code>frontend/</code>. <code>dev.sh start</code> launches both processes via <strong>PM2</strong> — the FastAPI backend on port 8000 and the Vite dev server on port 3000.
+           </div>
+         </div>
+
+         <div class="card">
+           <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> Step 2: Open the App</div>
+           <div class="table-wrapper"><table>
+             <thead><tr><th>URL</th><th>What You'll See</th></tr></thead>
+             <tbody>
+               <tr><td><code>http://localhost:3000</code></td><td><strong>Welcome page</strong> with module overview, stats, and showcase links</td></tr>
+               <tr><td><code>http://localhost:3000/dashboard</code></td><td><strong>Dashboard</strong> with API health, network stats, showcase grid</td></tr>
+               <tr><td><code>http://localhost:8000/docs</code></td><td><strong>Swagger API docs</strong> for all 7 routers</td></tr>
+             </tbody>
+           </table></div>
+         </div>
+
+         <div class="card">
+           <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> Step 3: Navigate &amp; Use Each Page</div>
+           <div class="table-wrapper"><table>
+             <thead><tr><th>Page</th><th>How to Use</th><th>Showcase Deep-Dive</th></tr></thead>
+             <tbody>
+               <tr>
+                 <td><strong>Welcome</strong> <code>/</code></td>
+                 <td>Landing page. Click any module card to open the tool, or click <em>"Learn the science"</em> to read the theory on this showcase site.</td>
+                 <td><a href="#welcome" style="color:var(--accent)">Welcome</a></td>
+               </tr>
+               <tr>
+                 <td><strong>Dashboard</strong> <code>/dashboard</code></td>
+                 <td>Shows API health, DB status, network stats. The <em>Showcase &amp; Learning</em> grid links to 9 showcase pages. The <em>Resources</em> card lists key DTN references.</td>
+                 <td><a href="#welcome" style="color:var(--accent)">Welcome</a></td>
+               </tr>
+               <tr>
+                 <td><strong>Link Budget</strong> <code>/link-budget</code></td>
+                 <td>Pick a scenario (<code>minimum</code>, <code>average</code>, <code>maximum</code>) or enter a custom distance in km. Click <em>"Calculate Optical Link"</em>. Results show EIRP, margin, data rate, loss. Scroll down for history and external resources.</td>
+                 <td><a href="#optical-comms" style="color:var(--accent)">Optical Comms</a></td>
+               </tr>
+               <tr>
+                 <td><strong>RL Routing</strong> <code>/routing</code></td>
+                 <td>Edit the network state (current node, neighbors, buffer, priority, destination). Click <em>"Get Routing Decision"</em>. The agent returns an action (forward/store/drop), next hop, confidence score, and reasoning. History tracks all decisions.</td>
+                 <td><a href="#reinforcement-learning" style="color:var(--accent)">RL Routing</a></td>
+               </tr>
+               <tr>
+                 <td><strong>Orbital</strong> <code>/orbital</code></td>
+                 <td>Drag the <em>true anomaly slider</em> (0&#176;&#8211;360&#176;) to see how Earth&#8211;Mars distance changes. The timeline bar chart shows the full 780-day synodic period. Stats update in real time.</td>
+                 <td><a href="#orbital" style="color:var(--accent)">Orbital Mechanics</a></td>
+               </tr>
+               <tr>
+                 <td><strong>QKD Security</strong> <code>/security</code></td>
+                 <td>Choose BB84 or E91, set qubit count and channel error. Toggle <em>"Simulate Eavesdropper"</em> to inject Eve. Click <em>"Run Protocol"</em>. Results show QBER, security verdict, sifted key, and Alice's key bits.</td>
+                 <td><a href="#qkd-science" style="color:var(--accent)">QKD Science</a></td>
+               </tr>
+               <tr>
+                 <td><strong>Simulations</strong> <code>/simulations</code></td>
+                 <td>Enter a name, pick a scenario, optionally set a seed. Click <em>"Create Run"</em>. All runs are stored in the DB and listed below with status, seed, and timestamp.</td>
+                 <td><a href="#simulation" style="color:var(--accent)">Simulation</a></td>
+               </tr>
+               <tr>
+                 <td><strong>CMD Terminal</strong> <code>/cmd</code></td>
+                 <td>Browse the command catalog in the left sidebar (shell scripts + Python modules). Select a command, optionally add extra args, click <strong>Run</strong>. Output streams in real time via SSE. Click <strong>Stop</strong> to abort.</td>
+                 <td><a href="#cmd-terminal" style="color:var(--accent)">CMD Terminal</a></td>
+               </tr>
+             </tbody>
+           </table></div>
+         </div>
+
+         <div class="usage-guide-box">
+           <strong>Every page</strong> has an <strong>info bubble</strong> at the top (click "Learn more &#8594;" to jump to this showcase) and a <strong>Resources card</strong> at the bottom with curated RFCs, papers, courses, and tools. The sidebar also has direct links to the Showcase, Resources, Glossary, and Quiz.
+         </div>
+
+         <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128279;</span> Showcase Integration</header>
+         <div class="card">
+           <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> How the Integration Works</div>
+           <div class="table-wrapper"><table>
+             <thead><tr><th>Frontend Feature</th><th>Where to Find It</th><th>What It Does</th></tr></thead>
+             <tbody>
+               <tr><td><strong>Info Bubbles</strong></td><td>Top of every module page</td><td>Quick explanation + "Learn more &#8594;" link to matching showcase section</td></tr>
+               <tr><td><strong>Resources Cards</strong></td><td>Bottom of every module page</td><td>Curated RFCs, papers, courses, tools + link to full Resources page</td></tr>
+               <tr><td><strong>Welcome Page</strong></td><td><code>/</code></td><td>"Learn the science &#8594;" on each module card links to showcase</td></tr>
+               <tr><td><strong>Dashboard Grid</strong></td><td><code>/dashboard</code></td><td>9 cards linking to Welcome, What is DTN, How It Works, etc.</td></tr>
+               <tr><td><strong>Sidebar External</strong></td><td>Left sidebar, bottom</td><td>Always-visible: Showcase, Resources, Glossary, Quiz</td></tr>
+               <tr><td><strong>Footer</strong></td><td>Bottom of every page</td><td>GitHub, LinkedIn, Portfolio, Resume, Repo, Showcase</td></tr>
+             </tbody>
+           </table></div>
+         </div>
+
+         <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128248;</span> Interface Previews</header>
+
+         <!-- MOCK: Dashboard -->
+         <div class="usage-guide-box">
+           <strong>Dashboard</strong> &#8212; The hub page. Shows API health, database status, Earth&#8211;Mars stats, platform modules table, and a showcase grid linking to learning materials.
+         </div>
+         <div class="card" style="padding:0;overflow:hidden">
+           <div class="mock-browser">
+             <div class="mock-browser-bar">
+               <div class="mock-browser-dot r"></div>
+               <div class="mock-browser-dot y"></div>
+               <div class="mock-browser-dot g"></div>
+               <div class="mock-browser-url">localhost:3000/dashboard</div>
+             </div>
+             <div class="mock-browser-body" style="padding:0">
+               <div class="mock-layout">
+                 <div class="mock-sidebar">
+                   <div class="mock-sidebar-brand">AETHERIX</div>
+                   <div class="mock-sidebar-item">🏠 Welcome</div>
+                   <div class="mock-sidebar-item active">▦ Dashboard</div>
+                   <div class="mock-sidebar-item">⟡ Link Budget</div>
+                   <div class="mock-sidebar-item">⟳ RL Routing</div>
+                   <div class="mock-sidebar-item">◎ Orbital</div>
+                   <div class="mock-sidebar-item">⚷ QKD Security</div>
+                   <div class="mock-sidebar-item">▶ Simulations</div>
+                   <div class="mock-sidebar-item">⌘ CMD</div>
+                   <div style="padding:6px 4px;border-top:1px solid var(--border);margin-top:6px;font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">External</div>
+                   <div class="mock-sidebar-item">🌐 Showcase</div>
+                   <div class="mock-sidebar-item">📚 Resources</div>
+                   <div class="mock-sidebar-item">📖 Glossary</div>
+                   <div class="mock-sidebar-item">✓ Quiz</div>
+                 </div>
+                 <div class="mock-main">
+                   <div class="mock-page-title">Mission Control</div>
+                   <div class="mock-page-sub">AETHERIX Interplanetary DTN Platform v3.0.0</div>
+                   <div class="mock-grid-4" style="margin-bottom:12px">
+                     <div class="mock-stat"><div class="mock-stat-label">API Status</div><div class="mock-stat-value" style="color:#10b981">ok</div></div>
+                     <div class="mock-stat"><div class="mock-stat-label">Database</div><div class="mock-stat-value" style="color:#10b981">connected</div></div>
+                     <div class="mock-stat"><div class="mock-stat-label">Earth-Mars Range</div><div class="mock-stat-value" style="color:#06b6d4">54.6-401M km</div></div>
+                     <div class="mock-stat"><div class="mock-stat-label">Network Tiers</div><div class="mock-stat-value" style="color:#3b82f6">5</div></div>
+                   </div>
+                   <div class="mock-grid-2">
+                     <div class="mock-card-sm">
+                       <div class="mock-card-title">Platform Modules</div>
+                       <table class="mock-table">
+                         <thead><tr><th>Module</th><th>Path</th><th>Status</th></tr></thead>
+                         <tbody>
+                           <tr><td>Link Budget</td><td>/link-budget</td><td><span class="mock-badge mock-badge-green">Active</span></td></tr>
+                           <tr><td>RL Routing</td><td>/routing</td><td><span class="mock-badge mock-badge-green">Active</span></td></tr>
+                           <tr><td>Orbital</td><td>/orbital</td><td><span class="mock-badge mock-badge-green">Active</span></td></tr>
+                           <tr><td>QKD Security</td><td>/security</td><td><span class="mock-badge mock-badge-green">Active</span></td></tr>
+                           <tr><td>Bundle Protocol</td><td>/routing</td><td><span class="mock-badge mock-badge-blue">Demo</span></td></tr>
+                         </tbody>
+                       </table>
+                     </div>
+                     <div class="mock-card-sm">
+                       <div class="mock-card-title">Quick Actions</div>
+                       <p style="font-size:0.72rem;color:var(--text-secondary);margin-bottom:8px">Navigate to each module using the sidebar...</p>
+                       <div class="mock-grid-2">
+                         <div class="mock-stat"><div class="mock-stat-label">Optical Link</div><div class="mock-stat-value" style="font-size:1rem;color:#3b82f6">1550 nm</div></div>
+                         <div class="mock-stat"><div class="mock-stat-label">QKD Protocol</div><div class="mock-stat-value" style="font-size:1rem;color:#10b981">BB84</div></div>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+
+         <!-- MOCK: Link Budget -->
+         <div class="usage-guide-box" style="margin-top:16px">
+           <strong>Link Budget Calculator</strong> &#8212; Select a scenario or enter a custom distance, then click "Calculate Optical Link". Results appear on the right: EIRP, link margin (green = positive = link works), data rate, free-space loss, received power. All runs are saved to the database and shown in the history table below.
+         </div>
+         <div class="card" style="padding:0;overflow:hidden">
+           <div class="mock-browser">
+             <div class="mock-browser-bar">
+               <div class="mock-browser-dot r"></div>
+               <div class="mock-browser-dot y"></div>
+               <div class="mock-browser-dot g"></div>
+               <div class="mock-browser-url">localhost:3000/link-budget</div>
+             </div>
+             <div class="mock-browser-body" style="padding:0">
+               <div class="mock-layout">
+                 <div class="mock-sidebar">
+                    <div class="mock-sidebar-brand">AETHERIX</div>
+                    <div class="mock-sidebar-item">🏠 Welcome</div>
+                    <div class="mock-sidebar-item">▦ Dashboard</div>
+                    <div class="mock-sidebar-item active">⟡ Link Budget</div>
+                    <div class="mock-sidebar-item">⟳ RL Routing</div>
+                    <div class="mock-sidebar-item">◎ Orbital</div>
+                    <div class="mock-sidebar-item">ʆ QKD Security</div>
+                    <div class="mock-sidebar-item">▶ Simulations</div>
+                    <div class="mock-sidebar-item">⌘ CMD</div>
+                    <div style="padding:6px 4px;border-top:1px solid var(--border);margin-top:6px;font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">External</div>
+                    <div class="mock-sidebar-item">🌐 Showcase</div>
+                    <div class="mock-sidebar-item">📚 Resources</div>
+                 </div>
+                 <div class="mock-main">
+                   <div class="mock-page-title">Link Budget Calculator</div>
+                   <div class="mock-page-sub">Optical and RF link budget analysis for Earth-Mars communications</div>
+                   <div class="mock-grid-2">
+                     <div class="mock-card-sm">
+                       <div class="mock-card-title">Optical Link Parameters</div>
+                       <div style="margin-bottom:6px"><span style="font-size:0.65rem;color:var(--text-muted)">Scenario</span><br><select class="mock-select" disabled><option>average</option></select></div>
+                       <div style="margin-bottom:6px"><span style="font-size:0.65rem;color:var(--text-muted)">Distance (km)</span><br><input class="mock-input" value="" disabled></div>
+                       <div style="display:inline-block;padding:3px 10px;background:#3b82f6;color:#fff;border-radius:6px;font-size:0.7rem;margin-top:4px">Calculate Optical Link</div>
+                     </div>
+                     <div class="mock-card-sm">
+                       <div class="mock-card-title">Results</div>
+                       <div class="mock-grid-2" style="gap:6px">
+                         <div class="mock-stat"><div class="mock-stat-label">Distance</div><div class="mock-stat-value" style="font-size:1rem;color:#06b6d4">225.0M km</div></div>
+                         <div class="mock-stat"><div class="mock-stat-label">Link Margin</div><div class="mock-stat-value" style="font-size:1rem;color:#10b981">3.45 dB</div></div>
+                         <div class="mock-stat"><div class="mock-stat-label">EIRP</div><div class="mock-stat-value" style="font-size:1rem;color:#3b82f6">107.60 dBm</div></div>
+                         <div class="mock-stat"><div class="mock-stat-label">Data Rate</div><div class="mock-stat-value" style="font-size:1rem;color:#f59e0b">50.0 Mbps</div></div>
+                         <div class="mock-stat"><div class="mock-stat-label">Free Space Loss</div><div class="mock-stat-value" style="font-size:1rem;color:#ef4444">-295.22 dB</div></div>
+                         <div class="mock-stat"><div class="mock-stat-label">Received Power</div><div class="mock-stat-value" style="font-size:1rem">-72.14 dBm</div></div>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+
+         <!-- MOCK: RL Routing -->
+         <div class="usage-guide-box" style="margin-top:16px">
+           <strong>RL Routing Agent</strong> &#8212; Edit the network state fields (current node, neighbors, buffer, bundle priority, destination), then click "Get Routing Decision". The agent returns an action (FORWARD / STORE / DROP), the chosen next hop, a confidence score, and a natural-language reasoning string.
+         </div>
+         <div class="card" style="padding:0;overflow:hidden">
+           <div class="mock-browser">
+             <div class="mock-browser-bar">
+               <div class="mock-browser-dot r"></div>
+               <div class="mock-browser-dot y"></div>
+               <div class="mock-browser-dot g"></div>
+               <div class="mock-browser-url">localhost:3000/routing</div>
+             </div>
+             <div class="mock-browser-body" style="padding:0">
+               <div class="mock-layout">
+                 <div class="mock-sidebar">
+                    <div class="mock-sidebar-brand">AETHERIX</div>
+                    <div class="mock-sidebar-item">🏠 Welcome</div>
+                    <div class="mock-sidebar-item">▦ Dashboard</div>
+                    <div class="mock-sidebar-item">⟡ Link Budget</div>
+                    <div class="mock-sidebar-item active">⟳ RL Routing</div>
+                    <div class="mock-sidebar-item">◎ Orbital</div>
+                    <div class="mock-sidebar-item">ʆ QKD Security</div>
+                    <div class="mock-sidebar-item">▶ Simulations</div>
+                    <div class="mock-sidebar-item">⌘ CMD</div>
+                    <div style="padding:6px 4px;border-top:1px solid var(--border);margin-top:6px;font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">External</div>
+                    <div class="mock-sidebar-item">🌐 Showcase</div>
+                    <div class="mock-sidebar-item">📚 Resources</div>
+                 </div>
+                 <div class="mock-main">
+                   <div class="mock-page-title">RL Routing Agent</div>
+                   <div class="mock-page-sub">Reinforcement learning-based routing decisions for DTN bundles</div>
+                   <div class="mock-grid-2">
+                     <div class="mock-card-sm">
+                       <div class="mock-card-title">Network State</div>
+                       <div style="margin-bottom:4px"><span style="font-size:0.65rem;color:var(--text-muted)">Current Node</span><br><code style="font-size:0.7rem">earth_dsn_goldstone</code></div>
+                       <div style="margin-bottom:4px"><span style="font-size:0.65rem;color:var(--text-muted)">Buffer Occupancy</span><br><code style="font-size:0.7rem">0.4</code></div>
+                       <div style="margin-bottom:4px"><span style="font-size:0.65rem;color:var(--text-muted)">Bundle Priority</span><br><code style="font-size:0.7rem">2</code></div>
+                       <div style="display:inline-block;padding:3px 10px;background:#3b82f6;color:#fff;border-radius:6px;font-size:0.7rem;margin-top:4px">Get Routing Decision</div>
+                     </div>
+                     <div class="mock-card-sm">
+                       <div class="mock-card-title">Routing Decision</div>
+                       <div class="mock-grid-2" style="gap:6px">
+                         <div class="mock-stat"><div class="mock-stat-label">Action</div><div class="mock-stat-value" style="font-size:1rem;color:#3b82f6">FORWARD</div></div>
+                         <div class="mock-stat"><div class="mock-stat-label">Next Hop</div><div class="mock-stat-value" style="font-size:0.75rem;color:#06b6d4">earth_orbit_geo_1</div></div>
+                         <div class="mock-stat"><div class="mock-stat-label">Confidence</div><div class="mock-stat-value" style="font-size:1rem;color:#10b981">92.0%</div></div>
+                         <div class="mock-stat"><div class="mock-stat-label">Reasoning</div><div style="font-size:0.7rem;color:var(--text-secondary)">Best link quality (0.92), sufficient buffer</div></div>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+
+         <!-- MOCK: Orbital -->
+         <div class="usage-guide-box" style="margin-top:16px">
+           <strong>Orbital Mechanics</strong> &#8212; The four stat cards show current distance, light-time delay, and min/max range. Drag the <em>true anomaly slider</em> to explore how distance changes with orbital position. The bar chart shows the full 780-day synodic period (green = close, yellow = moderate, red = far/conjunction).
+         </div>
+         <div class="card" style="padding:0;overflow:hidden">
+           <div class="mock-browser">
+             <div class="mock-browser-bar">
+               <div class="mock-browser-dot r"></div>
+               <div class="mock-browser-dot y"></div>
+               <div class="mock-browser-dot g"></div>
+               <div class="mock-browser-url">localhost:3000/orbital</div>
+             </div>
+             <div class="mock-browser-body" style="padding:0">
+               <div class="mock-layout">
+                 <div class="mock-sidebar">
+                    <div class="mock-sidebar-brand">AETHERIX</div>
+                    <div class="mock-sidebar-item">🏠 Welcome</div>
+                    <div class="mock-sidebar-item">▦ Dashboard</div>
+                    <div class="mock-sidebar-item">⟡ Link Budget</div>
+                    <div class="mock-sidebar-item">⟳ RL Routing</div>
+                    <div class="mock-sidebar-item active">◎ Orbital</div>
+                    <div class="mock-sidebar-item">ʆ QKD Security</div>
+                    <div class="mock-sidebar-item">▶ Simulations</div>
+                    <div class="mock-sidebar-item">⌘ CMD</div>
+                    <div style="padding:6px 4px;border-top:1px solid var(--border);margin-top:6px;font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">External</div>
+                    <div class="mock-sidebar-item">🌐 Showcase</div>
+                    <div class="mock-sidebar-item">📚 Resources</div>
+                 </div>
+                 <div class="mock-main">
+                   <div class="mock-page-title">Orbital Mechanics</div>
+                   <div class="mock-page-sub">Earth-Mars distance calculations, contact windows, and light-time delay</div>
+                   <div class="mock-grid-4" style="margin-bottom:10px">
+                     <div class="mock-stat"><div class="mock-stat-label">Current Distance</div><div class="mock-stat-value" style="font-size:1rem;color:#06b6d4">225.3M km</div></div>
+                     <div class="mock-stat"><div class="mock-stat-label">Light-Time Delay</div><div class="mock-stat-value" style="font-size:1rem;color:#f59e0b">12.5 min</div></div>
+                     <div class="mock-stat"><div class="mock-stat-label">Min Distance</div><div class="mock-stat-value" style="font-size:1rem;color:#10b981">54.6M km</div></div>
+                     <div class="mock-stat"><div class="mock-stat-label">Max Distance</div><div class="mock-stat-value" style="font-size:1rem;color:#ef4444">401.0M km</div></div>
+                   </div>
+                   <div class="mock-card-sm">
+                     <div class="mock-card-title">Synodic Period Timeline</div>
+                     <div class="mock-bar-chart">
+                       <div class="mock-bar" style="height:20%;background:#10b981"></div>
+                       <div class="mock-bar" style="height:35%;background:#10b981"></div>
+                       <div class="mock-bar" style="height:55%;background:#f59e0b"></div>
+                       <div class="mock-bar" style="height:75%;background:#f59e0b"></div>
+                       <div class="mock-bar" style="height:90%;background:#ef4444"></div>
+                       <div class="mock-bar" style="height:100%;background:#ef4444"></div>
+                       <div class="mock-bar" style="height:95%;background:#ef4444"></div>
+                       <div class="mock-bar" style="height:80%;background:#f59e0b"></div>
+                       <div class="mock-bar" style="height:60%;background:#f59e0b"></div>
+                       <div class="mock-bar" style="height:40%;background:#10b981"></div>
+                       <div class="mock-bar" style="height:25%;background:#10b981"></div>
+                       <div class="mock-bar" style="height:18%;background:#10b981"></div>
+                     </div>
+                     <div style="display:flex;gap:12px;margin-top:6px;font-size:0.6rem;color:var(--text-muted)">
+                       <span>Day 0 = Perihelion</span>
+                       <span>~390 days = Aphelion</span>
+                       <span>Period = 780 days</span>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+
+         <!-- MOCK: QKD Security -->
+         <div class="usage-guide-box" style="margin-top:16px">
+           <strong>QKD Security</strong> &#8212; Choose BB84 or E91, set the number of qubits and channel error rate. Toggle <em>"Simulate Eavesdropper"</em> to inject an eavesdropper (inflates error to 15%). Click "Run Protocol". If QBER &lt; 11%, the key is secure. Results include the sifted key, efficiency, and Alice's key bits.
+         </div>
+         <div class="card" style="padding:0;overflow:hidden">
+           <div class="mock-browser">
+             <div class="mock-browser-bar">
+               <div class="mock-browser-dot r"></div>
+               <div class="mock-browser-dot y"></div>
+               <div class="mock-browser-dot g"></div>
+               <div class="mock-browser-url">localhost:3000/security</div>
+             </div>
+             <div class="mock-browser-body" style="padding:0">
+               <div class="mock-layout">
+                 <div class="mock-sidebar">
+                    <div class="mock-sidebar-brand">AETHERIX</div>
+                    <div class="mock-sidebar-item">🏠 Welcome</div>
+                    <div class="mock-sidebar-item">▦ Dashboard</div>
+                    <div class="mock-sidebar-item">⟡ Link Budget</div>
+                    <div class="mock-sidebar-item">⟳ RL Routing</div>
+                    <div class="mock-sidebar-item">◎ Orbital</div>
+                    <div class="mock-sidebar-item active">ʆ QKD Security</div>
+                    <div class="mock-sidebar-item">▶ Simulations</div>
+                    <div class="mock-sidebar-item">⌘ CMD</div>
+                    <div style="padding:6px 4px;border-top:1px solid var(--border);margin-top:6px;font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">External</div>
+                    <div class="mock-sidebar-item">🌐 Showcase</div>
+                    <div class="mock-sidebar-item">📚 Resources</div>
+                 </div>
+                 <div class="mock-main">
+                   <div class="mock-page-title">QKD Security</div>
+                   <div class="mock-page-sub">Quantum Key Distribution &#8212; BB84 and E91 protocol simulation</div>
+                   <div class="mock-grid-2">
+                     <div class="mock-card-sm">
+                       <div class="mock-card-title">Protocol Parameters</div>
+                       <div style="margin-bottom:4px"><span style="font-size:0.65rem;color:var(--text-muted)">Protocol</span><br><code style="font-size:0.7rem">BB84 (Bennett-Brassard 1984)</code></div>
+                       <div style="margin-bottom:4px"><span style="font-size:0.65rem;color:var(--text-muted)">Number of Qubits</span><br><code style="font-size:0.7rem">1000</code></div>
+                       <div style="margin-bottom:4px"><span style="font-size:0.65rem;color:var(--text-muted)">Channel Error Rate</span><br><code style="font-size:0.7rem">0.0</code></div>
+                       <div style="display:inline-block;padding:3px 10px;background:#3b82f6;color:#fff;border-radius:6px;font-size:0.7rem;margin-top:4px">Run BB84 Protocol</div>
+                     </div>
+                     <div class="mock-card-sm">
+                       <div class="mock-card-title">QKD Result</div>
+                       <div class="mock-grid-2" style="gap:6px">
+                         <div class="mock-stat"><div class="mock-stat-label">QBER</div><div class="mock-stat-value" style="font-size:1rem;color:#10b981">4.20%</div><div style="font-size:0.6rem;color:var(--text-muted)">Threshold: 11%</div></div>
+                         <div class="mock-stat"><div class="mock-stat-label">Secure</div><div class="mock-stat-value" style="font-size:1rem;color:#10b981">YES</div></div>
+                         <div class="mock-stat"><div class="mock-stat-label">Sifted Key Length</div><div class="mock-stat-value" style="font-size:1rem;color:#3b82f6">487</div></div>
+                         <div class="mock-stat"><div class="mock-stat-label">Efficiency</div><div class="mock-stat-value" style="font-size:1rem;color:#06b6d4">48.7%</div></div>
+                       </div>
+                       <div style="margin-top:6px;font-size:0.6rem;color:var(--text-muted)">Alice's Key (first 32 bits)</div>
+                       <code style="font-size:0.65rem;color:#3b82f6">[1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, ...]</code>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+
+         <!-- MOCK: CMD Terminal -->
+         <div class="usage-guide-box" style="margin-top:16px">
+           <strong>CMD Terminal</strong> &#8212; Browse the command catalog in the left sidebar (grouped by Shell Scripts, Python Modules, etc.). Select a command, optionally type extra arguments, click <strong>Run</strong>. Output streams in real-time via Server-Sent Events. Click <strong>Stop</strong> to abort a running command. This is the same as running the scripts from your terminal, but in the browser.
+         </div>
+         <div class="card" style="padding:0;overflow:hidden">
+           <div class="mock-browser">
+             <div class="mock-browser-bar">
+               <div class="mock-browser-dot r"></div>
+               <div class="mock-browser-dot y"></div>
+               <div class="mock-browser-dot g"></div>
+               <div class="mock-browser-url">localhost:3000/cmd</div>
+             </div>
+             <div class="mock-browser-body" style="padding:0">
+               <div class="mock-layout">
+                 <div class="mock-sidebar">
+                    <div class="mock-sidebar-brand">AETHERIX</div>
+                    <div class="mock-sidebar-item">🏠 Welcome</div>
+                    <div class="mock-sidebar-item">▦ Dashboard</div>
+                    <div class="mock-sidebar-item">⟡ Link Budget</div>
+                    <div class="mock-sidebar-item">⟳ RL Routing</div>
+                    <div class="mock-sidebar-item">◎ Orbital</div>
+                    <div class="mock-sidebar-item">ʆ QKD Security</div>
+                    <div class="mock-sidebar-item">▶ Simulations</div>
+                    <div class="mock-sidebar-item active">⌘ CMD</div>
+                    <div style="padding:6px 4px;border-top:1px solid var(--border);margin-top:6px;font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">External</div>
+                    <div class="mock-sidebar-item">🌐 Showcase</div>
+                    <div class="mock-sidebar-item">📚 Resources</div>
+                    <div style="padding:8px 4px;border-top:1px solid var(--border);margin-top:8px">
+                      <div style="font-weight:600;font-size:0.7rem;margin-bottom:4px;color:var(--text-secondary)">Shell Scripts</div>
+                      <div class="mock-sidebar-item">Initialize Environment</div>
+                      <div class="mock-sidebar-item active">Run Test Suite</div>
+                      <div class="mock-sidebar-item">Code Quality Check</div>
+                      <div class="mock-sidebar-item">Clean Artifacts</div>
+                      <div style="font-weight:600;font-size:0.7rem;margin:8px 0 4px;color:var(--text-secondary)">Python Modules</div>
+                      <div class="mock-sidebar-item">Optical Link Budget</div>
+                      <div class="mock-sidebar-item">RL Routing Agent</div>
+                      <div class="mock-sidebar-item">QKD Protocol</div>
+                      <div class="mock-sidebar-item">Simulation Engine</div>
+                    </div>
+                 </div>
+                 <div class="mock-main">
+                   <div class="mock-page-title">Command Terminal</div>
+                   <div class="mock-page-sub">Run scripts, tests, modules, and utilities from the web interface</div>
+                   <div class="mock-card-sm" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px">
+                     <div><strong style="font-size:0.8rem">Run Test Suite</strong> <span style="font-size:0.7rem;color:var(--text-muted);margin-left:6px">Run all 189 tests</span></div>
+                     <div style="display:flex;gap:4px">
+                       <span class="mock-btn mock-btn-primary">Run</span>
+                       <span class="mock-btn mock-btn-secondary">Clear</span>
+                     </div>
+                   </div>
+                   <div class="mock-terminal" style="min-height:180px"><span class="t-blue">$ ./scripts/run_tests.sh</span>
+<span class="t-muted">====== 189 tests ran ======</span>
+<span class="t-muted">test_link_budget.py ............................ <span class="t-green">28 passed</span></span>
+<span class="t-muted">test_rl_agent.py ............................... <span class="t-green">22 passed</span></span>
+<span class="t-muted">test_qkd.py .................................... <span class="t-green">19 passed</span></span>
+<span class="t-muted">test_orbital.py ................................ <span class="t-green">18 passed</span></span>
+<span class="t-muted">test_bundle.py ................................ <span class="t-green">15 passed</span></span>
+<span class="t-muted">...</span>
+<span class="t-bold t-green">189 passed</span> <span class="t-muted">in 1.49s</span>
+<span class="t-green">&#10003; Process finished with exit code 0</span></div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+
+         <div class="card" style="margin-top:16px">
+           <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> PM2 Process Management</div>
+           <div class="usage-guide-box">
+             PM2 manages both the backend and frontend processes. Use <code>./scripts/dev.sh</code> to control them:
+           </div>
+           <div class="table-wrapper"><table>
+             <thead><tr><th>Command</th><th>What It Does</th></tr></thead>
+             <tbody>
+               <tr><td><code>./scripts/dev.sh start</code></td><td>Install deps + start backend &amp; frontend</td></tr>
+               <tr><td><code>./scripts/dev.sh stop</code></td><td>Stop all PM2 processes</td></tr>
+               <tr><td><code>./scripts/dev.sh restart</code></td><td>Restart all processes</td></tr>
+               <tr><td><code>./scripts/dev.sh status</code></td><td>Show PM2 process status</td></tr>
+               <tr><td><code>./scripts/dev.sh logs [backend|frontend]</code></td><td>Tail logs</td></tr>
+               <tr><td><code>./scripts/dev.sh build</code></td><td>Build frontend for production</td></tr>
+             </tbody>
+           </table></div>
+         </div>
+
+       </div>
+
+       <!-- ==================== CLI TAB ==================== -->
+       <div id="usage-tab-cli" class="usage-tab-content">
+
+         <div class="usage-guide-box">
+           <strong>The CLI</strong> runs AETHERIX Python modules directly from your terminal. No Node.js or Docker required &#8212; just Python 3.9+ and a virtual environment. Each module prints a self-contained demo with real calculations.
+         </div>
+
+         <div class="card">
+           <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Step 1: Set Up the Environment</div>
+           <pre style="background:var(--bg-secondary);padding:16px;border-radius:var(--radius-md);overflow-x:auto;font-size:0.85rem;line-height:1.8"><code>git clone https://github.com/matx104/AETHERIX.git
+cd AETHERIX
+./scripts/init.sh          # creates venv + installs deps
+source venv/bin/activate   # activate the virtual environment
+./scripts/run_tests.sh     # verify: 189 tests pass</code></pre>
+           <div class="usage-guide-box" style="margin-top:12px">
+             <strong>What <code>init.sh</code> does:</strong> Creates <code>venv/</code>, installs <code>requirements.txt</code> (numpy, matplotlib, etc.), and verifies the installation. Add <code>--dev</code> to include linting tools.
+           </div>
+         </div>
+
+         <div class="card">
+           <div class="card-title"><span class="ct-dot" style="background:var(--mars)"></span> Step 2: Run Utility Scripts</div>
+           <div class="usage-guide-box">
+             Shell scripts handle environment management, testing, linting, and cleanup. Always activate the venv first with <code>source venv/bin/activate</code>.
+           </div>
+           <div class="table-wrapper"><table>
+             <thead><tr><th>Script</th><th>What It Does</th></tr></thead>
+             <tbody>
+               <tr><td><code>./scripts/init.sh</code></td><td>Set up virtual environment and install dependencies</td></tr>
+               <tr><td><code>./scripts/init.sh --dev</code></td><td>Include development tools (linting, formatting)</td></tr>
+               <tr><td><code>./scripts/run_tests.sh</code></td><td>Run the full test suite (189 tests)</td></tr>
+               <tr><td><code>./scripts/run_tests.sh -v</code></td><td>Verbose test output</td></tr>
+               <tr><td><code>./scripts/run_demos.sh</code></td><td>Interactive demo menu (6 Python demos)</td></tr>
+               <tr><td><code>./scripts/lint.sh</code></td><td>Code quality checks (ruff)</td></tr>
+               <tr><td><code>./scripts/lint.sh --fix</code></td><td>Auto-fix code style issues</td></tr>
+               <tr><td><code>./scripts/clean.sh</code></td><td>Clean artifacts and caches</td></tr>
+             </tbody>
+           </table></div>
+         </div>
+
+         <div class="card">
+           <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> Step 3: Run Individual Modules</div>
+           <div class="usage-guide-box">
+             Each module prints a self-contained demo with real calculations &#8212; link budgets, routing decisions, QKD sessions, orbital distances, and more. Just run with <code>python</code>.
+           </div>
+           <div class="table-wrapper"><table>
+             <thead><tr><th>Command</th><th>What It Outputs</th></tr></thead>
+             <tbody>
+               <tr><td><code>python src/infrastructure/link_budget.py</code></td><td>Optical link budget for minimum/average/maximum scenarios</td></tr>
+               <tr><td><code>python src/infrastructure/rf_link_budget.py</code></td><td>RF link budget across Ka/X/S/UHF bands</td></tr>
+               <tr><td><code>python src/routing/rl_agent.py</code></td><td>RL agent training demo with Q-table convergence</td></tr>
+               <tr><td><code>python src/routing/bundle.py</code></td><td>BPv7 bundle creation, priority, custody demo</td></tr>
+               <tr><td><code>python src/routing/prioritization.py</code></td><td>Data prioritization scheduler across priority classes</td></tr>
+               <tr><td><code>python src/routing/forwarding_engine.py</code></td><td>Store-and-forward with BundleQueue demo</td></tr>
+               <tr><td><code>python src/routing/training.py</code></td><td>RL training loop with convergence detection</td></tr>
+               <tr><td><code>python src/security/qkd.py</code></td><td>BB84 &amp; E91 key exchange with QBER analysis</td></tr>
+               <tr><td><code>python src/security/repeater_chain.py</code></td><td>Multi-hop quantum repeater chain with purification</td></tr>
+               <tr><td><code>python src/security/privacy_amplification.py</code></td><td>CASCADE reconciliation &amp; universal hashing</td></tr>
+               <tr><td><code>python src/orbital/contact_windows.py</code></td><td>Contact window prediction &amp; distance timeline</td></tr>
+               <tr><td><code>python src/orbital/doppler.py</code></td><td>Classical &amp; relativistic Doppler shift</td></tr>
+               <tr><td><code>python src/orbital/topology.py</code></td><td>5-tier 241-node network topology with BFS routing</td></tr>
+               <tr><td><code>python src/computing/radiation.py</code></td><td>Radiation hardening with error correction codes</td></tr>
+               <tr><td><code>python src/simulation/simulator.py</code></td><td>Full end-to-end simulation engine</td></tr>
+               <tr><td><code>python src/simulation/policy_engine.py</code></td><td>Policy-based routing with 5 default policies</td></tr>
+             </tbody>
+           </table></div>
+         </div>
+
+         <div class="card">
+           <div class="card-title"><span class="ct-dot" style="background:var(--mars)"></span> Generate Presentation</div>
+           <div class="usage-guide-box">
+             Generate PPTX or PDF presentations from the project data:
+           </div>
+           <pre style="background:var(--bg-secondary);padding:16px;border-radius:var(--radius-md);overflow-x:auto;font-size:0.85rem;line-height:1.8"><code>cd presentation
+pip install python-pptx reportlab   # if not installed
+python generate_pptx.py             # &#8594; AETHERIX_Presentation.pptx
+python generate_pdf.py              # &#8594; AETHERIX_Presentation.pdf</code></pre>
+         </div>
+
+       </div>
+
+       <!-- ==================== DOCKER TAB ==================== -->
+       <div id="usage-tab-docker" class="usage-tab-content">
+
+         <div class="usage-guide-box">
+           <strong>Docker Compose</strong> runs the full stack (PostgreSQL + FastAPI backend + React frontend via nginx) in isolated containers with health checks and automatic restarts. Ideal for production or isolated environments.
+         </div>
+
+         <div class="card">
+           <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> Step 1: Start All Containers</div>
+           <pre style="background:var(--bg-secondary);padding:16px;border-radius:var(--radius-md);overflow-x:auto;font-size:0.85rem;line-height:1.8"><code>./scripts/dev.sh docker-up    # build &amp; start all containers</code></pre>
+           <div class="usage-guide-box" style="margin-top:12px">
+             This builds three containers: <strong>postgres:16-alpine</strong>, <strong>aetherix-backend</strong>, and <strong>aetherix-frontend</strong> (nginx serving the built React app). The backend connects to PostgreSQL instead of SQLite.
+           </div>
+           <div class="table-wrapper" style="margin-top:12px"><table>
+             <thead><tr><th>URL</th><th>Service</th></tr></thead>
+             <tbody>
+               <tr><td><code>http://localhost:3000</code></td><td>Frontend (nginx, proxies <code>/api</code> to backend)</td></tr>
+               <tr><td><code>http://localhost:8000</code></td><td>Backend API (FastAPI)</td></tr>
+               <tr><td><code>localhost:5432</code></td><td>PostgreSQL database (user: <code>aetherix</code>)</td></tr>
+             </tbody>
+           </table></div>
+         </div>
+
+         <div class="card">
+           <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Step 2: Verify Containers Are Running</div>
+           <div class="usage-guide-box">
+             Use <code>./scripts/dev.sh docker-ps</code> or <code>docker compose ps</code> to check. All three should show <strong>"Up (healthy)"</strong>.
+           </div>
+           <div class="mock-terminal" style="font-size:0.82rem"><span class="t-bold">NAME</span>                <span class="t-bold">IMAGE</span>              <span class="t-bold">STATUS</span>                    <span class="t-bold">PORTS</span>
+aetherix-postgres   postgres:16        <span class="t-green">Up (healthy)</span>              0.0.0.0:5432->5432/tcp
+aetherix-backend    aetherix-backend   <span class="t-green">Up (healthy)</span>              0.0.0.0:8000->8000/tcp
+aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>              0.0.0.0:3000->80/tcp</div>
+         </div>
+
+         <div class="card">
+           <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> Step 3: Use the Web Interface</div>
+           <div class="usage-guide-box">
+             Once containers are healthy, open <code>http://localhost:3000</code> and use the web interface exactly as described in the <strong>Web Interface</strong> tab. All pages work identically &#8212; the only difference is PostgreSQL instead of SQLite under the hood.
+           </div>
+         </div>
+
+         <div class="card">
+           <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Container Architecture</div>
+           <div class="grid grid-3">
+             <div class="mock-card-sm" style="text-align:center;border-color:var(--success)">
+               <div style="font-size:1.2rem;margin-bottom:4px">&#128051;</div>
+               <div style="font-weight:600;font-size:0.85rem">PostgreSQL 16</div>
+               <div class="mock-badge mock-badge-green" style="margin-top:4px">Port 5432</div>
+               <div style="font-size:0.7rem;color:var(--text-muted);margin-top:6px">Persistent volume<br>5 tables<br>Health checked</div>
+             </div>
+             <div class="mock-card-sm" style="text-align:center;border-color:var(--accent)">
+               <div style="font-size:1.2rem;margin-bottom:4px">&#9881;</div>
+               <div style="font-weight:600;font-size:0.85rem">FastAPI Backend</div>
+               <div class="mock-badge mock-badge-blue" style="margin-top:4px">Port 8000</div>
+               <div style="font-size:0.7rem;color:var(--text-muted);margin-top:6px">7 API routers<br>Swagger docs<br>SQLAlchemy ORM</div>
+             </div>
+             <div class="mock-card-sm" style="text-align:center;border-color:var(--quantum)">
+               <div style="font-size:1.2rem;margin-bottom:4px">&#127760;</div>
+               <div style="font-weight:600;font-size:0.85rem">React Frontend</div>
+               <div class="mock-badge mock-badge-blue" style="margin-top:4px">Port 3000</div>
+               <div style="font-size:0.7rem;color:var(--text-muted);margin-top:6px">8 pages<br>nginx proxy<br>Vite + TypeScript</div>
+             </div>
+           </div>
+         </div>
+
+         <div class="card">
+           <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Step 4: Manage &amp; Inspect</div>
+           <div class="table-wrapper"><table>
+             <thead><tr><th>Command</th><th>What It Does</th></tr></thead>
+             <tbody>
+               <tr><td><code>./scripts/dev.sh docker-up</code></td><td>Build &amp; start all containers</td></tr>
+               <tr><td><code>./scripts/dev.sh docker-down</code></td><td>Stop &amp; remove containers</td></tr>
+               <tr><td><code>./scripts/dev.sh docker-logs [service]</code></td><td>Tail container logs (backend, frontend, postgres)</td></tr>
+               <tr><td><code>./scripts/dev.sh docker-ps</code></td><td>Show container status</td></tr>
+             </tbody>
+           </table></div>
+         </div>
+
+         <div class="card">
+           <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> Inspecting the Database</div>
+           <div class="usage-guide-box">
+             To query PostgreSQL directly inside the container:
+           </div>
+           <div class="mock-terminal" style="font-size:0.82rem"><span class="t-blue">$</span> docker exec -it aetherix-postgres psql -U aetherix -d aetherix
+<span class="t-green">aetherix=#</span> <span class="t-cyan">\dt</span>
+                 List of relations
+ Schema |          Name           | Type  |  Owner
+--------+-------------------------+-------+---------
+ public | simulation_runs         | table | aetherix
+ public | link_budget_results     | table | aetherix
+ public | routing_decision_logs   | table | aetherix
+ public | qkd_sessions            | table | aetherix
+ public | contact_window_records  | table | aetherix
+<span class="t-green">(5 rows)</span></div>
+         </div>
+
+         <div class="card">
+           <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> Startup Logs</div>
+           <div class="grid grid-2">
+             <div>
+               <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:8px"><strong>Backend startup:</strong></p>
+               <div class="mock-terminal" style="font-size:0.72rem"><span class="t-muted">aetherix-backend |</span> INFO:     Uvicorn running on http://0.0.0.0:8000
+<span class="t-muted">aetherix-backend |</span> INFO:     Started reloader process
+<span class="t-muted">aetherix-backend |</span> INFO:     Started server process
+<span class="t-muted">aetherix-backend |</span> INFO:     Application startup complete.
+<span class="t-muted">aetherix-backend |</span> <span class="t-green">Connected to PostgreSQL</span> at postgres:5432
+<span class="t-muted">aetherix-backend |</span> Tables created successfully.</div>
+             </div>
+             <div>
+               <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:8px"><strong>PostgreSQL init:</strong></p>
+               <div class="mock-terminal" style="font-size:0.72rem"><span class="t-muted">aetherix-postgres |</span> <span class="t-green">initdb:</span> database system initialized
+<span class="t-muted">aetherix-postgres |</span> <span class="t-green">LOG:</span>  starting PostgreSQL 16
+<span class="t-muted">aetherix-postgres |</span> <span class="t-green">LOG:</span>  database system is ready to accept connections
+<span class="t-muted">aetherix-postgres |</span> <span class="t-bold t-green">database "aetherix" created</span>
+<span class="t-muted">aetherix-postgres |</span> <span class="t-bold t-green">user "aetherix" created</span></div>
+             </div>
+           </div>
+         </div>
+
+       </div>
+
+       <!-- ==================== TROUBLESHOOTING (always visible) ==================== -->
+       <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128268;</span> Troubleshooting</header>
+       <div class="grid grid-2">
+         <div class="card">
+           <div class="card-title"><span class="ct-dot" style="background:var(--danger)"></span> ImportError</div>
+           <p style="line-height:1.7">Run <code>./scripts/init.sh</code> to install dependencies. Activate the virtual environment first: <code>source venv/bin/activate</code></p>
+         </div>
+         <div class="card">
+           <div class="card-title"><span class="ct-dot" style="background:var(--mars)"></span> Tests failing</div>
+           <p style="line-height:1.7">Ensure the virtual environment is activated and all dependencies are installed: <code>source venv/bin/activate &amp;&amp; pip install -r requirements.txt</code></p>
+         </div>
+         <div class="card">
+           <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> Site not loading</div>
+           <p style="line-height:1.7">The site must be served via HTTP, not opened as a file. Use <code>python -m http.server 8080</code> inside the <code>docs/</code> directory.</p>
+         </div>
+         <div class="card">
+           <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> PPTX generation fails</div>
+           <p style="line-height:1.7">Install the required package: <code>pip install python-pptx</code>. For PDF: <code>pip install reportlab</code>.</p>
+         </div>
+       </div>
+     </section>
       <div class="callout callout-tip">
         <strong>Recommended for interactive exploration.</strong> The web interface provides a React dashboard with real-time visualizations, a command terminal, and API-driven calculations for all modules.
       </div>
@@ -3683,15 +4410,46 @@ cd AETHERIX
       <div class="card">
         <div class="card-title"><span class="ct-dot" style="background:var(--success)"></span> Web Pages</div>
         <div class="table-wrapper"><table>
-          <thead><tr><th>Page</th><th>Features</th></tr></thead>
+          <thead><tr><th>Page</th><th>Features</th><th>Showcase Deep-Dive</th></tr></thead>
           <tbody>
-            <tr><td><strong>Dashboard</strong></td><td>System health, module status, network overview</td></tr>
-            <tr><td><strong>Link Budget</strong></td><td>Optical/RF calculations, history, scenario comparison</td></tr>
-            <tr><td><strong>RL Routing</strong></td><td>Routing decisions, confidence scores, decision history</td></tr>
-            <tr><td><strong>Orbital</strong></td><td>Distance timeline, light-time delay, contact windows</td></tr>
-            <tr><td><strong>QKD Security</strong></td><td>BB84/E91 simulation, QBER analysis, session history</td></tr>
-            <tr><td><strong>Simulations</strong></td><td>Create/manage simulation runs with seeds</td></tr>
-            <tr><td><strong>CMD Terminal</strong></td><td>Run scripts, tests, and modules from the browser</td></tr>
+            <tr><td><strong>Welcome</strong></td><td>Landing page, module overview, showcase links, stats</td><td><a href="#welcome" style="color:var(--accent)">Welcome</a></td></tr>
+            <tr><td><strong>Dashboard</strong></td><td>System health, module status, showcase grid, DTN resources</td><td><a href="#welcome" style="color:var(--accent)">Welcome</a></td></tr>
+            <tr><td><strong>Link Budget</strong></td><td>Optical/RF calculations, history, resources section</td><td><a href="#optical-comms" style="color:var(--accent)">Optical Comms</a></td></tr>
+            <tr><td><strong>RL Routing</strong></td><td>Routing decisions, confidence scores, RL resources</td><td><a href="#reinforcement-learning" style="color:var(--accent)">Reinforcement Learning</a></td></tr>
+            <tr><td><strong>Orbital</strong></td><td>Distance timeline, light-time delay, orbital resources</td><td><a href="#orbital" style="color:var(--accent)">Orbital Mechanics</a></td></tr>
+            <tr><td><strong>QKD Security</strong></td><td>BB84/E91 simulation, QBER analysis, quantum resources</td><td><a href="#qkd-science" style="color:var(--accent)">QKD Science</a></td></tr>
+            <tr><td><strong>Simulations</strong></td><td>Create/manage simulation runs with seeds, DTN resources</td><td><a href="#simulation" style="color:var(--accent)">Simulation</a></td></tr>
+            <tr><td><strong>CMD Terminal</strong></td><td>Run scripts, tests, and modules from the browser</td><td><a href="#cmd-terminal" style="color:var(--accent)">CMD Terminal</a></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128279;</span> Showcase Integration</header>
+      <div class="callout callout-tip">
+        <strong>Every module page links to this showcase.</strong> Each page has an info bubble with a "Learn more &#8594;" link to the matching showcase section, plus curated external resources (RFCs, papers, courses, tools) at the bottom.
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="ct-dot" style="background:var(--accent)"></span> How the Integration Works</div>
+        <div class="table-wrapper"><table>
+          <thead><tr><th>Frontend Feature</th><th>Showcase Link</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Info Bubbles</strong></td><td>"Learn more &#8594;" link on every page</td><td>Navigate from interactive tool to theoretical explanation</td></tr>
+            <tr><td><strong>Resources Cards</strong></td><td>"All Resources &#8594;" link to <a href="#study" style="color:var(--accent)">Resources</a></td><td>Curated RFCs, papers, courses, and tools per module</td></tr>
+            <tr><td><strong>Welcome Page</strong></td><td>"Learn the science &#8594;" per module</td><td>Direct link from each feature card to its showcase section</td></tr>
+            <tr><td><strong>Dashboard Grid</strong></td><td>9 showcase page links</td><td>Quick access to What is DTN, How It Works, Network, Resources, etc.</td></tr>
+            <tr><td><strong>Sidebar External</strong></td><td>Showcase, Resources, Glossary, Quiz</td><td>Always-visible links to showcase sections</td></tr>
+            <tr><td><strong>Footer</strong></td><td>GitHub, LinkedIn, Portfolio, Resume, Repo, Showcase</td><td>Author profile and project links on every page</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="ct-dot" style="background:var(--quantum)"></span> Sidebar Navigation (Updated)</div>
+        <div class="table-wrapper"><table>
+          <thead><tr><th>Section</th><th>Items</th></tr></thead>
+          <tbody>
+            <tr><td><strong>App Pages</strong></td><td>Welcome &#8226; Dashboard &#8226; Link Budget &#8226; RL Routing &#8226; Orbital &#8226; QKD Security &#8226; Simulations &#8226; CMD</td></tr>
+            <tr><td><strong>External Links</strong></td><td>&#127760; Showcase Site &#8226; &#128218; Resources &#8226; &#128214; Glossary &#8226; &#10003; Quiz</td></tr>
+            <tr><td><strong>Footer</strong></td><td>Built by <a href="https://github.com/matx104" style="color:var(--accent)">Muhammad Abdullah Tariq</a></td></tr>
           </tbody>
         </table></div>
       </div>
@@ -3711,6 +4469,7 @@ cd AETHERIX
             <div class="mock-layout">
               <div class="mock-sidebar">
                 <div class="mock-sidebar-brand">AETHERIX</div>
+                <div class="mock-sidebar-item">🏠 Welcome</div>
                 <div class="mock-sidebar-item active">▦ Dashboard</div>
                 <div class="mock-sidebar-item">⟡ Link Budget</div>
                 <div class="mock-sidebar-item">⟳ RL Routing</div>
@@ -3718,6 +4477,11 @@ cd AETHERIX
                 <div class="mock-sidebar-item">⚷ QKD Security</div>
                 <div class="mock-sidebar-item">▶ Simulations</div>
                 <div class="mock-sidebar-item">⌘ CMD</div>
+                <div style="padding:6px 4px;border-top:1px solid var(--border);margin-top:6px;font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">External</div>
+                <div class="mock-sidebar-item">🌐 Showcase</div>
+                <div class="mock-sidebar-item">📚 Resources</div>
+                <div class="mock-sidebar-item">📖 Glossary</div>
+                <div class="mock-sidebar-item">✓ Quiz</div>
               </div>
               <div class="mock-main">
                 <div class="mock-page-title">Mission Control</div>
@@ -3769,17 +4533,21 @@ cd AETHERIX
           <div class="mock-browser-body" style="padding:0">
             <div class="mock-layout">
               <div class="mock-sidebar">
-                <div class="mock-sidebar-brand">AETHERIX</div>
-                <div class="mock-sidebar-item">▦ Dashboard</div>
-                <div class="mock-sidebar-item active">⟡ Link Budget</div>
-                <div class="mock-sidebar-item">⟳ RL Routing</div>
-                <div class="mock-sidebar-item">◎ Orbital</div>
-                <div class="mock-sidebar-item">⚷ QKD Security</div>
-                <div class="mock-sidebar-item">▶ Simulations</div>
-                <div class="mock-sidebar-item">⌘ CMD</div>
-              </div>
-              <div class="mock-main">
-                <div class="mock-page-title">Link Budget Calculator</div>
+                 <div class="mock-sidebar-brand">AETHERIX</div>
+                 <div class="mock-sidebar-item">🏠 Welcome</div>
+                 <div class="mock-sidebar-item">▦ Dashboard</div>
+                 <div class="mock-sidebar-item active">⟡ Link Budget</div>
+                 <div class="mock-sidebar-item">⟳ RL Routing</div>
+                 <div class="mock-sidebar-item">◎ Orbital</div>
+                 <div class="mock-sidebar-item">⚷ QKD Security</div>
+                 <div class="mock-sidebar-item">▶ Simulations</div>
+                 <div class="mock-sidebar-item">⌘ CMD</div>
+                 <div style="padding:6px 4px;border-top:1px solid var(--border);margin-top:6px;font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">External</div>
+                 <div class="mock-sidebar-item">🌐 Showcase</div>
+                 <div class="mock-sidebar-item">📚 Resources</div>
+               </div>
+               <div class="mock-main">
+                 <div class="mock-page-title">Link Budget Calculator</div>
                 <div class="mock-page-sub">Optical and RF link budget analysis for Earth-Mars communications</div>
                 <div class="mock-grid-2">
                   <div class="mock-card-sm">
@@ -3818,17 +4586,21 @@ cd AETHERIX
           <div class="mock-browser-body" style="padding:0">
             <div class="mock-layout">
               <div class="mock-sidebar">
-                <div class="mock-sidebar-brand">AETHERIX</div>
-                <div class="mock-sidebar-item">▦ Dashboard</div>
-                <div class="mock-sidebar-item">⟡ Link Budget</div>
-                <div class="mock-sidebar-item active">⟳ RL Routing</div>
-                <div class="mock-sidebar-item">◎ Orbital</div>
-                <div class="mock-sidebar-item">⚷ QKD Security</div>
-                <div class="mock-sidebar-item">▶ Simulations</div>
-                <div class="mock-sidebar-item">⌘ CMD</div>
-              </div>
-              <div class="mock-main">
-                <div class="mock-page-title">RL Routing Agent</div>
+                 <div class="mock-sidebar-brand">AETHERIX</div>
+                 <div class="mock-sidebar-item">🏠 Welcome</div>
+                 <div class="mock-sidebar-item">▦ Dashboard</div>
+                 <div class="mock-sidebar-item">⟡ Link Budget</div>
+                 <div class="mock-sidebar-item active">⟳ RL Routing</div>
+                 <div class="mock-sidebar-item">◎ Orbital</div>
+                 <div class="mock-sidebar-item">⚷ QKD Security</div>
+                 <div class="mock-sidebar-item">▶ Simulations</div>
+                 <div class="mock-sidebar-item">⌘ CMD</div>
+                 <div style="padding:6px 4px;border-top:1px solid var(--border);margin-top:6px;font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">External</div>
+                 <div class="mock-sidebar-item">🌐 Showcase</div>
+                 <div class="mock-sidebar-item">📚 Resources</div>
+               </div>
+               <div class="mock-main">
+                 <div class="mock-page-title">RL Routing Agent</div>
                 <div class="mock-page-sub">Reinforcement learning-based routing decisions for DTN bundles</div>
                 <div class="mock-grid-2">
                   <div class="mock-card-sm">
@@ -3866,17 +4638,21 @@ cd AETHERIX
           <div class="mock-browser-body" style="padding:0">
             <div class="mock-layout">
               <div class="mock-sidebar">
-                <div class="mock-sidebar-brand">AETHERIX</div>
-                <div class="mock-sidebar-item">▦ Dashboard</div>
-                <div class="mock-sidebar-item">⟡ Link Budget</div>
-                <div class="mock-sidebar-item">⟳ RL Routing</div>
-                <div class="mock-sidebar-item active">◎ Orbital</div>
-                <div class="mock-sidebar-item">⚷ QKD Security</div>
-                <div class="mock-sidebar-item">▶ Simulations</div>
-                <div class="mock-sidebar-item">⌘ CMD</div>
-              </div>
-              <div class="mock-main">
-                <div class="mock-page-title">Orbital Mechanics</div>
+                 <div class="mock-sidebar-brand">AETHERIX</div>
+                 <div class="mock-sidebar-item">🏠 Welcome</div>
+                 <div class="mock-sidebar-item">▦ Dashboard</div>
+                 <div class="mock-sidebar-item">⟡ Link Budget</div>
+                 <div class="mock-sidebar-item">⟳ RL Routing</div>
+                 <div class="mock-sidebar-item active">◎ Orbital</div>
+                 <div class="mock-sidebar-item">⚷ QKD Security</div>
+                 <div class="mock-sidebar-item">▶ Simulations</div>
+                 <div class="mock-sidebar-item">⌘ CMD</div>
+                 <div style="padding:6px 4px;border-top:1px solid var(--border);margin-top:6px;font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">External</div>
+                 <div class="mock-sidebar-item">🌐 Showcase</div>
+                 <div class="mock-sidebar-item">📚 Resources</div>
+               </div>
+               <div class="mock-main">
+                 <div class="mock-page-title">Orbital Mechanics</div>
                 <div class="mock-page-sub">Earth-Mars distance calculations, contact windows, and light-time delay</div>
                 <div class="mock-grid-4" style="margin-bottom:10px">
                   <div class="mock-stat"><div class="mock-stat-label">Current Distance</div><div class="mock-stat-value" style="font-size:1rem;color:#06b6d4">225.3M km</div></div>
@@ -3924,17 +4700,21 @@ cd AETHERIX
           <div class="mock-browser-body" style="padding:0">
             <div class="mock-layout">
               <div class="mock-sidebar">
-                <div class="mock-sidebar-brand">AETHERIX</div>
-                <div class="mock-sidebar-item">▦ Dashboard</div>
-                <div class="mock-sidebar-item">⟡ Link Budget</div>
-                <div class="mock-sidebar-item">⟳ RL Routing</div>
-                <div class="mock-sidebar-item">◎ Orbital</div>
-                <div class="mock-sidebar-item active">⌘ QKD Security</div>
-                <div class="mock-sidebar-item">▶ Simulations</div>
-                <div class="mock-sidebar-item">⌘ CMD</div>
-              </div>
-              <div class="mock-main">
-                <div class="mock-page-title">QKD Security</div>
+                 <div class="mock-sidebar-brand">AETHERIX</div>
+                 <div class="mock-sidebar-item">🏠 Welcome</div>
+                 <div class="mock-sidebar-item">▦ Dashboard</div>
+                 <div class="mock-sidebar-item">⟡ Link Budget</div>
+                 <div class="mock-sidebar-item">⟳ RL Routing</div>
+                 <div class="mock-sidebar-item">◎ Orbital</div>
+                 <div class="mock-sidebar-item active">⚷ QKD Security</div>
+                 <div class="mock-sidebar-item">▶ Simulations</div>
+                 <div class="mock-sidebar-item">⌘ CMD</div>
+                 <div style="padding:6px 4px;border-top:1px solid var(--border);margin-top:6px;font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">External</div>
+                 <div class="mock-sidebar-item">🌐 Showcase</div>
+                 <div class="mock-sidebar-item">📚 Resources</div>
+               </div>
+               <div class="mock-main">
+                 <div class="mock-page-title">QKD Security</div>
                 <div class="mock-page-sub">Quantum Key Distribution — BB84 and E91 protocol simulation</div>
                 <div class="mock-grid-2">
                   <div class="mock-card-sm">
@@ -3974,29 +4754,33 @@ cd AETHERIX
           <div class="mock-browser-body" style="padding:0">
             <div class="mock-layout">
               <div class="mock-sidebar">
-                <div class="mock-sidebar-brand">AETHERIX</div>
-                <div class="mock-sidebar-item">▦ Dashboard</div>
-                <div class="mock-sidebar-item">⟡ Link Budget</div>
-                <div class="mock-sidebar-item">⟳ RL Routing</div>
-                <div class="mock-sidebar-item">◎ Orbital</div>
-                <div class="mock-sidebar-item">⌘ QKD Security</div>
-                <div class="mock-sidebar-item">▶ Simulations</div>
-                <div class="mock-sidebar-item active">⌘ CMD</div>
-                <div style="padding:8px 4px;border-top:1px solid var(--border);margin-top:8px">
-                  <div style="font-weight:600;font-size:0.7rem;margin-bottom:4px;color:var(--text-secondary)">Shell Scripts</div>
-                  <div class="mock-sidebar-item">Initialize Environment</div>
-                  <div class="mock-sidebar-item active">Run Test Suite</div>
-                  <div class="mock-sidebar-item">Code Quality Check</div>
-                  <div class="mock-sidebar-item">Clean Artifacts</div>
-                  <div style="font-weight:600;font-size:0.7rem;margin:8px 0 4px;color:var(--text-secondary)">Python Modules</div>
-                  <div class="mock-sidebar-item">Optical Link Budget</div>
-                  <div class="mock-sidebar-item">RL Routing Agent</div>
-                  <div class="mock-sidebar-item">QKD Protocol</div>
-                  <div class="mock-sidebar-item">Simulation Engine</div>
-                </div>
-              </div>
-              <div class="mock-main">
-                <div class="mock-page-title">Command Terminal</div>
+                 <div class="mock-sidebar-brand">AETHERIX</div>
+                 <div class="mock-sidebar-item">🏠 Welcome</div>
+                 <div class="mock-sidebar-item">▦ Dashboard</div>
+                 <div class="mock-sidebar-item">⟡ Link Budget</div>
+                 <div class="mock-sidebar-item">⟳ RL Routing</div>
+                 <div class="mock-sidebar-item">◎ Orbital</div>
+                 <div class="mock-sidebar-item">⚷ QKD Security</div>
+                 <div class="mock-sidebar-item">▶ Simulations</div>
+                 <div class="mock-sidebar-item active">⌘ CMD</div>
+                 <div style="padding:6px 4px;border-top:1px solid var(--border);margin-top:6px;font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">External</div>
+                 <div class="mock-sidebar-item">🌐 Showcase</div>
+                 <div class="mock-sidebar-item">📚 Resources</div>
+                 <div style="padding:8px 4px;border-top:1px solid var(--border);margin-top:8px">
+                   <div style="font-weight:600;font-size:0.7rem;margin-bottom:4px;color:var(--text-secondary)">Shell Scripts</div>
+                   <div class="mock-sidebar-item">Initialize Environment</div>
+                   <div class="mock-sidebar-item active">Run Test Suite</div>
+                   <div class="mock-sidebar-item">Code Quality Check</div>
+                   <div class="mock-sidebar-item">Clean Artifacts</div>
+                   <div style="font-weight:600;font-size:0.7rem;margin:8px 0 4px;color:var(--text-secondary)">Python Modules</div>
+                   <div class="mock-sidebar-item">Optical Link Budget</div>
+                   <div class="mock-sidebar-item">RL Routing Agent</div>
+                   <div class="mock-sidebar-item">QKD Protocol</div>
+                   <div class="mock-sidebar-item">Simulation Engine</div>
+                 </div>
+               </div>
+               <div class="mock-main">
+                 <div class="mock-page-title">Command Terminal</div>
                 <div class="mock-page-sub">Run scripts, tests, modules, and utilities from the web interface</div>
                 <div class="mock-card-sm" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px">
                   <div><strong style="font-size:0.8rem">Run Test Suite</strong> <span style="font-size:0.7rem;color:var(--text-muted);margin-left:6px">Run all 189 tests</span></div>
@@ -4234,23 +5018,23 @@ python generate_pdf.py              # &#8594; AETHERIX_Presentation.pdf</code></
     <section id="quiz" class="tab" aria-label="Quiz">
       <div class="page-header">
         <h1>Exam Quiz Engine</h1>
-        <p>3,170 auto-graded questions across all Topic 59 learning objectives. Practice, test yourself with a timed mock exam, or use flashcards to reinforce key facts.</p>
+        <p>4,730 auto-graded questions with spaced repetition, adaptive difficulty, XP progression, and mastery tracking.</p>
         <div class="header-badges">
-          <span class="badge accent">3,170 Questions</span>
+          <span class="badge accent">4,730 Questions</span>
           <span class="badge quantum">8 Topics</span>
           <span class="badge success">4 Difficulty Levels</span>
+          <span class="badge" style="background:var(--nebula-dim);color:var(--nebula)">SM-2 Spaced Rep</span>
+          <span class="badge" style="background:var(--mars-dim);color:var(--mars)">Adaptive Mode</span>
         </div>
       </div>
 
       <div id="quiz-welcome"></div>
-
-      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#9881;</span> Filters</header>
-      <div id="quiz-filters"></div>
-
       <div id="quiz-progress" style="display:none"></div>
       <div id="quiz-area" style="display:none"></div>
       <div id="quiz-results" style="display:none"></div>
-      <div id="quiz-review" style="display:none"></div>
+      <div id="quiz-heatmap" style="display:none"></div>
+      <div id="quiz-stats-detail" style="display:none"></div>
+      <canvas id="quiz-confetti-canvas" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999"></canvas>
     </section>
 
     <section id="coverage" class="tab" aria-label="Deliverables Coverage Matrix">

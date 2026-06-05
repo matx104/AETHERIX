@@ -16,12 +16,15 @@ router = APIRouter(prefix="/security", tags=["security"])
 
 @router.post("/qkd", response_model=QKDResponse)
 def run_qkd(req: QKDRequest, db: Session = Depends(get_db)):
+    effective_error = req.channel_error
+    if req.eavesdropper:
+        effective_error = max(req.channel_error, 0.15)
+
     if req.protocol.lower() == "e91":
-        proto = E91Protocol(num_pairs=req.num_qubits, channel_error=req.channel_error)
-        result = proto.execute(eavesdropper=req.eavesdropper)
+        proto = E91Protocol(num_pairs=req.num_qubits, channel_error=effective_error)
     else:
-        proto = BB84Protocol(num_qubits=req.num_qubits, channel_error=req.channel_error)
-        result = proto.execute(eavesdropper=req.eavesdropper)
+        proto = BB84Protocol(num_qubits=req.num_qubits, channel_error=effective_error)
+    result = proto.execute()
 
     session = QKDSession(
         protocol=req.protocol.lower(),
