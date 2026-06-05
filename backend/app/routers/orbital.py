@@ -36,7 +36,7 @@ def get_distance(true_anomaly_deg: float = 0.0):
 
 
 @router.get("/timeline", response_model=DistanceTimelineResponse)
-def distance_timeline(num_points: int = 100):
+def distance_timeline(num_points: int = 780):
     raw = get_distance_timeline(num_points=num_points)
     distances = []
     for entry in raw:
