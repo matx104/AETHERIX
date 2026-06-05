@@ -43,3 +43,26 @@ htmlcov/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Node.js
+node_modules/
+frontend/dist/
+frontend/node_modules/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Database
+*.db
+*.sqlite3
+
+# PM2
+.pm2/
+
+# Docker
+docker-compose.override.yml
+
+# Build artifacts
+backend/__pycache__/

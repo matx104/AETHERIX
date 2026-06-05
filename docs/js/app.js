@@ -94,6 +94,9 @@ window.Router = {
     if (route === 'quiz' && window.QuizEngine) {
       QuizEngine.init();
     }
+    if (route === 'cmd-terminal') {
+      App.cmdTerminal.init();
+    }
     if (hash.startsWith('presentation/')) {
       const slideNum = parseInt(hash.split('/')[1]);
       if (slideNum >= 1 && slideNum <= App.presentation.slides.length) App.presentation.goTo(slideNum - 1);
@@ -2205,7 +2208,186 @@ window.App = (() => {
     }
   };
 
-  return { init, initCosmos, ensureDashboard, linkBudget, routing, qkd, orbital, bundle, mission, dtnEngine, rfBudget, simulation, study, presentation, radiationDemo, priorityDemo };
+  const cmdTerminal = {
+    _commands: [],
+    _selected: null,
+    _running: false,
+    _abortCtrl: null,
+    _apiBase: '',
+
+    init() {
+      const me = this;
+      me._apiBase = window.__AETHERIX_API || '/api';
+
+      const commands = [
+        { id: 'init', label: 'Initialize Environment', category: 'scripts' },
+        { id: 'init-dev', label: 'Initialize (Dev Mode)', category: 'scripts' },
+        { id: 'test', label: 'Run Test Suite', category: 'scripts' },
+        { id: 'test-verbose', label: 'Run Tests (Verbose)', category: 'scripts' },
+        { id: 'lint', label: 'Code Quality Check', category: 'scripts' },
+        { id: 'lint-fix', label: 'Auto-Fix Code Style', category: 'scripts' },
+        { id: 'clean', label: 'Clean Artifacts', category: 'scripts' },
+        { id: 'mod-link-budget', label: 'Optical Link Budget', category: 'modules' },
+        { id: 'mod-rf-budget', label: 'RF Link Budget', category: 'modules' },
+        { id: 'mod-rl-agent', label: 'RL Routing Agent', category: 'modules' },
+        { id: 'mod-bundle', label: 'Bundle Protocol', category: 'modules' },
+        { id: 'mod-forwarding', label: 'Store-and-Forward Engine', category: 'modules' },
+        { id: 'mod-prioritization', label: 'Priority Scheduler', category: 'modules' },
+        { id: 'mod-training', label: 'RL Training Loop', category: 'modules' },
+        { id: 'mod-qkd', label: 'QKD Protocol (BB84/E91)', category: 'modules' },
+        { id: 'mod-repeater', label: 'Quantum Repeater Chain', category: 'modules' },
+        { id: 'mod-privacy', label: 'Privacy Amplification', category: 'modules' },
+        { id: 'mod-contact', label: 'Contact Windows', category: 'modules' },
+        { id: 'mod-doppler', label: 'Doppler Shift', category: 'modules' },
+        { id: 'mod-topology', label: 'Network Topology', category: 'modules' },
+        { id: 'mod-radiation', label: 'Radiation Hardening', category: 'modules' },
+        { id: 'mod-simulator', label: 'Simulation Engine', category: 'modules' },
+        { id: 'mod-policy', label: 'Policy Engine', category: 'modules' },
+      ];
+      me._commands = commands;
+
+      const scriptsEl = document.getElementById('cmd-scripts-list');
+      const modulesEl = document.getElementById('cmd-modules-list');
+      if (!scriptsEl || !modulesEl) return;
+
+      const renderList = (container, items) => {
+        items.forEach(c => {
+          const btn = document.createElement('div');
+          btn.className = 'topnav-mobile-link';
+          btn.style.cssText = 'cursor:pointer;padding:6px 10px;font-size:0.85rem;border-radius:var(--radius-sm)';
+          btn.textContent = c.label;
+          btn.onclick = () => me.select(c);
+          container.appendChild(btn);
+        });
+      };
+
+      renderList(scriptsEl, commands.filter(c => c.category === 'scripts'));
+      renderList(modulesEl, commands.filter(c => c.category === 'modules'));
+    },
+
+    select(cmd) {
+      const me = this;
+      if (me._running) return;
+      me._selected = cmd;
+
+      const info = document.getElementById('cmd-selected-info');
+      info.style.display = 'block';
+      document.getElementById('cmd-selected-label').textContent = cmd.label;
+
+      fetch(me._apiBase + '/cmd/catalog/' + cmd.id)
+        .then(r => r.json())
+        .then(data => {
+          document.getElementById('cmd-selected-desc').textContent = data.description || '';
+          document.getElementById('cmd-selected-cmd').textContent = '$ ' + (data.cmd || cmd.id);
+        })
+        .catch(() => {
+          document.getElementById('cmd-selected-desc').textContent = '';
+          document.getElementById('cmd-selected-cmd').textContent = '$ ' + cmd.id;
+        });
+    },
+
+    run() {
+      const me = this;
+      if (!me._selected || me._running) return;
+
+      me._running = true;
+      document.getElementById('cmd-run-btn').style.display = 'none';
+      document.getElementById('cmd-stop-btn').style.display = 'inline-block';
+
+      const output = document.getElementById('cmd-terminal-output');
+      output.innerHTML = '';
+      const args = document.getElementById('cmd-extra-args').value.trim();
+      const qs = args ? '?args=' + encodeURIComponent(args) : '';
+
+      const ctrl = new AbortController();
+      me._abortCtrl = ctrl;
+
+      fetch(me._apiBase + '/cmd/run/' + me._selected.id + qs, { signal: ctrl.signal })
+        .then(response => {
+          const reader = response.body.getReader();
+          const decoder = new TextDecoder();
+          let buf = '';
+
+          function read() {
+            reader.read().then(({ done, value }) => {
+              if (done) { me._finish(); return; }
+              buf += decoder.decode(value, { stream: true });
+              const lines = buf.split('\n');
+              buf = lines.pop() || '';
+              lines.forEach(line => {
+                if (line.startsWith('data: ')) {
+                  try {
+                    const evt = JSON.parse(line.slice(6));
+                    const div = document.createElement('div');
+                    if (evt.type === 'meta') {
+                      div.style.color = 'var(--accent)';
+                      div.textContent = '$ ' + (evt.cmd || '');
+                    } else if (evt.type === 'stdout') {
+                      div.style.color = 'var(--text-secondary)';
+                      div.textContent = evt.text || '';
+                    } else if (evt.type === 'error') {
+                      div.style.color = 'var(--danger)';
+                      div.textContent = '\u2717 ' + (evt.text || '');
+                    } else if (evt.type === 'done') {
+                      div.style.color = evt.exit_code === 0 ? 'var(--success)' : 'var(--danger)';
+                      div.textContent = evt.exit_code === 0
+                        ? '\u2713 Process finished with exit code 0'
+                        : '\u2717 Process exited with code ' + evt.exit_code;
+                    }
+                    output.appendChild(div);
+                    output.scrollTop = output.scrollHeight;
+                  } catch {}
+                }
+              });
+              read();
+            }).catch(e => {
+              if (e.name !== 'AbortError') {
+                const div = document.createElement('div');
+                div.style.color = 'var(--danger)';
+                div.textContent = 'Connection error: ' + e.message;
+                output.appendChild(div);
+              }
+              me._finish();
+            });
+          }
+          read();
+        })
+        .catch(e => {
+          if (e.name !== 'AbortError') {
+            const div = document.createElement('div');
+            div.style.color = 'var(--danger)';
+            div.textContent = 'Connection error: ' + e.message;
+            output.appendChild(div);
+          }
+          me._finish();
+        });
+    },
+
+    stop() {
+      const me = this;
+      if (me._abortCtrl) { me._abortCtrl.abort(); me._abortCtrl = null; }
+      me._finish();
+    },
+
+    clear() {
+      const me = this;
+      me.stop();
+      me._selected = null;
+      document.getElementById('cmd-selected-info').style.display = 'none';
+      document.getElementById('cmd-terminal-output').innerHTML =
+        '<span style="color:var(--text-muted)">Select a command from the sidebar and click Run.\nOutput will stream here in real-time via Server-Sent Events.</span>';
+    },
+
+    _finish() {
+      const me = this;
+      me._running = false;
+      me._abortCtrl = null;
+      document.getElementById('cmd-run-btn').style.display = 'inline-block';
+      document.getElementById('cmd-stop-btn').style.display = 'none';
+    }
+  };
+
+  return { init, initCosmos, ensureDashboard, linkBudget, routing, qkd, orbital, bundle, mission, dtnEngine, rfBudget, simulation, study, presentation, radiationDemo, priorityDemo, cmdTerminal };
 })();
 
 document.addEventListener('DOMContentLoaded', () => {

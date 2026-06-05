@@ -6,9 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 > `~/PROJECTS/CLAUDE_SOVEREIGN_TEMPLATE.md`. The sovereign rules apply
 > (additive enhancement, invent nothing, evidence before conclusion).
 
-> **Classification**: research / proof-of-concept (delay-tolerant
+> **Classification**: Full-stack web application (delay-tolerant
 > networking simulation — Bundle Protocol v7, RL routing, QKD,
-> hybrid optical/RF). Demo-stage Python project with modules under
+> hybrid optical/RF). Python backend (FastAPI) + React frontend +
+> SQLite (local) / PostgreSQL (Docker). Modules under
 > `src/{infrastructure,orbital,routing,security,simulation}`.
 > Treat scientific results sections of any work as **strict**: cite
 > the sample/run, the seed, and the simulation config. No mocked
@@ -29,23 +30,48 @@ AETHERIX (Autonomous Extraterrestrial High-throughput Enhancing Routing and Inte
 
 ## Commands
 
-### Quick Start
+### Quick Start (Full-Stack)
 ```bash
-# Initialize the development environment
-./scripts/init.sh
+# Initialize everything (venv + deps + frontend)
+./scripts/dev.sh setup
 
-# Run all tests
-./scripts/run_tests.sh
+# Start backend + frontend via PM2
+./scripts/dev.sh start
 
-# Run interactive demos
-./scripts/run_demos.sh
+# Or use Docker Compose (PostgreSQL + backend + frontend)
+./scripts/dev.sh docker-up
 ```
 
-### Available Scripts
+### Local Development (PM2)
+| Command | Description |
+|---------|-------------|
+| `./scripts/dev.sh start` | Install deps + start backend & frontend via PM2 |
+| `./scripts/dev.sh stop` | Stop all PM2 processes |
+| `./scripts/dev.sh restart` | Restart all processes |
+| `./scripts/dev.sh status` | Show PM2 process status |
+| `./scripts/dev.sh logs [backend\|frontend]` | Tail logs |
+| `./scripts/dev.sh build` | Build frontend for production |
+
+### Docker Compose
+| Command | Description |
+|---------|-------------|
+| `./scripts/dev.sh docker-up` | Build & start all containers |
+| `./scripts/dev.sh docker-down` | Stop & remove containers |
+| `./scripts/dev.sh docker-logs` | Tail container logs |
+| `./scripts/dev.sh docker-ps` | Show container status |
+
+### URLs
+| Service | Local (PM2) | Docker |
+|---------|-------------|--------|
+| Frontend | http://localhost:3000 | http://localhost:3000 |
+| Backend API | http://localhost:8000 | http://localhost:8000 |
+| API Docs | http://localhost:8000/docs | http://localhost:8000/docs |
+| PostgreSQL | N/A (SQLite) | localhost:5432 |
+
+### Legacy Scripts
 | Script | Description |
 |--------|-------------|
 | `./scripts/init.sh` | Set up virtual environment and install dependencies |
-| `./scripts/init.sh --dev` | Include development tools (linting, formatting) |
 | `./scripts/run_tests.sh` | Run the test suite |
 | `./scripts/run_tests.sh -v` | Run tests with verbose output |
 | `./scripts/run_demos.sh` | Interactive demo menu |
@@ -86,7 +112,29 @@ python src/simulation/run_scenario.py --config config/earth-mars-baseline.yaml
 ### Project Structure
 ```
 AETHERIX/
+├── backend/               # FastAPI backend
+│   ├── app/
+│   │   ├── main.py        # FastAPI app (all routers under /api)
+│   │   ├── config.py      # Pydantic settings (from .env)
+│   │   ├── database.py    # SQLAlchemy engine/session
+│   │   ├── models/        # SQLAlchemy ORM models
+│   │   ├── routers/       # API route handlers
+│   │   └── schemas/       # Pydantic request/response schemas
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   └── run.py             # uvicorn entrypoint
+├── frontend/              # React + Vite + TypeScript
+│   ├── src/
+│   │   ├── api/           # API client
+│   │   ├── components/    # Shared components (Layout)
+│   │   ├── pages/         # Page components (Dashboard, LinkBudget, etc.)
+│   │   └── styles/        # Global CSS
+│   ├── Dockerfile
+│   ├── nginx.conf         # Production nginx (proxies /api to backend)
+│   ├── package.json
+│   └── vite.config.ts
 ├── scripts/           # Shell scripts for development tasks
+│   ├── dev.sh         # Full-stack dev utility (PM2 + Docker)
 │   ├── init.sh        # Environment setup
 │   ├── run_tests.sh   # Test runner
 │   ├── run_demos.sh   # Demo runner
@@ -103,13 +151,6 @@ AETHERIX/
 │   ├── orbital/           # Orbital mechanics
 │   │   └── contact_windows.py # Contact prediction, distance calculations
 │   └── simulation/        # ns-3/OMNeT++ simulation APIs (PLANNED)
-├── demos/             # Interactive demonstrations (6 demos)
-│   ├── 01_link_budget_demo/
-│   ├── 02_dtn_routing_demo/
-│   ├── 03_orbital_mechanics_demo/
-│   ├── 04_quantum_key_demo/
-│   ├── 05_mars_mission_scenario/
-│   └── 06_integrated_demo/
 ├── tests/             # Test suite
 ├── visualizations/    # Charts and visualization scripts
 ├── docs/              # Documentation
