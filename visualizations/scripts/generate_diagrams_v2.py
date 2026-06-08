@@ -160,7 +160,7 @@ def module_box(x, y, w, h, title, color, files, capabilities, standard):
 
 
 def generate_system_architecture():
-    w, h = 1200, 700
+    w, h = 1200, 490
     s = svg_header(w, h, 'AETHERIX SYSTEM ARCHITECTURE')
 
     box_w = 210
