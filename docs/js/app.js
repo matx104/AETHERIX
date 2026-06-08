@@ -1711,7 +1711,11 @@ window.App = (() => {
         },
         {
           title: 'Architecture Diagram',
-          content: '<h2><span class="pres-tag accent">Architecture Diagram</span></h2><div style="display:flex;justify-content:center;align-items:center"><img src="img/diagrams/system_architecture.svg" alt="Architecture Diagram" style="width:100%;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1);box-shadow:0 0 40px rgba(0,212,255,0.05)"></div>',
+          content: this._chartSlide('Architecture Diagram', 'Architecture', '#00d4ff', 'img/diagrams/system_architecture.svg',
+            'Five core modules feeding the simulation engine and web showcase &middot; 27 Python modules across 6 packages',
+            'AETHERIX has 27 Python modules across 6 packages &mdash; the data flow must be clear.',
+            'Shows how source modules feed into the simulation engine and web showcase.',
+            'Each module is independently testable &mdash; 189 automated tests validate correctness.'),
           speakerNotes: 'Architecture diagram showing source modules feeding simulation engine and web demos.'
         },
         {
@@ -1753,7 +1757,11 @@ window.App = (() => {
         },
         {
           title: 'Network Diagram',
-          content: '<h2><span class="pres-tag accent">Network Diagram</span></h2><div style="display:flex;justify-content:center;align-items:center"><img src="img/diagrams/5tier_network.svg" alt="Network Diagram" style="width:100%;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1);box-shadow:0 0 40px rgba(0,212,255,0.05)"></div>',
+          content: this._chartSlide('5-Tier Network Diagram', 'Network', '#00d4ff', 'img/diagrams/5tier_network.svg',
+            '241 nodes from Earth ground to Mars surface &middot; 3 redundant paths &middot; No single point of failure',
+            'Spanning two planets requires a network architecture with no single point of failure.',
+            'Visualizes the complete 5-tier topology with 241 nodes and redundant paths.',
+            'Three independent paths ensure Earth-Mars communication survives any single link failure.'),
           speakerNotes: 'Visual overview of the 5-tier topology with 3 redundant paths.'
         },
         {
@@ -1892,7 +1900,11 @@ window.App = (() => {
         },
         {
           title: 'Data Flow Diagram Visual',
-          content: '<h2><span class="pres-tag accent">Data Flow Diagram Visual</span></h2><div style="display:flex;justify-content:center;align-items:center"><img src="img/diagrams/data_flow.svg" alt="Data Flow Diagram Visual" style="width:100%;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1);box-shadow:0 0 40px rgba(0,212,255,0.05)"></div>',
+          content: this._chartSlide('End-to-End Data Flow', 'Data Flow', '#00d4ff', 'img/diagrams/data_flow.svg',
+            'Application-to-delivery path through all protocol layers &middot; BPv7 &rarr; RL Routing &rarr; QKD &rarr; LTP',
+            'Data must pass through multiple protocol layers while maintaining integrity and security.',
+            'Traces the end-to-end data path from application through BPv7, RL routing, QKD, and LTP.',
+            'Proves the protocol stack is complete and every layer contributes to reliable delivery.'),
           speakerNotes: 'End-to-end bundle journey through all protocol layers.'
         },
         {
