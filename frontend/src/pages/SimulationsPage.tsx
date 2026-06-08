@@ -30,9 +30,10 @@ export function SimulationsPage() {
   const [scenario, setScenario] = useState("earth-mars-baseline");
   const [seed, setSeed] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const load = async () => {
-    try { setRuns(await api.listSimulations()); } catch {}
+    try { setRuns(await api.listSimulations()); } catch (e) { setError(e instanceof Error ? e.message : "Failed to load simulations"); }
   };
 
   useEffect(() => { load(); }, []);
@@ -40,16 +41,18 @@ export function SimulationsPage() {
   const create = async () => {
     if (!name.trim()) return;
     setLoading(true);
+    setError("");
     try {
       await api.createSimulation({ name, scenario, seed: seed ? parseInt(seed) : undefined });
       setName("");
       load();
-    } catch {}
+    } catch (e) { setError(e instanceof Error ? e.message : "Failed to create simulation"); }
     setLoading(false);
   };
 
   const remove = async (id: string) => {
-    try { await api.deleteSimulation(id); load(); } catch {}
+    if (!window.confirm("Delete this simulation run?")) return;
+    try { await api.deleteSimulation(id); load(); } catch (e) { setError(e instanceof Error ? e.message : "Failed to delete simulation"); }
   };
 
   return (
@@ -58,6 +61,8 @@ export function SimulationsPage() {
         <h2>Simulations</h2>
         <p>Create and manage simulation runs with reproducible seeds</p>
       </div>
+
+      {error && <div className="error-banner">{error}</div>}
 
       <InfoBubble title="Simulation Engine" learnMoreUrl={`${SHOWCASE_URL}/#simulation`}>
         <p>

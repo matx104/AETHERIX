@@ -1423,8 +1423,8 @@ p2.font.size, p2.font.color.rgb, p2.alignment = Pt(14), ACCENT_CYAN, PP_ALIGN.LE
 
 impl_stats = [
     ("27", "Modules", GREEN),
-    ("149", "Tests", ACCENT_BLUE),
-    ("10", "Demos", ACCENT_PURPLE),
+    ("189", "Tests", ACCENT_BLUE),
+    ("12", "Demos", ACCENT_PURPLE),
     ("5", "Policies", ACCENT_ORANGE),
 ]
 stat_w = Inches(2.1)
@@ -1489,7 +1489,7 @@ p2.text = "From Demo to Deployment"
 p2.font.size, p2.font.color.rgb, p2.alignment = Pt(14), ACCENT_CYAN, PP_ALIGN.LEFT
 
 phases = [
-    ("Phase 1-4  \u2713 Complete", "Topology \u2022 RL \u2022 QKD \u2022 Web UI \u2022 149 tests", GREEN),
+    ("Phase 1-4  \u2713 Complete", "Topology \u2022 RL \u2022 QKD \u2022 Web UI \u2022 189 tests", GREEN),
     ("Phase 5  Network Sim", "ns-3 integration, realistic channel models", ACCENT_BLUE),
     ("Phase 6  Production", "DQN agent, ION-DTN stack, hardware-in-loop", ACCENT_PURPLE),
     ("Phase 7  Hardware", "SDR prototyping, optical ground station demo", ACCENT_ORANGE),

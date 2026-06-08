@@ -259,7 +259,7 @@ At exactly 11%, we're at the Shor-Preskill bound. In practice, we'd abort and re
 - The full 241-node topology spans 5 tiers: 6 Earth ground, 51 Earth orbital, 8 deep-space transit (including quantum repeaters), 6 Mars orbital, 170 Mars surface
 - Simulation engine integrates topology generation, bundle generation, and the forwarding engine for Monte Carlo scenario analysis
 - Policy engine applies declarative routing rules: priority-based path selection, time-window constraints, and QoS enforcement at each custodian node
-- 149 tests across 10 test files validate all modules including forwarding, training, topology, and policy engine
+- 189 tests across 10 test files validate all modules including forwarding, training, topology, and policy engine
 
 ---
 
@@ -275,7 +275,7 @@ At exactly 11%, we're at the Shor-Preskill bound. In practice, we'd abort and re
 - Scalability: 241 nodes vs 5-10 assets
 
 **Say:**
-"The bottom line: AETHERIX delivers 10 to 100 times higher data rates with greater than 95 percent availability at one-tenth the cost per megabyte. Our architecture scales to 241 nodes across 18 source modules validated by 149 automated tests, compared to the 5 to 10 assets currently connected. The routing is autonomous and adaptive rather than static. And the security is quantum-ready — future-proof against the quantum computing threat. These improvements come from the combination of optical links for throughput, multi-path topology for availability, RL agents for routing, and QKD for security."
+"The bottom line: AETHERIX delivers 10 to 100 times higher data rates with greater than 95 percent availability at one-tenth the cost per megabyte. Our architecture scales to 241 nodes across 27 source modules validated by 189 automated tests, compared to the 5 to 10 assets currently connected. The routing is autonomous and adaptive rather than static. And the security is quantum-ready — future-proof against the quantum computing threat. These improvements come from the combination of optical links for throughput, multi-path topology for availability, RL agents for routing, and QKD for security."
 
 **Speak confidently on numbers — they're your strongest evidence. Don't rush through them.**
 
@@ -283,7 +283,7 @@ At exactly 11%, we're at the Shor-Preskill bound. In practice, we'd abort and re
 The optical data rates are based on NASA's DSOC mission parameters and LLCD results. The RL routing improvements are based on published benchmarks in Stampa et al. (2017) and our own simulation. Availability numbers assume standard link redundancy analysis.
 
 **Technical Talking Points (Performance Validation):**
-- 149 automated tests across 10 test files validate correctness of all 18 modules
+- 189 automated tests across 10 test files validate correctness of all 27 modules
 - RL training converges within 5,000-10,000 episodes in the 241-node topology; delivery ratio improves 20-40% over static CGR
 - Multi-agent federated training reduces convergence time by ~30% vs single-agent by sharing Q-table updates across tiers
 - Hybrid optical/RF achieves >95% combined availability (optical provides throughput, Ka-band RF provides always-on command channel)

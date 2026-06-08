@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
+import { fetchApi } from "../api/client";
 import { InfoBubble } from "../components/InfoBubble";
-
-const API_BASE = import.meta.env.VITE_API_URL || "/api";
 
 interface CommandInfo {
   id: string;
@@ -23,16 +22,16 @@ export function CmdPage() {
   const [catalog, setCatalog] = useState<Catalog | null>(null);
   const [selected, setSelected] = useState<CommandInfo | null>(null);
   const [copied, setCopied] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch(`${API_BASE}/cmd/catalog`)
-      .then((r) => r.json())
-      .then((cat: Catalog) => {
+    fetchApi<Catalog>("/cmd/catalog")
+      .then((cat) => {
         setCatalog(cat);
         const first = Object.values(cat.categories)[0]?.commands[0];
         if (first) setSelected({ ...first });
       })
-      .catch(() => {});
+      .catch((e) => setError(e instanceof Error ? e.message : "Failed to load catalog"));
   }, []);
 
   const copyCmd = async (cmd: string) => {
@@ -66,6 +65,8 @@ export function CmdPage() {
         <h2>Command Reference</h2>
         <p>Copy any command and run it in your own terminal — with what it does and the output to expect.</p>
       </div>
+
+      {error && <div className="error-banner">{error}</div>}
 
       <InfoBubble title="Command Reference" learnMoreUrl="https://matx104.github.io/AETHERIX/#cmd-terminal">
         <p>

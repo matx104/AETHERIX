@@ -1,6 +1,7 @@
 import time
 
 from fastapi import APIRouter
+from sqlalchemy import text
 
 from ..config import settings
 from ..database import engine
@@ -15,7 +16,7 @@ def health_check():
     db_status = "connected"
     try:
         with engine.connect() as conn:
-            conn.execute(__import__("sqlalchemy").text("SELECT 1"))
+            conn.execute(text("SELECT 1"))
     except Exception:
         db_status = "error"
 

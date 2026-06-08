@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Any
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class SimulationRunCreate(BaseModel):
@@ -51,8 +51,8 @@ class RoutingRequest(BaseModel):
     current_node: str
     neighbors: list[str]
     link_qualities: dict[str, float]
-    buffer_occupancy: float
-    bundle_priority: int
+    buffer_occupancy: float = Field(ge=0.0, le=1.0)
+    bundle_priority: int = Field(ge=0, le=4)
     bundle_size_mb: float
     bundle_deadline_hours: float
     destination_node: str
@@ -67,8 +67,8 @@ class RoutingResponse(BaseModel):
 
 class QKDRequest(BaseModel):
     protocol: str = "bb84"
-    num_qubits: int = 1000
-    channel_error: float = 0.0
+    num_qubits: int = Field(default=1000, ge=1, le=100000)
+    channel_error: float = Field(default=0.0, ge=0.0, le=1.0)
     eavesdropper: bool = False
 
 
@@ -82,8 +82,6 @@ class QKDResponse(BaseModel):
     secure: bool | None = None
     sifted_key_length: int | None = None
     efficiency: float | None = None
-    alice_key: list[int] | None = None
-    bob_key: list[int] | None = None
     created_at: datetime
 
     model_config = {"from_attributes": True}
@@ -91,8 +89,8 @@ class QKDResponse(BaseModel):
 
 class ContactWindowRequest(BaseModel):
     start_date: str | None = None
-    duration_days: float = 365.0
-    min_elevation_deg: float = 10.0
+    duration_days: float = Field(default=365.0, ge=1, le=3650)
+    min_elevation_deg: float = Field(default=10.0, ge=0.0, le=90.0)
     window_type: str = "all"
 
 

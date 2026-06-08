@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { api, type DistanceTimeline, type DistancePoint } from "../api/client";
 import { InfoBubble } from "../components/InfoBubble";
 import { FieldInfo } from "../components/FieldInfo";
@@ -35,13 +35,18 @@ export function OrbitalPage() {
   const [distance, setDistance] = useState<{ distance_km: number; light_time_minutes: number } | null>(null);
   const [anomaly, setAnomaly] = useState(0);
   const [error, setError] = useState("");
+  const debounceRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
     api.timeline().then(setTimeline).catch((e) => setError(e.message));
   }, []);
 
   useEffect(() => {
-    api.distance(anomaly).then(setDistance).catch(() => {});
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => {
+      api.distance(anomaly).then(setDistance).catch((e) => setError(e.message));
+    }, 300);
+    return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
   }, [anomaly]);
 
   const maxDist = timeline?.max_distance_km ?? 401e6;

@@ -261,7 +261,7 @@ def create_earth_mars_chain() -> RepeaterChain:
     )
 
 
-EARTH_MARS_REPEATER_CHAIN = create_earth_mars_chain
+EARTH_MARS_REPEATER_CHAIN = create_earth_mars_chain()
 
 
 def _coin() -> float:

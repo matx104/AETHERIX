@@ -96,8 +96,11 @@ class RLRoutingAgent:
         """Convert state to string key for Q-table lookup."""
         # Discretize continuous values
         buffer_level = "high" if state.buffer_occupancy > 0.7 else "low"
-        best_link = max(state.link_qualities.values()) if state.link_qualities else 0
-        link_level = "good" if best_link > 0.5 else "poor"
+        if not state.link_qualities:
+            link_level = "none"
+        else:
+            best_link = max(state.link_qualities.values())
+            link_level = "good" if best_link > 0.5 else "poor"
         priority_level = "urgent" if state.bundle_priority <= self.URGENT_PRIORITY else "normal"
 
         return f"{state.current_node}|{buffer_level}|{link_level}|{priority_level}"

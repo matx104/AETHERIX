@@ -4,9 +4,9 @@ import os
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "src"))
 
-from src.security.qkd import BB84Protocol, E91Protocol
+from security.qkd import BB84Protocol, E91Protocol
 from ..database import get_db
 from ..models.models import QKDSession
 from ..schemas.schemas import QKDRequest, QKDResponse
@@ -50,13 +50,12 @@ def run_qkd(req: QKDRequest, db: Session = Depends(get_db)):
         secure=result.secure,
         sifted_key_length=result.sifted_key_length,
         efficiency=result.efficiency,
-        alice_key=result.alice_key[:32],
-        bob_key=result.bob_key[:32],
         created_at=session.created_at,
     )
 
 
 @router.get("/qkd/sessions", response_model=list[QKDResponse])
 def qkd_sessions(limit: int = 50, db: Session = Depends(get_db)):
+    limit = min(limit, 1000)
     rows = db.query(QKDSession).order_by(QKDSession.created_at.desc()).limit(limit).all()
     return rows

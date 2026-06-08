@@ -47,12 +47,16 @@ class RoutingPolicy:
     A named collection of :class:`PolicyRule` instances.
 
     Policies with higher ``priority`` are evaluated first.
+    When ``match_all`` is ``True``, *every* rule must match for the
+    policy to fire (AND semantics).  Otherwise the first matching
+    rule fires (OR semantics, the default).
     """
 
     name: str
     description: str
     rules: List[PolicyRule] = field(default_factory=list)
     priority: int = 0
+    match_all: bool = False
 
 
 @dataclass
@@ -101,15 +105,26 @@ class PolicyEngine:
         the default decision is ``("store", "")`` — safe for DTN.
         """
         for policy in self._policies:
-            for rule in policy.rules:
-                if self._evaluate_rule(rule, context):
+            if policy.match_all:
+                if all(self._evaluate_rule(rule, context) for rule in policy.rules):
+                    first_rule = policy.rules[0] if policy.rules else None
                     return PolicyDecision(
-                        action=rule.action,
-                        target=rule.target,
-                        matched_rule=rule,
+                        action=first_rule.action if first_rule else "store",
+                        target=first_rule.target if first_rule else "",
+                        matched_rule=first_rule,
                         policy_name=policy.name,
                         confidence=1.0,
                     )
+            else:
+                for rule in policy.rules:
+                    if self._evaluate_rule(rule, context):
+                        return PolicyDecision(
+                            action=rule.action,
+                            target=rule.target,
+                            matched_rule=rule,
+                            policy_name=policy.name,
+                            confidence=1.0,
+                        )
 
         return PolicyDecision(
             action="store",
@@ -194,6 +209,7 @@ class PolicyEngine:
                 ),
             ],
             priority=90,
+            match_all=True,
         ))
 
         self.add_policy(RoutingPolicy(
@@ -228,6 +244,7 @@ class PolicyEngine:
                 ),
             ],
             priority=70,
+            match_all=True,
         ))
 
         self.add_policy(RoutingPolicy(

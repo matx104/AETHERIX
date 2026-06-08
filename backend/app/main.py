@@ -1,4 +1,4 @@
-import time
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -7,10 +7,18 @@ from .config import settings
 from .database import init_db
 from .routers import cmd, health, link_budget, orbital, routing, security, simulations
 
+
+@asynccontextmanager
+async def lifespan(app):
+    init_db()
+    yield
+
+
 app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
     description="Autonomous Extraterrestrial High-throughput Enhancing Routing and Inter-planetary eXchange — API",
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -30,8 +38,3 @@ app.include_router(routing.router, prefix=API_PREFIX)
 app.include_router(orbital.router, prefix=API_PREFIX)
 app.include_router(security.router, prefix=API_PREFIX)
 app.include_router(cmd.router, prefix=API_PREFIX)
-
-
-@app.on_event("startup")
-def on_startup():
-    init_db()

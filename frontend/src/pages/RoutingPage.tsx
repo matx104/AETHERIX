@@ -105,7 +105,7 @@ export function RoutingPage() {
   };
 
   const loadHistory = async () => {
-    try { setHistory(await api.routingDecisions()); } catch {}
+    try { setHistory(await api.routingDecisions()); } catch (e) { setError(e instanceof Error ? e.message : "Failed to load history"); }
   };
 
   return (

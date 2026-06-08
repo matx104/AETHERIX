@@ -15,8 +15,8 @@
 
 | Metric | Value |
 |--------|:-----:|
-| **Source modules** | 18 |
-| **Unit tests** | 149 |
+| **Source modules** | 27 |
+| **Unit tests** | 189 |
 | **Network nodes** | 241 |
 | **Convergence layers** | 3 (LTP, TCPCL, UDP-CL) |
 | **QKD protocols** | 2 (BB84, E91) |

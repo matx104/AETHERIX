@@ -316,7 +316,7 @@ draw_card(c, 40, PAGE_H - 380, 820, 80, ACCENT_CYAN)
 draw_text(c, "AETHERIX delivers a complete interplanetary networking solution", 55, PAGE_H - 325, size=12, color=ACCENT_CYAN, bold=True)
 draw_text(c, "combining DTN protocols, AI-driven routing, quantum-secure keys, and hybrid optical/RF links for Mars mission support.", 55, PAGE_H - 345, size=10, color=LIGHT_GRAY)
 
-stats = [("10-100\u00d7", "Faster", ACCENT_BLUE), (">95%", "Availability", GREEN), ("241", "Nodes", ACCENT_ORANGE), ("149", "Tests", ACCENT_PURPLE)]
+stats = [("10-100\u00d7", "Faster", ACCENT_BLUE), (">95%", "Availability", GREEN), ("241", "Nodes", ACCENT_ORANGE), ("189", "Tests", ACCENT_PURPLE)]
 for i, (val, label, color) in enumerate(stats):
     x = 40 + 210 * i
     draw_card(c, x, 60, 195, 55, color)
@@ -1104,14 +1104,14 @@ c.showPage()
 print("Creating Page 22: Implementation...")
 draw_bg(c)
 draw_text(c, "IMPLEMENTATION", 40, PAGE_H - 50, size=28, color=WHITE, bold=True)
-draw_text(c, "18 Modules, 149 Tests, Full Python Stack", 40, PAGE_H - 75, size=14, color=ACCENT_BLUE)
+draw_text(c, "27 Modules, 189 Tests, Full Python Stack", 40, PAGE_H - 75, size=14, color=ACCENT_BLUE)
 draw_accent_line(c, 40, PAGE_H - 85, 180, ACCENT_BLUE)
 
 impl_cards = [
-    ("18", "Source Modules", ACCENT_BLUE),
-    ("149", "Unit Tests", GREEN),
+    ("27", "Source Modules", ACCENT_BLUE),
+    ("189", "Unit Tests", GREEN),
     ("241", "Network Nodes", ACCENT_ORANGE),
-    ("6", "Interactive Demos", ACCENT_PURPLE),
+    ("12", "Interactive Demos", ACCENT_PURPLE),
 ]
 for i, (val, label, col) in enumerate(impl_cards):
     x = 40 + 220 * i
@@ -1236,7 +1236,7 @@ for i, (val, label, col) in enumerate(stat_cards):
     draw_text(c, label, x + 100, PAGE_H - 362, size=12, color=WHITE, bold=True, align="center")
 
 draw_text(c, "NOVEL CONTRIBUTIONS", 40, PAGE_H - 430, size=13, color=ACCENT_CYAN, bold=True)
-contrib = "RL autonomous routing (20-40% faster) | 5-tier DTN (>95% availability) | Optical/RF hybrid (10-100\u00d7) | Quantum links (future-proof) | Full simulation (149 tests)"
+contrib = "RL autonomous routing (20-40% faster) | 5-tier DTN (>95% availability) | Optical/RF hybrid (10-100\u00d7) | Quantum links (future-proof) | Full simulation (189 tests)"
 draw_text(c, contrib, 40, PAGE_H - 450, size=10, color=LIGHT_GRAY)
 
 draw_footer(c, 24)
@@ -1259,7 +1259,7 @@ stat_cards = [
     ("10\u2013100\u00d7", "Faster", ACCENT_BLUE),
     (">95%", "Available", GREEN),
     ("241", "Nodes", ACCENT_ORANGE),
-    ("149", "Tests", ACCENT_PURPLE),
+    ("189", "Tests", ACCENT_PURPLE),
 ]
 for i, (val, label, col) in enumerate(stat_cards):
     x = PAGE_W / 2 - 440 + 220 * i

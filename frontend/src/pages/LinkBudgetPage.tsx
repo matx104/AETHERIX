@@ -52,7 +52,7 @@ export function LinkBudgetPage() {
   };
 
   const loadHistory = async () => {
-    try { setHistory(await api.linkBudgetHistory()); } catch {}
+    try { setHistory(await api.linkBudgetHistory()); } catch (e) { setError(e instanceof Error ? e.message : "Failed to load history"); }
   };
 
   return (

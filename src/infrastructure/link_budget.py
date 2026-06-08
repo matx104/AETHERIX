@@ -156,6 +156,8 @@ class LinkBudgetCalculator:
         Returns:
             Free space path loss in dB (negative value representing loss)
         """
+        if distance_km <= 0:
+            raise ValueError("distance_km must be positive")
         distance_m = distance_km * 1000
         fspl = (4 * math.pi * distance_m / self.wavelength_m) ** 2
         return -10 * math.log10(fspl)
@@ -174,11 +176,17 @@ class LinkBudgetCalculator:
         Returns:
             Antenna gain in dB
         """
+        if aperture_diameter_m <= 0:
+            raise ValueError("aperture_diameter_m must be positive")
+        if efficiency <= 0:
+            raise ValueError("efficiency must be positive")
         gain = efficiency * (math.pi * aperture_diameter_m / self.wavelength_m) ** 2
         return 10 * math.log10(gain)
     
     def watts_to_dbm(self, power_watts: float) -> float:
         """Convert power from Watts to dBm."""
+        if power_watts <= 0:
+            return float('-inf')
         return 10 * math.log10(power_watts * 1000)
     
     def calculate_one_way_light_time(self, distance_km: float) -> float:
@@ -323,7 +331,7 @@ class LinkBudgetCalculator:
         distances = {
             "minimum": 55_000_000,    # 55 million km (closest approach)
             "average": 225_000_000,   # 225 million km (average distance)
-            "maximum": 390_000_000,   # 390 million km (solar conjunction)
+            "maximum": 401_000_000,   # 401 million km (solar conjunction)
         }
         
         if scenario not in distances:

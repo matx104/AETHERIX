@@ -9,7 +9,9 @@ export async function fetchApi<T>(path: string, init?: RequestInit): Promise<T> 
     const body = await res.json().catch(() => ({}));
     throw new Error(body.detail || res.statusText);
   }
-  return res.json();
+  const text = await res.text();
+  if (!text) return undefined as T;
+  return JSON.parse(text);
 }
 
 export interface HealthResponse {

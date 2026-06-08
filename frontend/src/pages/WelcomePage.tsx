@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { SHOWCASE_URL } from "../components/ResourcesCard";
 
 const FEATURES = [
@@ -37,7 +38,7 @@ export function WelcomePage() {
           Delay-tolerant networking between Earth and Mars — powered by RL routing, quantum key distribution, and hybrid optical/RF communications
         </p>
         <div className="welcome-actions">
-          <a href="/dashboard" className="btn btn-primary">Open Dashboard &rarr;</a>
+          <Link to="/dashboard" className="btn btn-primary">Open Dashboard &rarr;</Link>
           <a href={`${SHOWCASE_URL}/#welcome`} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">Explore Showcase &rarr;</a>
         </div>
       </div>
@@ -77,7 +78,7 @@ export function WelcomePage() {
 
       <div className="welcome-features">
         {FEATURES.map((f) => (
-          <a key={f.page} href={f.page} className="welcome-feature-card">
+          <Link key={f.page} to={f.page} className="welcome-feature-card">
             <span className="welcome-feature-icon">{f.icon}</span>
             <span className="welcome-feature-title">{f.title}</span>
             <span className="welcome-feature-desc">{f.desc}</span>
@@ -94,7 +95,7 @@ export function WelcomePage() {
             >
               Learn the science &rarr;
             </span>
-          </a>
+          </Link>
         ))}
       </div>
 

@@ -1,6 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
-
-const SHOWCASE = "https://matx104.github.io/AETHERIX";
+import { SHOWCASE_URL } from "./ResourcesCard";
 
 const navItems = [
   { to: "/", label: "Welcome", icon: "🏠" },
@@ -42,7 +41,7 @@ export function Layout() {
             <span style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 1, fontWeight: 600 }}>External</span>
           </div>
           <a
-            href={`${SHOWCASE}/#welcome`}
+            href={`${SHOWCASE_URL}/#welcome`}
             target="_blank"
             rel="noopener noreferrer"
             className="nav-item"
@@ -51,7 +50,7 @@ export function Layout() {
             Showcase Site
           </a>
           <a
-            href={`${SHOWCASE}/#study`}
+            href={`${SHOWCASE_URL}/#study`}
             target="_blank"
             rel="noopener noreferrer"
             className="nav-item"
@@ -60,7 +59,7 @@ export function Layout() {
             Resources
           </a>
           <a
-            href={`${SHOWCASE}/#glossary`}
+            href={`${SHOWCASE_URL}/#glossary`}
             target="_blank"
             rel="noopener noreferrer"
             className="nav-item"
@@ -69,7 +68,7 @@ export function Layout() {
             Glossary
           </a>
           <a
-            href={`${SHOWCASE}/#quiz`}
+            href={`${SHOWCASE_URL}/#quiz`}
             target="_blank"
             rel="noopener noreferrer"
             className="nav-item"
@@ -109,7 +108,7 @@ export function Layout() {
           &middot;{" "}
           <a href="https://github.com/matx104/AETHERIX" target="_blank" rel="noopener noreferrer">Repo</a>{" "}
           &middot;{" "}
-          <a href={SHOWCASE} target="_blank" rel="noopener noreferrer">Showcase</a>
+          <a href={SHOWCASE_URL} target="_blank" rel="noopener noreferrer">Showcase</a>
         </footer>
       </main>
     </div>

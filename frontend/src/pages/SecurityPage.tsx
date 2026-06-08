@@ -59,7 +59,7 @@ export function SecurityPage() {
   };
 
   const loadSessions = async () => {
-    try { setSessions(await api.qkdSessions()); } catch {}
+    try { setSessions(await api.qkdSessions()); } catch (e) { setError(e instanceof Error ? e.message : "Failed to load sessions"); }
   };
 
   return (

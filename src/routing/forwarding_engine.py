@@ -288,8 +288,8 @@ class ForwardingEngine:
 
     def _execute_drop(self, bundle: Bundle, details: str = "") -> ForwardingEvent:
         size_mb = bundle.payload_size_bytes / (1024.0 * 1024.0)
-        if self.local_node.current_buffer_gb >= size_mb / 1024.0:
-            self.local_node.current_buffer_gb -= size_mb / 1024.0
+        size_gb = size_mb / 1024.0
+        self.local_node.current_buffer_gb = max(0.0, self.local_node.current_buffer_gb - size_gb)
 
         bundle.add_hop(self.local_node.node_id, "DROPPED", time.time())
         return self._make_event(bundle, "dropped", details=details)
@@ -297,9 +297,7 @@ class ForwardingEngine:
     def _is_destination(self, bundle: Bundle) -> bool:
         dest = bundle.destination.node_id
         local = self.local_node.node_id
-        if dest == local:
-            return True
-        return dest in local
+        return dest == local
 
     def accept_custody(self, bundle: Bundle) -> ForwardingEvent:
         """

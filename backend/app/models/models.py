@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime, timezone
 
-from sqlalchemy import Boolean, DateTime, Float, Integer, String, Text
+from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column
 
 from ..database import Base
@@ -17,9 +17,9 @@ class SimulationRun(Base):
     scenario: Mapped[str] = mapped_column(String(100), nullable=False)
     status: Mapped[str] = mapped_column(String(20), default="pending")
     created_at: Mapped[datetime] = mapped_column(
-        DateTime, default=lambda: datetime.now(timezone.utc)
+        DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
     )
-    completed_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     config_json: Mapped[str | None] = mapped_column(Text, nullable=True)
     result_json: Mapped[str | None] = mapped_column(Text, nullable=True)
     seed: Mapped[int | None] = mapped_column(Integer, nullable=True)
@@ -32,7 +32,7 @@ class LinkBudgetResult(Base):
         String(36), primary_key=True, default=lambda: str(uuid.uuid4())
     )
     simulation_run_id: Mapped[str | None] = mapped_column(
-        String(36), nullable=True, index=True
+        String(36), ForeignKey("simulation_runs.id"), nullable=True, index=True
     )
     link_type: Mapped[str] = mapped_column(String(20), nullable=False)
     scenario: Mapped[str] = mapped_column(String(50), nullable=False)
@@ -43,7 +43,7 @@ class LinkBudgetResult(Base):
     link_margin_db: Mapped[float] = mapped_column(Float, nullable=False)
     data_rate_mbps: Mapped[float] = mapped_column(Float, nullable=False)
     created_at: Mapped[datetime] = mapped_column(
-        DateTime, default=lambda: datetime.now(timezone.utc)
+        DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
     )
 
 
@@ -54,7 +54,7 @@ class RoutingDecisionLog(Base):
         String(36), primary_key=True, default=lambda: str(uuid.uuid4())
     )
     simulation_run_id: Mapped[str | None] = mapped_column(
-        String(36), nullable=True, index=True
+        String(36), ForeignKey("simulation_runs.id"), nullable=True, index=True
     )
     current_node: Mapped[str] = mapped_column(String(100), nullable=False)
     action: Mapped[str] = mapped_column(String(20), nullable=False)
@@ -63,7 +63,7 @@ class RoutingDecisionLog(Base):
     reward: Mapped[float] = mapped_column(Float, default=0.0)
     bundle_priority: Mapped[int] = mapped_column(Integer, nullable=False)
     created_at: Mapped[datetime] = mapped_column(
-        DateTime, default=lambda: datetime.now(timezone.utc)
+        DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
     )
 
 
@@ -82,7 +82,7 @@ class QKDSession(Base):
     sifted_key_length: Mapped[int | None] = mapped_column(Integer, nullable=True)
     efficiency: Mapped[float | None] = mapped_column(Float, nullable=True)
     created_at: Mapped[datetime] = mapped_column(
-        DateTime, default=lambda: datetime.now(timezone.utc)
+        DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
     )
 
 
@@ -93,7 +93,7 @@ class ContactWindowRecord(Base):
         String(36), primary_key=True, default=lambda: str(uuid.uuid4())
     )
     simulation_run_id: Mapped[str | None] = mapped_column(
-        String(36), nullable=True, index=True
+        String(36), ForeignKey("simulation_runs.id"), nullable=True, index=True
     )
     start_time_jd: Mapped[float] = mapped_column(Float, nullable=False)
     end_time_jd: Mapped[float] = mapped_column(Float, nullable=False)
@@ -103,5 +103,5 @@ class ContactWindowRecord(Base):
     max_data_rate_mbps: Mapped[float] = mapped_column(Float, nullable=False)
     window_type: Mapped[str] = mapped_column(String(20), nullable=False)
     created_at: Mapped[datetime] = mapped_column(
-        DateTime, default=lambda: datetime.now(timezone.utc)
+        DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
     )

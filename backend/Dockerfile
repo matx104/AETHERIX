@@ -5,7 +5,7 @@ WORKDIR /app
 COPY backend/requirements.txt ./backend/requirements.txt
 COPY requirements.txt ./requirements.txt
 
-RUN pip install --no-cache-dir -r ./backend/requirements.txt -r ./requirements.txt || true
+RUN pip install --no-cache-dir -r ./backend/requirements.txt -r ./requirements.txt
 
 COPY backend/ ./backend/
 COPY src/ ./src/

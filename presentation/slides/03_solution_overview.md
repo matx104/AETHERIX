@@ -22,8 +22,8 @@
 
 ### Implementation Scale
 
-- **18 source modules** across 5 packages (`src/{infrastructure,orbital,routing,security,simulation}`)
-- **149 unit tests** validating all modules
+- **27 source modules** across 5 packages (`src/{infrastructure,orbital,routing,security,simulation}`)
+- **189 unit tests** validating all modules
 - **241 nodes** across 5 network tiers with BFS routing and contact graph
 - **3 convergence layer adapters** — LTP (deep space), TCPCL (Earth segment), UDP-CL (optical ISL)
 

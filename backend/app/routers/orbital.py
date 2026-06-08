@@ -4,9 +4,9 @@ import os
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "src"))
 
-from src.orbital.contact_windows import (
+from orbital.contact_windows import (
     calculate_earth_mars_distance,
     calculate_light_time,
     get_distance_timeline,
@@ -46,6 +46,10 @@ def distance_timeline(num_points: int = 780):
             day, dist_km, lt_min = entry
             distances.append({"day": day, "distance_km": dist_km, "light_time_min": lt_min})
     dists = [d["distance_km"] for d in distances]
+    if not dists:
+        return DistanceTimelineResponse(
+            distances=[], min_distance_km=0, max_distance_km=0, avg_distance_km=0
+        )
     return DistanceTimelineResponse(
         distances=distances,
         min_distance_km=min(dists),
@@ -85,6 +89,7 @@ def compute_contact_windows(
 
 @router.get("/contact-windows/history", response_model=list[ContactWindowResponse])
 def contact_window_history(limit: int = 50, db: Session = Depends(get_db)):
+    limit = min(limit, 1000)
     rows = (
         db.query(ContactWindowRecord)
         .order_by(ContactWindowRecord.created_at.desc())

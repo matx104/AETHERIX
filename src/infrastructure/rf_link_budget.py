@@ -155,6 +155,8 @@ class RFLinkBudgetCalculator:
         Args:
             frequency_hz: Operating frequency in Hz (e.g., 26.5e9 for Ka-band)
         """
+        if frequency_hz <= 0:
+            raise ValueError("frequency_hz must be positive")
         self.frequency_hz = frequency_hz
         self.wavelength_m = SPEED_OF_LIGHT_M_S / frequency_hz
 
@@ -171,6 +173,8 @@ class RFLinkBudgetCalculator:
             Free space path loss in dB (negative value representing loss)
         """
         distance_m = distance_km * 1000
+        if distance_m <= 0:
+            raise ValueError("distance_km must be positive")
         fspl_ratio = 4 * math.pi * distance_m * self.frequency_hz / SPEED_OF_LIGHT_M_S
         return -20 * math.log10(fspl_ratio)
 
@@ -188,6 +192,10 @@ class RFLinkBudgetCalculator:
             Antenna gain in dBi
         """
         gain_linear = efficiency * (math.pi * diameter_m * self.frequency_hz / SPEED_OF_LIGHT_M_S) ** 2
+        if diameter_m <= 0:
+            raise ValueError("diameter_m must be positive")
+        if efficiency <= 0:
+            raise ValueError("efficiency must be positive")
         return 10 * math.log10(gain_linear)
 
     def watts_to_dbm(self, power_watts: float) -> float:
@@ -200,6 +208,8 @@ class RFLinkBudgetCalculator:
         Returns:
             Power in dBm
         """
+        if power_watts <= 0:
+            return float('-inf')
         return 10 * math.log10(power_watts * 1000)
 
     def dbm_to_watts(self, power_dbm: float) -> float:

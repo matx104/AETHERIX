@@ -123,10 +123,17 @@ def calculate_position_heliocentric(elements: OrbitalElements,
     x_orb = r * math.cos(nu)
     y_orb = r * math.sin(nu)
 
-    # Rotate to ecliptic coordinates (simplified for low inclination)
-    x = x_orb * (math.cos(omega)*math.cos(Omega) - math.sin(omega)*math.sin(Omega)*math.cos(i))
-    y = x_orb * (math.cos(omega)*math.sin(Omega) + math.sin(omega)*math.cos(Omega)*math.cos(i))
-    z = x_orb * math.sin(omega) * math.sin(i) + y_orb * math.cos(omega) * math.sin(i)
+    # Rotate to ecliptic coordinates (3-axis rotation from orbital plane)
+    cos_o = math.cos(omega)
+    sin_o = math.sin(omega)
+    cos_O = math.cos(Omega)
+    sin_O = math.sin(Omega)
+    cos_i = math.cos(i)
+    sin_i = math.sin(i)
+
+    x = x_orb * (cos_o * cos_O - sin_o * sin_O * cos_i) - y_orb * (cos_o * sin_O + sin_o * cos_O * cos_i)
+    y = x_orb * (sin_o * cos_O + cos_o * sin_O * cos_i) - y_orb * (sin_o * sin_O - cos_o * cos_O * cos_i)
+    z = x_orb * sin_o * sin_i + y_orb * cos_o * sin_i
 
     return (x, y, z)
 

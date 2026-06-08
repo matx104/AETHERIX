@@ -4,9 +4,9 @@ import os
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "..", "src"))
 
-from src.routing.rl_agent import RLRoutingAgent, NetworkState
+from routing.rl_agent import RLRoutingAgent, NetworkState
 from ..database import get_db
 from ..models.models import RoutingDecisionLog
 from ..schemas.schemas import RoutingRequest, RoutingResponse
@@ -50,6 +50,7 @@ def make_routing_decision(req: RoutingRequest, db: Session = Depends(get_db)):
 
 @router.get("/decisions", response_model=list[dict])
 def list_decisions(limit: int = 100, db: Session = Depends(get_db)):
+    limit = min(limit, 1000)
     logs = (
         db.query(RoutingDecisionLog)
         .order_by(RoutingDecisionLog.created_at.desc())
@@ -77,7 +78,7 @@ def training_step(
     epsilon: float = 0.1,
     db: Session = Depends(get_db),
 ):
-    from src.routing.training import TrainingEnvironment
+    from routing.training import TrainingEnvironment
 
     env = TrainingEnvironment()
     results = env.train(episodes=episodes, epsilon=epsilon)

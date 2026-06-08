@@ -25,7 +25,7 @@
 | **Quantum security** | BB84/E91 QKD + CASCADE | Physics-based security, immune to quantum computers |
 | **10× cost efficiency** | Higher throughput | Same DSN time → 10× more data delivered |
 
-### Validation: 149 Unit Tests
+### Validation: 189 Unit Tests
 
 All AETHERIX modules are validated by a comprehensive test suite:
 
@@ -36,7 +36,7 @@ All AETHERIX modules are validated by a comprehensive test suite:
 | `security/` | QKD protocols, repeater chains | BB84/E91 key generation, CASCADE reconciliation, purification |
 | `orbital/` | Contact windows, distance calculations | Ephemeris accuracy, light-time, conjunction prediction |
 | `simulation/` | Simulation engine, metrics | Delivery ratio, delay, hop count, policy-driven routing |
-| **Total** | **149** | **Full coverage across all 18 source modules** |
+| **Total** | **189** | **Full coverage across all 27 source modules** |
 
 ### Simulation Engine Metrics
 
@@ -70,4 +70,4 @@ The simulation engine produces quantitative results across the full 780-day syno
 
 ### The Bottom Line
 
-> **AETHERIX provides 10-100× improvement in data throughput while achieving >95% availability through intelligent routing and multi-path redundancy — validated by 149 unit tests and full simulation.**
+> **AETHERIX provides 10-100× improvement in data throughput while achieving >95% availability through intelligent routing and multi-path redundancy — validated by 189 unit tests and full simulation.**
