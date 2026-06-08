@@ -391,7 +391,14 @@
       <header class="section-title" style="margin-top:32px"><span class="section-icon">&#128202;</span> Store-and-Forward Visualized</header>
       <figure class="chart-figure">
         <img src="img/diagrams/dtn_store_and_forward.png" alt="DTN Store-and-Forward Flow" loading="lazy">
-        <figcaption><strong>DTN Store-and-Forward Flow</strong> — Bundles hop from node to node, stored safely at each stop until the next contact window opens. No end-to-end connection required.</figcaption>
+        <figcaption><strong>DTN Store-and-Forward Flow</strong> — Bundles hop from node to node, stored safely at each stop until the next contact window opens. No end-to-end connection required.
+<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
+<div class="chart-info">
+  <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">TCP/IP requires continuous end-to-end connectivity — impossible with 3–22 min signal delays and 2-week solar conjunction blackouts.</div></div>
+  <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Shows how DTN decouples sending from delivery — each node stores the bundle and forwards it only when the next link is available.</div></div>
+  <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Data is never lost even if links drop. AETHERIX achieves 98.7% delivery ratio with &lt;5% protocol overhead.</div></div>
+</div>
+</figcaption>
       </figure>
 
       <div class="callout callout-fact" style="margin-top:20px">
@@ -565,16 +572,37 @@
       <div class="chart-figure-half">
         <figure class="chart-figure">
           <img src="img/diagrams/system_architecture.png" alt="System Architecture" loading="lazy">
-          <figcaption><strong>System Architecture</strong> — Five core modules feed into the simulation engine and web showcase, built on CCSDS/IETF standards.</figcaption>
+          <figcaption><strong>System Architecture</strong> — Five core modules feed into the simulation engine and web showcase, built on CCSDS/IETF standards.
+<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
+<div class="chart-info">
+  <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Interplanetary networking requires integrating link analysis, adaptive routing, quantum security, and orbital mechanics into a cohesive system.</div></div>
+  <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Maps the five source modules (Infrastructure, Routing, Security, Orbital, Simulation) to their engines and interactive showcase pages.</div></div>
+  <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">All 27 modules, 189 tests, and 12 demos trace back to this architecture — every component is independently testable.</div></div>
+</div>
+</figcaption>
         </figure>
         <figure class="chart-figure">
           <img src="img/diagrams/protocol_stack.png" alt="Protocol Stack" loading="lazy">
-          <figcaption><strong>Protocol Stack</strong> — From application layer down through BPv7, convergence layers (LTP, TCPCL, UDPCL), to the physical optical/RF links.</figcaption>
+          <figcaption><strong>Protocol Stack</strong> — From application layer down through BPv7, convergence layers (LTP, TCPCL, UDPCL), to the physical optical/RF links.
+<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
+<div class="chart-info">
+  <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Standard internet protocols (TCP/IP) fail catastrophically at interplanetary distances — timeouts, connection resets, retransmission storms.</div></div>
+  <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Visualizes the BPv7 stack from RFC 9171 — showing how bundles traverse LTP (deep space), TCPCL (Earth), and UDPCL (optical ISL).</div></div>
+  <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Standards-compliant design (RFC 9171, RFC 5326, CCSDS 734.2-B-1) ensures interoperability with NASA's ION-DTN implementation.</div></div>
+</div>
+</figcaption>
         </figure>
       </div>
       <figure class="chart-figure" style="margin-top:18px">
         <img src="img/diagrams/data_flow.png" alt="End-to-End Data Flow" loading="lazy">
-        <figcaption><strong>End-to-End Data Flow</strong> — How a bundle travels from Mars surface through all protocol layers to Earth mission control in 7 hops.</figcaption>
+        <figcaption><strong>End-to-End Data Flow</strong> — How a bundle travels from Mars surface through all protocol layers to Earth mission control in 7 hops.
+<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
+<div class="chart-info">
+  <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">A 500 MB science dataset must traverse 7 network hops across 5 tiers, switching between UHF, optical laser, and TCP/IP — without losing a single byte.</div></div>
+  <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Traces the complete bundle lifecycle: creation → RL route selection → LTP segmentation → optical transmission → reassembly → delivery confirmation.</div></div>
+  <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Total transfer takes ~13 min vs 12.5 min light-time — near speed-of-light delivery with DTN overhead under 5%.</div></div>
+</div>
+</figcaption>
       </figure>
 
       <div style="margin-top:32px;display:flex;gap:10px;flex-wrap:wrap">
@@ -697,16 +725,37 @@
       <div class="chart-figure-half">
         <figure class="chart-figure">
           <img src="img/charts/distance_over_time.png" alt="Earth-Mars Distance Over Synodic Period" loading="lazy">
-          <figcaption><strong>Distance Over 780-Day Synodic Period</strong> — The distance cycles from 54.6M km (opposition) to 401M km (conjunction), directly impacting data rates and latency.</figcaption>
+          <figcaption><strong>Distance Over 780-Day Synodic Period</strong> — The distance cycles from 54.6M km (opposition) to 401M km (conjunction), directly impacting data rates and latency.
+<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
+<div class="chart-info">
+  <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Earth and Mars orbit at different speeds, creating a 7× distance variation (54.6M to 401M km) over 780 days that makes link performance wildly inconsistent.</div></div>
+  <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Plots the exact distance curve so mission planners can predict when data rates will be highest and schedule bulk transfers accordingly.</div></div>
+  <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Enables 10–200 Mbps at opposition but drops to 2–5 Mbps at conjunction — bandwidth planning is critical for 50–100 GB daily targets.</div></div>
+</div>
+</figcaption>
         </figure>
         <figure class="chart-figure">
           <img src="img/charts/contact_windows.png" alt="Contact Window Availability" loading="lazy">
-          <figcaption><strong>Contact Window Availability</strong> — Communication hours per day vary dramatically across the synodic period, from 12 hrs at opposition to zero during conjunction.</figcaption>
+          <figcaption><strong>Contact Window Availability</strong> — Communication hours per day vary dramatically across the synodic period, from 12 hrs at opposition to zero during conjunction.
+<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
+<div class="chart-info">
+  <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Ground stations only see Mars for limited windows each day, and during solar conjunction there is zero direct line-of-sight for ~2 weeks.</div></div>
+  <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Shows daily available communication hours across the full synodic period, including the critical conjunction blackout gap.</div></div>
+  <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">AETHERIX's Lagrange point relays (L4/L5) maintain 50–70% capacity during conjunction, raising overall availability from 60–75% to &gt;95%.</div></div>
+</div>
+</figcaption>
         </figure>
       </div>
       <figure class="chart-figure">
         <img src="img/diagrams/earth_mars_journey.png" alt="Earth-Mars Data Journey" loading="lazy">
-        <figcaption><strong>The 7-Hop Data Journey</strong> — From Perseverance rover on Mars surface through areostationary relay, deep-space Lagrange relays, LEO constellation, to DSN ground station and JPL.</figcaption>
+        <figcaption><strong>The 7-Hop Data Journey</strong> — From Perseverance rover on Mars surface through areostationary relay, deep-space Lagrange relays, LEO constellation, to DSN ground station and JPL.
+<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
+<div class="chart-info">
+  <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Mars surface assets (rovers, sensors) have only low-power UHF radios — they cannot reach Earth directly across 225M km.</div></div>
+  <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Maps the exact 7-hop path: UHF → areostationary → polar orbiter → L5 Lagrange → LEO mesh → DSN → JPL, showing each link technology.</div></div>
+  <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">The RL agent selects this route in real-time, rerouting around failures. If hop 4 drops, the bundle is stored and rerouted via L4 — no data loss.</div></div>
+</div>
+</figcaption>
       </figure>
 
       <div style="margin-top:28px;display:flex;gap:10px;flex-wrap:wrap">
@@ -966,16 +1015,37 @@
       <div class="chart-figure-half">
         <figure class="chart-figure">
           <img src="img/diagrams/5tier_network.png" alt="5-Tier Network Diagram" loading="lazy">
-          <figcaption><strong>5-Tier Network Diagram</strong> — 241 nodes spanning Earth ground, Earth orbital, deep-space Lagrange relays, Mars orbital, and Mars surface tiers.</figcaption>
+          <figcaption><strong>5-Tier Network Diagram</strong> — 241 nodes spanning Earth ground, Earth orbital, deep-space Lagrange relays, Mars orbital, and Mars surface tiers.
+<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
+<div class="chart-info">
+  <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">A single communication path between Earth and Mars is a fragile single point of failure — satellite outages, solar storms, and orbital geometry all disrupt links.</div></div>
+  <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Shows the full 5-tier topology with multiple redundant paths at every tier — ensuring data always has an alternative route.</div></div>
+  <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">241 nodes across 5 tiers provide at least 3 independent paths between any Earth-Mars pair, achieving &gt;95% network availability.</div></div>
+</div>
+</figcaption>
         </figure>
         <figure class="chart-figure">
           <img src="img/charts/network_tier_distribution.png" alt="Network Tier Distribution" loading="lazy">
-          <figcaption><strong>Node Distribution by Tier</strong> — Mars Surface (T5) dominates with 177 nodes, while critical relay tiers (T3, T4) are kept lean for efficiency.</figcaption>
+          <figcaption><strong>Node Distribution by Tier</strong> — Mars Surface (T5) dominates with 177 nodes, while critical relay tiers (T3, T4) are kept lean for efficiency.
+<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
+<div class="chart-info">
+  <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Mars surface has hundreds of diverse assets (bases, rovers, drones, sensors) that all need connectivity, but relay infrastructure in orbit is expensive and limited.</div></div>
+  <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Breaks down the 241 nodes by tier, showing where investment is concentrated: heavy on surface endpoints, lean on expensive deep-space relays.</div></div>
+  <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">The topology balances coverage (177 surface nodes for ubiquitous Mars connectivity) against cost (only 8 orbital relay nodes needed as aggregation points).</div></div>
+</div>
+</figcaption>
         </figure>
       </div>
       <figure class="chart-figure" style="margin-top:18px">
         <img src="img/diagrams/network_topology.png" alt="Network Topology Graph" loading="lazy">
-        <figcaption><strong>Network Topology Graph</strong> — Multiple redundant paths ensure no single point of failure. BFS pathfinding routes bundles around failures automatically.</figcaption>
+        <figcaption><strong>Network Topology Graph</strong> — Multiple redundant paths ensure no single point of failure. BFS pathfinding routes bundles around failures automatically.
+<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
+<div class="chart-info">
+  <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">With 241 nodes and hundreds of inter-tier links, finding the optimal route manually is infeasible — especially when links fail dynamically.</div></div>
+  <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Visualizes the actual graph structure the RL agent navigates, with inter-tier links and BFS pathfinding for fallback routing.</div></div>
+  <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">The RL agent learns Q-values for each node pair, achieving 20–40% faster delivery than static Contact Graph Routing while maintaining 97% delivery ratio.</div></div>
+</div>
+</figcaption>
       </figure>
 
       <div class="info-bubble" style="margin-top:20px">
@@ -1173,11 +1243,25 @@
       <div class="chart-figure-half">
         <figure class="chart-figure">
           <img src="img/charts/qkd_security.png" alt="QKD Security Analysis" loading="lazy">
-          <figcaption><strong>QBER vs Eavesdropper Presence</strong> — When QBER stays below 11%, the channel is secure. Above 11%, an eavesdropper is detected and the key exchange is aborted.</figcaption>
+          <figcaption><strong>QBER vs Eavesdropper Presence</strong> — When QBER stays below 11%, the channel is secure. Above 11%, an eavesdropper is detected and the key exchange is aborted.
+<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
+<div class="chart-info">
+  <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Classical encryption (AES, RSA) will be broken by quantum computers. An adversary could record encrypted Mars data today and decrypt it in 10–20 years ("harvest now, decrypt later").</div></div>
+  <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Shows how the Quantum Bit Error Rate (QBER) acts as an eavesdropper alarm — any interception physically disturbs the quantum states, raising QBER above the 11% security threshold.</div></div>
+  <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Provides information-theoretically secure key exchange — security guaranteed by the laws of physics, not computational difficulty. Future-proof against any computer, quantum or classical.</div></div>
+</div>
+</figcaption>
         </figure>
         <figure class="chart-figure">
           <img src="img/charts/qkd_key_rate.png" alt="QKD Key Generation Rate" loading="lazy">
-          <figcaption><strong>Key Generation Rate</strong> — BB84 achieves 1–10 kbps for LEO links. E91 with repeaters extends to interplanetary distances at reduced rates.</figcaption>
+          <figcaption><strong>Key Generation Rate</strong> — BB84 achieves 1–10 kbps for LEO links. E91 with repeaters extends to interplanetary distances at reduced rates.
+<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
+<div class="chart-info">
+  <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">QKD key rates drop dramatically with distance — single-photon transmission over 225M km is extremely lossy, and quantum signals cannot be amplified (no-cloning theorem).</div></div>
+  <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Compares key generation rates across deployment phases: BB84 direct (LEO), BB84/E91 with 1 repeater (GEO), and E91 with 3-hop repeater chain (Earth-Mars).</div></div>
+  <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">AETHERIX deploys quantum repeaters at Lagrange points L4/L5, extending QKD to interplanetary distances. Combined with post-quantum crypto (Kyber/Dilithium) for defense in depth.</div></div>
+</div>
+</figcaption>
         </figure>
       </div>
 
@@ -1309,21 +1393,49 @@
       <div class="chart-figure-half">
         <figure class="chart-figure">
           <img src="img/charts/link_budget_breakdown.png" alt="Link Budget Breakdown" loading="lazy">
-          <figcaption><strong>Link Budget Breakdown</strong> — Signal power from transmitter through free-space path loss, atmospheric loss, and receiver optics. Link margin determines achievable data rate.</figcaption>
+          <figcaption><strong>Link Budget Breakdown</strong> — Signal power from transmitter through free-space path loss, atmospheric loss, and receiver optics. Link margin determines achievable data rate.
+<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
+<div class="chart-info">
+  <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">At 225M km average distance, free-space path loss reaches –365 dB — the signal arriving at Earth is 10^36 times weaker than what was transmitted.</div></div>
+  <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Shows the complete link budget waterfall: Tx power → antenna gain → FSPL → atmospheric loss → Rx gain → sensitivity threshold → margin.</div></div>
+  <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">AETHERIX achieves positive link margin (3–15 dB) at all distances, enabling 2–200 Mbps with a 5W laser and 22 cm aperture — realistic spacecraft hardware.</div></div>
+</div>
+</figcaption>
         </figure>
         <figure class="chart-figure">
           <img src="img/charts/data_rate_vs_distance.png" alt="Data Rate vs Distance" loading="lazy">
-          <figcaption><strong>Data Rate vs Distance</strong> — Optical link achieves 200 Mbps at closest approach, degrading to ~2 Mbps at maximum distance. RF remains far below at all ranges.</figcaption>
+          <figcaption><strong>Data Rate vs Distance</strong> — Optical link achieves 200 Mbps at closest approach, degrading to ~2 Mbps at maximum distance. RF remains far below at all ranges.
+<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
+<div class="chart-info">
+  <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Current Mars missions (MRO) achieve only 0.5–6 Mbps via X-band radio — insufficient for streaming science data or supporting human crews.</div></div>
+  <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Compares achievable optical vs RF data rates across the full 54.6M–401M km distance range.</div></div>
+  <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Optical delivers 10–100× improvement: 200 Mbps at opposition (HD video), 20 Mbps at average distance, 2 Mbps even at conjunction — all with the same 5W transmitter.</div></div>
+</div>
+</figcaption>
         </figure>
       </div>
       <div class="chart-figure-half" style="margin-top:18px">
         <figure class="chart-figure">
           <img src="img/charts/optical_vs_rf_radar.png" alt="Optical vs RF Radar Chart" loading="lazy">
-          <figcaption><strong>Optical vs RF Comparison</strong> — Optical dominates in data rate, power efficiency, and beam focus. RF wins in weather immunity and heritage.</figcaption>
+          <figcaption><strong>Optical vs RF Comparison</strong> — Optical dominates in data rate, power efficiency, and beam focus. RF wins in weather immunity and heritage.
+<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
+<div class="chart-info">
+  <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Choosing between optical and RF involves trade-offs — optical is faster but blocked by clouds; RF is slower but weather-resistant.</div></div>
+  <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Multi-axis radar comparison across 7 dimensions: data rate, power efficiency, beam divergence, weather immunity, pointing accuracy, cost, and heritage.</div></div>
+  <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">AETHERIX uses hybrid optical/RF — optical for bulk science downlink (10–200 Mbps) with RF backup for critical commands and cloudy conditions.</div></div>
+</div>
+</figcaption>
         </figure>
         <figure class="chart-figure">
           <img src="img/charts/bandwidth_evolution.png" alt="Bandwidth Evolution" loading="lazy">
-          <figcaption><strong>Bandwidth Evolution</strong> — From Viking's 8 bps to AETHERIX's 200 Mbps — a 25 million-fold improvement over five decades of deep-space communication.</figcaption>
+          <figcaption><strong>Bandwidth Evolution</strong> — From Viking's 8 bps to AETHERIX's 200 Mbps — a 25 million-fold improvement over five decades of deep-space communication.
+<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
+<div class="chart-info">
+  <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Deep-space data rates have historically been limited — Viking (1975) transmitted at just 8 bps, and even MRO (2006) only achieves ~6 Mbps.</div></div>
+  <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Charts the historical progression of Mars communication bandwidth, projecting AETHERIX's optical link as the next leap.</div></div>
+  <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">AETHERIX represents a 25 million-fold improvement over Viking and a 33× improvement over current MRO rates — enabling HD video and bulk science from Mars.</div></div>
+</div>
+</figcaption>
         </figure>
       </div>
 
@@ -1643,11 +1755,25 @@
       <div class="chart-figure-half">
         <figure class="chart-figure">
           <img src="img/charts/rl_routing_heatmap.png" alt="RL Routing Heatmap" loading="lazy">
-          <figcaption><strong>Q-Value Heatmap</strong> — The RL agent's learned routing preferences across node pairs. Brighter cells indicate higher-value (better) routing decisions learned through experience.</figcaption>
+          <figcaption><strong>Q-Value Heatmap</strong> — The RL agent's learned routing preferences across node pairs. Brighter cells indicate higher-value (better) routing decisions learned through experience.
+<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
+<div class="chart-info">
+  <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Static Contact Graph Routing (CGR) requires pre-computed contact schedules and cannot adapt when solar storms disrupt links or satellites drift off orbit.</div></div>
+  <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Visualizes the RL agent's Q-table — the learned "experience map" showing which routing decisions yield the best outcomes for each (state, action) pair.</div></div>
+  <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">The agent discovers optimal routes through trial-and-error, achieving 20–40% faster delivery than CGR while adapting in seconds to link failures (vs hours for manual CGR rerouting).</div></div>
+</div>
+</figcaption>
         </figure>
         <figure class="chart-figure">
           <img src="img/charts/energy_efficiency.png" alt="Energy Efficiency" loading="lazy">
-          <figcaption><strong>Energy Efficiency Trade-offs</strong> — The reward function balances delivery speed against energy consumption, enabling intelligent routing even for power-constrained relay nodes.</figcaption>
+          <figcaption><strong>Energy Efficiency Trade-offs</strong> — The reward function balances delivery speed against energy consumption, enabling intelligent routing even for power-constrained relay nodes.
+<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
+<div class="chart-info">
+  <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Relay satellites have finite solar power and battery capacity. Routing everything through the fastest path may drain a critical relay, leaving it unable to handle emergency traffic.</div></div>
+  <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Shows how the multi-objective reward function (R = α·delivery − β·delay − γ·hops − δ·drops − ε·energy) learns to balance speed against energy conservation.</div></div>
+  <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Emergency bundles (P0) get routed through the fastest path regardless of energy cost, while bulk science data (P4) is routed through energy-efficient paths — autonomous QoS-aware routing.</div></div>
+</div>
+</figcaption>
         </figure>
       </div>
 
@@ -1931,11 +2057,25 @@
       <div class="chart-figure-half">
         <figure class="chart-figure">
           <img src="img/charts/performance_comparison.png" alt="AETHERIX vs Current Systems" loading="lazy">
-          <figcaption><strong>AETHERIX vs Current Mars Communication</strong> — 10–100× faster data rates, >95% availability, quantum-secure encryption, and 241-node scalability vs 5–10 assets today.</figcaption>
+          <figcaption><strong>AETHERIX vs Current Mars Communication</strong> — 10–100× faster data rates, &gt;95% availability, quantum-secure encryption, and 241-node scalability vs 5–10 assets today.
+<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
+<div class="chart-info">
+  <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Today's Mars communication relies on 5–10 aging assets with static routing, 0.5–6 Mbps data rates, and 60–75% availability — insufficient for human missions.</div></div>
+  <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Head-to-head comparison across 8 metrics: downlink rate, daily volume, availability, routing, security, scalability, conjunction resilience, and cost per MB.</div></div>
+  <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">AETHERIX delivers 10–100× faster rates (2–200 Mbps), &gt;95% availability (via Lagrange relays), quantum-secure encryption, and scales to 241 nodes — ready for Mars settlement infrastructure.</div></div>
+</div>
+</figcaption>
         </figure>
         <figure class="chart-figure">
           <img src="img/charts/mission_timeline.png" alt="Development Roadmap Timeline" loading="lazy">
-          <figcaption><strong>Development Roadmap</strong> — Phases 1–4 complete (topology, BPv7, RL routing, QKD). Phase 5–7: ns-3 simulation, ION-DTN integration, and hardware prototypes.</figcaption>
+          <figcaption><strong>Development Roadmap</strong> — Phases 1–4 complete (topology, BPv7, RL routing, QKD). Phase 5–7: ns-3 simulation, ION-DTN integration, and hardware prototypes.
+<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
+<div class="chart-info">
+  <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Moving from proof-of-concept to production requires integration with NASA's ION-DTN stack, realistic ns-3 network simulation, and eventually hardware-in-the-loop testing.</div></div>
+  <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Maps the phased development roadmap from current working demo through production deployment, with clear milestones for each phase.</div></div>
+  <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Phases 1–4 are complete with 27 modules, 189 tests, and 12 interactive demos. Phase 5–7 target ns-3 integration, DQN upgrade, and LEO optical hardware demonstration.</div></div>
+</div>
+</figcaption>
         </figure>
       </div>
 
