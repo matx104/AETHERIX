@@ -1351,16 +1351,16 @@ body.pres-active .presentation-mode {
     box-shadow: 0 0 16px rgba(var(--accent-rgb), 0.5), 0 0 40px rgba(var(--quantum-rgb), 0.2);
 }
 
-.pres-slide-container {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 36px 48px 72px;
-    max-width: 1440px;
-    margin: 0 auto;
-    width: 100%;
-}
+ .pres-slide-container {
+     flex: 1;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     padding: 36px 48px 120px;
+     max-width: 1440px;
+     margin: 0 auto;
+     width: 100%;
+ }
 
 .pres-slide {
     width: 100%;
@@ -1842,15 +1842,17 @@ body.pres-active .presentation-mode {
      bottom: 56px;
      left: 50%;
      transform: translateX(-50%);
-     background: rgba(13, 21, 37, 0.95);
+     background: rgba(10, 16, 30, 0.97);
      border: 1px solid rgba(var(--quantum-rgb), 0.2);
      border-radius: var(--radius-lg);
-     padding: 16px 24px;
+     padding: 14px 20px;
      max-width: 700px;
      width: 90%;
-     z-index: 250;
-     backdrop-filter: blur(20px);
-     box-shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
+     max-height: 35vh;
+     overflow-y: auto;
+     z-index: 500;
+     backdrop-filter: blur(24px);
+     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
  }
 
  .pres-full-script {

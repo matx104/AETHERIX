@@ -2065,6 +2065,9 @@ window.App = (() => {
       if (this.notesVisible) {
         $('pres-speaker-notes').innerHTML = '<div class="pres-notes-title">Speaker Notes \u2014 Slide ' + (this.currentSlide + 1) + '</div><div class="pres-notes-text">' + slide.speakerNotes + '</div>';
       }
+      if (this.scriptVisible) {
+        this.renderScript();
+      }
       window.location.hash = '#presentation/' + (this.currentSlide + 1);
     },
 
