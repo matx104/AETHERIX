@@ -92,6 +92,7 @@
       <li class="topnav-link" data-route="usage" role="menuitem" tabindex="0"><span class="nav-icon">&#128214;</span> Usage</li>
       <li class="topnav-link" data-route="coverage" role="menuitem" tabindex="0"><span class="nav-icon">&#9989;</span> Coverage</li>
       <li class="topnav-link" data-route="quiz" role="menuitem" tabindex="0"><span class="nav-icon">&#10003;</span> Quiz</li>
+      <li class="topnav-link" data-route="charts-gallery" role="menuitem" tabindex="0"><span class="nav-icon">&#128202;</span> Charts</li>
       <li class="topnav-link" data-route="presentation" role="menuitem" tabindex="0"><span class="nav-icon">&#9654;</span> Presentation</li>
     </ul>
     <div class="topnav-right">
@@ -136,6 +137,7 @@
     <div class="topnav-mobile-link" data-route="usage">&#128214; Usage Guide</div>
     <div class="topnav-mobile-link" data-route="coverage">&#9989; Coverage</div>
     <div class="topnav-mobile-link" data-route="quiz">&#10003; Quiz</div>
+    <div class="topnav-mobile-link" data-route="charts-gallery">&#128202; Charts Gallery</div>
     <div class="topnav-mobile-link" data-route="presentation">&#9654; Presentation</div>
   </div>
 
@@ -386,6 +388,12 @@
         </div>
       </div>
 
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#128202;</span> Store-and-Forward Visualized</header>
+      <figure class="chart-figure">
+        <img src="img/diagrams/dtn_store_and_forward.png" alt="DTN Store-and-Forward Flow" loading="lazy">
+        <figcaption><strong>DTN Store-and-Forward Flow</strong> — Bundles hop from node to node, stored safely at each stop until the next contact window opens. No end-to-end connection required.</figcaption>
+      </figure>
+
       <div class="callout callout-fact" style="margin-top:20px">
         <div class="callout-icon">&#128640;</div>
         <div>
@@ -553,6 +561,22 @@
         </div>
       </div>
 
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#128202;</span> Architecture &amp; Data Flow</header>
+      <div class="chart-figure-half">
+        <figure class="chart-figure">
+          <img src="img/diagrams/system_architecture.png" alt="System Architecture" loading="lazy">
+          <figcaption><strong>System Architecture</strong> — Five core modules feed into the simulation engine and web showcase, built on CCSDS/IETF standards.</figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/diagrams/protocol_stack.png" alt="Protocol Stack" loading="lazy">
+          <figcaption><strong>Protocol Stack</strong> — From application layer down through BPv7, convergence layers (LTP, TCPCL, UDPCL), to the physical optical/RF links.</figcaption>
+        </figure>
+      </div>
+      <figure class="chart-figure" style="margin-top:18px">
+        <img src="img/diagrams/data_flow.png" alt="End-to-End Data Flow" loading="lazy">
+        <figcaption><strong>End-to-End Data Flow</strong> — How a bundle travels from Mars surface through all protocol layers to Earth mission control in 7 hops.</figcaption>
+      </figure>
+
       <div style="margin-top:32px;display:flex;gap:10px;flex-wrap:wrap">
         <button class="btn btn-primary" onclick="Router.navigate('journey-to-mars')">Next: Journey to Mars &#8594;</button>
         <button class="btn btn-quantum" onclick="Router.navigate('dashboard')">Explore All Demos &#8594;</button>
@@ -668,6 +692,22 @@
           </div>
         </div>
       </div>
+
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#128202;</span> Earth&#8211;Mars Distance Over Time</header>
+      <div class="chart-figure-half">
+        <figure class="chart-figure">
+          <img src="img/charts/distance_over_time.png" alt="Earth-Mars Distance Over Synodic Period" loading="lazy">
+          <figcaption><strong>Distance Over 780-Day Synodic Period</strong> — The distance cycles from 54.6M km (opposition) to 401M km (conjunction), directly impacting data rates and latency.</figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/contact_windows.png" alt="Contact Window Availability" loading="lazy">
+          <figcaption><strong>Contact Window Availability</strong> — Communication hours per day vary dramatically across the synodic period, from 12 hrs at opposition to zero during conjunction.</figcaption>
+        </figure>
+      </div>
+      <figure class="chart-figure">
+        <img src="img/diagrams/earth_mars_journey.png" alt="Earth-Mars Data Journey" loading="lazy">
+        <figcaption><strong>The 7-Hop Data Journey</strong> — From Perseverance rover on Mars surface through areostationary relay, deep-space Lagrange relays, LEO constellation, to DSN ground station and JPL.</figcaption>
+      </figure>
 
       <div style="margin-top:28px;display:flex;gap:10px;flex-wrap:wrap">
         <button class="btn btn-primary" onclick="Router.navigate('the-network')">Next: The Network &#8594;</button>
@@ -922,6 +962,22 @@
         </div>
       </div>
 
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#128202;</span> Network Topology Visualized</header>
+      <div class="chart-figure-half">
+        <figure class="chart-figure">
+          <img src="img/diagrams/5tier_network.png" alt="5-Tier Network Diagram" loading="lazy">
+          <figcaption><strong>5-Tier Network Diagram</strong> — 241 nodes spanning Earth ground, Earth orbital, deep-space Lagrange relays, Mars orbital, and Mars surface tiers.</figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/network_tier_distribution.png" alt="Network Tier Distribution" loading="lazy">
+          <figcaption><strong>Node Distribution by Tier</strong> — Mars Surface (T5) dominates with 177 nodes, while critical relay tiers (T3, T4) are kept lean for efficiency.</figcaption>
+        </figure>
+      </div>
+      <figure class="chart-figure" style="margin-top:18px">
+        <img src="img/diagrams/network_topology.png" alt="Network Topology Graph" loading="lazy">
+        <figcaption><strong>Network Topology Graph</strong> — Multiple redundant paths ensure no single point of failure. BFS pathfinding routes bundles around failures automatically.</figcaption>
+      </figure>
+
       <div class="info-bubble" style="margin-top:20px">
         <div class="info-bubble-icon">&#128273;</div>
         <div>
@@ -1113,6 +1169,18 @@
         </div>
       </div>
 
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#128202;</span> QKD Security Analysis</header>
+      <div class="chart-figure-half">
+        <figure class="chart-figure">
+          <img src="img/charts/qkd_security.png" alt="QKD Security Analysis" loading="lazy">
+          <figcaption><strong>QBER vs Eavesdropper Presence</strong> — When QBER stays below 11%, the channel is secure. Above 11%, an eavesdropper is detected and the key exchange is aborted.</figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/qkd_key_rate.png" alt="QKD Key Generation Rate" loading="lazy">
+          <figcaption><strong>Key Generation Rate</strong> — BB84 achieves 1–10 kbps for LEO links. E91 with repeaters extends to interplanetary distances at reduced rates.</figcaption>
+        </figure>
+      </div>
+
       <header class="section-title" style="margin-top:32px"><span class="section-icon">&#128640;</span> Deployment Roadmap</header>
       <div class="grid grid-3">
         <div class="card" style="border-color:rgba(var(--success-rgb),0.2)">
@@ -1235,6 +1303,28 @@
             </tbody>
           </table>
         </div>
+      </div>
+
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#128202;</span> Link Budget &amp; Performance Analysis</header>
+      <div class="chart-figure-half">
+        <figure class="chart-figure">
+          <img src="img/charts/link_budget_breakdown.png" alt="Link Budget Breakdown" loading="lazy">
+          <figcaption><strong>Link Budget Breakdown</strong> — Signal power from transmitter through free-space path loss, atmospheric loss, and receiver optics. Link margin determines achievable data rate.</figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/data_rate_vs_distance.png" alt="Data Rate vs Distance" loading="lazy">
+          <figcaption><strong>Data Rate vs Distance</strong> — Optical link achieves 200 Mbps at closest approach, degrading to ~2 Mbps at maximum distance. RF remains far below at all ranges.</figcaption>
+        </figure>
+      </div>
+      <div class="chart-figure-half" style="margin-top:18px">
+        <figure class="chart-figure">
+          <img src="img/charts/optical_vs_rf_radar.png" alt="Optical vs RF Radar Chart" loading="lazy">
+          <figcaption><strong>Optical vs RF Comparison</strong> — Optical dominates in data rate, power efficiency, and beam focus. RF wins in weather immunity and heritage.</figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/bandwidth_evolution.png" alt="Bandwidth Evolution" loading="lazy">
+          <figcaption><strong>Bandwidth Evolution</strong> — From Viking's 8 bps to AETHERIX's 200 Mbps — a 25 million-fold improvement over five decades of deep-space communication.</figcaption>
+        </figure>
       </div>
 
       <div style="margin-top:24px;text-align:center;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
@@ -1549,6 +1639,18 @@
         </div>
       </div>
 
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#128202;</span> RL Routing Performance</header>
+      <div class="chart-figure-half">
+        <figure class="chart-figure">
+          <img src="img/charts/rl_routing_heatmap.png" alt="RL Routing Heatmap" loading="lazy">
+          <figcaption><strong>Q-Value Heatmap</strong> — The RL agent's learned routing preferences across node pairs. Brighter cells indicate higher-value (better) routing decisions learned through experience.</figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/energy_efficiency.png" alt="Energy Efficiency" loading="lazy">
+          <figcaption><strong>Energy Efficiency Trade-offs</strong> — The reward function balances delivery speed against energy consumption, enabling intelligent routing even for power-constrained relay nodes.</figcaption>
+        </figure>
+      </div>
+
       <div style="margin-top:24px;text-align:center;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
         <button class="btn btn-sm btn-primary" onclick="Router.navigate('routing')">Try RL Routing Demo &#8594;</button>
         <button class="btn btn-sm btn-mars" onclick="Router.navigate('simulation')">Run Simulation &#8594;</button>
@@ -1823,6 +1925,18 @@
           <div class="callout-title">Standards Compliance</div>
           <div class="callout-text">AETHERIX is built on international standards: <strong>RFC 9171</strong> (BPv7), <strong>RFC 4838</strong> (DTN Architecture), <strong>RFC 5326</strong> (LTP), <strong>RFC 7242</strong> (TCPCL), <strong>CCSDS 734.2-B-1</strong> (CCSDS Bundle Protocol), <strong>CCSDS 141.0-B-1</strong> (Optical Communications), and <strong>CCSDS 401.0-B-30</strong> (RF). This ensures interoperability with existing and future space agency infrastructure worldwide.</div>
         </div>
+      </div>
+
+      <header class="section-title" style="margin-top:32px"><span class="section-icon">&#128202;</span> Performance Comparison</header>
+      <div class="chart-figure-half">
+        <figure class="chart-figure">
+          <img src="img/charts/performance_comparison.png" alt="AETHERIX vs Current Systems" loading="lazy">
+          <figcaption><strong>AETHERIX vs Current Mars Communication</strong> — 10–100× faster data rates, >95% availability, quantum-secure encryption, and 241-node scalability vs 5–10 assets today.</figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/mission_timeline.png" alt="Development Roadmap Timeline" loading="lazy">
+          <figcaption><strong>Development Roadmap</strong> — Phases 1–4 complete (topology, BPv7, RL routing, QKD). Phase 5–7: ns-3 simulation, ION-DTN integration, and hardware prototypes.</figcaption>
+        </figure>
       </div>
 
       <div style="margin-top:32px;display:flex;gap:10px;flex-wrap:wrap">
@@ -4943,12 +5057,150 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
       </div>
     </section>
 
+    <section id="charts-gallery" class="tab" aria-label="Charts &amp; Visualizations Gallery">
+      <div class="page-header">
+        <h1>Charts &amp; Visualizations Gallery</h1>
+        <p>A complete reference of all analytical charts, diagrams, and visualizations used throughout AETHERIX. Each image is labeled with the section where it appears.</p>
+        <div class="header-badges">
+          <span class="badge accent">21 Visualizations</span>
+          <span class="badge quantum">7 Diagrams</span>
+          <span class="badge success">Downloadable Pack</span>
+        </div>
+      </div>
+
+      <div style="margin:20px 0;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <a href="downloads/AETHERIX_Charts_Diagrams.zip" download class="btn btn-primary" style="text-decoration:none">&#128230; Download All Charts &amp; Diagrams (ZIP, 2.7 MB)</a>
+        <span style="color:var(--text-secondary);font-size:0.85rem">Includes all 20 chart PNGs + 7 diagram PNGs/SVGs for offline use.</span>
+      </div>
+
+      <header class="section-title" style="margin-top:28px"><span class="section-icon">&#128202;</span> Analytical Charts</header>
+      <div class="charts-gallery-grid">
+        <figure class="chart-figure">
+          <img src="img/charts/distance_over_time.png" alt="Earth-Mars Distance Over Time" loading="lazy">
+          <figcaption><strong>Earth-Mars Distance Over Synodic Period</strong> — Cycles from 54.6M km (opposition) to 401M km (conjunction) over 780 days.<span class="gallery-ref">Journey to Mars</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/data_rate_vs_distance.png" alt="Data Rate vs Distance" loading="lazy">
+          <figcaption><strong>Data Rate vs Distance</strong> — Optical link: 200 Mbps at closest approach, ~2 Mbps at maximum distance.<span class="gallery-ref">Optical Communications</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/link_budget_breakdown.png" alt="Link Budget Breakdown" loading="lazy">
+          <figcaption><strong>Link Budget Breakdown</strong> — Signal power budget from Tx through FSPL, atmospheric loss, to receiver.<span class="gallery-ref">Optical Communications</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/performance_comparison.png" alt="Performance Comparison" loading="lazy">
+          <figcaption><strong>AETHERIX vs Current Systems</strong> — 10-100x faster data rates, >95% availability, quantum-secure.<span class="gallery-ref">Why It Matters</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/optical_vs_rf_radar.png" alt="Optical vs RF Radar" loading="lazy">
+          <figcaption><strong>Optical vs RF Radar Comparison</strong> — Multi-axis comparison of optical and RF link characteristics.<span class="gallery-ref">Optical Communications</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/rl_routing_heatmap.png" alt="RL Routing Heatmap" loading="lazy">
+          <figcaption><strong>RL Q-Value Heatmap</strong> — Learned routing preferences across all node pairs.<span class="gallery-ref">Reinforcement Learning</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/energy_efficiency.png" alt="Energy Efficiency" loading="lazy">
+          <figcaption><strong>Energy Efficiency Trade-offs</strong> — Reward function balances delivery speed vs energy consumption.<span class="gallery-ref">Reinforcement Learning</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/qkd_security.png" alt="QKD Security Analysis" loading="lazy">
+          <figcaption><strong>QBER vs Eavesdropper Detection</strong> — Below 11% = secure; above = abort.<span class="gallery-ref">Space Security</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/qkd_key_rate.png" alt="QKD Key Generation Rate" loading="lazy">
+          <figcaption><strong>Key Generation Rate</strong> — BB84 achieves 1-10 kbps for LEO, E91 with repeaters for Mars.<span class="gallery-ref">Space Security</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/contact_windows.png" alt="Contact Windows" loading="lazy">
+          <figcaption><strong>Contact Window Availability</strong> — Communication hours/day across the synodic period.<span class="gallery-ref">Journey to Mars</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/network_tier_distribution.png" alt="Network Tier Distribution" loading="lazy">
+          <figcaption><strong>Node Distribution by Tier</strong> — T5 (Mars Surface) dominates with 177 nodes.<span class="gallery-ref">The Network</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/mission_timeline.png" alt="Mission Timeline" loading="lazy">
+          <figcaption><strong>Development Roadmap Timeline</strong> — Phases 1-4 complete, Phase 5-7 planned.<span class="gallery-ref">Why It Matters</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/bandwidth_evolution.png" alt="Bandwidth Evolution" loading="lazy">
+          <figcaption><strong>Bandwidth Evolution</strong> — From Viking's 8 bps to AETHERIX's 200 Mbps over 50 years.<span class="gallery-ref">Optical Communications</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/bundle_priority_classes.png" alt="Bundle Priority Classes" loading="lazy">
+          <figcaption><strong>Bundle Priority Classes</strong> — P0 (Emergency) through P4 (Bulk) with delay targets.<span class="gallery-ref">What is DTN?</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/latency_comparison.png" alt="Latency Comparison" loading="lazy">
+          <figcaption><strong>Latency Comparison</strong> — Light-time delay vs processing overhead across distance scenarios.<span class="gallery-ref">Journey to Mars</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/light_time_delay.png" alt="Light Time Delay" loading="lazy">
+          <figcaption><strong>Light-Time Delay</strong> — One-way signal propagation time as a function of Earth-Mars distance.<span class="gallery-ref">Journey to Mars</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/data_volume.png" alt="Data Volume" loading="lazy">
+          <figcaption><strong>Daily Data Volume</strong> — Achievable throughput per sol at varying distances.<span class="gallery-ref">Optical Communications</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/dsn_coverage.png" alt="DSN Coverage" loading="lazy">
+          <figcaption><strong>DSN Coverage Map</strong> — Goldstone, Madrid, and Canberra provide 24/7 deep-space coverage.<span class="gallery-ref">The Network</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/charts/orbital_positions.png" alt="Orbital Positions" loading="lazy">
+          <figcaption><strong>Orbital Positions</strong> — Earth and Mars positions across the synodic period.<span class="gallery-ref">Journey to Mars</span></figcaption>
+        </figure>
+      </div>
+
+      <header class="section-title" style="margin-top:40px"><span class="section-icon">&#128396;</span> Architecture &amp; Topology Diagrams</header>
+      <div class="charts-gallery-grid">
+        <figure class="chart-figure">
+          <img src="img/diagrams/system_architecture.png" alt="System Architecture" loading="lazy">
+          <figcaption><strong>System Architecture</strong> — Five core modules feeding the simulation engine and web showcase.<span class="gallery-ref">How It Works</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/diagrams/5tier_network.png" alt="5-Tier Network" loading="lazy">
+          <figcaption><strong>5-Tier Network Diagram</strong> — 241 nodes from Earth ground to Mars surface.<span class="gallery-ref">The Network</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/diagrams/dtn_store_and_forward.png" alt="DTN Store and Forward" loading="lazy">
+          <figcaption><strong>DTN Store-and-Forward Flow</strong> — Bundle lifecycle from creation through custody transfer to delivery.<span class="gallery-ref">What is DTN?</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/diagrams/earth_mars_journey.png" alt="Earth-Mars Journey" loading="lazy">
+          <figcaption><strong>Earth-Mars Data Journey</strong> — 7-hop path from Perseverance to JPL Mission Control.<span class="gallery-ref">Journey to Mars</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/diagrams/data_flow.png" alt="Data Flow" loading="lazy">
+          <figcaption><strong>End-to-End Data Flow</strong> — Application-to-delivery path through all protocol layers.<span class="gallery-ref">How It Works</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/diagrams/protocol_stack.png" alt="Protocol Stack" loading="lazy">
+          <figcaption><strong>Protocol Stack</strong> — BPv7, convergence layers (LTP, TCPCL, UDPCL), and physical layer.<span class="gallery-ref">How It Works</span></figcaption>
+        </figure>
+        <figure class="chart-figure">
+          <img src="img/diagrams/network_topology.png" alt="Network Topology" loading="lazy">
+          <figcaption><strong>Network Topology Graph</strong> — Redundant paths with BFS pathfinding.<span class="gallery-ref">The Network</span></figcaption>
+        </figure>
+      </div>
+
+      <div class="callout callout-tip" style="margin-top:28px">
+        <div class="callout-icon">&#128161;</div>
+        <div>
+          <div class="callout-title">Using These Charts</div>
+          <div class="callout-text">All charts and diagrams are generated from real AETHERIX simulation data using Python (matplotlib). The generation scripts are in <code>visualizations/scripts/</code>. Download the full pack above for high-resolution versions suitable for presentations or reports.</div>
+        </div>
+      </div>
+    </section>
+
     <section id="presentation" class="tab presentation-mode" aria-label="Presentation">
       <div id="pres-download-bar" style="display:none;position:fixed;top:0;left:0;right:0;z-index:10000;background:rgba(5,10,20,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,212,255,0.2);padding:10px 24px;gap:16px;align-items:center;justify-content:center;font-family:inherit">
         <span style="color:var(--text-primary);font-size:0.85rem;font-weight:600;margin-right:12px">&#128196; Download Presentation</span>
         <a href="downloads/AETHERIX_Presentation.pptx" download class="pres-dl-btn" style="display:inline-flex;align-items:center;gap:6px;padding:7px 18px;border-radius:6px;background:linear-gradient(135deg,#009eff,#00d4aa);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:600;border:none;cursor:pointer;transition:transform 0.15s,box-shadow 0.15s" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 15px rgba(0,158,255,0.3)'" onmouseout="this.style.transform='';this.style.boxShadow=''">&#128196; PPTX (1.3 MB)</a>
         <a href="downloads/AETHERIX_Presentation.pdf" download class="pres-dl-btn" style="display:inline-flex;align-items:center;gap:6px;padding:7px 18px;border-radius:6px;background:linear-gradient(135deg,#8b5cf6,#c84cff);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:600;border:none;cursor:pointer;transition:transform 0.15s,box-shadow 0.15s" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 15px rgba(139,92,246,0.3)'" onmouseout="this.style.transform='';this.style.boxShadow=''">&#128196; PDF (1.8 MB)</a>
         <a href="downloads/AETHERIX_Presentation_Script.md" download class="pres-dl-btn" style="display:inline-flex;align-items:center;gap:6px;padding:7px 18px;border-radius:6px;background:linear-gradient(135deg,#d29922,#e6a817);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:600;border:none;cursor:pointer;transition:transform 0.15s,box-shadow 0.15s" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 15px rgba(210,153,34,0.3)'" onmouseout="this.style.transform='';this.style.boxShadow=''">&#128221; Script (16 KB)</a>
+        <a href="downloads/AETHERIX_Charts_Diagrams.zip" download class="pres-dl-btn" style="display:inline-flex;align-items:center;gap:6px;padding:7px 18px;border-radius:6px;background:linear-gradient(135deg,#2ecc71,#27ae60);color:#fff;text-decoration:none;font-size:0.8rem;font-weight:600;border:none;cursor:pointer;transition:transform 0.15s,box-shadow 0.15s" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 15px rgba(46,204,113,0.3)'" onmouseout="this.style.transform='';this.style.boxShadow=''">&#128202; Charts Pack (2.7 MB)</a>
         <button onclick="document.getElementById('pres-download-bar').style.display='none'" style="margin-left:8px;background:none;border:1px solid rgba(255,255,255,0.15);color:var(--text-muted);padding:5px 12px;border-radius:4px;cursor:pointer;font-size:0.75rem">&#10005;</button>
       </div>
       <div class="pres-overlay" id="pres-overlay">

@@ -1,0 +1,328 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" font-family="'Segoe UI', Arial, sans-serif">
+  <defs>
+    <!-- Earth-tier gradients -->
+    <linearGradient id="earthGround" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e88e5"/>
+      <stop offset="100%" stop-color="#0d47a1"/>
+    </linearGradient>
+    <linearGradient id="earthOrbital" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#42a5f5"/>
+      <stop offset="100%" stop-color="#1565c0"/>
+    </linearGradient>
+    <!-- Transit gradient -->
+    <linearGradient id="transit" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ab47bc"/>
+      <stop offset="100%" stop-color="#6a1b9a"/>
+    </linearGradient>
+    <!-- Mars-tier gradients -->
+    <linearGradient id="marsOrbital" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff7043"/>
+      <stop offset="100%" stop-color="#d84315"/>
+    </linearGradient>
+    <linearGradient id="marsSurface" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ef5350"/>
+      <stop offset="100%" stop-color="#b71c1c"/>
+    </linearGradient>
+    <!-- Glow filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <!-- Subtle shadow for nodes -->
+    <filter id="shadow" x="-5%" y="-5%" width="115%" height="120%">
+      <feDropShadow dx="1" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+    <!-- Link line style -->
+    <marker id="arrowDown" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 5 10 L 10 0" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="700" fill="#0a0e27" rx="4"/>
+
+  <!-- Star field -->
+  <g opacity="0.4">
+    <circle cx="45" cy="30" r="0.8" fill="#fff"/><circle cx="120" cy="55" r="0.5" fill="#fff"/>
+    <circle cx="200" cy="18" r="0.7" fill="#fff"/><circle cx="310" cy="42" r="0.6" fill="#fff"/>
+    <circle cx="415" cy="25" r="0.9" fill="#fff"/><circle cx="530" cy="60" r="0.5" fill="#fff"/>
+    <circle cx="620" cy="15" r="0.7" fill="#fff"/><circle cx="710" cy="48" r="0.6" fill="#fff"/>
+    <circle cx="800" cy="22" r="0.8" fill="#fff"/><circle cx="870" cy="65" r="0.5" fill="#fff"/>
+    <circle cx="70" cy="110" r="0.6" fill="#fff"/><circle cx="160" cy="145" r="0.5" fill="#fff"/>
+    <circle cx="250" cy="120" r="0.7" fill="#fff"/><circle cx="380" cy="160" r="0.5" fill="#fff"/>
+    <circle cx="500" cy="130" r="0.8" fill="#fff"/><circle cx="640" cy="155" r="0.6" fill="#fff"/>
+    <circle cx="750" cy="115" r="0.5" fill="#fff"/><circle cx="850" cy="140" r="0.7" fill="#fff"/>
+    <circle cx="30" cy="210" r="0.5" fill="#fff"/><circle cx="100" cy="260" r="0.7" fill="#fff"/>
+    <circle cx="230" cy="230" r="0.6" fill="#fff"/><circle cx="340" cy="270" r="0.5" fill="#fff"/>
+    <circle cx="460" cy="245" r="0.8" fill="#fff"/><circle cx="570" cy="225" r="0.5" fill="#fff"/>
+    <circle cx="680" cy="265" r="0.7" fill="#fff"/><circle cx="790" cy="240" r="0.6" fill="#fff"/>
+    <circle cx="55" cy="340" r="0.6" fill="#fff"/><circle cx="140" cy="380" r="0.5" fill="#fff"/>
+    <circle cx="265" cy="355" r="0.7" fill="#fff"/><circle cx="350" cy="390" r="0.5" fill="#fff"/>
+    <circle cx="480" cy="365" r="0.8" fill="#fff"/><circle cx="600" cy="345" r="0.6" fill="#fff"/>
+    <circle cx="720" cy="385" r="0.5" fill="#fff"/><circle cx="830" cy="360" r="0.7" fill="#fff"/>
+    <circle cx="40" cy="450" r="0.5" fill="#fff"/><circle cx="130" cy="490" r="0.7" fill="#fff"/>
+    <circle cx="220" cy="470" r="0.6" fill="#fff"/><circle cx="370" cy="505" r="0.5" fill="#fff"/>
+    <circle cx="510" cy="480" r="0.8" fill="#fff"/><circle cx="625" cy="460" r="0.5" fill="#fff"/>
+    <circle cx="740" cy="500" r="0.7" fill="#fff"/><circle cx="860" cy="475" r="0.6" fill="#fff"/>
+    <circle cx="60" cy="560" r="0.6" fill="#fff"/><circle cx="175" cy="590" r="0.5" fill="#fff"/>
+    <circle cx="290" cy="570" r="0.7" fill="#fff"/><circle cx="430" cy="600" r="0.5" fill="#fff"/>
+    <circle cx="555" cy="580" r="0.8" fill="#fff"/><circle cx="670" cy="610" r="0.6" fill="#fff"/>
+    <circle cx="780" cy="575" r="0.5" fill="#fff"/><circle cx="880" cy="605" r="0.7" fill="#fff"/>
+    <circle cx="80" cy="650" r="0.5" fill="#fff"/><circle cx="200" cy="670" r="0.6" fill="#fff"/>
+    <circle cx="350" cy="655" r="0.7" fill="#fff"/><circle cx="500" cy="680" r="0.5" fill="#fff"/>
+    <circle cx="650" cy="660" r="0.8" fill="#fff"/><circle cx="770" cy="685" r="0.5" fill="#fff"/>
+    <circle cx="445" cy="95" r="0.4" fill="#fff"/><circle cx="695" cy="90" r="0.4" fill="#fff"/>
+    <circle cx="155" cy="310" r="0.4" fill="#fff"/><circle cx="545" cy="320" r="0.4" fill="#fff"/>
+    <circle cx="815" cy="435" r="0.4" fill="#fff"/><circle cx="95" cy="525" r="0.4" fill="#fff"/>
+    <circle cx="395" cy="540" r="0.4" fill="#fff"/><circle cx="645" cy="530" r="0.4" fill="#fff"/>
+  </g>
+
+  <!-- Title -->
+  <text x="450" y="32" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="600" letter-spacing="2" opacity="0.9">AETHERIX NETWORK TOPOLOGY</text>
+  <text x="450" y="48" text-anchor="middle" fill="#90caf9" font-size="9" letter-spacing="1.5" opacity="0.7">EARTH–MARS DELAY-TOLERANT NETWORK · 5-TIER ARCHITECTURE</text>
+
+  <!-- ===================== TIER LABELS (left side) ===================== -->
+  <g font-size="9" fill="#90caf9" opacity="0.85" text-anchor="end" font-weight="500">
+    <text x="108" y="100" transform="rotate(-90,108,100)" letter-spacing="1">TIER 1 · EARTH GROUND</text>
+    <text x="108" y="228" transform="rotate(-90,108,228)" letter-spacing="1">TIER 2 · EARTH ORBITAL</text>
+    <text x="108" y="358" transform="rotate(-90,108,358)" letter-spacing="1">TIER 3 · DEEP SPACE</text>
+    <text x="108" y="478" transform="rotate(-90,108,478)" letter-spacing="1">TIER 4 · MARS ORBITAL</text>
+    <text x="108" y="608" transform="rotate(-90,108,608)" letter-spacing="1">TIER 5 · MARS SURFACE</text>
+  </g>
+
+  <!-- Tier bracket lines -->
+  <g stroke="#90caf9" stroke-width="0.5" opacity="0.3" stroke-dasharray="3,3">
+    <line x1="118" y1="72" x2="118" y2="120"/>
+    <line x1="118" y1="195" x2="118" y2="255"/>
+    <line x1="118" y1="330" x2="118" y2="380"/>
+    <line x1="118" y1="448" x2="118" y2="508"/>
+    <line x1="118" y1="578" x2="118" y2="638"/>
+  </g>
+
+  <!-- ===================== TIER 1: Earth Ground ===================== -->
+  <g filter="url(#shadow)">
+    <!-- Goldstone -->
+    <rect x="175" y="72" width="130" height="48" rx="6" fill="url(#earthGround)" stroke="#42a5f5" stroke-width="0.8"/>
+    <text x="240" y="92" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">Goldstone</text>
+    <text x="240" y="108" text-anchor="middle" fill="#bbdefb" font-size="8">DSN Station</text>
+    <!-- Madrid -->
+    <rect x="355" y="72" width="130" height="48" rx="6" fill="url(#earthGround)" stroke="#42a5f5" stroke-width="0.8"/>
+    <text x="420" y="92" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">Madrid</text>
+    <text x="420" y="108" text-anchor="middle" fill="#bbdefb" font-size="8">DSN Station</text>
+    <!-- Canberra -->
+    <rect x="535" y="72" width="130" height="48" rx="6" fill="url(#earthGround)" stroke="#42a5f5" stroke-width="0.8"/>
+    <text x="600" y="92" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">Canberra</text>
+    <text x="600" y="108" text-anchor="middle" fill="#bbdefb" font-size="8">DSN Station</text>
+  </g>
+  <!-- Horizontal links Tier 1 -->
+  <line x1="305" y1="96" x2="355" y2="96" stroke="#42a5f5" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+  <line x1="485" y1="96" x2="535" y2="96" stroke="#42a5f5" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+
+  <!-- ===================== TIER 2: Earth Orbital ===================== -->
+  <g filter="url(#shadow)">
+    <!-- GEO Relay A -->
+    <rect x="160" y="198" width="110" height="48" rx="6" fill="url(#earthOrbital)" stroke="#64b5f6" stroke-width="0.8"/>
+    <text x="215" y="218" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">GEO Relay α</text>
+    <text x="215" y="234" text-anchor="middle" fill="#bbdefb" font-size="8">Optical Terminal</text>
+    <!-- GEO Relay B -->
+    <rect x="285" y="198" width="110" height="48" rx="6" fill="url(#earthOrbital)" stroke="#64b5f6" stroke-width="0.8"/>
+    <text x="340" y="218" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">GEO Relay β</text>
+    <text x="340" y="234" text-anchor="middle" fill="#bbdefb" font-size="8">Optical Terminal</text>
+    <!-- GEO Relay C -->
+    <rect x="410" y="198" width="110" height="48" rx="6" fill="url(#earthOrbital)" stroke="#64b5f6" stroke-width="0.8"/>
+    <text x="465" y="218" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">GEO Relay γ</text>
+    <text x="465" y="234" text-anchor="middle" fill="#bbdefb" font-size="8">Optical Terminal</text>
+    <!-- LEO Constellation -->
+    <rect x="545" y="193" width="150" height="58" rx="8" fill="none" stroke="#64b5f6" stroke-width="1" stroke-dasharray="5,3" opacity="0.7"/>
+    <text x="620" y="213" text-anchor="middle" fill="#90caf9" font-size="10" font-weight="600">LEO Constellation</text>
+    <text x="620" y="229" text-anchor="middle" fill="#bbdefb" font-size="8">48 Laser Satellites</text>
+    <text x="620" y="243" text-anchor="middle" fill="#64b5f6" font-size="7" opacity="0.7">Inter-satellite Links</text>
+  </g>
+  <!-- Horizontal links Tier 2 -->
+  <line x1="270" y1="222" x2="285" y2="222" stroke="#64b5f6" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+  <line x1="395" y1="222" x2="410" y2="222" stroke="#64b5f6" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+  <line x1="520" y1="222" x2="545" y2="222" stroke="#64b5f6" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+
+  <!-- ===================== TIER 3: Deep Space Transit ===================== -->
+  <g filter="url(#shadow)">
+    <!-- ES-L4 -->
+    <rect x="245" y="333" width="140" height="48" rx="6" fill="url(#transit)" stroke="#ce93d8" stroke-width="0.8"/>
+    <text x="315" y="353" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">ES-L4 Relay</text>
+    <text x="315" y="369" text-anchor="middle" fill="#e1bee7" font-size="8">Lagrange Point</text>
+    <!-- ES-L5 -->
+    <rect x="445" y="333" width="140" height="48" rx="6" fill="url(#transit)" stroke="#ce93d8" stroke-width="0.8"/>
+    <text x="515" y="353" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">ES-L5 Relay</text>
+    <text x="515" y="369" text-anchor="middle" fill="#e1bee7" font-size="8">Lagrange Point</text>
+  </g>
+  <!-- Horizontal link Tier 3 -->
+  <line x1="385" y1="357" x2="445" y2="357" stroke="#ce93d8" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+
+  <!-- ===================== TIER 4: Mars Orbital ===================== -->
+  <g filter="url(#shadow)">
+    <!-- Areo A -->
+    <rect x="175" y="452" width="130" height="48" rx="6" fill="url(#marsOrbital)" stroke="#ff8a65" stroke-width="0.8"/>
+    <text x="240" y="472" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">Areostationary α</text>
+    <text x="240" y="488" text-anchor="middle" fill="#ffccbc" font-size="8">Relay Satellite</text>
+    <!-- Areo B -->
+    <rect x="355" y="452" width="130" height="48" rx="6" fill="url(#marsOrbital)" stroke="#ff8a65" stroke-width="0.8"/>
+    <text x="420" y="472" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">Areostationary β</text>
+    <text x="420" y="488" text-anchor="middle" fill="#ffccbc" font-size="8">Relay Satellite</text>
+    <!-- Polar -->
+    <rect x="535" y="452" width="130" height="48" rx="6" fill="url(#marsOrbital)" stroke="#ff8a65" stroke-width="0.8"/>
+    <text x="600" y="472" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">Polar Relay</text>
+    <text x="600" y="488" text-anchor="middle" fill="#ffccbc" font-size="8">Orbiter</text>
+  </g>
+  <!-- Horizontal links Tier 4 -->
+  <line x1="305" y1="476" x2="355" y2="476" stroke="#ff8a65" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+  <line x1="485" y1="476" x2="535" y2="476" stroke="#ff8a65" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+
+  <!-- ===================== TIER 5: Mars Surface ===================== -->
+  <g filter="url(#shadow)">
+    <!-- Bases -->
+    <rect x="145" y="582" width="100" height="48" rx="6" fill="url(#marsSurface)" stroke="#ef9a9a" stroke-width="0.8"/>
+    <text x="195" y="602" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">Bases</text>
+    <text x="195" y="618" text-anchor="middle" fill="#ffcdd2" font-size="8">Habitats</text>
+    <!-- Rovers -->
+    <rect x="265" y="582" width="100" height="48" rx="6" fill="url(#marsSurface)" stroke="#ef9a9a" stroke-width="0.8"/>
+    <text x="315" y="602" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">Rovers</text>
+    <text x="315" y="618" text-anchor="middle" fill="#ffcdd2" font-size="8">Mobile Units</text>
+    <!-- Drones -->
+    <rect x="385" y="582" width="100" height="48" rx="6" fill="url(#marsSurface)" stroke="#ef9a9a" stroke-width="0.8"/>
+    <text x="435" y="602" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">Drones</text>
+    <text x="435" y="618" text-anchor="middle" fill="#ffcdd2" font-size="8">Aerial Scout</text>
+    <!-- Sensors -->
+    <rect x="505" y="582" width="100" height="48" rx="6" fill="url(#marsSurface)" stroke="#ef9a9a" stroke-width="0.8"/>
+    <text x="555" y="602" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">Sensors</text>
+    <text x="555" y="618" text-anchor="middle" fill="#ffcdd2" font-size="8">IoT Mesh</text>
+  </g>
+  <!-- Horizontal links Tier 5 -->
+  <line x1="245" y1="606" x2="265" y2="606" stroke="#ef9a9a" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+  <line x1="365" y1="606" x2="385" y2="606" stroke="#ef9a9a" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+  <line x1="485" y1="606" x2="505" y2="606" stroke="#ef9a9a" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+
+  <!-- ===================== VERTICAL INTER-TIER LINKS ===================== -->
+  <g stroke-width="1.2" opacity="0.55">
+    <!-- Tier 1 → Tier 2 -->
+    <line x1="240" y1="120" x2="215" y2="198" stroke="#64b5f6" marker-end="url(#arrowDown)"/>
+    <line x1="420" y1="120" x2="340" y2="198" stroke="#64b5f6" marker-end="url(#arrowDown)"/>
+    <line x1="600" y1="120" x2="620" y2="193" stroke="#64b5f6" marker-end="url(#arrowDown)"/>
+
+    <!-- Tier 2 → Tier 3 -->
+    <line x1="215" y1="246" x2="315" y2="333" stroke="#ce93d8" marker-end="url(#arrowDown)"/>
+    <line x1="465" y1="246" x2="515" y2="333" stroke="#ce93d8" marker-end="url(#arrowDown)"/>
+    <line x1="620" y1="251" x2="515" y2="333" stroke="#ce93d8" marker-end="url(#arrowDown)"/>
+
+    <!-- Tier 3 → Tier 4 -->
+    <line x1="315" y1="381" x2="240" y2="452" stroke="#ff8a65" marker-end="url(#arrowDown)"/>
+    <line x1="515" y1="381" x2="420" y2="452" stroke="#ff8a65" marker-end="url(#arrowDown)"/>
+    <line x1="515" y1="381" x2="600" y2="452" stroke="#ff8a65" marker-end="url(#arrowDown)"/>
+
+    <!-- Tier 4 → Tier 5 -->
+    <line x1="240" y1="500" x2="195" y2="582" stroke="#ef9a9a" marker-end="url(#arrowDown)"/>
+    <line x1="420" y1="500" x2="315" y2="582" stroke="#ef9a9a" marker-end="url(#arrowDown)"/>
+    <line x1="600" y1="500" x2="435" y2="582" stroke="#ef9a9a" marker-end="url(#arrowDown)"/>
+    <line x1="600" y1="500" x2="555" y2="582" stroke="#ef9a9a" marker-end="url(#arrowDown)"/>
+  </g>
+
+  <!-- ===================== LINK ANNOTATIONS ===================== -->
+  <g font-size="7" opacity="0.75">
+    <!-- Tier 1→2 annotation -->
+    <rect x="130" y="148" width="70" height="16" rx="3" fill="#0d1b3e" stroke="#42a5f5" stroke-width="0.5"/>
+    <text x="165" y="159" text-anchor="middle" fill="#90caf9" font-weight="500">RF Uplink</text>
+
+    <rect x="400" y="145" width="80" height="16" rx="3" fill="#0d1b3e" stroke="#42a5f5" stroke-width="0.5"/>
+    <text x="440" y="156" text-anchor="middle" fill="#90caf9" font-weight="500">2–200 Mbps</text>
+
+    <!-- Tier 2→3 annotation -->
+    <rect x="125" y="280" width="80" height="16" rx="3" fill="#0d1b3e" stroke="#ce93d8" stroke-width="0.5"/>
+    <text x="165" y="291" text-anchor="middle" fill="#ce93d8" font-weight="500">Optical 1550nm</text>
+
+    <rect x="495" y="278" width="84" height="16" rx="3" fill="#0d1b3e" stroke="#ce93d8" stroke-width="0.5"/>
+    <text x="537" y="289" text-anchor="middle" fill="#ce93d8" font-weight="500">3–22 min delay</text>
+
+    <!-- Tier 3→4 annotation -->
+    <rect x="155" y="410" width="78" height="16" rx="3" fill="#0d1b3e" stroke="#ff8a65" stroke-width="0.5"/>
+    <text x="194" y="421" text-anchor="middle" fill="#ffab91" font-weight="500">Hybrid Opt/RF</text>
+
+    <rect x="495" y="410" width="80" height="16" rx="3" fill="#0d1b3e" stroke="#ff8a65" stroke-width="0.5"/>
+    <text x="535" y="421" text-anchor="middle" fill="#ffab91" font-weight="500">50–200 Mbps</text>
+
+    <!-- Tier 4→5 annotation -->
+    <rect x="140" y="538" width="80" height="16" rx="3" fill="#0d1b3e" stroke="#ef9a9a" stroke-width="0.5"/>
+    <text x="180" y="549" text-anchor="middle" fill="#ef9a9a" font-weight="500">RF Downlink</text>
+
+    <rect x="470" y="538" width="80" height="16" rx="3" fill="#0d1b3e" stroke="#ef9a9a" stroke-width="0.5"/>
+    <text x="510" y="549" text-anchor="middle" fill="#ef9a9a" font-weight="500">1–20 Mbps</text>
+  </g>
+
+  <!-- ===================== LEGEND ===================== -->
+  <g transform="translate(700, 445)">
+    <rect x="0" y="0" width="170" height="120" rx="6" fill="#0d1b3e" stroke="#2a3a6a" stroke-width="0.8" opacity="0.9"/>
+    <text x="85" y="18" text-anchor="middle" fill="#fff" font-size="9" font-weight="600" letter-spacing="1">LEGEND</text>
+    <line x1="10" y1="24" x2="160" y2="24" stroke="#2a3a6a" stroke-width="0.5"/>
+
+    <rect x="12" y="32" width="14" height="10" rx="2" fill="url(#earthGround)"/>
+    <text x="32" y="41" fill="#bbdefb" font-size="8">Earth Tiers</text>
+
+    <rect x="12" y="50" width="14" height="10" rx="2" fill="url(#transit)"/>
+    <text x="32" y="59" fill="#e1bee7" font-size="8">Deep Space Transit</text>
+
+    <rect x="12" y="68" width="14" height="10" rx="2" fill="url(#marsOrbital)"/>
+    <text x="32" y="77" fill="#ffccbc" font-size="8">Mars Orbital</text>
+
+    <rect x="12" y="86" width="14" height="10" rx="2" fill="url(#marsSurface)"/>
+    <text x="32" y="95" fill="#ffcdd2" font-size="8">Mars Surface</text>
+
+    <line x1="12" y1="108" x2="26" y2="108" stroke="#fff" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+    <text x="32" y="112" fill="#aaa" font-size="8">Cross-link</text>
+
+    <line x1="95" y1="108" x2="109" y2="108" stroke="#fff" stroke-width="1.2" opacity="0.55"/>
+    <text x="115" y="112" fill="#aaa" font-size="8">Inter-tier</text>
+  </g>
+
+  <!-- ===================== DISTANCE SCALE ===================== -->
+  <g transform="translate(700, 580)">
+    <rect x="0" y="0" width="170" height="42" rx="6" fill="#0d1b3e" stroke="#2a3a6a" stroke-width="0.8" opacity="0.9"/>
+    <text x="85" y="14" text-anchor="middle" fill="#fff" font-size="8" font-weight="600" letter-spacing="0.5">EARTH–MARS DISTANCE</text>
+    <text x="85" y="27" text-anchor="middle" fill="#90caf9" font-size="7">54.6 M km (perihelion)</text>
+    <text x="85" y="37" text-anchor="middle" fill="#90caf9" font-size="7">401 M km (aphelion)</text>
+  </g>
+
+  <!-- ===================== PROTOCOL BADGES ===================== -->
+  <g transform="translate(700, 333)">
+    <rect x="0" y="0" width="170" height="96" rx="6" fill="#0d1b3e" stroke="#2a3a6a" stroke-width="0.8" opacity="0.9"/>
+    <text x="85" y="16" text-anchor="middle" fill="#fff" font-size="9" font-weight="600" letter-spacing="1">PROTOCOLS</text>
+    <line x1="10" y1="22" x2="160" y2="22" stroke="#2a3a6a" stroke-width="0.5"/>
+
+    <rect x="10" y="29" width="58" height="14" rx="3" fill="#1565c0" opacity="0.6"/>
+    <text x="39" y="39" text-anchor="middle" fill="#fff" font-size="7" font-weight="500">BPv7</text>
+
+    <rect x="74" y="29" width="86" height="14" rx="3" fill="#6a1b9a" opacity="0.6"/>
+    <text x="117" y="39" text-anchor="middle" fill="#fff" font-size="7" font-weight="500">RFC 9171</text>
+
+    <rect x="10" y="49" width="58" height="14" rx="3" fill="#0d47a1" opacity="0.6"/>
+    <text x="39" y="59" text-anchor="middle" fill="#fff" font-size="7" font-weight="500">LTP</text>
+
+    <rect x="74" y="49" width="86" height="14" rx="3" fill="#1b5e20" opacity="0.6"/>
+    <text x="117" y="59" text-anchor="middle" fill="#fff" font-size="7" font-weight="500">CCSDS 734.2</text>
+
+    <rect x="10" y="69" width="58" height="14" rx="3" fill="#b71c1c" opacity="0.6"/>
+    <text x="39" y="79" text-anchor="middle" fill="#fff" font-size="7" font-weight="500">QKD</text>
+
+    <rect x="74" y="69" width="86" height="14" rx="3" fill="#e65100" opacity="0.6"/>
+    <text x="117" y="79" text-anchor="middle" fill="#fff" font-size="7" font-weight="500">RL Routing</text>
+  </g>
+
+  <!-- ===================== DECORATIVE PLANET ICONS ===================== -->
+  <!-- Earth icon near Tier 1 -->
+  <circle cx="740" cy="82" r="10" fill="#1565c0" stroke="#42a5f5" stroke-width="0.8" opacity="0.6"/>
+  <path d="M734,80 Q737,76 740,80 Q743,84 746,80" fill="none" stroke="#4caf50" stroke-width="0.8" opacity="0.7"/>
+  <circle cx="737" cy="78" r="2" fill="#4caf50" opacity="0.5"/>
+
+  <!-- Mars icon near Tier 4/5 -->
+  <circle cx="740" cy="520" r="8" fill="#d84315" stroke="#ff8a65" stroke-width="0.8" opacity="0.6"/>
+  <circle cx="738" cy="518" r="1.5" fill="#bf360c" opacity="0.5"/>
+
+  <!-- Footer -->
+  <text x="450" y="694" text-anchor="middle" fill="#555" font-size="7" letter-spacing="0.5">AETHERIX · Autonomous Extraterrestrial High-throughput Enhancing Routing and Inter-planetary eXchange · CCSDS / RFC Compliant</text>
+</svg>

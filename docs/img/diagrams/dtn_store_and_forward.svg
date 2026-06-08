@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 400" width="920" height="400" style="background:#050a14">
+<rect width="920" height="400" fill="#050a14"/>
+
+<defs>
+<marker id="dtA" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="none" stroke="#00d4ff" stroke-width="1.2"/></marker>
+<marker id="dtR" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="none" stroke="#f85149" stroke-width="1"/></marker>
+</defs>
+<text x="460" y="24" text-anchor="middle" fill="#8892a4" font-size="11" font-weight="600" letter-spacing="2">TCP/IP: END-TO-END CONNECTION (FAILS IN SPACE)</text>
+<rect x="60" y="36" width="120" height="40" rx="6" fill="rgba(0,212,255,0.1)" stroke="#00d4ff" stroke-opacity="0.4"/>
+<text x="120" y="60" text-anchor="middle" fill="#00d4ff" font-size="11" font-weight="600">Source</text>
+<line x1="180" y1="56" x2="250" y2="56" stroke="#00d4ff" stroke-width="1.5" stroke-dasharray="4,3"/>
+<rect x="250" y="36" width="120" height="40" rx="6" fill="rgba(0,212,255,0.1)" stroke="#00d4ff" stroke-opacity="0.4"/>
+<text x="310" y="60" text-anchor="middle" fill="#00d4ff" font-size="11" font-weight="600">Router</text>
+<line x1="370" y1="56" x2="440" y2="56" stroke="#00d4ff" stroke-width="1.5" stroke-dasharray="4,3"/>
+<rect x="440" y="36" width="120" height="40" rx="6" fill="rgba(0,212,255,0.1)" stroke="#00d4ff" stroke-opacity="0.4"/>
+<text x="500" y="60" text-anchor="middle" fill="#00d4ff" font-size="11" font-weight="600">Router</text>
+<line x1="560" y1="56" x2="630" y2="56" stroke="#f85149" stroke-width="1.5" stroke-dasharray="4,3"/>
+<rect x="630" y="36" width="120" height="40" rx="6" fill="rgba(248,81,73,0.1)" stroke="#f85149" stroke-opacity="0.4" stroke-dasharray="3,3"/>
+<text x="690" y="60" text-anchor="middle" fill="#f85149" font-size="11" font-weight="600">Dest</text>
+<text x="810" y="60" text-anchor="middle" fill="#f85149" font-size="22">✗</text>
+
+<text x="460" y="108" text-anchor="middle" fill="#8892a4" font-size="11" font-weight="600" letter-spacing="2">DTN: STORE-AND-FORWARD (WORKS IN SPACE)</text>
+
+<rect x="20" y="120" width="160" height="95" rx="8" fill="rgba(63,185,80,0.08)" stroke="#3fb950" stroke-opacity="0.3"/>
+<text x="100" y="142" text-anchor="middle" fill="#3fb950" font-size="11" font-weight="700">SOURCE</text>
+<text x="100" y="158" text-anchor="middle" fill="#8892a4" font-size="9">Create Bundle</text>
+<text x="100" y="172" text-anchor="middle" fill="#8892a4" font-size="9">Priority: P2</text>
+<text x="100" y="190" text-anchor="middle" fill="#5a6578" font-size="8">CUSTODY: Source</text>
+
+<line x1="180" y1="168" x2="220" y2="168" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#dtA)"/>
+<text x="200" y="160" text-anchor="middle" fill="#5a6578" font-size="8">link up</text>
+
+<rect x="220" y="120" width="160" height="95" rx="8" fill="rgba(0,212,255,0.08)" stroke="#00d4ff" stroke-opacity="0.3"/>
+<text x="300" y="142" text-anchor="middle" fill="#00d4ff" font-size="11" font-weight="700">NODE A</text>
+<text x="300" y="158" text-anchor="middle" fill="#8892a4" font-size="9">Forward bundle</text>
+<text x="300" y="172" text-anchor="middle" fill="#3fb950" font-size="9">Custody accepted ✓</text>
+<text x="300" y="195" text-anchor="middle" fill="#d29922" font-size="8">📁 STORE: 2 bundles</text>
+
+<line x1="380" y1="168" x2="420" y2="168" stroke="#d29922" stroke-width="1.5" stroke-dasharray="4,2"/>
+<text x="400" y="160" text-anchor="middle" fill="#d29922" font-size="8">no link</text>
+
+<rect x="420" y="120" width="160" height="95" rx="8" fill="rgba(210,153,34,0.08)" stroke="#d29922" stroke-opacity="0.3"/>
+<text x="500" y="142" text-anchor="middle" fill="#d29922" font-size="11" font-weight="700">NODE B</text>
+<text x="500" y="158" text-anchor="middle" fill="#8892a4" font-size="9">📁 Storing bundle</text>
+<text x="500" y="172" text-anchor="middle" fill="#8892a4" font-size="9">Waiting for link...</text>
+<text x="500" y="195" text-anchor="middle" fill="#d29922" font-size="8">⏳ WAIT 14 min</text>
+
+<line x1="580" y1="168" x2="620" y2="168" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#dtA)"/>
+<text x="600" y="160" text-anchor="middle" fill="#00d4ff" font-size="8">link up</text>
+
+<rect x="620" y="120" width="160" height="95" rx="8" fill="rgba(0,212,255,0.08)" stroke="#00d4ff" stroke-opacity="0.3"/>
+<text x="700" y="142" text-anchor="middle" fill="#00d4ff" font-size="11" font-weight="700">NODE C</text>
+<text x="700" y="158" text-anchor="middle" fill="#8892a4" font-size="9">Forward bundle</text>
+<text x="700" y="172" text-anchor="middle" fill="#3fb950" font-size="9">Custody accepted ✓</text>
+<text x="700" y="190" text-anchor="middle" fill="#5a6578" font-size="8">CUSTODY: Node C</text>
+
+<line x1="780" y1="168" x2="820" y2="168" stroke="#3fb950" stroke-width="1.5" marker-end="url(#dtA)"/>
+
+<rect x="820" y="130" width="80" height="75" rx="8" fill="rgba(63,185,80,0.08)" stroke="#3fb950" stroke-opacity="0.3"/>
+<text x="860" y="158" text-anchor="middle" fill="#3fb950" font-size="11" font-weight="700">DEST</text>
+<text x="860" y="178" text-anchor="middle" fill="#3fb950" font-size="18">✓</text>
+<text x="860" y="196" text-anchor="middle" fill="#8892a4" font-size="9">Delivered</text>
+
+<rect x="20" y="240" width="280" height="50" rx="6" fill="rgba(0,212,255,0.04)" stroke="#00d4ff" stroke-opacity="0.15"/>
+<text x="160" y="260" text-anchor="middle" fill="#00d4ff" font-size="10" font-weight="600">Key: Custody Transfer</text>
+<text x="160" y="278" text-anchor="middle" fill="#8892a4" font-size="9">Each node takes responsibility for the bundle</text>
+
+<rect x="320" y="240" width="280" height="50" rx="6" fill="rgba(63,185,80,0.04)" stroke="#3fb950" stroke-opacity="0.15"/>
+<text x="460" y="260" text-anchor="middle" fill="#3fb950" font-size="10" font-weight="600">Data Never Lost</text>
+<text x="460" y="278" text-anchor="middle" fill="#8892a4" font-size="9">Bundle stored until next hop confirms</text>
+
+<rect x="620" y="240" width="280" height="50" rx="6" fill="rgba(124,92,247,0.04)" stroke="#7c5cf7" stroke-opacity="0.15"/>
+<text x="760" y="260" text-anchor="middle" fill="#7c5cf7" font-size="10" font-weight="600">No End-to-End Needed</text>
+<text x="760" y="278" text-anchor="middle" fill="#8892a4" font-size="9">Hop-by-hop, works with 22-min delays</text>
+
+<rect x="20" y="310" width="880" height="45" rx="6" fill="rgba(255,107,53,0.04)" stroke="#ff6b35" stroke-opacity="0.15"/>
+<text x="460" y="332" text-anchor="middle" fill="#ff6b35" font-size="10" font-weight="600">Three Convergence Layers</text>
+<text x="200" y="348" text-anchor="middle" fill="#8892a4" font-size="9">LTP (RFC 5326) — Deep space</text>
+<text x="560" y="348" text-anchor="middle" fill="#8892a4" font-size="9">TCPCL (RFC 7242) — Earth segment</text>
+<text x="820" y="348" text-anchor="middle" fill="#8892a4" font-size="9">UDP-CL — Optical ISL</text>
+
+</svg>
