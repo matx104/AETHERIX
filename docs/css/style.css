@@ -3163,6 +3163,52 @@ body.pres-active .presentation-mode {
     font-size: 0.75rem;
     margin-left: 8px;
 }
+.chart-figure-gallery {
+    display: flex;
+    gap: 16px;
+    padding: 12px;
+}
+.chart-gallery-img {
+    flex: 0 0 65%;
+    min-width: 0;
+}
+.chart-gallery-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(0,212,255,0.1);
+}
+.chart-gallery-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+}
+.chart-gallery-caption {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 4px;
+}
+.chart-gallery-caption strong {
+    color: var(--accent);
+}
+.chart-gallery-caption .gallery-ref {
+    color: var(--quantum);
+    font-size: 0.75rem;
+    margin-left: 8px;
+}
+@media (max-width: 900px) {
+    .chart-figure-gallery {
+        flex-direction: column;
+    }
+    .chart-gallery-img {
+        flex: none;
+    }
+}
 .chart-info {
     margin-top: 10px;
     padding-top: 10px;
