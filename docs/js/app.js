@@ -1644,15 +1644,16 @@ window.App = (() => {
       else if (tagColor === '#3fb950') tagClass = 'success';
       else if (tagColor === '#f85149') tagClass = 'warning';
       var html = '<h2><span class="pres-tag ' + tagClass + '">' + tag + '</span> ' + title + '</h2>' +
-        '<div style="margin:6px 0"><img src="' + imgSrc + '" alt="' + title + '" style="width:100%;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1)"></div>' +
-        '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-top:8px">' +
-          '<div style="font-size:0.82rem;color:var(--text-secondary);flex:1">' + caption + '</div>' +
-          '<button class="chart-toggle" onclick="this.classList.toggle(\'open\');this.nextElementSibling.classList.toggle(\'open\')" style="flex-shrink:0"><span class="toggle-arrow">&#9654;</span> Info</button>' +
-        '</div>' +
-        '<div class="chart-info">' +
-          '<div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">' + challenge + '</div></div>' +
-          '<div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">' + purpose + '</div></div>' +
-          '<div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">' + impact + '</div></div>' +
+        '<div style="display:flex;gap:20px;align-items:flex-start">' +
+          '<div style="flex:0 0 65%;min-width:0">' +
+            '<img src="' + imgSrc + '" alt="' + title + '" style="width:100%;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1)">' +
+            '<div style="font-size:0.78rem;color:var(--text-muted);margin-top:6px">' + caption + '</div>' +
+          '</div>' +
+          '<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:8px">' +
+            '<div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">' + challenge + '</div></div>' +
+            '<div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">' + purpose + '</div></div>' +
+            '<div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">' + impact + '</div></div>' +
+          '</div>' +
         '</div>';
       return html;
     },
