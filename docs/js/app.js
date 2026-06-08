@@ -1637,6 +1637,26 @@ window.App = (() => {
       this.startTimer();
     },
 
+    _chartSlide(title, tag, tagColor, imgSrc, caption, challenge, purpose, impact) {
+      var tagClass = 'accent';
+      if (tagColor === '#ff6b35' || tagColor === '#d29922') tagClass = 'mars';
+      else if (tagColor === '#c84cff' || tagColor === '#7c5cf7') tagClass = 'quantum';
+      else if (tagColor === '#3fb950') tagClass = 'success';
+      else if (tagColor === '#f85149') tagClass = 'warning';
+      var html = '<h2><span class="pres-tag ' + tagClass + '">' + tag + '</span> ' + title + '</h2>' +
+        '<div style="margin:6px 0"><img src="' + imgSrc + '" alt="' + title + '" style="width:100%;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1)"></div>' +
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-top:8px">' +
+          '<div style="font-size:0.82rem;color:var(--text-secondary);flex:1">' + caption + '</div>' +
+          '<button class="chart-toggle" onclick="this.classList.toggle(\'open\');this.nextElementSibling.classList.toggle(\'open\')" style="flex-shrink:0"><span class="toggle-arrow">&#9654;</span> Info</button>' +
+        '</div>' +
+        '<div class="chart-info">' +
+          '<div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">' + challenge + '</div></div>' +
+          '<div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">' + purpose + '</div></div>' +
+          '<div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">' + impact + '</div></div>' +
+        '</div>';
+      return html;
+    },
+
     buildSlides() {
       return [
         {
@@ -1661,9 +1681,22 @@ window.App = (() => {
           speakerNotes: 'Start with the scale. 54.6M to 401M km. Light itself takes 3-22 minutes one way. TCP/IP was designed for sub-second round trips. In space, by the time a packet acknowledgment returns, the link may be gone. Solar conjunction causes 2-week blackout. This is why NASA calls it Delay-Tolerant Networking. (1.5 minutes)'
         },
         {
-          title: 'Distance &amp; Delay Charts',
-          content: '<h2><span class="pres-tag mars">Charts</span> Earth-Mars Distance &amp; Light-Time Delay</h2><div class="pres-grid-2" style="gap:16px"><div style="text-align:center"><div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px">Distance Over Time (Synodic Period)</div><img src="img/charts/distance_over_time.png" alt="Distance Over Time" style="width:100%;border-radius:var(--radius-md);border:1px solid rgba(0,212,255,0.1)"></div><div style="text-align:center"><div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px">One-Way Light-Time Delay</div><img src="img/charts/light_time_delay.png" alt="Light Time Delay" style="width:100%;border-radius:var(--radius-md);border:1px solid rgba(0,212,255,0.1)"></div></div><div style="margin-top:14px;font-size:0.82rem;color:var(--text-secondary);text-align:center">780-day synodic cycle &middot; Distance varies 7&times; &middot; Delay ranges 3&ndash;22 minutes &middot; Solar conjunction causes ~14-day blackout</div>',
-          speakerNotes: 'Two key charts showing the fundamental challenge. Left: distance over the synodic period — a 7x variation from 55 to 401 million km. Right: the corresponding light-time delay of 3 to 22 minutes. These physical constraints drive every design decision in AETHERIX. (30 seconds)'
+          title: 'Distance Over Time Chart',
+          content: this._chartSlide('Earth-Mars Distance Over Time', 'Distance', '#ff6b35', 'img/charts/distance_over_time.png',
+            '780-day synodic cycle &middot; Distance varies 7&times; from 54.6M to 401M km &middot; Solar conjunction causes ~14-day blackout',
+            'Earth and Mars orbit the Sun at different speeds, creating a 7&times; distance variation that fundamentally changes link characteristics.',
+            'This chart maps the full synodic period so we can predict link quality windows and plan data transfers around optimal geometry.',
+            'Enables precise contact scheduling &mdash; we know exactly when bandwidth will be high (opposition) or zero (conjunction).'),
+          speakerNotes: 'Distance over the synodic period showing the 7x variation. At opposition, 55 million km. At conjunction, over 400 million km with the Sun blocking direct communication. (20 seconds)'
+        },
+        {
+          title: 'Light-Time Delay Chart',
+          content: this._chartSlide('One-Way Light-Time Delay', 'Delay', '#ff6b35', 'img/charts/light_time_delay.png',
+            '3&ndash;22 minutes one-way &middot; TCP/IP expects sub-second RTT &middot; Drives every protocol design decision',
+            'Light itself takes 3&ndash;22 minutes to travel between Earth and Mars, making real-time communication impossible.',
+            'Quantifies the delay envelope so DTN protocols can be tuned &mdash; bundle lifetimes, custody timers, and LTP retransmission windows.',
+            'Proves TCP/IP cannot work &mdash; a 44-minute RTT exceeds every TCP timeout, validating our DTN approach.'),
+          speakerNotes: 'Light-time delay ranges from 3 minutes at closest approach to 22 minutes at maximum distance. TCP/IP expects sub-second round trips. (20 seconds)'
         },
         {
           title: 'The Answer',
@@ -1677,13 +1710,17 @@ window.App = (() => {
         },
         {
           title: 'Architecture Diagram',
-          content: '<h2><span class="pres-tag accent">Architecture Diagram</span></h2><div style="display:flex;justify-content:center;align-items:center;min-height:70vh"><img src="img/diagrams/system_architecture.svg" alt="Architecture Diagram" style="width:100%;max-width:920px;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1);box-shadow:0 0 40px rgba(0,212,255,0.05)"></div>',
+          content: '<h2><span class="pres-tag accent">Architecture Diagram</span></h2><div style="display:flex;justify-content:center;align-items:center"><img src="img/diagrams/system_architecture.svg" alt="Architecture Diagram" style="width:100%;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1);box-shadow:0 0 40px rgba(0,212,255,0.05)"></div>',
           speakerNotes: 'Architecture diagram showing source modules feeding simulation engine and web demos.'
         },
         {
           title: 'Network Tier Distribution Chart',
-          content: '<h2><span class="pres-tag accent">Chart</span> Node Distribution Across 5 Tiers</h2><div style="display:flex;justify-content:center;align-items:center;min-height:65vh"><img src="img/charts/network_tier_distribution.png" alt="Network Tier Distribution" style="width:100%;max-width:720px;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1);box-shadow:0 0 40px rgba(0,212,255,0.05)"></div><div style="margin-top:12px;font-size:0.82rem;color:var(--text-secondary);text-align:center">241 nodes total &middot; Mars Surface (167) is the largest tier &middot; Deep Space (4) provides critical Lagrange relay coverage</div>',
-          speakerNotes: 'The tier distribution chart shows where the 241 nodes sit. Mars Surface dominates with 167 nodes — habitats, rovers, drones, sensors. The 4 deep space nodes at Lagrange points are few but critical for conjunction survival. (20 seconds)'
+          content: this._chartSlide('Node Distribution Across 5 Tiers', 'Topology', '#009eff', 'img/charts/network_tier_distribution.png',
+            '241 nodes total &middot; Mars Surface (167) is the largest tier &middot; Deep Space (4) provides critical Lagrange relay coverage',
+            'Building a 241-node network requires understanding where nodes concentrate &mdash; surface assets dominate but orbital relays are the critical backbone.',
+            'Shows the hierarchical structure so we can allocate routing and security resources proportionally per tier.',
+            'Reveals the network has no single point of failure &mdash; every tier has redundancy, with Lagrange relays ensuring conjunction survival.'),
+          speakerNotes: 'The tier distribution shows where the 241 nodes sit. Mars Surface dominates with 167 nodes. The 4 deep space nodes at Lagrange points are few but critical for conjunction survival. (20 seconds)'
         },
         {
           title: 'BPv7 Deep Dive',
@@ -1697,8 +1734,12 @@ window.App = (() => {
         },
         {
           title: 'Bundle Priority Chart',
-          content: '<h2><span class="pres-tag accent">Chart</span> Bundle Priority Classes &amp; Bandwidth Allocation</h2><div style="display:flex;justify-content:center;align-items:center;min-height:65vh"><img src="img/charts/bundle_priority_classes.png" alt="Bundle Priority Classes" style="width:100%;max-width:720px;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1);box-shadow:0 0 40px rgba(0,212,255,0.05)"></div><div style="margin-top:12px;font-size:0.82rem;color:var(--text-secondary);text-align:center">P0 Emergency through P4 Bulk &middot; Deadline-aware scheduling &middot; Preemption for critical traffic</div>',
-          speakerNotes: 'The priority class distribution shows how bandwidth is allocated. Emergency traffic preempts everything. The deadline-aware scheduler ensures no bandwidth is wasted while respecting priority constraints. (20 seconds)'
+          content: this._chartSlide('Bundle Priority Classes &amp; Bandwidth Allocation', 'QoS', '#009eff', 'img/charts/bundle_priority_classes.png',
+            'P0 Emergency through P4 Bulk &middot; Deadline-aware scheduling &middot; Preemption for critical traffic',
+            'With only hours of contact time per day, prioritizing which data gets transmitted first is critical for mission success.',
+            'Visualizes how the scheduler allocates bandwidth across priority classes so emergency data always gets through.',
+            'Ensures 100% link utilization while guaranteeing that safety-critical data preempts lower-priority transfers.'),
+          speakerNotes: 'Priority class distribution showing how bandwidth is allocated. Emergency traffic preempts everything. The deadline-aware scheduler ensures no bandwidth is wasted. (20 seconds)'
         },
         {
           title: 'Network Topology',
@@ -1711,13 +1752,26 @@ window.App = (() => {
         },
         {
           title: 'Network Diagram',
-          content: '<h2><span class="pres-tag accent">Network Diagram</span></h2><div style="display:flex;justify-content:center;align-items:center;min-height:70vh"><img src="img/diagrams/5tier_network.svg" alt="Network Diagram" style="width:100%;max-width:920px;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1);box-shadow:0 0 40px rgba(0,212,255,0.05)"></div>',
+          content: '<h2><span class="pres-tag accent">Network Diagram</span></h2><div style="display:flex;justify-content:center;align-items:center"><img src="img/diagrams/5tier_network.svg" alt="Network Diagram" style="width:100%;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1);box-shadow:0 0 40px rgba(0,212,255,0.05)"></div>',
           speakerNotes: 'Visual overview of the 5-tier topology with 3 redundant paths.'
         },
         {
-          title: 'DSN Coverage &amp; Orbital Charts',
-          content: '<h2><span class="pres-tag accent">Charts</span> DSN Coverage &amp; Orbital Positions</h2><div class="pres-grid-2" style="gap:16px"><div style="text-align:center"><div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px">Deep Space Network Coverage</div><img src="img/charts/dsn_coverage.png" alt="DSN Coverage" style="width:100%;border-radius:var(--radius-md);border:1px solid rgba(0,212,255,0.1)"></div><div style="text-align:center"><div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px">Orbital Positions Over Synodic Period</div><img src="img/charts/orbital_positions.png" alt="Orbital Positions" style="width:100%;border-radius:var(--radius-md);border:1px solid rgba(0,212,255,0.1)"></div></div><div style="margin-top:14px;font-size:0.82rem;color:var(--text-secondary);text-align:center">3 DSN stations at 120&deg; spacing provide 24/7 coverage &middot; Orbital positions determine link quality windows</div>',
-          speakerNotes: 'Left: DSN coverage showing Goldstone, Madrid, and Canberra — spaced 120 degrees apart for continuous coverage. Right: orbital positions over the synodic period showing how Earth and Mars move relative to each other. (20 seconds)'
+          title: 'DSN Coverage Chart',
+          content: this._chartSlide('Deep Space Network Coverage', 'Network', '#009eff', 'img/charts/dsn_coverage.png',
+            '3 DSN stations at 120&deg; spacing provide 24/7 coverage &middot; Goldstone, Madrid, Canberra',
+            'Continuous coverage of deep space assets requires at least three ground stations around the globe.',
+            'Shows each station&rsquo;s visibility windows so contact scheduling can seamlessly hand off between sites.',
+            'Ensures zero coverage gaps &mdash; any deep space asset is visible to at least one DSN station at all times.'),
+          speakerNotes: 'DSN coverage showing three stations spaced 120 degrees apart for continuous coverage of any deep space asset. (20 seconds)'
+        },
+        {
+          title: 'Orbital Positions Chart',
+          content: this._chartSlide('Orbital Positions Over Synodic Period', 'Orbital', '#009eff', 'img/charts/orbital_positions.png',
+            'Orbital positions determine link quality windows &middot; Opposition to conjunction cycle drives bandwidth',
+            'Earth and Mars move continuously, changing distance, delay, and visibility in a predictable but complex pattern.',
+            'Maps the relative geometry so contact windows can be predicted months in advance.',
+            'Enables proactive data staging &mdash; pre-positioning critical bundles before conjunction blackout.'),
+          speakerNotes: 'Orbital positions over the synodic period showing how Earth and Mars move relative to each other, determining contact quality. (20 seconds)'
         },
         {
           title: 'Optical Communications',
@@ -1725,9 +1779,22 @@ window.App = (() => {
           speakerNotes: 'RUN THE LIVE DEMO from the Link Budget page. Show the 3 distance scenarios. 1550nm was chosen for telecom heritage and eye safety. FSPL at average distance is -365 dB. The telescope apertures are realistic for spacecraft. RF backup for reliability. (2 minutes)'
         },
         {
-          title: 'Link Budget Charts',
-          content: '<h2><span class="pres-tag live">Charts</span> Data Rate vs Distance &amp; Link Budget Breakdown</h2><div class="pres-grid-2" style="gap:16px"><div style="text-align:center"><div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px">Data Rate vs Distance</div><img src="img/charts/data_rate_vs_distance.png" alt="Data Rate vs Distance" style="width:100%;border-radius:var(--radius-md);border:1px solid rgba(0,212,255,0.1)"></div><div style="text-align:center"><div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px">Link Budget Breakdown</div><img src="img/charts/link_budget_breakdown.png" alt="Link Budget Breakdown" style="width:100%;border-radius:var(--radius-md);border:1px solid rgba(0,212,255,0.1)"></div></div><div style="margin-top:14px;font-size:0.82rem;color:var(--text-secondary);text-align:center">2&ndash;200 Mbps across distance range &middot; FSPL dominates at &minus;280 to &minus;310 dB &middot; Optical aperture gain recovers &gt;100 dB</div>',
-          speakerNotes: 'Left: data rate degrades from 200 Mbps at closest approach to 2 Mbps at maximum distance — but even minimum is competitive with current RF. Right: link budget breakdown showing where the decibels go — free-space path loss is the dominant factor, compensated by high-gain optical apertures. (20 seconds)'
+          title: 'Data Rate vs Distance Chart',
+          content: this._chartSlide('Data Rate vs Distance', 'Link Budget', '#ff8c00', 'img/charts/data_rate_vs_distance.png',
+            '200 Mbps at closest approach to 2 Mbps at maximum distance &middot; 10&ndash;100&times; improvement over RF',
+            'Optical link performance varies enormously with distance &mdash; we need to quantify exactly how much data we can deliver at each point.',
+            'Shows the data rate envelope across the full distance range so mission planners can schedule high-volume transfers during opposition.',
+            'Even at worst-case distance, AETHERIX delivers 2 Mbps &mdash; competitive with current RF at its best.'),
+          speakerNotes: 'Data rate degrades from 200 Mbps at closest approach to 2 Mbps at maximum distance — but even minimum is competitive with current RF. (20 seconds)'
+        },
+        {
+          title: 'Link Budget Breakdown Chart',
+          content: this._chartSlide('Optical Link Budget Breakdown', 'Link Budget', '#ff8c00', 'img/charts/link_budget_breakdown.png',
+            'FSPL dominates at &minus;280 to &minus;310 dB &middot; Optical aperture gain recovers &gt;100 dB',
+            'Understanding where decibels are gained and lost is essential for validating that our link actually closes.',
+            'Breaks down every gain and loss term so engineers can see which parameters most affect performance.',
+            'Confirms the link closes with positive margin in all scenarios, validating the 1550nm optical design.'),
+          speakerNotes: 'Link budget breakdown showing where the decibels go — free-space path loss is the dominant factor, compensated by high-gain optical apertures. (20 seconds)'
         },
         {
           title: 'Earth-Mars Journey',
@@ -1735,9 +1802,22 @@ window.App = (() => {
           content: '<h2><span class="pres-tag mars">Journey</span> The Path from Mars to Earth &mdash; 500 MB in 7 Hops</h2><div class="pres-grid-2" style="margin-bottom:16px"><div class="pres-card"><div class="pres-card-title">Hop-by-Hop Route</div><table class="pres-table"><tr><td><strong>Hop 1</strong></td><td>Rover &rarr; UHF uplink</td><td>400 MHz · 2 Mbps · ~400 km</td></tr><tr><td><strong>Hop 2</strong></td><td>UHF &rarr; Areostationary</td><td>UHF · 256 kbps · 17,032 km alt</td></tr><tr><td><strong>Hop 3</strong></td><td>Areostationary &rarr; Polar</td><td>Optical ISL · 10 Gbps</td></tr><tr><td><strong>Hop 4-5</strong></td><td>Polar &rarr; Lagrange relay &rarr; LEO</td><td>1550nm laser · 10-20 Mbps · 225M km</td></tr><tr><td><strong>Hop 6</strong></td><td>LEO mesh routing</td><td>Optical ISL · 10 Gbps · 48 sats</td></tr><tr><td><strong>Hop 7</strong></td><td>DSN &rarr; JPL MOC</td><td>Ka-band + fiber backbone</td></tr></table></div><div class="pres-card"><div class="pres-card-title">Key Metrics</div><div class="pres-grid-2" style="gap:10px"><div class="pres-stat-card" style="border-color:rgba(0,212,255,0.2);padding:14px 10px"><div class="pres-stat-value" style="color:#00d4ff;font-size:1.6rem">~13 min</div><div class="pres-stat-unit">Total transit</div></div><div class="pres-stat-card" style="border-color:rgba(63,185,80,0.2);padding:14px 10px"><div class="pres-stat-value" style="color:#3fb950;font-size:1.6rem">&lt;5%</div><div class="pres-stat-unit">DTN overhead</div></div><div class="pres-stat-card" style="border-color:rgba(124,92,247,0.2);padding:14px 10px"><div class="pres-stat-value" style="color:#7c5cf7;font-size:1.6rem">QKD</div><div class="pres-stat-unit">Encrypted</div></div><div class="pres-stat-card" style="border-color:rgba(255,107,53,0.2);padding:14px 10px"><div class="pres-stat-value" style="color:#ff6b35;font-size:1.6rem">7</div><div class="pres-stat-unit">Relay hops</div></div></div><div style="margin-top:10px;font-size:0.82rem;color:var(--text-secondary)">vs 12.5 min light-time &mdash; near speed of light delivery.</div></div></div><details class="pres-diagram-detail"><summary class="pres-diagram-toggle">&#128206; View Journey Diagram</summary><div style="display:flex;justify-content:center;margin:4px 0"><svg viewBox="0 0 900 140" style="width:100%;max-width:900px" xmlns="http://www.w3.org/2000/svg"><defs><marker id="jmA" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5" fill="none" stroke="#ff6b35" stroke-width="1.2"/></marker><linearGradient id="jmG" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#d84315" stop-opacity="0.2"/><stop offset="50%" stop-color="#7c5cf7" stop-opacity="0.1"/><stop offset="100%" stop-color="#1e88e5" stop-opacity="0.2"/></linearGradient></defs><rect x="10" y="10" width="880" height="100" rx="8" fill="url(#jmG)"/><circle cx="60" cy="60" r="30" fill="#d84315" fill-opacity="0.2" stroke="#ff6b35" stroke-width="1.5"/><text x="60" y="56" text-anchor="middle" fill="#ff6b35" font-size="9" font-weight="700">MARS</text><text x="60" y="70" text-anchor="middle" fill="#8892a4" font-size="7">Surface</text><rect x="130" y="45" width="60" height="30" rx="4" fill="rgba(255,112,67,0.15)" stroke="#ff7043" stroke-opacity="0.4"/><text x="160" y="64" text-anchor="middle" fill="#ff7043" font-size="7" font-weight="600">Areostat</text><line x1="90" y1="60" x2="130" y2="60" stroke="#ff6b35" stroke-width="1.5" marker-end="url(#jmA)"/><rect x="230" y="45" width="60" height="30" rx="4" fill="rgba(255,112,67,0.15)" stroke="#ff7043" stroke-opacity="0.4"/><text x="260" y="64" text-anchor="middle" fill="#ff7043" font-size="7" font-weight="600">Polar</text><line x1="190" y1="60" x2="230" y2="60" stroke="#ff6b35" stroke-width="1.5" marker-end="url(#jmA)"/><rect x="340" y="40" width="80" height="40" rx="4" fill="rgba(124,92,247,0.15)" stroke="#7c5cf7" stroke-opacity="0.4"/><text x="380" y="58" text-anchor="middle" fill="#7c5cf7" font-size="7" font-weight="600">ES-L4 Relay</text><text x="380" y="72" text-anchor="middle" fill="#5a6578" font-size="6">Lagrange Point</text><line x1="290" y1="60" x2="340" y2="60" stroke="#7c5cf7" stroke-width="1.5" marker-end="url(#jmA)"/><rect x="470" y="45" width="60" height="30" rx="4" fill="rgba(66,165,245,0.15)" stroke="#42a5f5" stroke-opacity="0.4"/><text x="500" y="64" text-anchor="middle" fill="#42a5f5" font-size="7" font-weight="600">LEO Mesh</text><line x1="420" y1="60" x2="470" y2="60" stroke="#42a5f5" stroke-width="1.5" marker-end="url(#jmA)"/><rect x="580" y="45" width="60" height="30" rx="4" fill="rgba(0,212,255,0.15)" stroke="#00d4ff" stroke-opacity="0.4"/><text x="610" y="64" text-anchor="middle" fill="#00d4ff" font-size="7" font-weight="600">DSN</text><line x1="530" y1="60" x2="580" y2="60" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#jmA)"/><circle cx="690" cy="60" r="35" fill="#1e88e5" fill-opacity="0.2" stroke="#00d4ff" stroke-width="1.5"/><text x="690" y="56" text-anchor="middle" fill="#00d4ff" font-size="9" font-weight="700">EARTH</text><text x="690" y="70" text-anchor="middle" fill="#8892a4" font-size="7">Ground</text><line x1="640" y1="60" x2="655" y2="60" stroke="#3fb950" stroke-width="1.5" marker-end="url(#jmA)"/><text x="380" y="110" text-anchor="middle" fill="#5a6578" font-size="8">~225M km average · 12.5 min one-way · 7 relay hops · ~13 min total</text></svg></div></details>',
         },
         {
-          title: 'Latency &amp; Data Volume Charts',
-          content: '<h2><span class="pres-tag mars">Charts</span> Latency Comparison &amp; Data Volume Analysis</h2><div class="pres-grid-2" style="gap:16px"><div style="text-align:center"><div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px">Latency: TCP vs DTN vs AETHERIX</div><img src="img/charts/latency_comparison.png" alt="Latency Comparison" style="width:100%;border-radius:var(--radius-md);border:1px solid rgba(0,212,255,0.1)"></div><div style="text-align:center"><div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px">Daily Data Volume Comparison</div><img src="img/charts/data_volume.png" alt="Data Volume" style="width:100%;border-radius:var(--radius-md);border:1px solid rgba(0,212,255,0.1)"></div></div><div style="margin-top:14px;font-size:0.82rem;color:var(--text-secondary);text-align:center">DTN adds &lt;5% overhead vs light-time &middot; 10&ndash;20&times; daily data volume improvement over current systems</div>',
-          speakerNotes: 'Left: latency comparison showing TCP failing catastrophically, while DTN adds under 5% overhead beyond the physical light-time limit. Right: daily data volume comparison — AETHERIX delivers 10 to 20 times more data per day than current Mars missions. (20 seconds)'
+          title: 'Latency Comparison Chart',
+          content: this._chartSlide('Latency: TCP vs DTN vs AETHERIX', 'Latency', '#009eff', 'img/charts/latency_comparison.png',
+            'DTN adds &lt;5% overhead beyond physical light-time &middot; TCP fails catastrophically at interplanetary distances',
+            'TCP/IP timeouts collapse at interplanetary distances &mdash; we need to prove DTN adds minimal overhead.',
+            'Compares TCP, DTN, and AETHERIX latency to demonstrate that store-and-forward adds negligible delay beyond physics.',
+            'Proves AETHERIX achieves near speed-of-light transit with &lt;5% protocol overhead &mdash; no faster is physically possible.'),
+          speakerNotes: 'Latency comparison showing TCP failing catastrophically, while DTN adds under 5% overhead beyond the physical light-time limit. (20 seconds)'
+        },
+        {
+          title: 'Data Volume Chart',
+          content: this._chartSlide('Daily Data Volume Comparison', 'Throughput', '#3fb950', 'img/charts/data_volume.png',
+            '10&ndash;20&times; daily data volume improvement over current Mars missions',
+            'Current Mars missions deliver only 5&ndash;10 GB/day &mdash; insufficient for high-resolution science and video.',
+            'Quantifies the throughput multiplier so stakeholders understand the operational value of optical links.',
+            'Enables new mission capabilities: real-time 4K video, bulk science data dumps, and software updates in hours not weeks.'),
+          speakerNotes: 'AETHERIX delivers 10 to 20 times more data per day than current Mars missions. (20 seconds)'
         },
         {
           title: 'RL Routing',
@@ -1746,8 +1826,12 @@ window.App = (() => {
         },
         {
           title: 'RL Routing Heatmap Chart',
-          content: '<h2><span class="pres-tag quantum">Chart</span> RL Routing Q-Value Heatmap</h2><div style="display:flex;justify-content:center;align-items:center;min-height:65vh"><img src="img/charts/rl_routing_heatmap.png" alt="RL Routing Heatmap" style="width:100%;max-width:720px;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1);box-shadow:0 0 40px rgba(0,212,255,0.05)"></div><div style="margin-top:12px;font-size:0.82rem;color:var(--text-secondary);text-align:center">Q-value convergence across state-action pairs &middot; Higher values (warm colors) indicate preferred routing decisions</div>',
-          speakerNotes: 'The Q-value heatmap shows how the RL agent converges on optimal routing decisions over training. Warm colors represent high-value actions — the routes the agent has learned work best. Cool colors are poor choices the agent avoids. (20 seconds)'
+          content: this._chartSlide('RL Routing Q-Value Heatmap', 'AI', '#00d4aa', 'img/charts/rl_routing_heatmap.png',
+            'Q-value convergence across state-action pairs &middot; Warm colors = preferred routing decisions',
+            'Training an RL agent produces a Q-table with thousands of values &mdash; we need to visualize convergence.',
+            'Shows which state-action pairs have converged to high values, confirming the agent has learned optimal routes.',
+            'Validates that the RL agent reliably selects best paths, enabling autonomous routing without human intervention.'),
+          speakerNotes: 'The Q-value heatmap shows how the RL agent converges on optimal routing decisions. Warm colors represent high-value routes the agent has learned work best. (20 seconds)'
         },
         {
           title: 'Quantum Security',
@@ -1755,9 +1839,22 @@ window.App = (() => {
           speakerNotes: 'BB84 is beautifully simple: send qubits, measure, compare bases, check QBER. If QBER is below 11%, no one listened in. CASCADE reconciliation and privacy amplification clean the key. E91 uses entanglement. Quantum repeaters at Lagrange points extend range. Post-quantum crypto as backup layer. (2 minutes)'
         },
         {
-          title: 'QKD Charts',
-          content: '<h2><span class="pres-tag quantum">Charts</span> QKD Security Analysis &amp; Key Generation Rates</h2><div class="pres-grid-2" style="gap:16px"><div style="text-align:center"><div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#c84cff;margin-bottom:8px">QKD Security (QBER vs Eavesdropper)</div><img src="img/charts/qkd_security.png" alt="QKD Security" style="width:100%;border-radius:var(--radius-md);border:1px solid rgba(200,76,255,0.15)"></div><div style="text-align:center"><div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#c84cff;margin-bottom:8px">Key Generation Rate vs Distance</div><img src="img/charts/qkd_key_rate.png" alt="QKD Key Rate" style="width:100%;border-radius:var(--radius-md);border:1px solid rgba(200,76,255,0.15)"></div></div><div style="margin-top:14px;font-size:0.82rem;color:var(--text-secondary);text-align:center">QBER &lt; 11% threshold ensures security &middot; Key rates decrease with distance &middot; Quantum repeaters extend practical range</div>',
-          speakerNotes: 'Left: QBER analysis showing the security threshold. Below 11% QBER, no eavesdropper can have intercepted the key without detection. Right: key generation rates decrease with distance, which is why we deploy quantum repeaters at Lagrange points to extend range. (20 seconds)'
+          title: 'QKD Security Chart',
+          content: this._chartSlide('QKD Security &mdash; QBER vs Eavesdropper Detection', 'Security', '#c84cff', 'img/charts/qkd_security.png',
+            'QBER &lt; 11% threshold ensures security &middot; Any eavesdropping attempt is detected',
+            'Quantum key distribution must detect eavesdroppers &mdash; the QBER threshold is the security boundary.',
+            'Shows the relationship between QBER and eavesdropping probability, proving that below 11% the key is provably secure.',
+            'Provides information-theoretic security &mdash; even a quantum computer cannot break keys protected this way.'),
+          speakerNotes: 'QBER analysis showing the security threshold. Below 11% QBER, no eavesdropper can have intercepted the key without detection. (20 seconds)'
+        },
+        {
+          title: 'QKD Key Rate Chart',
+          content: this._chartSlide('Key Generation Rate vs Distance', 'Security', '#c84cff', 'img/charts/qkd_key_rate.png',
+            'Key rates decrease with distance &middot; Quantum repeaters extend practical range',
+            'QKD key rates drop exponentially with distance, making direct Earth-Mars key exchange impractical.',
+            'Maps the key rate vs distance curve to determine where quantum repeaters must be deployed.',
+            'Quantum repeaters at Lagrange points extend practical QKD range to 225M km, enabling Earth-Mars secure communication.'),
+          speakerNotes: 'Key generation rates decrease with distance, which is why we deploy quantum repeaters at Lagrange points to extend range. (20 seconds)'
         },
         {
           title: 'Orbital Mechanics',
@@ -1766,8 +1863,12 @@ window.App = (() => {
         },
         {
           title: 'Contact Windows Chart',
-          content: '<h2><span class="pres-tag mars">Chart</span> Contact Window Availability Over Synodic Period</h2><div style="display:flex;justify-content:center;align-items:center;min-height:65vh"><img src="img/charts/contact_windows.png" alt="Contact Windows" style="width:100%;max-width:720px;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1);box-shadow:0 0 40px rgba(0,212,255,0.05)"></div><div style="margin-top:12px;font-size:0.82rem;color:var(--text-secondary);text-align:center">8&ndash;12 hrs/day at opposition &middot; Solar conjunction blackout &middot; Lagrange relays provide 50&ndash;70% backup during blackout</div>',
-          speakerNotes: 'Contact window availability over the full synodic period. Notice the solar conjunction gap where direct communication drops to zero — that is exactly where our Lagrange relay chain maintains 50 to 70 percent capacity. (20 seconds)'
+          content: this._chartSlide('Contact Window Availability Over Synodic Period', 'Orbital', '#009eff', 'img/charts/contact_windows.png',
+            '8&ndash;12 hrs/day at opposition &middot; Solar conjunction blackout &middot; Lagrange relays provide 50&ndash;70% backup',
+            'Contact windows vary from 12 hrs/day at opposition to zero during conjunction &mdash; data transfer planning depends on this.',
+            'Maps availability across the full synodic period so the RL agent can optimize bundle scheduling.',
+            'With Lagrange relay backup, the network maintains &gt;50% capacity even during conjunction blackouts.'),
+          speakerNotes: 'Contact window availability over the full synodic period. Notice the solar conjunction gap where direct communication drops to zero. (20 seconds)'
         },
         {
           title: 'Radiation Hardening',
@@ -1790,7 +1891,7 @@ window.App = (() => {
         },
         {
           title: 'Data Flow Diagram Visual',
-          content: '<h2><span class="pres-tag accent">Data Flow Diagram Visual</span></h2><div style="display:flex;justify-content:center;align-items:center;min-height:70vh"><img src="img/diagrams/data_flow.svg" alt="Data Flow Diagram Visual" style="width:100%;max-width:920px;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1);box-shadow:0 0 40px rgba(0,212,255,0.05)"></div>',
+          content: '<h2><span class="pres-tag accent">Data Flow Diagram Visual</span></h2><div style="display:flex;justify-content:center;align-items:center"><img src="img/diagrams/data_flow.svg" alt="Data Flow Diagram Visual" style="width:100%;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1);box-shadow:0 0 40px rgba(0,212,255,0.05)"></div>',
           speakerNotes: 'End-to-end bundle journey through all protocol layers.'
         },
         {
@@ -1799,9 +1900,22 @@ window.App = (() => {
           speakerNotes: 'Hit these numbers with confidence. 10-100x faster. >95% availability vs 60-75%. Quantum-secure. 241 nodes vs 5-10 assets. $0.01 vs $0.10 per MB. The conjunction improvement is thanks to Lagrange relays. All metrics are backed by our simulation engine. (1 minute)'
         },
         {
-          title: 'Performance Charts',
-          content: '<h2><span class="pres-tag success">Charts</span> Performance Comparison &amp; Optical vs RF</h2><div class="pres-grid-2" style="gap:16px"><div style="text-align:center"><div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#3fb950;margin-bottom:8px">AETHERIX vs Current Systems</div><img src="img/charts/performance_comparison.png" alt="Performance Comparison" style="width:100%;border-radius:var(--radius-md);border:1px solid rgba(63,185,80,0.15)"></div><div style="text-align:center"><div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#3fb950;margin-bottom:8px">Optical vs RF Capability Radar</div><img src="img/charts/optical_vs_rf_radar.png" alt="Optical vs RF Radar" style="width:100%;border-radius:var(--radius-md);border:1px solid rgba(63,185,80,0.15)"></div></div><div style="margin-top:14px;font-size:0.82rem;color:var(--text-secondary);text-align:center">10&ndash;100&times; improvement across all metrics &middot; Optical dominates in bandwidth &middot; Hybrid optical/RF maximizes reliability</div>',
-          speakerNotes: 'Left: head-to-head comparison showing AETHERIX outperforming current systems across every metric. Right: radar chart showing why we chose optical as primary with RF backup — optical dominates bandwidth and efficiency, while RF provides reliability in adverse conditions. (20 seconds)'
+          title: 'Performance Comparison Chart',
+          content: this._chartSlide('AETHERIX vs Current Systems', 'Results', '#3fb950', 'img/charts/performance_comparison.png',
+            '10&ndash;100&times; improvement across all metrics',
+            'Current Mars communication delivers only 0.5&ndash;6 Mbps with 60&ndash;75% availability &mdash; far below what science missions need.',
+            'Head-to-head comparison quantifying every improvement: bandwidth, latency, availability, and cost.',
+            'AETHERIX delivers transformative gains: 10&ndash;100&times; faster, &gt;95% availability, quantum-secure, at 1/10th the cost per MB.'),
+          speakerNotes: 'Head-to-head comparison showing AETHERIX outperforming current systems across every metric. (20 seconds)'
+        },
+        {
+          title: 'Optical vs RF Radar Chart',
+          content: this._chartSlide('Optical vs RF Capability Radar', 'Results', '#3fb950', 'img/charts/optical_vs_rf_radar.png',
+            'Optical dominates bandwidth &middot; RF provides reliability in adverse conditions',
+            'Choosing between optical and RF involves tradeoffs across multiple dimensions &mdash; bandwidth, reliability, cost, and maturity.',
+            'Radar chart visualizes multi-dimensional comparison so the hybrid strategy is self-evident.',
+            'Justifies the hybrid optical/RF design: optical primary for throughput, RF backup for reliability during storms and conjunction.'),
+          speakerNotes: 'Radar chart showing why we chose optical as primary with RF backup — optical dominates bandwidth and efficiency, while RF provides reliability. (20 seconds)'
         },
         {
           title: 'Implementation',
@@ -1809,9 +1923,31 @@ window.App = (() => {
           speakerNotes: 'This is real, working code. 27 Python modules, 189 tests, 12 interactive demos. All the physics is real - no mocked data. The showcase site has live calculators you can use right now. Standards compliance is complete - CCSDS, IETF, and NIST. (1.5 minutes)'
         },
         {
-          title: 'System Evolution Charts',
-          content: '<h2><span class="pres-tag accent">Charts</span> Bandwidth Evolution &amp; Energy Efficiency</h2><div class="pres-grid-2" style="gap:16px;margin-bottom:16px"><div style="text-align:center"><div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px">Bandwidth Evolution: Past, Present, AETHERIX</div><img src="img/charts/bandwidth_evolution.png" alt="Bandwidth Evolution" style="width:100%;border-radius:var(--radius-md);border:1px solid rgba(0,212,255,0.1)"></div><div style="text-align:center"><div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px">Energy Efficiency per Bit</div><img src="img/charts/energy_efficiency.png" alt="Energy Efficiency" style="width:100%;border-radius:var(--radius-md);border:1px solid rgba(0,212,255,0.1)"></div></div><div style="text-align:center"><div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px">Mission Timeline &amp; Milestones</div><img src="img/charts/mission_timeline.png" alt="Mission Timeline" style="width:100%;max-width:720px;border-radius:var(--radius-md);border:1px solid rgba(0,212,255,0.1)"></div>',
-          speakerNotes: 'Left: bandwidth evolution from Mariner at 8.3 bps to MRO at 6 Mbps to AETHERIX targeting 200 Mbps — a 30 million times improvement from the beginning of space communication. Center: energy efficiency showing optical links use significantly less energy per bit than RF. Bottom: mission timeline showing development milestones. (20 seconds)'
+          title: 'Bandwidth Evolution Chart',
+          content: this._chartSlide('Bandwidth Evolution: Past, Present, AETHERIX', 'History', '#00d4ff', 'img/charts/bandwidth_evolution.png',
+            'From Mariner 8.3 bps to AETHERIX 200 Mbps &middot; 30 million times improvement',
+            'Space communication bandwidth has improved steadily but current RF systems are approaching physical limits.',
+            'Places AETHERIX in historical context alongside Mariner, Viking, and MRO to show the magnitude of the leap.',
+            'Proves optical is the next paradigm shift &mdash; just as each generation leapfrogged the previous, AETHERIX leapfrogs RF.'),
+          speakerNotes: 'Bandwidth evolution from Mariner at 8.3 bps to MRO at 6 Mbps to AETHERIX targeting 200 Mbps — a 30 million times improvement. (20 seconds)'
+        },
+        {
+          title: 'Energy Efficiency Chart',
+          content: this._chartSlide('Energy Efficiency per Bit', 'Efficiency', '#3fb950', 'img/charts/energy_efficiency.png',
+            'Optical links use significantly less energy per bit than RF &middot; Critical for power-constrained spacecraft',
+            'Spacecraft have limited power budgets &mdash; every watt matters for science instruments and propulsion.',
+            'Compares energy per transmitted bit for optical vs RF, quantifying the efficiency advantage.',
+            'Optical&rsquo;s superior energy efficiency means more power available for science instruments and longer mission durations.'),
+          speakerNotes: 'Energy efficiency comparison showing optical links use significantly less energy per transmitted bit than RF alternatives. (20 seconds)'
+        },
+        {
+          title: 'Mission Timeline Chart',
+          content: this._chartSlide('Mission Timeline &amp; Milestones', 'Roadmap', '#00d4ff', 'img/charts/mission_timeline.png',
+            'Phases 1&ndash;4 complete &middot; Phases 5&ndash;7 planned for production deployment',
+            'Building an interplanetary network is a multi-phase effort spanning years &mdash; we need a clear development roadmap.',
+            'Maps completed and future milestones so stakeholders understand the path from demo to deployed system.',
+            'Phases 1&ndash;4 deliver a working proof-of-concept; phases 5&ndash;7 move toward ns-3 simulation, ION-DTN integration, and flight hardware.'),
+          speakerNotes: 'Mission timeline showing development milestones from proof-of-concept to production deployment. (20 seconds)'
         },
         {
           title: 'Roadmap',
@@ -1837,26 +1973,31 @@ window.App = (() => {
         "Here's our roadmap for the next 18 minutes. We'll cover the challenge, the architecture, DTN protocols, network topology, link budgets, AI routing, quantum security, orbital mechanics, radiation hardening, data prioritization, and close with a live demo and performance comparison.",
         "AETHERIX addresses these challenges through four integrated innovations. First, Bundle Protocol version 7 provides delay-tolerant networking via store-and-forward. Second, reinforcement learning agents replace static routing with autonomous adaptive decisions. Third, quantum key distribution provides information-theoretically secure encryption. And fourth, hybrid optical-radio frequency links deliver 10 to 100 times higher data rates with RF backup for reliability.",
         "The distance to Mars varies from 55 million kilometers at closest approach to over 400 million kilometers when Earth and Mars are on opposite sides of the Sun. At the speed of light, that's a one-way delay of 3 to 22 minutes. TCP/IP expects millisecond round-trip times — it simply cannot work with 6 to 44 minute round-trips. Current Mars missions achieve only 0.5 to 6 megabits per second. And every 780 days, during solar conjunction, direct communication is impossible for about two weeks.",
-        "Two key charts showing the fundamental challenge. The distance chart shows a 7x variation over the 780-day synodic period. The light-time delay chart shows the corresponding 3 to 22 minute one-way delays. These physical constraints drive every design decision in AETHERIX.",
+        "Distance over the synodic period showing the 7x variation. At opposition, 55 million km. At conjunction, over 400 million km with the Sun blocking direct communication.",
+        "Light-time delay ranges from 3 minutes at closest approach to 22 minutes at maximum distance. TCP/IP expects sub-second round trips — this is why we need DTN.",
         "The Bundle Protocol works like a postal service rather than a phone call. Instead of requiring a live connection between sender and receiver, each bundle is stored at every intermediate node until the next link becomes available. Custody transfer is critical: each node that accepts a bundle takes legal responsibility for its delivery. The previous custodian can then free its buffer.",
         "The architecture has five core modules feeding into a simulation engine. Infrastructure handles optical and RF link budget calculations. Routing implements the RL agent, BPv7 bundles, and the store-and-forward engine. Security covers QKD protocols and repeater chains. Orbital computes contact windows and Doppler shifts. And Simulation integrates everything for end-to-end scenario analysis.",
         "This diagram shows how the source modules feed into the simulation engine and web demos. Each module is independently testable — we have 189 automated tests validating correctness.",
-        "The tier distribution chart shows where the 241 nodes sit. Mars Surface dominates with 167 nodes — habitats, rovers, drones, sensors. The 4 deep space nodes at Lagrange points are few but critical for conjunction survival.",
+        "The tier distribution shows where the 241 nodes sit. Mars Surface dominates with 167 nodes — habitats, rovers, drones, sensors. The 4 deep space nodes at Lagrange points are few but critical for conjunction survival.",
         "BPv7 is the postal service protocol. Walk through the stack: Application at top, BPv7 as the store-and-forward layer, three convergence layers for different link types, physical at bottom. Custody transfer is the key innovation — each node takes legal responsibility. Priority P0 emergency to P4 bulk. We use three convergence layers: LTP for deep space, TCPCL for Earth-segment connections, and UDP-CL for inter-satellite optical links.",
         "Walk through the store-and-forward process. Bundle arrives, gets stored, node waits for next contact opportunity, then forwards. If link drops, bundle stays stored and retries. No data loss. This is fundamentally different from TCP's end-to-end retransmission. LTP handles the deep-space hop with reliable segments. TCPCL manages Earth-segment distribution. UDP-CL models optical inter-satellite links.",
         "The priority class distribution shows how bandwidth is allocated. Emergency traffic preempts everything. The deadline-aware scheduler ensures no bandwidth is wasted while respecting priority constraints.",
         "The network spans five tiers with 241 nodes. Earth's ground segment with DSN stations in Goldstone, Madrid, and Canberra — spaced 120 degrees apart for 24/7 coverage. Tier 2 has GEO relays and a 48-satellite LEO laser constellation. Tier 3 has Lagrange point relays at ES-L4 and ES-L5 — critical because they maintain communication around the Sun during conjunction. Tier 4 is Mars orbital with areostationary relays at 17,032 km. Tier 5 is the Mars surface network.",
         "Earth-to-deep-space links at 100 Mbps via 1550 nm laser. Deep-space-to-Mars is distance-dependent at 2 to 200 Mbps. Mars orbital to surface uses UHF S-band at 2 Mbps. LEO inter-satellite mesh runs at 10 Gbps with laser links.",
         "This visualization shows the full 5-tier topology with three redundant paths. No single link failure can sever Earth-Mars communication.",
-        "Left: DSN coverage showing Goldstone, Madrid, and Canberra — spaced 120 degrees apart for continuous coverage. Right: orbital positions over the synodic period showing how Earth and Mars move relative to each other.",
+        "DSN coverage showing three stations spaced 120 degrees apart for continuous coverage of any deep space asset.",
+        "Orbital positions over the synodic period showing how Earth and Mars move relative to each other, determining contact quality.",
         "Let me demonstrate the link budget calculations live. At closest approach — 54.6 million kilometers — our 5-watt laser with a 22-centimeter transmit aperture and 1-meter ground receive telescope achieves 100 to 200 megabits per second. That's over 30 times faster than the current Mars Reconnaissance Orbiter. Even at maximum distance of 401 million kilometers, we maintain 2 to 5 megabits per second.",
-        "Left: data rate degrades from 200 Mbps at closest approach to 2 Mbps at maximum distance — but even minimum is competitive with current RF. Right: link budget breakdown showing where the decibels go — free-space path loss is the dominant factor, compensated by high-gain optical apertures.",
+        "Data rate degrades from 200 Mbps at closest approach to 2 Mbps at maximum distance — but even minimum is competitive with current RF.",
+        "Link budget breakdown showing where the decibels go — free-space path loss is the dominant factor, compensated by high-gain optical apertures.",
         "Here's the 7-hop journey. 500 MB from Perseverance to JPL. Total transit about 13 minutes versus 12.5 minutes light-time — near speed of light! DTN overhead under 5 percent. 98.7 percent delivery ratio.",
-        "Left: latency comparison showing TCP failing catastrophically, while DTN adds under 5% overhead beyond the physical light-time limit. Right: daily data volume comparison — AETHERIX delivers 10 to 20 times more data per day than current Mars missions.",
+        "Latency comparison showing TCP failing catastrophically, while DTN adds under 5% overhead beyond the physical light-time limit.",
+        "AETHERIX delivers 10 to 20 times more data per day than current Mars missions.",
         "Traditional Contact Graph Routing requires pre-computed contact schedules that cannot adapt to unexpected conditions. Our reinforcement learning agent learns from experience. It observes state variables including link quality, buffer occupancy, bundle priority, and deadline. It selects from four actions: forward, store, drop, or split. The reward function balances delivery success against delay, hop count, and energy consumption.",
-        "The Q-value heatmap shows how the RL agent converges on optimal routing decisions over training. Warm colors represent high-value actions — the routes the agent has learned work best. Cool colors are poor choices the agent avoids.",
+        "The Q-value heatmap shows how the RL agent converges on optimal routing decisions. Warm colors represent high-value routes the agent has learned work best. Cool colors are poor choices the agent avoids.",
         "Quantum key distribution provides security based on the laws of physics, not computational difficulty. In the BB84 protocol, Alice sends quantum bits in random bases. Bob measures in random bases. They publicly compare a sample to estimate the Quantum Bit Error Rate. If the QBER is below 11 percent, the key is secure. We deploy QKD in three phases: Earth-to-LEO, GEO, and ultimately quantum repeaters at Lagrange points for Earth-Mars security.",
-        "Left: QBER analysis showing the security threshold. Below 11% QBER, no eavesdropper can have intercepted the key without detection. Right: key generation rates decrease with distance, which is why we deploy quantum repeaters at Lagrange points to extend range.",
+        "QBER analysis showing the security threshold. Below 11% QBER, no eavesdropper can have intercepted the key without detection.",
+        "Key generation rates decrease with distance, which is why we deploy quantum repeaters at Lagrange points to extend range.",
         "The 780-day synodic period means we cycle from best-case opposition through worst-case conjunction. During the roughly two-week conjunction window, direct communication is impossible. AETHERIX's Lagrange point relays at ES-L4 and ES-L5 maintain a path around the Sun, providing 50 to 70 percent availability even during conjunction. Doppler shift of 15 gigahertz at 1550 nm requires real-time compensation.",
         "Contact window availability over the full synodic period. Notice the solar conjunction gap where direct communication drops to zero — that is exactly where our Lagrange relay chain maintains 50 to 70 percent capacity.",
         "Space radiation is relentless. Single-event upsets flip bits constantly — about 37,000 during a Mars transit. Our defense-in-depth: triple modular redundancy masks logic faults with a 3,334x reliability gain. SECDED ECC corrects single-bit errors. Scrubbing prevents double-bit accumulation. And FDIR with a watchdog catches everything else. The RAD750 processor can tolerate 200 kilorads — far above what a Mars mission needs.",
@@ -1865,9 +2006,12 @@ window.App = (() => {
         "This shows the end-to-end bundle journey through all protocol layers. From application data, through BPv7 wrapping, RL routing, QKD encryption, LTP segmentation, physical transmission, and finally reassembly and delivery.",
         "The visual data flow through the complete protocol stack.",
         "The bottom line: AETHERIX delivers 10 to 100 times higher data rates with greater than 95 percent availability at one-tenth the cost per megabyte. Our architecture scales to 241 nodes compared to the 5 to 10 assets currently connected. The routing is autonomous. The security is quantum-ready.",
-        "Left: head-to-head comparison showing AETHERIX outperforming current systems across every metric. Right: radar chart showing why we chose optical as primary with RF backup — optical dominates bandwidth and efficiency, while RF provides reliability in adverse conditions.",
+        "Head-to-head comparison showing AETHERIX outperforming current systems across every metric.",
+        "Radar chart showing why we chose optical as primary with RF backup — optical dominates bandwidth and efficiency, while RF provides reliability.",
         "This is real, working code. 27 Python modules, 189 tests, 12 interactive demos. All the physics is real — no mocked data. The showcase site has live calculators you can use right now. Standards compliance is complete — seven CCSDS Blue Books and four IETF RFCs.",
-        "Left: bandwidth evolution from Mariner at 8.3 bps to MRO at 6 Mbps to AETHERIX targeting 200 Mbps — a 30 million times improvement from the beginning of space communication. Center: energy efficiency showing optical links use significantly less energy per bit than RF. Bottom: mission timeline showing development milestones.",
+        "Bandwidth evolution from Mariner at 8.3 bps to MRO at 6 Mbps to AETHERIX targeting 200 Mbps — a 30 million times improvement.",
+        "Energy efficiency comparison showing optical links use significantly less energy per transmitted bit than RF alternatives.",
+        "Mission timeline showing development milestones from proof-of-concept to production deployment.",
         "Phases 1 through 4 are done — this is what you see today. Phase 5 adds ns-3 simulation for realistic network modeling. Phase 6 upgrades to a Deep Q-Network and integrates with NASA's ION-DTN implementation. Phase 7 moves to hardware prototypes with software-defined radios and optical ground station demonstrations.",
         "In summary, AETHERIX delivers four key outcomes: 10 to 100 times faster communications through optical links, over 95 percent availability through multi-path redundancy, AI-driven autonomous routing replacing static schedules, and quantum-secured future-proof encryption.",
         "Thank you. I welcome your questions. All simulations are available live at matx104.github.io/AETHERIX."
