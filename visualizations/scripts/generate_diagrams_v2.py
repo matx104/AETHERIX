@@ -227,7 +227,7 @@ def generate_system_architecture():
 
 
 def generate_5tier_network():
-    w, h = 1200, 750
+    w, h = 1200, 720
     s = svg_header(w, h, 'AETHERIX 5-TIER NETWORK TOPOLOGY')
 
     cx_left = 280
@@ -325,7 +325,7 @@ def generate_5tier_network():
 
 
 def generate_dtn_store_and_forward():
-    w, h = 1200, 700
+    w, h = 1200, 460
     s = svg_header(w, h, 'DTN STORE-AND-FORWARD vs TCP/IP')
 
     s += f'<text x="{w // 2}" y="56" text-anchor="middle" fill="{GRAY}" font-size="13" font-weight="600" {FONT} letter-spacing="2">TCP/IP: END-TO-END CONNECTION (FAILS IN SPACE)</text>\n'
@@ -431,7 +431,7 @@ def generate_dtn_store_and_forward():
 
 
 def generate_earth_mars_journey():
-    w, h = 1200, 750
+    w, h = 1200, 385
     extra_defs = '''
     <radialGradient id="marsGlow" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#ff6b35" stop-opacity="0.25"/>
@@ -532,7 +532,7 @@ def generate_earth_mars_journey():
 
 
 def generate_data_flow():
-    w, h = 1200, 750
+    w, h = 1200, 610
     s = svg_header(w, h, 'AETHERIX DATA FLOW ARCHITECTURE')
 
     layers = [
@@ -649,7 +649,7 @@ def generate_data_flow():
 
 
 def generate_protocol_stack():
-    w, h = 1200, 750
+    w, h = 1200, 590
     s = svg_header(w, h, 'AETHERIX PROTOCOL STACK')
 
     stack_x = 60
@@ -759,7 +759,7 @@ def generate_protocol_stack():
 
 
 def generate_network_topology():
-    w, h = 1200, 750
+    w, h = 1200, 735
     s = svg_header(w, h, 'AETHERIX NETWORK TOPOLOGY &amp; BFS PATHFINDING')
 
     cx = 500

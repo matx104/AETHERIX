@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750">
-<rect width="1200" height="750" fill="#0d1117"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 735" width="1200" height="735">
+<rect width="1200" height="735" fill="#0d1117"/>
 <defs>
   <filter id="glow">
     <feGaussianBlur stdDeviation="2" result="blur"/>
@@ -269,6 +269,6 @@
 <text x="890" y="356" fill="#8892a4" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Hops: 4 | Latency: ~13 min</text>
 <text x="890" y="372" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">RL agent improves on BFS via</text>
 <text x="890" y="386" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">learned link-quality weights</text>
-<rect x="30" y="680" width="1140" height="34" rx="6" fill="#00d4ff" fill-opacity="0.06" stroke="#00d4ff" stroke-opacity="0.2"/>
-<text x="600" y="702" text-anchor="middle" fill="#00d4ff" font-size="12" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">241 Nodes &#183; 5 Tiers &#183; RL-Optimized Routing &#183; BFS Baseline + Q-Learning Enhancement</text>
+<rect x="30" y="665" width="1140" height="34" rx="6" fill="#00d4ff" fill-opacity="0.06" stroke="#00d4ff" stroke-opacity="0.2"/>
+<text x="600" y="687" text-anchor="middle" fill="#00d4ff" font-size="12" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">241 Nodes &#183; 5 Tiers &#183; RL-Optimized Routing &#183; BFS Baseline + Q-Learning Enhancement</text>
 </svg>

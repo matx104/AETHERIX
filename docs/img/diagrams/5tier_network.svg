@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750">
-<rect width="1200" height="750" fill="#0d1117"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" width="1200" height="720">
+<rect width="1200" height="720" fill="#0d1117"/>
 <defs>
   <filter id="glow">
     <feGaussianBlur stdDeviation="2" result="blur"/>
@@ -150,6 +150,6 @@
 <line x1="745" y1="524" x2="745" y2="558" stroke="#5a6578" stroke-width="1" stroke-dasharray="3,3"/>
 <line x1="910" y1="524" x2="910" y2="558" stroke="#5a6578" stroke-width="1" stroke-dasharray="3,3"/>
 <line x1="1075" y1="524" x2="1075" y2="558" stroke="#5a6578" stroke-width="1" stroke-dasharray="3,3"/>
-<rect x="100" y="665" width="1000" height="36" rx="6" fill="#00d4ff" fill-opacity="0.06" stroke="#00d4ff" stroke-opacity="0.2"/>
-<text x="600" y="688" text-anchor="middle" fill="#00d4ff" font-size="12" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">241 Nodes &#183; 5 Tiers &#183; 3 Redundant Paths &#183; No Single Point of Failure</text>
+<rect x="100" y="635" width="1000" height="36" rx="6" fill="#00d4ff" fill-opacity="0.06" stroke="#00d4ff" stroke-opacity="0.2"/>
+<text x="600" y="658" text-anchor="middle" fill="#00d4ff" font-size="12" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">241 Nodes &#183; 5 Tiers &#183; 3 Redundant Paths &#183; No Single Point of Failure</text>
 </svg>
