@@ -207,7 +207,7 @@ def add_slide_transition(slide, transition_type="fade", duration_ms=700):
 
 
 # Total slide count shown in footers (title slide 1 + Thank-You have no footer).
-TOTAL_SLIDES = 27
+TOTAL_SLIDES = 46
 # Auto-incrementing footer counter so inserting slides never requires renumbering.
 # Starts at 1 (the title slide is slide 1 and carries no footer); each footered
 # slide is numbered in document order.
@@ -249,38 +249,72 @@ def new_slide():
     return slide
 
 
+def add_chart_slide(chart_file, title, subtitle, caption, accent_rgb):
+    slide = new_slide()
+    add_slide_transition(slide, "fade")
+    add_textbox(slide, Inches(0.7), Inches(0.3), Inches(11.0), Inches(0.7),
+                title, font_size=32, color=WHITE, bold=True)
+    add_textbox(slide, Inches(0.7), Inches(0.9), Inches(11.0), Inches(0.4),
+                subtitle, font_size=16, color=accent_rgb)
+    add_accent_line(slide, Inches(0.7), Inches(1.35), Inches(2.5), accent_rgb)
+    add_image_safe(slide, chart_file, Inches(0.7), Inches(1.5), Inches(7.0), Inches(4.5))
+    add_textbox(slide, Inches(0.7), Inches(6.2), Inches(11.0), Inches(0.3),
+                caption, font_size=10, color=MED_GRAY, alignment=PP_ALIGN.CENTER)
+    add_footer(slide)
+    return slide
+
+
 _SPEAKER_NOTES = {
     1: "State your name clearly. Read the topic number and title exactly as on the exam paper. Pause to let examiners see it. Point to the logo. This is your first impression. (30 seconds)",
     2: "Quick overview of what we will cover. 13 topics across 29 slides. About 20 minutes. (20 seconds)",
     3: "This slide sets up the narrative arc. First explain what AETHERIX is in plain language - it's like the postal service for interplanetary space. Then pivot to the problem: TCP/IP was never designed for space. 22-minute delays break every assumption. Solar conjunction blackouts. Static routing. Vulnerable crypto. Each problem maps to one of our solutions. (1.5 minutes)",
     4: "Start with the scale. 54.6M to 401M km. Light itself takes 3-22 minutes one way. TCP/IP was designed for sub-second round trips. In space, by the time a packet acknowledgment returns, the link may be gone. Solar conjunction causes 2-week blackout. This is why NASA calls it Delay-Tolerant Networking. (1.5 minutes)",
-    5: "The key insight: instead of requiring an end-to-end connection like TCP, DTN works like the postal service. Each node takes custody of your data and forwards it when a link becomes available. Three pillars: BPv7 for the protocol, RL for intelligent routing, QKD for security. (1.5 minutes)",
-    6: "Show the architecture. Six core modules feed into the simulation engine, which feeds the web showcase. Standards compliance at the bottom. Point to each module as you explain. (1 minute)",
-    7: "Architecture diagram showing source modules feeding simulation engine and web demos.",
-    8: "BPv7 is the postal service protocol. Walk through the stack: Application at top, BPv7 as the store-and-forward layer, three convergence layers for different link types, physical at bottom. Custody transfer is the key innovation - each node takes legal responsibility. Priority P0 (emergency) to P4 (bulk). (2 minutes)",
-    9: "Walk through the store-and-forward process. Bundle arrives, gets stored, node waits for next contact opportunity, then forwards. If link drops, bundle stays stored and retries. No data loss. This is fundamentally different from TCP's end-to-end retransmission. (1.5 minutes)",
-    10: "241 nodes across 5 tiers. Walk through each tier. Earth Ground is the DSN - three stations around the globe for 24/7 coverage. Earth Orbital has LEO laser mesh for optical backhaul. Deep Space has Lagrange point relays - these are the critical innovation for conjunction coverage. Mars Orbital has areostationary relays at 17,032 km. Mars Surface is the most populated tier. (2 minutes)",
-    11: "Visual overview of the 5-tier topology with 3 redundant paths.",
-    12: "Network topology visualization.",
-    13: "RUN THE LIVE DEMO from the Link Budget page. Show the 3 distance scenarios. 1550nm was chosen for telecom heritage and eye safety. FSPL at average distance is -365 dB. The telescope apertures are realistic for spacecraft. RF backup for reliability. (2 minutes)",
-    14: "Interactive journey visualization.",
-    15: "CGR is what NASA uses today. It's static - you have to pre-compute schedules. Our RL agent learns from experience. 8 state variables, 4 actions. The reward function balances delivery probability against delay, hops, drops, and energy. Multi-agent federated learning means agents at each node share knowledge. (2 minutes)",
-    16: "BB84 is beautifully simple: send qubits, measure, compare bases, check QBER. If QBER is below 11%, no one listened in. CASCADE reconciliation and privacy amplification clean the key. E91 uses entanglement. Quantum repeaters at Lagrange points extend range. Post-quantum crypto as backup layer. (2 minutes)",
-    17: "Mars and Earth dance around the Sun with a 26-month synodic period. Everything changes - distance, delay, bandwidth. At opposition we get great bandwidth. At conjunction, the Sun blocks everything. Our Lagrange relays at ES-L4 and ES-L5 maintain 50-70% capacity during conjunction. Doppler shift of 15 GHz at optical wavelengths requires real-time compensation. (1.5 minutes)",
-    18: "Space radiation is relentless. SEUs flip bits constantly - about 37,000 during a Mars transit. Our defense-in-depth: TMR masks logic faults (3,334x reliability gain), SECDED ECC corrects single-bit errors, scrubbing prevents double-bit accumulation, and FDIR with a watchdog catches everything else. The RAD750 can tolerate 200 krad - far above what a Mars mission needs. (1.5 minutes)",
-    19: "Like an emergency room. P0 emergency gets sent immediately - it can even preempt an in-progress transfer. P1 mission-critical next. P2 routine science. P4 bulk data fills remaining bandwidth. Compression multiplies effective capacity: 3x for telemetry, 10x for images, 50x for video. Our scheduler keeps the link at 100% utilization by fragmenting large bundles. (1.5 minutes)",
-    20: "Walk through the 7-hop journey. 500MB from Perseverance to JPL. Total transit ~13 min vs 12.5 min light-time - near speed of light! DTN overhead under 5%. Key point: if link drops at hop 5, the bundle stays stored at hop 4 and retries. No data loss. RUN LIVE DEMO if time permits. (2 minutes)",
-    21: "End-to-end bundle journey through all protocol layers.",
-    22: "Visual data flow through the protocol stack.",
-    23: "Hit these numbers with confidence. 10-100x faster. >95% availability vs 60-75%. Quantum-secure. 241 nodes vs 5-10 assets. The conjunction improvement is thanks to Lagrange relays. All metrics are backed by our simulation engine. (1 minute)",
-    24: "This is real, working code. 27 Python modules, 189 tests, 12 interactive demos. All the physics is real - no mocked data. The showcase site has live calculators you can use right now. Standards compliance is complete - CCSDS, IETF, and NIST. (1.5 minutes)",
-    25: "Phases 1-4 are done - this is what you see today. Phase 5: ns-3 simulation for realistic network modeling. Phase 6: Upgrade to DQN and integrate with NASA's ION-DTN implementation. Phase 7: Hardware prototypes with SDRs and optical links. (1.5 minutes)",
-    26: "Summarize the problem and solution clearly. Re-read the exam topic verbatim. Point to the numbers. Offer to show live demos or answer questions. Thank the examiners. (1 minute)",
-    27: "Summarize the four key numbers: 10-100x faster, >95% availability, AI-powered routing, quantum-secure. Invite questions confidently. Make eye contact. Point to the live demo link. Thank the audience. (30 seconds)",
+    5: "Earth-Mars distance varies over the 780-day synodic period. (15 seconds)",
+    6: "One-way light delay ranges from 3 to 22 minutes. (15 seconds)",
+    7: "The key insight: instead of requiring an end-to-end connection like TCP, DTN works like the postal service. Each node takes custody of your data and forwards it when a link becomes available. Three pillars: BPv7 for the protocol, RL for intelligent routing, QKD for security. (1.5 minutes)",
+    8: "Show the architecture. Six core modules feed into the simulation engine, which feeds the web showcase. Standards compliance at the bottom. Point to each module as you explain. (1 minute)",
+    9: "Architecture diagram showing source modules feeding simulation engine and web demos.",
+    10: "Distribution of 241 nodes across 5 network tiers. (15 seconds)",
+    11: "BPv7 is the postal service protocol. Walk through the stack: Application at top, BPv7 as the store-and-forward layer, three convergence layers for different link types, physical at bottom. Custody transfer is the key innovation - each node takes legal responsibility. Priority P0 (emergency) to P4 (bulk). (2 minutes)",
+    12: "Five priority classes from emergency to bulk. (15 seconds)",
+    13: "Walk through the store-and-forward process. Bundle arrives, gets stored, node waits for next contact opportunity, then forwards. If link drops, bundle stays stored and retries. No data loss. This is fundamentally different from TCP's end-to-end retransmission. (1.5 minutes)",
+    14: "241 nodes across 5 tiers. Walk through each tier. Earth Ground is the DSN - three stations around the globe for 24/7 coverage. Earth Orbital has LEO laser mesh for optical backhaul. Deep Space has Lagrange point relays - these are the critical innovation for conjunction coverage. Mars Orbital has areostationary relays at 17,032 km. Mars Surface is the most populated tier. (2 minutes)",
+    15: "Visual overview of the 5-tier topology with 3 redundant paths.",
+    16: "Network topology visualization.",
+    17: "DSN ground station coverage map. (15 seconds)",
+    18: "Key orbital relay positions in the network. (15 seconds)",
+    19: "RUN THE LIVE DEMO from the Link Budget page. Show the 3 distance scenarios. 1550nm was chosen for telecom heritage and eye safety. FSPL at average distance is -365 dB. The telescope apertures are realistic for spacecraft. RF backup for reliability. (2 minutes)",
+    20: "Data rate degrades with distance squared. (15 seconds)",
+    21: "Link budget analysis showing free-space path loss as the dominant factor. (15 seconds)",
+    22: "Interactive journey visualization.",
+    23: "Protocol latency overhead comparison. (15 seconds)",
+    24: "Daily data volume throughput comparison. (15 seconds)",
+    25: "CGR is what NASA uses today. It's static - you have to pre-compute schedules. Our RL agent learns from experience. 8 state variables, 4 actions. The reward function balances delivery probability against delay, hops, drops, and energy. Multi-agent federated learning means agents at each node share knowledge. (2 minutes)",
+    26: "RL agent Q-value heatmap showing learned routing preferences. (15 seconds)",
+    27: "RL agent energy efficiency optimization. (15 seconds)",
+    28: "BB84 is beautifully simple: send qubits, measure, compare bases, check QBER. If QBER is below 11%, no one listened in. CASCADE reconciliation and privacy amplification clean the key. E91 uses entanglement. Quantum repeaters at Lagrange points extend range. Post-quantum crypto as backup layer. (2 minutes)",
+    29: "QKD security analysis with QBER threshold. (15 seconds)",
+    30: "QKD key generation rate versus distance. (15 seconds)",
+    31: "Mars and Earth dance around the Sun with a 26-month synodic period. Everything changes - distance, delay, bandwidth. At opposition we get great bandwidth. At conjunction, the Sun blocks everything. Our Lagrange relays at ES-L4 and ES-L5 maintain 50-70% capacity during conjunction. Doppler shift of 15 GHz at optical wavelengths requires real-time compensation. (1.5 minutes)",
+    32: "Contact window prediction over the synodic period. (15 seconds)",
+    33: "Space radiation is relentless. SEUs flip bits constantly - about 37,000 during a Mars transit. Our defense-in-depth: TMR masks logic faults (3,334x reliability gain), SECDED ECC corrects single-bit errors, scrubbing prevents double-bit accumulation, and FDIR with a watchdog catches everything else. The RAD750 can tolerate 200 krad - far above what a Mars mission needs. (1.5 minutes)",
+    34: "Like an emergency room. P0 emergency gets sent immediately - it can even preempt an in-progress transfer. P1 mission-critical next. P2 routine science. P4 bulk data fills remaining bandwidth. Compression multiplies effective capacity: 3x for telemetry, 10x for images, 50x for video. Our scheduler keeps the link at 100% utilization by fragmenting large bundles. (1.5 minutes)",
+    35: "Walk through the 7-hop journey. 500MB from Perseverance to JPL. Total transit ~13 min vs 12.5 min light-time - near speed of light! DTN overhead under 5%. Key point: if link drops at hop 5, the bundle stays stored at hop 4 and retries. No data loss. RUN LIVE DEMO if time permits. (2 minutes)",
+    36: "End-to-end bundle journey through all protocol layers.",
+    37: "Visual data flow through the protocol stack.",
+    38: "Hit these numbers with confidence. 10-100x faster. >95% availability vs 60-75%. Quantum-secure. 241 nodes vs 5-10 assets. The conjunction improvement is thanks to Lagrange relays. All metrics are backed by our simulation engine. (1 minute)",
+    39: "Side-by-side performance comparison chart. (15 seconds)",
+    40: "Optical versus RF link capability radar chart. (15 seconds)",
+    41: "This is real, working code. 27 Python modules, 189 tests, 12 interactive demos. All the physics is real - no mocked data. The showcase site has live calculators you can use right now. Standards compliance is complete - CCSDS, IETF, and NIST. (1.5 minutes)",
+    42: "Bandwidth evolution over deep-space missions. (15 seconds)",
+    43: "Mission timeline deployment phases. (15 seconds)",
+    44: "Phases 1-4 are done - this is what you see today. Phase 5: ns-3 simulation for realistic network modeling. Phase 6: Upgrade to DQN and integrate with NASA's ION-DTN implementation. Phase 7: Hardware prototypes with SDRs and optical links. (1.5 minutes)",
+    45: "Summarize the problem and solution clearly. Re-read the exam topic verbatim. Point to the numbers. Offer to show live demos or answer questions. Thank the examiners. (1 minute)",
+    46: "Summarize the four key numbers: 10-100x faster, >95% availability, AI-powered routing, quantum-secure. Invite questions confidently. Make eye contact. Point to the live demo link. Thank the audience. (30 seconds)",
 }
 
 # ============================================================
-# SLIDES 1–8
+# SLIDES 1-46
 # ============================================================
 
 # --- SLIDE 1 — Introduction (Title Hero) ---
@@ -418,8 +452,24 @@ for k in range(4):
     add_textbox(slide, sx + Inches(0.15), stat_y + Inches(0.15), Inches(2.4), Inches(0.45), stat_labels[k], font_size=22, color=stat_colors[k], bold=True, alignment=PP_ALIGN.CENTER)
     add_textbox(slide, sx + Inches(0.15), stat_y + Inches(0.6), Inches(2.4), Inches(0.35), stat_sublabels[k], font_size=11, color=LIGHT_GRAY, alignment=PP_ALIGN.CENTER)
 
-# --- SLIDE 5 — The Answer ---
-print("Creating Slide 5: The Answer...")
+# --- SLIDE 5 — Chart: Distance Over Time ---
+print("Creating Slide 5: Chart — Distance Over Time...")
+add_chart_slide(
+    os.path.join(CHARTS_DIR, "distance_over_time.png"),
+    "DISTANCE OVER TIME", "Earth-Mars Distance Variation",
+    "Earth-Mars distance over the 780-day synodic period", ACCENT_RED,
+)
+
+# --- SLIDE 6 — Chart: Light Time Delay ---
+print("Creating Slide 6: Chart — Light Time Delay...")
+add_chart_slide(
+    os.path.join(CHARTS_DIR, "light_time_delay.png"),
+    "LIGHT TIME DELAY", "One-Way Signal Propagation Time",
+    "Signal delay ranges from 3 to 22 minutes depending on orbital position", ACCENT_ORANGE,
+)
+
+# --- SLIDE 7 — The Answer ---
+print("Creating Slide 7: The Answer...")
 slide = new_slide()
 add_slide_transition(slide, "wipe")
 add_textbox(slide, Inches(0.7), Inches(0.3), Inches(11.0), Inches(0.7), "THE ANSWER", font_size=36, color=WHITE, bold=True, alignment=PP_ALIGN.LEFT)
@@ -451,10 +501,10 @@ for idx, (label, color, desc) in enumerate(zip(flow_labels, flow_colors, flow_de
     add_entrance_animation(slide, card, delay_ms=150 * idx, anim_type="fade")
     if idx < len(flow_labels) - 1:
         arrow_x = cx + card_w + Inches(0.05)
-        add_textbox(slide, arrow_x, flow_y + Inches(0.5), arrow_w, Inches(0.5), "→", font_size=28, color=MED_GRAY, alignment=PP_ALIGN.CENTER)
+        add_textbox(slide, arrow_x, flow_y + Inches(0.5), arrow_w, Inches(0.5), "\u2192", font_size=28, color=MED_GRAY, alignment=PP_ALIGN.CENTER)
 
 stat_card_data = [
-    ("BPv7", "Bundle Protocol v7\nRFC 9171 — store &\nforward with custody", ACCENT_BLUE),
+    ("BPv7", "Bundle Protocol v7\nRFC 9171 \u2014 store &\nforward with custody", ACCENT_BLUE),
     ("AI Routing", "Multi-agent federated\nQ-learning adapts in\nreal time to contacts", ACCENT_PURPLE),
     ("QKD", "BB84 & E91 quantum\nkey distribution with\nrepeater chains", ACCENT_CYAN),
 ]
@@ -464,10 +514,10 @@ for idx, (title, desc, color) in enumerate(stat_card_data):
     add_stat_card(slide, sx, stat_y, Inches(3.6), Inches(1.4), title, desc, value_color=color)
 
 postal_card = add_card(slide, Inches(0.7), Inches(5.2), Inches(11.6), Inches(1.0), border=ACCENT_BLUE)
-add_textbox(slide, Inches(1.0), Inches(5.3), Inches(11.0), Inches(0.8), 'Think of it like the postal service: you don\'t need a continuous connection between sender and receiver — each post office (node) stores the letter (bundle) until the next truck (contact window) is available, then forwards it one hop closer to the destination.', font_size=12, color=LIGHT_GRAY, alignment=PP_ALIGN.CENTER)
+add_textbox(slide, Inches(1.0), Inches(5.3), Inches(11.0), Inches(0.8), 'Think of it like the postal service: you don\'t need a continuous connection between sender and receiver \u2014 each post office (node) stores the letter (bundle) until the next truck (contact window) is available, then forwards it one hop closer to the destination.', font_size=12, color=LIGHT_GRAY, alignment=PP_ALIGN.CENTER)
 
-# --- SLIDE 6 — System Architecture ---
-print("Creating Slide 6: System Architecture...")
+# --- SLIDE 8 — System Architecture ---
+print("Creating Slide 8: System Architecture...")
 slide = new_slide()
 add_slide_transition(slide, "cover")
 add_textbox(slide, Inches(0.7), Inches(0.3), Inches(11.0), Inches(0.7), "SYSTEM ARCHITECTURE", font_size=36, color=WHITE, bold=True, alignment=PP_ALIGN.LEFT)
@@ -501,8 +551,8 @@ table_rows = [
 _d4 = [table_headers] + table_rows
 add_table(slide, Inches(6.4), Inches(1.6), Inches(6.0), Inches(4.5), len(_d4), len(table_headers), _d4, header_color=ACCENT_BLUE)
 
-# --- SLIDE 7 — Architecture Diagram ---
-print("Creating Slide 7: Architecture Diagram...")
+# --- SLIDE 9 — Architecture Diagram ---
+print("Creating Slide 9: Architecture Diagram...")
 slide = new_slide()
 add_slide_transition(slide, "fade")
 add_textbox(slide, Inches(0.7), Inches(0.3), Inches(11.0), Inches(0.7), "ARCHITECTURE DIAGRAM", font_size=36, color=WHITE, bold=True, alignment=PP_ALIGN.LEFT)
@@ -512,8 +562,16 @@ add_footer(slide, 7)
 arch_img_path = os.path.join(DIAGRAMS_DIR, "system_architecture.png")
 add_image_safe(slide, arch_img_path, Inches(0.7), Inches(1.2), Inches(11.6), Inches(5.8))
 
-# --- SLIDE 8 — BPv7 Deep Dive ---
-print("Creating Slide 8: BPv7 Deep Dive...")
+# --- SLIDE 10 — Chart: Network Tier Distribution ---
+print("Creating Slide 10: Chart \u2014 Network Tier Distribution...")
+add_chart_slide(
+    os.path.join(CHARTS_DIR, "network_tier_distribution.png"),
+    "NETWORK TIER DISTRIBUTION", "241 Nodes Across 5 Tiers",
+    "Node count by network tier \u2014 Mars Surface is the most populated", ACCENT_BLUE,
+)
+
+# --- SLIDE 11 — BPv7 Deep Dive ---
+print("Creating Slide 11: BPv7 Deep Dive...")
 slide = new_slide()
 add_slide_transition(slide, "push")
 add_textbox(slide, Inches(0.7), Inches(0.3), Inches(11.0), Inches(0.7), "BPv7 DEEP DIVE", font_size=36, color=WHITE, bold=True, alignment=PP_ALIGN.LEFT)
@@ -533,7 +591,7 @@ for idx, (layer, desc, color) in enumerate(stack_layers):
     add_textbox(slide, Inches(0.9), ly + Inches(0.05), Inches(5.2), Inches(0.35), layer, font_size=14, color=color, bold=True)
     add_textbox(slide, Inches(0.9), ly + Inches(0.42), Inches(5.2), Inches(0.4), desc, font_size=10, color=LIGHT_GRAY)
     if idx < len(stack_layers) - 1:
-        add_textbox(slide, Inches(3.1), ly + Inches(0.85), Inches(1.0), Inches(0.25), "▼", font_size=14, color=MED_GRAY, alignment=PP_ALIGN.CENTER)
+        add_textbox(slide, Inches(3.1), ly + Inches(0.85), Inches(1.0), Inches(0.25), "\u25bc", font_size=14, color=MED_GRAY, alignment=PP_ALIGN.CENTER)
 
 prio_headers = ["Priority", "Class", "Use Case"]
 prio_rows = [
@@ -552,7 +610,7 @@ add_accent_line(slide, Inches(6.7), snf_title_y + Inches(0.32), Inches(2.0), ACC
 snf_steps = [
     "1. Bundle created at source with destination EID + TTL",
     "2. Node stores bundle in priority queue (buffer mgmt)",
-    "3. Contact window opens → best next-hop selected by RL",
+    "3. Contact window opens \u2192 best next-hop selected by RL",
     "4. Bundle transmitted via convergence layer (LTP/TCPCL)",
     "5. Custody transfer confirms; repeat until destination",
 ]
@@ -561,8 +619,17 @@ for j, step in enumerate(snf_steps):
 
 standards_y = Inches(6.2)
 standards_card = add_card(slide, Inches(0.7), standards_y, Inches(11.6), Inches(0.7), border=ACCENT_BLUE)
-add_textbox(slide, Inches(0.9), standards_y + Inches(0.1), Inches(11.2), Inches(0.5), "Standards: RFC 9171 (BPv7)  •  RFC 4838 (DTN Arch)  •  RFC 5326 (LTP)  •  CCSDS 734.2-B-1 (Bundle Protocol)  •  CCSDS 734.3-B-1 (SABR)", font_size=11, color=ACCENT_BLUE, alignment=PP_ALIGN.CENTER)
-# ── SLIDE 9 ── DTN Store-and-Forward ──────────────────────────────────────────
+add_textbox(slide, Inches(0.9), standards_y + Inches(0.1), Inches(11.2), Inches(0.5), "Standards: RFC 9171 (BPv7)  \u2022  RFC 4838 (DTN Arch)  \u2022  RFC 5326 (LTP)  \u2022  CCSDS 734.2-B-1 (Bundle Protocol)  \u2022  CCSDS 734.3-B-1 (SABR)", font_size=11, color=ACCENT_BLUE, alignment=PP_ALIGN.CENTER)
+
+# --- SLIDE 12 — Chart: Bundle Priority Classes ---
+print("Creating Slide 12: Chart \u2014 Bundle Priority Classes...")
+add_chart_slide(
+    os.path.join(CHARTS_DIR, "bundle_priority_classes.png"),
+    "BUNDLE PRIORITY CLASSES", "BPv7 QoS Tiers",
+    "Five priority levels from P0 Emergency to P4 Bulk ensure critical data arrives first", ACCENT_PURPLE,
+)
+
+# ── SLIDE 13 ── DTN Store-and-Forward ──────────────────────────────────────────
 slide = new_slide()
 set_slide_bg(slide, BG_DARK)
 add_slide_transition(slide, "fade")
@@ -592,14 +659,14 @@ tcp_bullets = [
 ]
 add_card(
     slide, Inches(0.4), Inches(1.6), Inches(4.4), Inches(2.8),
-    "TCP/IP in Space — Fails",
+    "TCP/IP in Space \u2014 Fails",
     tcp_bullets,
     border=ACCENT_RED,
 )
 
 dtn_bullets = [
     "Store-and-forward: custody transfer at each hop",
-    "Bundle Protocol v7 (RFC 9171) — no end-to-end session",
+    "Bundle Protocol v7 (RFC 9171) \u2014 no end-to-end session",
     "Opportunistic contacts exploited automatically",
     "Tolerates hours-to-days of link disruption",
 ]
@@ -612,7 +679,7 @@ add_card(
 
 ltp_bullets = [
     "Licklider Transmission Protocol",
-    "RFC 5326 — deep-space links",
+    "RFC 5326 \u2014 deep-space links",
     "Reliable segments + retransmission",
     "Handles long light-time delays",
 ]
@@ -625,7 +692,7 @@ add_card(
 
 tcpcl_bullets = [
     "TCP Convergence Layer",
-    "RFC 7242 — Earth segment",
+    "RFC 7242 \u2014 Earth segment",
     "Session management over TCP",
     "Reliable terrestrial backhaul",
 ]
@@ -651,7 +718,7 @@ add_card(
 
 add_footer(slide, 9)
 
-# ── SLIDE 10 ── Network Topology ──────────────────────────────────────────────
+# ── SLIDE 14 ── Network Topology ──────────────────────────────────────────────
 slide = new_slide()
 set_slide_bg(slide, BG_DARK)
 add_slide_transition(slide, "push")
@@ -705,7 +772,7 @@ for tier_name, node_count, desc, color in tiers:
     p_name.font.color.rgb = WHITE
 
     p_nodes = add_paragraph(tf)
-    p_nodes.text = f"{node_count} — {desc}"
+    p_nodes.text = f"{node_count} \u2014 {desc}"
     p_nodes.font.size = Pt(8)
     p_nodes.font.color.rgb = LIGHT_GRAY
 
@@ -723,14 +790,14 @@ ctf = callout_bg.text_frame
 ctf.word_wrap = True
 ctf.margin_left = Pt(12)
 cp = ctf.paragraphs[0]
-cp.text = "Multiple redundant paths · No single point of failure · Lagrange relays for conjunction coverage"
+cp.text = "Multiple redundant paths \u00b7 No single point of failure \u00b7 Lagrange relays for conjunction coverage"
 cp.font.size = Pt(11)
 cp.font.color.rgb = ACCENT_CYAN
 cp.alignment = PP_ALIGN.CENTER
 
 add_footer(slide, 10)
 
-# ── SLIDE 11 ── 5-Tier Network Diagram ────────────────────────────────────────
+# ── SLIDE 15 ── 5-Tier Network Diagram ────────────────────────────────────────
 slide = new_slide()
 set_slide_bg(slide, BG_DARK)
 add_slide_transition(slide, "wipe")
@@ -747,11 +814,11 @@ add_accent_line(slide, Inches(0.6), Inches(0.95), Inches(2.5))
 
 tier_headers = ["Tier", "Nodes", "Description"]
 tier_rows = [
-    ["T1 — Earth Ground", "6", "DSN stations (Goldstone, Madrid, Canberra)"],
-    ["T2 — Earth Orbital", "51", "3 GEO relays + 48 LEO laser satellites"],
-    ["T3 — Deep Space", "4", "ES-L4, ES-L5 Lagrange point relays"],
-    ["T4 — Mars Orbital", "4", "Areostationary relay + polar orbit relays"],
-    ["T5 — Mars Surface", "176", "Habitats, rovers, drones, sensor networks"],
+    ["T1 \u2014 Earth Ground", "6", "DSN stations (Goldstone, Madrid, Canberra)"],
+    ["T2 \u2014 Earth Orbital", "51", "3 GEO relays + 48 LEO laser satellites"],
+    ["T3 \u2014 Deep Space", "4", "ES-L4, ES-L5 Lagrange point relays"],
+    ["T4 \u2014 Mars Orbital", "4", "Areostationary relay + polar orbit relays"],
+    ["T5 \u2014 Mars Surface", "176", "Habitats, rovers, drones, sensor networks"],
 ]
 _d1 = [tier_headers] + tier_rows
 add_table(
@@ -761,9 +828,9 @@ add_table(
 
 link_headers = ["Segment", "Data Rate", "Technology"]
 link_rows = [
-    ["Earth ↔ Deep Space", "100 Mbps", "1550 nm optical laser"],
-    ["Deep Space ↔ Mars", "2–200 Mbps", "Optical (distance-dependent)"],
-    ["Mars Orbital ↔ Surface", "2 Mbps", "UHF S-band radio"],
+    ["Earth \u2194 Deep Space", "100 Mbps", "1550 nm optical laser"],
+    ["Deep Space \u2194 Mars", "2\u2013200 Mbps", "Optical (distance-dependent)"],
+    ["Mars Orbital \u2194 Surface", "2 Mbps", "UHF S-band radio"],
     ["LEO Inter-Satellite", "10 Gbps", "Laser ISL mesh"],
 ]
 _d2 = [link_headers] + link_rows
@@ -774,7 +841,7 @@ add_table(
 
 add_footer(slide, 11)
 
-# ── SLIDE 12 ── Network Diagram Visual ────────────────────────────────────────
+# ── SLIDE 16 ── Network Diagram Visual ────────────────────────────────────────
 slide = new_slide()
 set_slide_bg(slide, BG_DARK)
 add_slide_transition(slide, "cover")
@@ -796,7 +863,23 @@ add_image_safe(
 
 add_footer(slide, 12)
 
-# ── SLIDE 13 ── Optical Communications ────────────────────────────────────────
+# --- SLIDE 17 — Chart: DSN Coverage ---
+print("Creating Slide 17: Chart \u2014 DSN Coverage...")
+add_chart_slide(
+    os.path.join(CHARTS_DIR, "dsn_coverage.png"),
+    "DSN COVERAGE", "Deep Space Network Ground Stations",
+    "Goldstone, Madrid, and Canberra provide 24/7 coverage with 120\u00b0 spacing", ACCENT_BLUE,
+)
+
+# --- SLIDE 18 — Chart: Orbital Positions ---
+print("Creating Slide 18: Chart \u2014 Orbital Positions...")
+add_chart_slide(
+    os.path.join(CHARTS_DIR, "orbital_positions.png"),
+    "ORBITAL POSITIONS", "Key Relay Positions in the Network",
+    "Lagrange point relays at ES-L4 and ES-L5 maintain connectivity during conjunction", ACCENT_ORANGE,
+)
+
+# ── SLIDE 19 ── Optical Communications ────────────────────────────────────────
 slide = new_slide()
 set_slide_bg(slide, BG_DARK)
 add_slide_transition(slide, "fade")
@@ -811,21 +894,21 @@ p.alignment = PP_ALIGN.LEFT
 
 txBox2 = add_textbox(slide, Inches(0.6), Inches(0.9), Inches(9), Inches(0.4))
 p2 = txBox2.text_frame.paragraphs[0]
-p2.text = "10–100x Faster Than RF"
+p2.text = "10\u2013100x Faster Than RF"
 p2.font.size = Pt(16)
 p2.font.color.rgb = ACCENT_CYAN
 p2.alignment = PP_ALIGN.LEFT
 
 add_accent_line(slide, Inches(0.6), Inches(1.35), Inches(2.5))
 
-add_stat_card(slide, Inches(0.3), Inches(1.55), Inches(3.1), Inches(1.2), "100–200", "Mbps at closest approach", GREEN)
-add_stat_card(slide, Inches(3.55), Inches(1.55), Inches(3.1), Inches(1.2), "10–20", "Mbps average distance", ACCENT_BLUE)
-add_stat_card(slide, Inches(6.8), Inches(1.55), Inches(3.1), Inches(1.2), "2–5", "Mbps at farthest point", ACCENT_RED)
+add_stat_card(slide, Inches(0.3), Inches(1.55), Inches(3.1), Inches(1.2), "100\u2013200", "Mbps at closest approach", GREEN)
+add_stat_card(slide, Inches(3.55), Inches(1.55), Inches(3.1), Inches(1.2), "10\u201320", "Mbps average distance", ACCENT_BLUE)
+add_stat_card(slide, Inches(6.8), Inches(1.55), Inches(3.1), Inches(1.2), "2\u20135", "Mbps at farthest point", ACCENT_RED)
 
 eq_bullets = [
-    "FSPL = 20·log₁₀(4πd/λ)  — free-space path loss",
-    "Gain = 10·log₁₀(η·(πD/λ)²)  — antenna gain",
-    "Pr = Pt + Gt + Gr − FSPL  — received power",
+    "FSPL = 20\u00b7log\u2081\u2080(4\u03c0d/\u03bb)  \u2014 free-space path loss",
+    "Gain = 10\u00b7log\u2081\u2080(\u03b7\u00b7(\u03c0D/\u03bb)\u00b2)  \u2014 antenna gain",
+    "Pr = Pt + Gt + Gr \u2212 FSPL  \u2014 received power",
 ]
 add_card(
     slide, Inches(0.3), Inches(2.9), Inches(4.8), Inches(1.8),
@@ -847,14 +930,25 @@ add_table(
     header_color=ACCENT_BLUE,
 )
 
-add_image_safe(
-    slide, os.path.join(CHARTS_DIR, "link_budget_breakdown.png"),
-    Inches(0.4), Inches(4.9), Inches(9.2), Inches(2.3),
-)
-
 add_footer(slide, 13)
 
-# ── SLIDE 14 ── Earth-Mars Journey ────────────────────────────────────────────
+# --- SLIDE 20 — Chart: Data Rate vs Distance ---
+print("Creating Slide 20: Chart \u2014 Data Rate vs Distance...")
+add_chart_slide(
+    os.path.join(CHARTS_DIR, "data_rate_vs_distance.png"),
+    "DATA RATE VS DISTANCE", "Optical Link Performance",
+    "Data rate degrades with distance squared \u2014 200 Mbps at closest to 2 Mbps at farthest", ACCENT_BLUE,
+)
+
+# --- SLIDE 21 — Chart: Link Budget Breakdown ---
+print("Creating Slide 21: Chart \u2014 Link Budget Breakdown...")
+add_chart_slide(
+    os.path.join(CHARTS_DIR, "link_budget_breakdown.png"),
+    "LINK BUDGET BREAKDOWN", "Optical Link Analysis",
+    "Free-space path loss is the dominant factor \u2014 over 350 dB at average distance", ACCENT_CYAN,
+)
+
+# ── SLIDE 22 ── Earth-Mars Journey ────────────────────────────────────────────
 slide = new_slide()
 set_slide_bg(slide, BG_DARK)
 add_slide_transition(slide, "push")
@@ -878,12 +972,12 @@ add_accent_line(slide, Inches(0.6), Inches(1.35), Inches(2.5))
 
 hop_headers = ["Hop", "Path", "Link"]
 hop_rows = [
-    ["1", "Rover → UHF Relay", "UHF S-band"],
-    ["2", "UHF Relay → Areostationary", "UHF uplink"],
-    ["3", "Areostationary → Polar Orbiter", "Crosslink"],
-    ["4–5", "Polar Orbiter → LEO Constellation", "1550 nm laser"],
-    ["6", "LEO Mesh → DSN Ground Station", "Optical downlink"],
-    ["7", "DSN → Mission Operations Center", "TCP/IP fiber"],
+    ["1", "Rover \u2192 UHF Relay", "UHF S-band"],
+    ["2", "UHF Relay \u2192 Areostationary", "UHF uplink"],
+    ["3", "Areostationary \u2192 Polar Orbiter", "Crosslink"],
+    ["4\u20135", "Polar Orbiter \u2192 LEO Constellation", "1550 nm laser"],
+    ["6", "LEO Mesh \u2192 DSN Ground Station", "Optical downlink"],
+    ["7", "DSN \u2192 Mission Operations Center", "TCP/IP fiber"],
 ]
 _d4 = [hop_headers] + hop_rows
 add_table(
@@ -896,14 +990,25 @@ add_stat_card(slide, Inches(2.65), Inches(4.4), Inches(2.35), Inches(1.1), "<5%"
 add_stat_card(slide, Inches(5.1), Inches(4.4), Inches(2.35), Inches(1.1), "98.7%", "Delivery ratio", ACCENT_PURPLE)
 add_stat_card(slide, Inches(7.55), Inches(4.4), Inches(2.35), Inches(1.1), "7 hops", "Store-and-forward", ACCENT_ORANGE)
 
-add_image_safe(
-    slide, os.path.join(CHARTS_DIR, "data_rate_vs_distance.png"),
-    Inches(0.4), Inches(5.65), Inches(9.2), Inches(1.65),
-)
-
 add_footer(slide, 14)
 
-# ── SLIDE 15 ── RL Routing ────────────────────────────────────────────────────
+# --- SLIDE 23 — Chart: Latency Comparison ---
+print("Creating Slide 23: Chart \u2014 Latency Comparison...")
+add_chart_slide(
+    os.path.join(CHARTS_DIR, "latency_comparison.png"),
+    "LATENCY COMPARISON", "Protocol Performance",
+    "DTN overhead adds less than 5% to the pure light-time delay", ACCENT_BLUE,
+)
+
+# --- SLIDE 24 — Chart: Data Volume ---
+print("Creating Slide 24: Chart \u2014 Data Volume...")
+add_chart_slide(
+    os.path.join(CHARTS_DIR, "data_volume.png"),
+    "DATA VOLUME ANALYSIS", "Daily Throughput Comparison",
+    "AETHERIX delivers 10\u201320x more data per day than current systems", GREEN,
+)
+
+# ── SLIDE 25 ── RL Routing ────────────────────────────────────────────────────
 slide = new_slide()
 set_slide_bg(slide, BG_DARK)
 add_slide_transition(slide, "wipe")
@@ -928,9 +1033,9 @@ add_accent_line(slide, Inches(0.6), Inches(1.35), Inches(2.5))
 cgr_bullets = [
     "Pre-computed contact plans required",
     "Cannot adapt to unexpected link failures",
-    "Computational cost grows O(n³) per route",
+    "Computational cost grows O(n\u00b3) per route",
     "No learning from historical performance",
-    "Single-path — ignores multipath opportunity",
+    "Single-path \u2014 ignores multipath opportunity",
 ]
 add_card(
     slide, Inches(0.3), Inches(1.55), Inches(4.6), Inches(2.5),
@@ -942,8 +1047,8 @@ add_card(
 rl_bullets = [
     "State: (node, neighbors, link quality, buffer)",
     "Actions: forward | store | drop | split",
-    "Reward: R = α(delivery) − β(delay) − γ(hops) − δ(drops) − ε(energy)",
-    "ε-greedy exploration with decay",
+    "Reward: R = \u03b1(delivery) \u2212 \u03b2(delay) \u2212 \u03b3(hops) \u2212 \u03b4(drops) \u2212 \u03b5(energy)",
+    "\u03b5-greedy exploration with decay",
     "Q-table + federated aggregation across nodes",
 ]
 add_card(
@@ -953,18 +1058,29 @@ add_card(
     border=ACCENT_CYAN,
 )
 
-add_stat_card(slide, Inches(0.3), Inches(4.25), Inches(3.1), Inches(1.1), "+20–40%", "Faster delivery vs CGR", GREEN)
-add_stat_card(slide, Inches(3.55), Inches(4.25), Inches(3.1), Inches(1.1), "3600×", "Recovery speed", ACCENT_BLUE)
+add_stat_card(slide, Inches(0.3), Inches(4.25), Inches(3.1), Inches(1.1), "+20\u201340%", "Faster delivery vs CGR", GREEN)
+add_stat_card(slide, Inches(3.55), Inches(4.25), Inches(3.1), Inches(1.1), "3600\u00d7", "Recovery speed", ACCENT_BLUE)
 add_stat_card(slide, Inches(6.8), Inches(4.25), Inches(3.1), Inches(1.1), "Federated", "Multi-agent learning", ACCENT_PURPLE)
-
-add_image_safe(
-    slide, os.path.join(CHARTS_DIR, "rl_routing_heatmap.png"),
-    Inches(0.4), Inches(5.55), Inches(9.2), Inches(1.8),
-)
 
 add_footer(slide, 15)
 
-# ── SLIDE 16 ── Quantum Security ──────────────────────────────────────────────
+# --- SLIDE 26 — Chart: RL Routing Heatmap ---
+print("Creating Slide 26: Chart \u2014 RL Routing Heatmap...")
+add_chart_slide(
+    os.path.join(CHARTS_DIR, "rl_routing_heatmap.png"),
+    "RL ROUTING HEATMAP", "Q-Value Distribution",
+    "Learned routing preferences across network nodes \u2014 brighter = higher Q-value", ACCENT_CYAN,
+)
+
+# --- SLIDE 27 — Chart: Energy Efficiency ---
+print("Creating Slide 27: Chart \u2014 Energy Efficiency...")
+add_chart_slide(
+    os.path.join(CHARTS_DIR, "energy_efficiency.png"),
+    "ENERGY EFFICIENCY", "RL Agent Power Optimization",
+    "The reward function penalizes energy waste, optimizing for mission lifetime", ACCENT_PURPLE,
+)
+
+# ── SLIDE 28 ── Quantum Security ──────────────────────────────────────────────
 slide = new_slide()
 set_slide_bg(slide, BG_DARK)
 add_slide_transition(slide, "cover")
@@ -989,10 +1105,10 @@ add_accent_line(slide, Inches(0.6), Inches(1.35), Inches(2.5))
 bb84_bullets = [
     "1. Alice sends random polarized photons (H/V, D/A bases)",
     "2. Bob measures each photon in a random basis",
-    "3. Public reconciliation — keep matching-basis bits",
-    "4. Error estimation — sample subset for QBER",
-    "5. Privacy amplification — universal hashing",
-    "6. QBER < 11% → SECURE key established",
+    "3. Public reconciliation \u2014 keep matching-basis bits",
+    "4. Error estimation \u2014 sample subset for QBER",
+    "5. Privacy amplification \u2014 universal hashing",
+    "6. QBER < 11% \u2192 SECURE key established",
 ]
 add_card(
     slide, Inches(0.3), Inches(1.55), Inches(4.8), Inches(2.5),
@@ -1002,9 +1118,9 @@ add_card(
 )
 
 pqc_bullets = [
-    "Kyber (ML-KEM) — key encapsulation",
-    "Dilithium (ML-DSA) — digital signatures",
-    "NIST PQC standard — quantum-resistant",
+    "Kyber (ML-KEM) \u2014 key encapsulation",
+    "Dilithium (ML-DSA) \u2014 digital signatures",
+    "NIST PQC standard \u2014 quantum-resistant",
     "Hybrid classical-quantum key exchange",
 ]
 add_card(
@@ -1016,9 +1132,9 @@ add_card(
 
 deploy_headers = ["Phase", "Protocol", "Key Rate"]
 deploy_rows = [
-    ["Phase 1 — LEO", "BB84", "1–10 kbps"],
-    ["Phase 2 — GEO", "BB84 + E91", "10–100 kbps"],
-    ["Phase 3 — Mars", "E91 + Repeaters", "1+ kbps"],
+    ["Phase 1 \u2014 LEO", "BB84", "1\u201310 kbps"],
+    ["Phase 2 \u2014 GEO", "BB84 + E91", "10\u2013100 kbps"],
+    ["Phase 3 \u2014 Mars", "E91 + Repeaters", "1+ kbps"],
 ]
 _d5 = [deploy_headers] + deploy_rows
 add_table(
@@ -1026,14 +1142,25 @@ add_table(
     header_color=ACCENT_PURPLE,
 )
 
-add_image_safe(
-    slide, os.path.join(CHARTS_DIR, "qkd_security.png"),
-    Inches(0.4), Inches(5.9), Inches(9.2), Inches(1.5),
-)
-
 add_footer(slide, 16)
 
-# ── SLIDE 17 ── Orbital Mechanics ─────────────────────────────────────────────
+# --- SLIDE 29 — Chart: QKD Security ---
+print("Creating Slide 29: Chart \u2014 QKD Security...")
+add_chart_slide(
+    os.path.join(CHARTS_DIR, "qkd_security.png"),
+    "QKD SECURITY ANALYSIS", "Quantum Bit Error Rate",
+    "QBER below 11% confirms secure key exchange \u2014 no eavesdropper detected", ACCENT_PURPLE,
+)
+
+# --- SLIDE 30 — Chart: QKD Key Rate ---
+print("Creating Slide 30: Chart \u2014 QKD Key Rate...")
+add_chart_slide(
+    os.path.join(CHARTS_DIR, "qkd_key_rate.png"),
+    "QKD KEY GENERATION RATE", "Secure Key Rate vs Distance",
+    "Key rate decreases with channel loss \u2014 repeater chains extend operational range", ACCENT_CYAN,
+)
+
+# ── SLIDE 31 ── Orbital Mechanics ─────────────────────────────────────────────
 slide = new_slide()
 set_slide_bg(slide, BG_DARK)
 add_slide_transition(slide, "fade")
@@ -1059,9 +1186,9 @@ mars_headers = ["Parameter", "Value"]
 mars_rows = [
     ["Semi-major axis", "1.524 AU"],
     ["Synodic period", "779.94 days"],
-    ["Distance range", "54.6M – 401M km"],
+    ["Distance range", "54.6M \u2013 401M km"],
     ["Areostationary altitude", "17,032 km"],
-    ["One-way light time", "3 – 22 minutes"],
+    ["One-way light time", "3 \u2013 22 minutes"],
 ]
 _d6 = [mars_headers] + mars_rows
 add_table(
@@ -1071,10 +1198,10 @@ add_table(
 
 window_headers = ["Window", "Availability", "Duration", "Data Rate"]
 window_rows = [
-    ["Optimal", "99%", "8–12 hrs", "100–200 Mbps"],
-    ["Good", "95%", "6–8 hrs", "20–100 Mbps"],
-    ["Fair", "85%", "4–6 hrs", "5–20 Mbps"],
-    ["Blackout", "0%", "2–4 weeks", "—"],
+    ["Optimal", "99%", "8\u201312 hrs", "100\u2013200 Mbps"],
+    ["Good", "95%", "6\u20138 hrs", "20\u2013100 Mbps"],
+    ["Fair", "85%", "4\u20136 hrs", "5\u201320 Mbps"],
+    ["Blackout", "0%", "2\u20134 weeks", "\u2014"],
 ]
 _d7 = [window_headers] + window_rows
 add_table(
@@ -1082,14 +1209,17 @@ add_table(
     header_color=ACCENT_BLUE,
 )
 
-add_image_safe(
-    slide, os.path.join(CHARTS_DIR, "distance_over_time.png"),
-    Inches(0.4), Inches(4.1), Inches(9.2), Inches(3.3),
-)
-
 add_footer(slide, 17)
 
-# ── SLIDE 18 ── Radiation-Hardened Computing ──────────────────────────────────
+# --- SLIDE 32 — Chart: Contact Windows ---
+print("Creating Slide 32: Chart \u2014 Contact Windows...")
+add_chart_slide(
+    os.path.join(CHARTS_DIR, "contact_windows.png"),
+    "CONTACT WINDOWS", "Communication Opportunity Prediction",
+    "Contact windows vary from 4 to 12 hours depending on orbital geometry", ACCENT_ORANGE,
+)
+
+# ── SLIDE 33 ── Radiation-Hardened Computing ──────────────────────────────────
 slide = new_slide()
 set_slide_bg(slide, BG_DARK)
 add_slide_transition(slide, "fade")
@@ -1120,10 +1250,10 @@ mitig_card = add_card(
     slide, Inches(7.0), Inches(1.6), Inches(6.0), Inches(2.4),
     title="Defense-in-Depth Stack",
     body_lines=[
-        "• TMR — triple replicas, majority vote (masks logic faults)",
-        "• SECDED (39,32) ECC — correct 1 bit, detect 2",
-        "• Scrubbing — rewrite memory before a 2nd upset accumulates",
-        "• FDIR + watchdog — detect → isolate → reset → SAFE-MODE",
+        "\u2022 TMR \u2014 triple replicas, majority vote (masks logic faults)",
+        "\u2022 SECDED (39,32) ECC \u2014 correct 1 bit, detect 2",
+        "\u2022 Scrubbing \u2014 rewrite memory before a 2nd upset accumulates",
+        "\u2022 FDIR + watchdog \u2014 detect \u2192 isolate \u2192 reset \u2192 SAFE-MODE",
     ],
     title_color=ACCENT_RED,
 )
@@ -1141,11 +1271,11 @@ note = add_textbox(slide, Inches(0.6), Inches(5.85), Inches(12.2), Inches(0.9))
 pn = note.text_frame.paragraphs[0]
 pn.text = ("Model: 512 Mbit, ~210-day GCR cruise. ~37,000 raw bit upsets reduced to "
            "~186 uncorrectable over the mission. Heritage: NASA RAD750 (Curiosity/"
-           "Perseverance), ESA LEON3FT.  →  src/computing/radiation.py")
+           "Perseverance), ESA LEON3FT.  \u2192  src/computing/radiation.py")
 pn.font.size, pn.font.color.rgb = Pt(11), MED_GRAY
 add_footer(slide)
 
-# ── SLIDE 19 ── Mission-Critical Data Prioritization ──────────────────────────
+# ── SLIDE 34 ── Mission-Critical Data Prioritization ──────────────────────────
 slide = new_slide()
 set_slide_bg(slide, BG_DARK)
 add_slide_transition(slide, "push")
@@ -1194,12 +1324,12 @@ note = add_textbox(slide, Inches(0.6), Inches(5.85), Inches(12.2), Inches(0.9))
 pn = note.text_frame.paragraphs[0]
 pn.text = ("Scenario: 30 Mbps, 15-min contact, oversubscribed. Deadline-aware, "
            "preemptive QoS scheduler delivers emergency + mission + science first; "
-           "6 GB software update fragmented to the next pass.  →  "
+           "6 GB software update fragmented to the next pass.  \u2192  "
            "src/routing/prioritization.py")
 pn.font.size, pn.font.color.rgb = Pt(11), MED_GRAY
 add_footer(slide)
 
-# ── SLIDE 20 — End-to-End Mission ──────────────────────────────────────────────
+# ── SLIDE 35 ── End-to-End Mission ────────────────────────────────────────────
 
 slide = new_slide()
 set_slide_bg(slide, BG_DARK)
@@ -1278,7 +1408,7 @@ p_fail_body.font.size, p_fail_body.font.color.rgb = Pt(11), WHITE
 
 add_footer(slide, 18)
 
-# ── SLIDE 19 — Data Flow Diagram (Text) ────────────────────────────────────────
+# ── SLIDE 36 ── Data Flow Diagram (Text) ────────────────────────────────────────
 
 slide = new_slide()
 set_slide_bg(slide, BG_DARK)
@@ -1341,7 +1471,7 @@ for step_title, step_desc in right_steps:
 
 add_footer(slide, 19)
 
-# ── SLIDE 20 — Data Flow Visual ────────────────────────────────────────────────
+# ── SLIDE 37 ── Data Flow Visual ────────────────────────────────────────────────
 
 slide = new_slide()
 set_slide_bg(slide, BG_DARK)
@@ -1360,7 +1490,7 @@ add_image_safe(
 
 add_footer(slide, 20)
 
-# ── SLIDE 21 — Performance ─────────────────────────────────────────────────────
+# ── SLIDE 38 ── Performance ────────────────────────────────────────────────────
 
 slide = new_slide()
 set_slide_bg(slide, BG_DARK)
@@ -1392,20 +1522,25 @@ add_table(
     header_color=GREEN,
 )
 
-chart1 = os.path.join(CHARTS_DIR, "performance_comparison.png")
-add_image_safe(
-    slide, chart1,
-    Inches(0.3), Inches(4.8), Inches(4.7), Inches(2.0),
-)
-chart2 = os.path.join(CHARTS_DIR, "optical_vs_rf_radar.png")
-add_image_safe(
-    slide, chart2,
-    Inches(5.1), Inches(4.8), Inches(4.7), Inches(2.0),
-)
-
 add_footer(slide, 21)
 
-# ── SLIDE 22 — Implementation ──────────────────────────────────────────────────
+# --- SLIDE 39 — Chart: Performance Comparison ---
+print("Creating Slide 39: Chart \u2014 Performance Comparison...")
+add_chart_slide(
+    os.path.join(CHARTS_DIR, "performance_comparison.png"),
+    "PERFORMANCE COMPARISON", "AETHERIX vs Current Systems",
+    "AETHERIX achieves 10-100x improvement across all key metrics", GREEN,
+)
+
+# --- SLIDE 40 — Chart: Optical vs RF Radar ---
+print("Creating Slide 40: Chart \u2014 Optical vs RF Radar...")
+add_chart_slide(
+    os.path.join(CHARTS_DIR, "optical_vs_rf_radar.png"),
+    "OPTICAL vs RF", "Link Technology Comparison",
+    "Optical links provide dramatically higher data rates, especially at shorter ranges", ACCENT_BLUE,
+)
+
+# ── SLIDE 41 ── Implementation ──────────────────────────────────────────────────
 
 slide = new_slide()
 set_slide_bg(slide, BG_DARK)
@@ -1472,7 +1607,23 @@ std_tbl = add_table(
 
 add_footer(slide, 22)
 
-# ── SLIDE 23 — Roadmap ────────────────────────────────────────────────────────
+# --- SLIDE 42 — Chart: Bandwidth Evolution ---
+print("Creating Slide 42: Chart \u2014 Bandwidth Evolution...")
+add_chart_slide(
+    os.path.join(CHARTS_DIR, "bandwidth_evolution.png"),
+    "BANDWIDTH EVOLUTION", "Deep-Space Communications Timeline",
+    "Optical communications represent the next leap in deep-space data rates", ACCENT_CYAN,
+)
+
+# --- SLIDE 43 — Chart: Mission Timeline ---
+print("Creating Slide 43: Chart \u2014 Mission Timeline...")
+add_chart_slide(
+    os.path.join(CHARTS_DIR, "mission_timeline.png"),
+    "MISSION TIMELINE", "Deployment Roadmap",
+    "Phases 1-4 are complete \u2014 Phase 5 targets ns-3 integration", GREEN,
+)
+
+# ── SLIDE 44 ── Roadmap ────────────────────────────────────────────────────────
 
 slide = new_slide()
 set_slide_bg(slide, BG_DARK)
@@ -1516,15 +1667,9 @@ for idx, (title, desc, color) in enumerate(phases):
     p_ph2.text = desc
     p_ph2.font.size, p_ph2.font.color.rgb = Pt(9), LIGHT_GRAY
 
-chart_23 = os.path.join(CHARTS_DIR, "mission_timeline.png")
-add_image_safe(
-    slide, chart_23,
-    Inches(5.3), Inches(1.55), Inches(4.4), Inches(2.7),
-)
-
 add_footer(slide, 23)
 
-# ── SLIDE 24 — Conclusion ──────────────────────────────────────────────────────
+# ── SLIDE 45 ── Conclusion ──────────────────────────────────────────────────────
 
 slide = new_slide()
 set_slide_bg(slide, BG_DARK)
@@ -1586,7 +1731,7 @@ for idx, (val, label, color) in enumerate(conc_stats):
 
 add_footer(slide, 24)
 
-# ── SLIDE 25 — Thank You ──────────────────────────────────────────────────────
+# ── SLIDE 46 ── Thank You ──────────────────────────────────────────────────────
 
 slide = new_slide()
 set_slide_bg(slide, BG_DARK)

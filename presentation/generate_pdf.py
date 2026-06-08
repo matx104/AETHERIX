@@ -60,7 +60,7 @@ def draw_bottom_bar(c, color=ACCENT_BLUE):
     c.rect(0, 0, PAGE_W, 6, fill=1, stroke=0)
 
 
-TOTAL_SLIDES = 27
+TOTAL_SLIDES = 47
 # Auto-incrementing page counter (title page is page 1 and carries no footer);
 # inserting pages never requires renumbering the call sites.
 _footer_counter = [1]
@@ -153,32 +153,32 @@ def draw_table(c, data, x, y, col_widths, header_color=ACCENT_BLUE):
 
 _SPEAKER_NOTES = {
     1: "State your name clearly. Read the topic number and title exactly as on the exam paper. Pause to let examiners see it. Point to the logo. This is your first impression. (30 seconds)",
-    2: "Quick overview of what we will cover. 13 topics across 29 slides. About 20 minutes. (20 seconds)",
+    2: "Quick overview of what we will cover. 13 topics across 47 slides. About 20 minutes. (20 seconds)",
     3: "This slide sets up the narrative arc. First explain what AETHERIX is in plain language - it's like the postal service for interplanetary space. Then pivot to the problem: TCP/IP was never designed for space. 22-minute delays break every assumption. Solar conjunction blackouts. Static routing. Vulnerable crypto. Each problem maps to one of our solutions. (1.5 minutes)",
     4: "Start with the scale. 54.6M to 401M km. Light itself takes 3-22 minutes one way. TCP/IP was designed for sub-second round trips. In space, by the time a packet acknowledgment returns, the link may be gone. Solar conjunction causes 2-week blackout. This is why NASA calls it Delay-Tolerant Networking. (1.5 minutes)",
-    5: "The key insight: instead of requiring an end-to-end connection like TCP, DTN works like the postal service. Each node takes custody of your data and forwards it when a link becomes available. Three pillars: BPv7 for the protocol, RL for intelligent routing, QKD for security. (1.5 minutes)",
-    6: "Show the architecture. Six core modules feed into the simulation engine, which feeds the web showcase. Standards compliance at the bottom. Point to each module as you explain. (1 minute)",
-    7: "Architecture diagram showing source modules feeding simulation engine and web demos.",
-    8: "BPv7 is the postal service protocol. Walk through the stack: Application at top, BPv7 as the store-and-forward layer, three convergence layers for different link types, physical at bottom. Custody transfer is the key innovation - each node takes legal responsibility. Priority P0 (emergency) to P4 (bulk). (2 minutes)",
-    9: "Walk through the store-and-forward process. Bundle arrives, gets stored, node waits for next contact opportunity, then forwards. If link drops, bundle stays stored and retries. No data loss. This is fundamentally different from TCP's end-to-end retransmission. (1.5 minutes)",
-    10: "241 nodes across 5 tiers. Walk through each tier. Earth Ground is the DSN - three stations around the globe for 24/7 coverage. Earth Orbital has LEO laser mesh for optical backhaul. Deep Space has Lagrange point relays - these are the critical innovation for conjunction coverage. Mars Orbital has areostationary relays at 17,032 km. Mars Surface is the most populated tier. (2 minutes)",
-    11: "Visual overview of the 5-tier topology with 3 redundant paths.",
-    12: "Network topology visualization.",
-    13: "RUN THE LIVE DEMO from the Link Budget page. Show the 3 distance scenarios. 1550nm was chosen for telecom heritage and eye safety. FSPL at average distance is -365 dB. The telescope apertures are realistic for spacecraft. RF backup for reliability. (2 minutes)",
-    14: "Interactive journey visualization.",
-    15: "CGR is what NASA uses today. It's static - you have to pre-compute schedules. Our RL agent learns from experience. 8 state variables, 4 actions. The reward function balances delivery probability against delay, hops, drops, and energy. Multi-agent federated learning means agents at each node share knowledge. (2 minutes)",
-    16: "BB84 is beautifully simple: send qubits, measure, compare bases, check QBER. If QBER is below 11%, no one listened in. CASCADE reconciliation and privacy amplification clean the key. E91 uses entanglement. Quantum repeaters at Lagrange points extend range. Post-quantum crypto as backup layer. (2 minutes)",
-    17: "Mars and Earth dance around the Sun with a 26-month synodic period. Everything changes - distance, delay, bandwidth. At opposition we get great bandwidth. At conjunction, the Sun blocks everything. Our Lagrange relays at ES-L4 and ES-L5 maintain 50-70% capacity during conjunction. Doppler shift of 15 GHz at optical wavelengths requires real-time compensation. (1.5 minutes)",
-    18: "Space radiation is relentless. SEUs flip bits constantly - about 37,000 during a Mars transit. Our defense-in-depth: TMR masks logic faults (3,334x reliability gain), SECDED ECC corrects single-bit errors, scrubbing prevents double-bit accumulation, and FDIR with a watchdog catches everything else. The RAD750 can tolerate 200 krad - far above what a Mars mission needs. (1.5 minutes)",
-    19: "Like an emergency room. P0 emergency gets sent immediately - it can even preempt an in-progress transfer. P1 mission-critical next. P2 routine science. P4 bulk data fills remaining bandwidth. Compression multiplies effective capacity: 3x for telemetry, 10x for images, 50x for video. Our scheduler keeps the link at 100% utilization by fragmenting large bundles. (1.5 minutes)",
-    20: "Walk through the 7-hop journey. 500MB from Perseverance to JPL. Total transit ~13 min vs 12.5 min light-time - near speed of light! DTN overhead under 5%. Key point: if link drops at hop 5, the bundle stays stored at hop 4 and retries. No data loss. RUN LIVE DEMO if time permits. (2 minutes)",
-    21: "End-to-end bundle journey through all protocol layers.",
-    22: "Visual data flow through the protocol stack.",
-    23: "Hit these numbers with confidence. 10-100x faster. >95% availability vs 60-75%. Quantum-secure. 241 nodes vs 5-10 assets. The conjunction improvement is thanks to Lagrange relays. All metrics are backed by our simulation engine. (1 minute)",
-    24: "This is real, working code. 27 Python modules, 189 tests, 12 interactive demos. All the physics is real - no mocked data. The showcase site has live calculators you can use right now. Standards compliance is complete - CCSDS, IETF, and NIST. (1.5 minutes)",
-    25: "Phases 1-4 are done - this is what you see today. Phase 5: ns-3 simulation for realistic network modeling. Phase 6: Upgrade to DQN and integrate with NASA's ION-DTN implementation. Phase 7: Hardware prototypes with SDRs and optical links. (1.5 minutes)",
-    26: "Summarize the problem and solution clearly. Re-read the exam topic verbatim. Point to the numbers. Offer to show live demos or answer questions. Thank the examiners. (1 minute)",
-    27: "Summarize the four key numbers: 10-100x faster, >95% availability, AI-powered routing, quantum-secure. Invite questions confidently. Make eye contact. Point to the live demo link. Thank the audience. (30 seconds)",
+    7: "The key insight: instead of requiring an end-to-end connection like TCP, DTN works like the postal service. Each node takes custody of your data and forwards it when a link becomes available. Three pillars: BPv7 for the protocol, RL for intelligent routing, QKD for security. (1.5 minutes)",
+    8: "Show the architecture. Six core modules feed into the simulation engine, which feeds the web showcase. Standards compliance at the bottom. Point to each module as you explain. (1 minute)",
+    9: "Architecture diagram showing source modules feeding simulation engine and web demos.",
+    11: "BPv7 is the postal service protocol. Walk through the stack: Application at top, BPv7 as the store-and-forward layer, three convergence layers for different link types, physical at bottom. Custody transfer is the key innovation - each node takes legal responsibility. Priority P0 (emergency) to P4 (bulk). (2 minutes)",
+    12: "Walk through the store-and-forward process. Bundle arrives, gets stored, node waits for next contact opportunity, then forwards. If link drops, bundle stays stored and retries. No data loss. This is fundamentally different from TCP's end-to-end retransmission. (1.5 minutes)",
+    14: "241 nodes across 5 tiers. Walk through each tier. Earth Ground is the DSN - three stations around the globe for 24/7 coverage. Earth Orbital has LEO laser mesh for optical backhaul. Deep Space has Lagrange point relays - these are the critical innovation for conjunction coverage. Mars Orbital has areostationary relays at 17,032 km. Mars Surface is the most populated tier. (2 minutes)",
+    15: "Visual overview of the 5-tier topology with 3 redundant paths.",
+    16: "Network topology visualization.",
+    17: "RUN THE LIVE DEMO from the Link Budget page. Show the 3 distance scenarios. 1550nm was chosen for telecom heritage and eye safety. FSPL at average distance is -365 dB. The telescope apertures are realistic for spacecraft. RF backup for reliability. (2 minutes)",
+    20: "Interactive journey visualization.",
+    23: "CGR is what NASA uses today. It's static - you have to pre-compute schedules. Our RL agent learns from experience. 8 state variables, 4 actions. The reward function balances delivery probability against delay, hops, drops, and energy. Multi-agent federated learning means agents at each node share knowledge. (2 minutes)",
+    26: "BB84 is beautifully simple: send qubits, measure, compare bases, check QBER. If QBER is below 11%, no one listened in. CASCADE reconciliation and privacy amplification clean the key. E91 uses entanglement. Quantum repeaters at Lagrange points extend range. Post-quantum crypto as backup layer. (2 minutes)",
+    29: "Mars and Earth dance around the Sun with a 26-month synodic period. Everything changes - distance, delay, bandwidth. At opposition we get great bandwidth. At conjunction, the Sun blocks everything. Our Lagrange relays at ES-L4 and ES-L5 maintain 50-70% capacity during conjunction. Doppler shift of 15 GHz at optical wavelengths requires real-time compensation. (1.5 minutes)",
+    33: "Space radiation is relentless. SEUs flip bits constantly - about 37,000 during a Mars transit. Our defense-in-depth: TMR masks logic faults (3,334x reliability gain), SECDED ECC corrects single-bit errors, scrubbing prevents double-bit accumulation, and FDIR with a watchdog catches everything else. The RAD750 can tolerate 200 krad - far above what a Mars mission needs. (1.5 minutes)",
+    34: "Like an emergency room. P0 emergency gets sent immediately - it can even preempt an in-progress transfer. P1 mission-critical next. P2 routine science. P4 bulk data fills remaining bandwidth. Compression multiplies effective capacity: 3x for telemetry, 10x for images, 50x for video. Our scheduler keeps the link at 100% utilization by fragmenting large bundles. (1.5 minutes)",
+    35: "Walk through the 7-hop journey. 500MB from Perseverance to JPL. Total transit ~13 min vs 12.5 min light-time - near speed of light! DTN overhead under 5%. Key point: if link drops at hop 5, the bundle stays stored at hop 4 and retries. No data loss. RUN LIVE DEMO if time permits. (2 minutes)",
+    36: "End-to-end bundle journey through all protocol layers.",
+    37: "Visual data flow through the protocol stack.",
+    38: "Hit these numbers with confidence. 10-100x faster. >95% availability vs 60-75%. Quantum-secure. 241 nodes vs 5-10 assets. The conjunction improvement is thanks to Lagrange relays. All metrics are backed by our simulation engine. (1 minute)",
+    41: "This is real, working code. 27 Python modules, 189 tests, 12 interactive demos. All the physics is real - no mocked data. The showcase site has live calculators you can use right now. Standards compliance is complete - CCSDS, IETF, and NIST. (1.5 minutes)",
+    42: "Phases 1-4 are done - this is what you see today. Phase 5: ns-3 simulation for realistic network modeling. Phase 6: Upgrade to DQN and integrate with NASA's ION-DTN implementation. Phase 7: Hardware prototypes with SDRs and optical links. (1.5 minutes)",
+    45: "Summarize the problem and solution clearly. Re-read the exam topic verbatim. Point to the numbers. Offer to show live demos or answer questions. Thank the examiners. (1 minute)",
+    46: "Summarize the four key numbers: 10-100x faster, >95% availability, AI-powered routing, quantum-secure. Invite questions confidently. Make eye contact. Point to the live demo link. Thank the audience. (30 seconds)",
 }
 
 
@@ -215,6 +215,22 @@ def _draw_speaker_notes(c, text):
     for i, ln in enumerate(lines[:ml]):
         c.drawString(30, y - lh * i, ln)
     c.restoreState()
+
+
+def draw_chart_page(c, chart_file, title, subtitle, caption, accent_color=ACCENT_BLUE, notes=None):
+    draw_bg(c)
+    draw_text(c, title, 40, PAGE_H - 50, size=22, color=WHITE, bold=True)
+    if subtitle:
+        draw_text(c, subtitle, 40, PAGE_H - 75, size=13, color=accent_color)
+    draw_accent_line(c, 40, PAGE_H - 85, 180, accent_color)
+    img_path = os.path.join(CHARTS_DIR, chart_file)
+    draw_image_safe(c, img_path, 100, 100, w=PAGE_W - 200, h=PAGE_H - 220)
+    if caption:
+        draw_text(c, caption, 40, 70, size=9, color=MED_GRAY)
+    if notes:
+        _SPEAKER_NOTES[_footer_counter[0] + 1] = notes
+    draw_footer(c)
+    c.showPage()
 
 
 # ================================================================
@@ -359,10 +375,16 @@ draw_text(c, '"At aphelion, a single ping-pong takes 44 minutes.', 475, PAGE_H -
 draw_text(c, 'No TCP session can survive that. We need an entirely', 475, PAGE_H - 412, size=11, color=ACCENT_ORANGE)
 draw_text(c, 'different networking paradigm."', 475, PAGE_H - 429, size=11, color=ACCENT_ORANGE)
 
-draw_image_safe(c, os.path.join(CHARTS_DIR, "distance_over_time.png"), 460, 60, w=400)
-
 draw_footer(c, 4)
 c.showPage()
+
+print("Creating Chart Page: Distance Over Time...")
+draw_chart_page(c, "distance_over_time.png", "EARTH-MARS DISTANCE OVER TIME", "780-Day Synodic Period", "Distance varies 7\u00d7 from 54.6M to 401M km \u00b7 Solar conjunction causes ~14-day blackout every 26 months", ACCENT_ORANGE,
+    "The distance chart shows the fundamental challenge: a 7x variation over the synodic period. At opposition, 55 million km. At conjunction, over 400 million km with the Sun blocking direct communication.")
+
+print("Creating Chart Page: Light-Time Delay...")
+draw_chart_page(c, "light_time_delay.png", "ONE-WAY LIGHT-TIME DELAY", "3\u201322 Minutes Depending on Distance", "Light-time delay drives every protocol design decision in AETHERIX", ACCENT_ORANGE,
+    "Light-time delay ranges from 3 minutes at closest approach to 22 minutes at maximum distance. TCP/IP expects sub-second round trips — this is why we need DTN.")
 
 
 # ================================================================
@@ -514,10 +536,12 @@ pri_data = [
 ]
 draw_table(c, pri_data, 40, PAGE_H - 420, [60, 80, 80, 120], ACCENT_BLUE)
 
-draw_image_safe(c, os.path.join(CHARTS_DIR, "bundle_priority_classes.png"), 40, 40, w=400)
-
 draw_footer(c, 8)
 c.showPage()
+
+print("Creating Chart Page: Bundle Priority Classes...")
+draw_chart_page(c, "bundle_priority_classes.png", "BUNDLE PRIORITY CLASSES", "Bandwidth Allocation Across Priority Levels", "P0 Emergency through P4 Bulk \u00b7 Deadline-aware scheduling \u00b7 Preemption for critical traffic", ACCENT_BLUE,
+    "Priority class distribution showing how bandwidth is allocated. Emergency traffic preempts everything. The deadline-aware scheduler ensures no bandwidth is wasted.")
 
 
 # ================================================================
@@ -602,10 +626,12 @@ draw_text(c, "DESIGN PHILOSOPHY", 55, PAGE_H - 385, size=12, color=ACCENT_CYAN, 
 draw_text(c, "Multiple redundant paths at every tier ensure no single point of failure. Lagrange point relays provide coverage", 55, PAGE_H - 402, size=10, color=LIGHT_GRAY)
 draw_text(c, "during solar conjunction blackouts. Quantum repeaters co-located at L4/L5 enable end-to-end key distribution.", 55, PAGE_H - 418, size=10, color=LIGHT_GRAY)
 
-draw_image_safe(c, os.path.join(CHARTS_DIR, "network_tier_distribution.png"), 40, 50, w=400)
-
 draw_footer(c, 10)
 c.showPage()
+
+print("Creating Chart Page: Network Tier Distribution...")
+draw_chart_page(c, "network_tier_distribution.png", "NODE DISTRIBUTION ACROSS 5 TIERS", "241 Nodes Total", "Mars Surface (167) is the largest tier \u00b7 Deep Space (4) provides critical Lagrange relay coverage", GREEN,
+    "The tier distribution shows where the 241 nodes sit. Mars Surface dominates with 167 nodes. The 4 deep space nodes at Lagrange points are few but critical for conjunction survival.")
 
 
 # ================================================================
@@ -698,12 +724,16 @@ config_data = [
 ]
 draw_table(c, config_data, 40, PAGE_H - 310, [100, 100, 140], ACCENT_ORANGE)
 
-draw_image_safe(c, os.path.join(CHARTS_DIR, "link_budget_breakdown.png"), 500, PAGE_H - 350, w=380)
-
-draw_image_safe(c, os.path.join(CHARTS_DIR, "data_rate_vs_distance.png"), 40, 40, w=400)
-
 draw_footer(c, 13)
 c.showPage()
+
+print("Creating Chart Page: Data Rate vs Distance...")
+draw_chart_page(c, "data_rate_vs_distance.png", "DATA RATE VS DISTANCE", "1550 nm Optical Link Performance", "200 Mbps at closest approach to 2 Mbps at maximum distance \u00b7 10\u2013100\u00d7 improvement over RF", ACCENT_ORANGE,
+    "Data rate degrades from 200 Mbps at closest approach to 2 Mbps at maximum distance — but even minimum is competitive with current RF systems.")
+
+print("Creating Chart Page: Link Budget Breakdown...")
+draw_chart_page(c, "link_budget_breakdown.png", "OPTICAL LINK BUDGET BREAKDOWN", "Where the Decibels Go", "FSPL dominates at \u2212280 to \u2212310 dB \u00b7 Optical aperture gain recovers >100 dB", ACCENT_ORANGE,
+    "Link budget breakdown showing where the decibels go — free-space path loss is the dominant factor, compensated by high-gain optical apertures.")
 
 
 # ================================================================
@@ -743,6 +773,14 @@ draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "earth_mars_journey.png"), 40, 50,
 
 draw_footer(c, 14)
 c.showPage()
+
+print("Creating Chart Page: Latency Comparison...")
+draw_chart_page(c, "latency_comparison.png", "LATENCY: TCP vs DTN vs AETHERIX", "Protocol Overhead Comparison", "DTN adds <5% overhead beyond physical light-time \u00b7 TCP fails catastrophically at interplanetary distances", ACCENT_BLUE,
+    "Latency comparison showing TCP failing catastrophically, while DTN adds under 5% overhead beyond the physical light-time limit.")
+
+print("Creating Chart Page: Data Volume...")
+draw_chart_page(c, "data_volume.png", "DAILY DATA VOLUME COMPARISON", "AETHERIX vs Current Systems", "10\u201320\u00d7 daily data volume improvement over current Mars missions", GREEN,
+    "AETHERIX delivers 10 to 20 times more data per day than current Mars missions.")
 
 
 # ================================================================
@@ -790,11 +828,16 @@ for i, (val, title, desc, col) in enumerate(result_cards):
     draw_text(c, title, x + 15, PAGE_H - 308, size=12, color=WHITE, bold=True)
     draw_text(c, desc, x + 15, PAGE_H - 325, size=9, color=MED_GRAY)
 
-draw_image_safe(c, os.path.join(CHARTS_DIR, "rl_routing_heatmap.png"), 40, 40, w=400)
-draw_image_safe(c, os.path.join(CHARTS_DIR, "energy_efficiency.png"), 460, 40, w=400)
-
 draw_footer(c, 15)
 c.showPage()
+
+print("Creating Chart Page: RL Routing Heatmap...")
+draw_chart_page(c, "rl_routing_heatmap.png", "RL ROUTING Q-VALUE HEATMAP", "Convergence of Optimal Routing Decisions", "Warm colors = high-value actions \u00b7 Cool colors = poor choices the agent avoids", ACCENT_CYAN,
+    "The Q-value heatmap shows how the RL agent converges on optimal routing decisions. Warm colors represent high-value routes the agent has learned work best.")
+
+print("Creating Chart Page: Energy Efficiency...")
+draw_chart_page(c, "energy_efficiency.png", "ENERGY EFFICIENCY PER BIT", "Optical vs RF Energy Consumption", "Optical links use significantly less energy per bit than RF", GREEN,
+    "Energy efficiency comparison showing optical links use significantly less energy per transmitted bit than RF alternatives.")
 
 
 # ================================================================
@@ -834,11 +877,16 @@ draw_text(c, "Kyber (ML-KEM) \u2014 Key encapsulation", 495, PAGE_H - 238, size=
 draw_text(c, "Dilithium (ML-DSA) \u2014 Digital signatures", 495, PAGE_H - 255, size=10, color=LIGHT_GRAY)
 draw_text(c, "Hybrid: QKD + PQC for defense in depth", 495, PAGE_H - 272, size=9, color=MED_GRAY)
 
-draw_image_safe(c, os.path.join(CHARTS_DIR, "qkd_security.png"), 40, 40, w=400)
-draw_image_safe(c, os.path.join(CHARTS_DIR, "qkd_key_rate.png"), 460, 40, w=400)
-
 draw_footer(c, 16)
 c.showPage()
+
+print("Creating Chart Page: QKD Security...")
+draw_chart_page(c, "qkd_security.png", "QKD SECURITY ANALYSIS", "QBER vs Eavesdropper Detection", "QBER < 11% threshold ensures security \u00b7 Any eavesdropping attempt is detected", ACCENT_PURPLE,
+    "QBER analysis showing the security threshold. Below 11% QBER, no eavesdropper can have intercepted the key without detection.")
+
+print("Creating Chart Page: QKD Key Rate...")
+draw_chart_page(c, "qkd_key_rate.png", "KEY GENERATION RATE VS DISTANCE", "Quantum Key Distribution Performance", "Key rates decrease with distance \u00b7 Quantum repeaters extend practical range", ACCENT_PURPLE,
+    "Key generation rates decrease with distance, which is why we deploy quantum repeaters at Lagrange points to extend range.")
 
 
 # ================================================================
@@ -871,11 +919,20 @@ windows_data = [
 ]
 draw_table(c, windows_data, 340, PAGE_H - 100, [130, 80, 80, 120], ACCENT_ORANGE)
 
-draw_image_safe(c, os.path.join(CHARTS_DIR, "distance_over_time.png"), 40, 40, w=400)
-draw_image_safe(c, os.path.join(CHARTS_DIR, "contact_windows.png"), 460, 40, w=400)
-
 draw_footer(c, 17)
 c.showPage()
+
+print("Creating Chart Page: DSN Coverage...")
+draw_chart_page(c, "dsn_coverage.png", "DEEP SPACE NETWORK COVERAGE", "24/7 Global Antenna Coverage", "Goldstone, Madrid, Canberra \u00b7 120\u00b0 spacing for continuous coverage", ACCENT_BLUE,
+    "DSN coverage showing three stations spaced 120 degrees apart for continuous coverage of any deep space asset.")
+
+print("Creating Chart Page: Orbital Positions...")
+draw_chart_page(c, "orbital_positions.png", "ORBITAL POSITIONS OVER SYNODIC PERIOD", "Earth and Mars Relative Motion", "Orbital positions determine link quality windows and contact scheduling", ACCENT_BLUE,
+    "Orbital positions over the synodic period showing how Earth and Mars move relative to each other.")
+
+print("Creating Chart Page: Contact Windows...")
+draw_chart_page(c, "contact_windows.png", "CONTACT WINDOW AVAILABILITY", "Communication Windows Over Synodic Period", "8\u201312 hrs/day at opposition \u00b7 Solar conjunction blackout \u00b7 Lagrange relays provide backup", ACCENT_BLUE,
+    "Contact window availability over the full synodic period. Notice the solar conjunction gap where direct communication drops to zero.")
 
 
 # ================================================================
@@ -1091,11 +1148,16 @@ comp_data = [
 ]
 draw_table(c, comp_data, 40, PAGE_H - 100, [100, 100, 120, 110], GREEN)
 
-draw_image_safe(c, os.path.join(CHARTS_DIR, "performance_comparison.png"), 40, 40, w=400)
-draw_image_safe(c, os.path.join(CHARTS_DIR, "optical_vs_rf_radar.png"), 460, 40, w=400)
-
 draw_footer(c, 21)
 c.showPage()
+
+print("Creating Chart Page: Performance Comparison...")
+draw_chart_page(c, "performance_comparison.png", "AETHERIX vs CURRENT SYSTEMS", "Head-to-Head Performance Metrics", "10\u2013100\u00d7 improvement across all metrics", GREEN,
+    "Head-to-head comparison showing AETHERIX outperforming current systems across every metric.")
+
+print("Creating Chart Page: Optical vs RF Radar...")
+draw_chart_page(c, "optical_vs_rf_radar.png", "OPTICAL vs RF CAPABILITY RADAR", "Why Hybrid Optical/RF Wins", "Optical dominates bandwidth \u00b7 RF provides reliability in adverse conditions", GREEN,
+    "Radar chart showing why we chose optical as primary with RF backup — optical dominates bandwidth and efficiency, while RF provides reliability.")
 
 
 # ================================================================
@@ -1184,10 +1246,16 @@ future_data = [
 ]
 draw_table(c, future_data, 480, PAGE_H - 100, [50, 100, 130, 70], ACCENT_ORANGE)
 
-draw_image_safe(c, os.path.join(CHARTS_DIR, "mission_timeline.png"), 40, 40, w=820)
-
 draw_footer(c, 23)
 c.showPage()
+
+print("Creating Chart Page: Bandwidth Evolution...")
+draw_chart_page(c, "bandwidth_evolution.png", "BANDWIDTH EVOLUTION", "Past, Present, AETHERIX", "From Mariner 8.3 bps to AETHERIX 200 Mbps \u00b7 30 million times improvement", ACCENT_CYAN,
+    "Bandwidth evolution from Mariner at 8.3 bps to MRO at 6 Mbps to AETHERIX targeting 200 Mbps — a 30 million times improvement.")
+
+print("Creating Chart Page: Mission Timeline...")
+draw_chart_page(c, "mission_timeline.png", "MISSION TIMELINE & MILESTONES", "Development Roadmap", "Phases 1\u20134 complete \u00b7 Phases 5\u20137 planned for production deployment", ACCENT_CYAN,
+    "Mission timeline showing development milestones from proof-of-concept to production deployment.")
 
 
 # ================================================================
