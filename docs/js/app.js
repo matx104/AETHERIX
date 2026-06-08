@@ -1637,26 +1637,34 @@ window.App = (() => {
       this.startTimer();
     },
 
-     _chartSlide(title, tag, tagColor, imgSrc, caption, challenge, purpose, impact, legendChips) {
+      _chartSlide(title, tag, tagColor, imgSrc, caption, challenge, purpose, impact, legendChips) {
       var tagClass = 'accent';
       if (tagColor === '#ff6b35' || tagColor === '#d29922') tagClass = 'mars';
       else if (tagColor === '#c84cff' || tagColor === '#7c5cf7') tagClass = 'quantum';
       else if (tagColor === '#3fb950') tagClass = 'success';
       else if (tagColor === '#f85149') tagClass = 'warning';
-      var chipsHtml = '';
-      if (legendChips && legendChips.length) {
-        chipsHtml = '<div class="legend-chips" style="margin-top:4px">';
+      var isDiagram = legendChips && legendChips.length;
+      var html = '<h2 style="margin-bottom:8px"><span class="pres-tag ' + tagClass + '">' + tag + '</span> ' + title + '</h2>';
+      if (isDiagram) {
+        html += '<img src="' + imgSrc + '" alt="' + title + '" style="width:100%;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1)">';
+        html += '<div style="display:flex;align-items:center;gap:12px;margin-top:6px;flex-wrap:wrap">';
+        html += '<div class="legend-chips">';
         for (var i = 0; i < legendChips.length; i++) {
-          chipsHtml += '<span class="legend-chip"><span class="chip-dot" style="background:' + legendChips[i][0] + '"></span>' + legendChips[i][1] + '</span>';
+          html += '<span class="legend-chip"><span class="chip-dot" style="background:' + legendChips[i][0] + '"></span>' + legendChips[i][1] + '</span>';
         }
-        chipsHtml += '</div>';
-      }
-      var html = '<h2><span class="pres-tag ' + tagClass + '">' + tag + '</span> ' + title + '</h2>' +
-        '<div style="display:flex;gap:20px;align-items:flex-start">' +
+        html += '</div>';
+        html += '<div style="font-size:0.75rem;color:var(--text-muted);flex:1;min-width:200px">' + caption + '</div>';
+        html += '</div>';
+        html += '<div style="display:flex;gap:10px;margin-top:8px">';
+        html += '<div class="chart-card challenge" style="flex:1"><div class="chart-card-label">Challenge</div><div class="chart-card-text" style="font-size:0.72rem">' + challenge + '</div></div>';
+        html += '<div class="chart-card purpose" style="flex:1"><div class="chart-card-label">Purpose</div><div class="chart-card-text" style="font-size:0.72rem">' + purpose + '</div></div>';
+        html += '<div class="chart-card impact" style="flex:1"><div class="chart-card-label">Impact</div><div class="chart-card-text" style="font-size:0.72rem">' + impact + '</div></div>';
+        html += '</div>';
+      } else {
+        html += '<div style="display:flex;gap:20px;align-items:flex-start">' +
           '<div style="flex:0 0 65%;min-width:0">' +
             '<img src="' + imgSrc + '" alt="' + title + '" style="width:100%;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1)">' +
             '<div style="font-size:0.78rem;color:var(--text-muted);margin-top:6px">' + caption + '</div>' +
-            chipsHtml +
           '</div>' +
           '<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:8px">' +
             '<div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">' + challenge + '</div></div>' +
@@ -1664,6 +1672,7 @@ window.App = (() => {
             '<div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">' + impact + '</div></div>' +
           '</div>' +
         '</div>';
+      }
       return html;
     },
 

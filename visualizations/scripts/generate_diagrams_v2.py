@@ -961,10 +961,10 @@ def main():
         cairosvg.svg2png(
             bytestring=svg_content.encode('utf-8'),
             write_to=png_path,
-            output_width=svg_w * 2,
-            output_height=svg_h * 2,
+            output_width=svg_w * 3,
+            output_height=svg_h * 3,
         )
-        print(f'    PNG: {png_path} ({svg_w * 2}x{svg_h * 2})')
+        print(f'    PNG: {png_path} ({svg_w * 3}x{svg_h * 3})')
 
     print(f'\nDone! {len(DIAGRAMS)} diagrams generated in {OUTPUT_DIR}')
 
