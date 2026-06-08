@@ -5434,6 +5434,7 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>System Architecture</strong> — Five core modules feeding the simulation engine and web showcase.<span class="gallery-ref">How It Works</span></div>
+            <div class="legend-chips"><span class="legend-chip"><span class="chip-dot" style="background:#00d4ff"></span>Infrastructure</span><span class="legend-chip"><span class="chip-dot" style="background:#7c5cf7"></span>Routing</span><span class="legend-chip"><span class="chip-dot" style="background:#c84cff"></span>Security/QKD</span><span class="legend-chip"><span class="chip-dot" style="background:#ff6b35"></span>Orbital</span><span class="legend-chip"><span class="chip-dot" style="background:#3fb950"></span>Showcase</span></div>
             <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">AETHERIX has 27 Python modules across 6 packages — the data flow must be clear.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Shows how source modules feed into the simulation engine and web showcase.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Each module is independently testable — 189 automated tests validate correctness.</div></div>
@@ -5445,6 +5446,7 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>5-Tier Network Diagram</strong> — 241 nodes from Earth ground to Mars surface.<span class="gallery-ref">The Network</span></div>
+            <div class="legend-chips"><span class="legend-chip"><span class="chip-dot" style="background:#00d4ff"></span>Earth Ground</span><span class="legend-chip"><span class="chip-dot" style="background:#42a5f5"></span>Earth Orbital</span><span class="legend-chip"><span class="chip-dot" style="background:#7c5cf7"></span>Deep Space</span><span class="legend-chip"><span class="chip-dot" style="background:#ff6b35"></span>Mars Orbital</span><span class="legend-chip"><span class="chip-dot" style="background:#d29922"></span>Mars Surface</span></div>
             <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Spanning two planets requires a network architecture with no single point of failure.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Visualizes the complete 5-tier topology with 241 nodes and redundant paths.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Three independent paths ensure Earth-Mars communication survives any single link failure.</div></div>
@@ -5456,6 +5458,7 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>DTN Store-and-Forward Flow</strong> — Bundle lifecycle from creation through custody transfer to delivery.<span class="gallery-ref">What is DTN?</span></div>
+            <div class="legend-chips"><span class="legend-chip"><span class="chip-dot" style="background:#3fb950"></span>Source/Dest</span><span class="legend-chip"><span class="chip-dot" style="background:#00d4ff"></span>Active Forward</span><span class="legend-chip"><span class="chip-dot" style="background:#d29922"></span>Store &amp; Wait</span><span class="legend-chip"><span class="chip-dot" style="background:#f85149"></span>TCP/IP Failure</span><span class="legend-chip"><span class="chip-dot" style="background:#ff6b35"></span>Convergence</span></div>
             <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">TCP/IP requires live end-to-end connections — impossible with 22-minute delays.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Illustrates the store-and-forward process with custody transfer at each hop.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Zero data loss — bundles survive any single link failure and retry automatically.</div></div>
@@ -5467,6 +5470,7 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>Earth-Mars Data Journey</strong> — 7-hop path from Perseverance to JPL Mission Control.<span class="gallery-ref">Journey to Mars</span></div>
+            <div class="legend-chips"><span class="legend-chip"><span class="chip-dot" style="background:#ff6b35"></span>Mars Surface/UHF</span><span class="legend-chip"><span class="chip-dot" style="background:#7c5cf7"></span>Deep Space Relay</span><span class="legend-chip"><span class="chip-dot" style="background:#00d4ff"></span>Earth/Optical</span><span class="legend-chip"><span class="chip-dot" style="background:#3fb950"></span>Delivery</span><span class="legend-chip"><span class="chip-dot" style="background:#c84cff"></span>QKD</span></div>
             <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Data must traverse 7 hops across 225 million km of space to reach Earth.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Maps the complete hop-by-hop route from Perseverance rover to JPL Mission Control.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Total transit ~13 min vs 12.5 min light-time — near speed of light with <5% overhead.</div></div>
@@ -5478,6 +5482,7 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>End-to-End Data Flow</strong> — Application-to-delivery path through all protocol layers.<span class="gallery-ref">How It Works</span></div>
+            <div class="legend-chips"><span class="legend-chip"><span class="chip-dot" style="background:#00d4ff"></span>Application</span><span class="legend-chip"><span class="chip-dot" style="background:#7c5cf7"></span>RL/BPv7</span><span class="legend-chip"><span class="chip-dot" style="background:#c84cff"></span>QKD</span><span class="legend-chip"><span class="chip-dot" style="background:#ff6b35"></span>LTP</span><span class="legend-chip"><span class="chip-dot" style="background:#d29922"></span>Storage</span><span class="legend-chip"><span class="chip-dot" style="background:#3fb950"></span>Delivery</span></div>
             <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Data must pass through multiple protocol layers while maintaining integrity and security.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Traces the end-to-end data path from application through BPv7, RL routing, QKD, and LTP.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Proves the protocol stack is complete and every layer contributes to reliable delivery.</div></div>
@@ -5489,6 +5494,7 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>Protocol Stack</strong> — BPv7, convergence layers (LTP, TCPCL, UDPCL), and physical layer.<span class="gallery-ref">How It Works</span></div>
+            <div class="legend-chips"><span class="legend-chip"><span class="chip-dot" style="background:#00d4ff"></span>Application</span><span class="legend-chip"><span class="chip-dot" style="background:#7c5cf7"></span>Bundle Protocol</span><span class="legend-chip"><span class="chip-dot" style="background:#ff6b35"></span>Convergence</span><span class="legend-chip"><span class="chip-dot" style="background:#c84cff"></span>Security/QKD</span><span class="legend-chip"><span class="chip-dot" style="background:#d29922"></span>Physical</span></div>
             <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">BPv7 must work across radically different link types — deep space, Earth ground, and inter-satellite.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Shows the full protocol stack with three convergence layers for different link types.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Standards-compliant implementation: RFC 9171, RFC 5326, RFC 7242, CCSDS 734.2-B-1.</div></div>
@@ -5500,6 +5506,7 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>Network Topology Graph</strong> — Redundant paths with BFS pathfinding.<span class="gallery-ref">The Network</span></div>
+            <div class="legend-chips"><span class="legend-chip"><span class="chip-dot" style="background:#00d4ff"></span>Earth</span><span class="legend-chip"><span class="chip-dot" style="background:#7c5cf7"></span>Deep Space</span><span class="legend-chip"><span class="chip-dot" style="background:#ff6b35"></span>Mars Orbital</span><span class="legend-chip"><span class="chip-dot" style="background:#d29922"></span>Mars Surface</span><span class="legend-chip"><span class="chip-dot" style="background:#3fb950"></span>BFS/RL Path</span></div>
             <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Routing across 241 nodes with varying link quality requires a graph-based approach.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Visualizes the network topology as a graph with BFS pathfinding for route computation.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Enables the RL agent to understand network structure and optimize routing decisions.</div></div>

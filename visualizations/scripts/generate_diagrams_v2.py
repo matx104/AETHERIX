@@ -222,15 +222,6 @@ def generate_system_architecture():
     s += f'<rect x="{50 + half_w}" y="{std_y}" width="{half_w}" height="28" rx="4" fill="{PURPLE}" fill-opacity="0.04" stroke="{PURPLE}" stroke-opacity="0.15"/>\n'
     s += f'<text x="{50 + half_w + half_w // 2}" y="{std_y + 18}" text-anchor="middle" fill="{DGRAY}" font-size="10" {FONT}>RFC 9171 &#183; RFC 5326 &#183; RFC 7242 &#183; NIST FIPS 203/204</text>\n'
 
-    s += legend_box(w - 200, h - 180, 180, 168, [
-        (CYAN, 'Infrastructure'),
-        (PURPLE, 'Routing / Logic'),
-        (MAGENTA, 'Security / QKD'),
-        (ORANGE, 'Orbital / Simulation'),
-        (GREEN, 'Web Showcase'),
-        (DGRAY, 'Standards'),
-    ])
-
     s += svg_footer()
     return s, w, h
 
@@ -328,15 +319,6 @@ def generate_5tier_network():
     mid_x_5t = w // 2
     s += f'<rect x="100" y="{h - 85}" width="{w - 200}" height="36" rx="6" fill="{CYAN}" fill-opacity="0.06" stroke="{CYAN}" stroke-opacity="0.2"/>\n'
     s += f'<text x="{mid_x_5t}" y="{h - 62}" text-anchor="middle" fill="{CYAN}" font-size="12" font-weight="700" {FONT}>241 Nodes &#183; 5 Tiers &#183; 3 Redundant Paths &#183; No Single Point of Failure</text>\n'
-
-    s += legend_box(w - 210, h - 220, 190, 125, [
-        (CYAN, 'Earth Ground/Orbital'),
-        (PURPLE, 'Deep Space Transit'),
-        (ORANGE, 'Mars Orbital'),
-        (GOLD, 'Mars Surface'),
-        (GREEN, 'Redundant Path B'),
-        (DGRAY, 'Link / Standard'),
-    ])
 
     s += svg_footer()
     return s, w, h
@@ -444,15 +426,6 @@ def generate_dtn_store_and_forward():
         s += f'<text x="{cx}" y="{cl_y + 34}" fill="{GRAY}" font-size="10" font-weight="600" {FONT}>{title}</text>\n'
         s += f'<text x="{cx}" y="{cl_y + 34}" text-anchor="middle" fill="{GRAY}" font-size="10" {FONT} dx="40">{desc}</text>\n'
 
-    s += legend_box(w - 220, cl_y - 160, 200, 148, [
-        (GREEN, 'Source / Destination'),
-        (CYAN, 'Active forwarding'),
-        (GOLD, 'Store &amp; waiting'),
-        (RED, 'TCP/IP failure'),
-        (ORANGE, 'Convergence layers'),
-        (DGRAY, 'Standards reference'),
-    ])
-
     s += svg_footer()
     return s, w, h
 
@@ -553,15 +526,6 @@ def generate_earth_mars_journey():
     info_y = summary_y + 60
     s += f'<rect x="40" y="{info_y}" width="{w - 80}" height="34" rx="6" fill="{RED}" fill-opacity="0.05" stroke="{RED}" stroke-opacity="0.15"/>\n'
     s += f'<text x="{w // 2}" y="{info_y + 22}" text-anchor="middle" fill="{RED}" font-size="11" font-weight="600" {FONT}>&#x26A1; If any link drops mid-transfer, the bundle is stored safely &#8212; zero data loss guaranteed</text>\n'
-
-    s += legend_box(w - 220, 155, 200, 148, [
-        (ORANGE, 'Mars surface/orbit'),
-        (PURPLE, 'Deep space transit'),
-        (CYAN, 'Earth orbital'),
-        (GREEN, 'Delivery confirmed'),
-        (MAGENTA, 'QKD encryption'),
-        (DGRAY, 'Link distance'),
-    ])
 
     s += svg_footer()
     return s, w, h
@@ -680,17 +644,6 @@ def generate_data_flow():
         if i < len(flow_steps) - 1:
             s += f'<line x1="{fx + step_w}" y1="{flow_y + 16}" x2="{fx + step_w + step_gap}" y2="{flow_y + 16}" stroke="{DGRAY}" stroke-width="1" marker-end="url(#arrGray)"/>\n'
 
-    s += legend_box(30, h - 185, 220, 170, [
-        (CYAN, 'Application / Identity'),
-        (PURPLE, 'RL Routing / BPv7'),
-        (MAGENTA, 'QKD Encryption'),
-        (ORANGE, 'Convergence / LTP'),
-        (GOLD, 'Storage / Waiting'),
-        (GREEN, 'Delivery / Success'),
-        (RED, 'Error / Retry'),
-        (DGRAY, 'Data flow arrows'),
-    ])
-
     s += svg_footer()
     return s, w, h
 
@@ -800,31 +753,6 @@ def generate_protocol_stack():
             arrow_y2 = arrow_y1 + layer_gap
             s += f'<line x1="{arrow_x - 30}" y1="{arrow_y1}" x2="{arrow_x - 30}" y2="{arrow_y2}" stroke="{DGRAY}" stroke-width="1.5" marker-end="url(#arrGray)"/>\n'
             s += f'<line x1="{arrow_x + 30}" y1="{arrow_y2}" x2="{arrow_x + 30}" y2="{arrow_y1}" stroke="{DGRAY}" stroke-width="1.5" marker-end="url(#arrGray)"/>\n'
-
-    legend_x = stack_x + stack_w + 30
-    legend_y = start_y
-    s += legend_box(legend_x, legend_y, 180, 190, [
-        (CYAN, 'Application'),
-        (PURPLE, 'Bundle Protocol'),
-        (ORANGE, 'Convergence'),
-        (MAGENTA, 'Security / QKD'),
-        (GOLD, 'Physical'),
-    ], 'PROTOCOL LAYERS')
-
-    s += f'<rect x="{legend_x}" y="{legend_y + 205}" width="180" height="140" rx="6" fill="rgba(13,17,23,0.92)" stroke="{DGRAY}" stroke-opacity="0.4"/>\n'
-    s += f'<text x="{legend_x + 10}" y="{legend_y + 222}" fill="{GRAY}" font-size="11" font-weight="700" {FONT}>KEY CONCEPTS</text>\n'
-    notes = [
-        ('&#x2191;&#x2193;', 'Bidirectional data'),
-        ('BPv7', 'Interoperable DTN'),
-        ('LTP', 'Reliable deep space'),
-        ('QKD', 'Quantum-secure keys'),
-        ('P0-P4', 'Priority classes'),
-    ]
-    ny = legend_y + 240
-    for symbol, desc in notes:
-        s += f'<text x="{legend_x + 10}" y="{ny}" fill="{CYAN}" font-size="10" {FONT}>{symbol}</text>\n'
-        s += f'<text x="{legend_x + 50}" y="{ny}" fill="{GRAY}" font-size="10" {FONT}>{desc}</text>\n'
-        ny += 18
 
     s += svg_footer()
     return s, w, h
@@ -994,15 +922,6 @@ def generate_network_topology():
 
     s += f'<rect x="30" y="{h - 70}" width="{w - 60}" height="34" rx="6" fill="{CYAN}" fill-opacity="0.06" stroke="{CYAN}" stroke-opacity="0.2"/>\n'
     s += f'<text x="{w // 2}" y="{h - 48}" text-anchor="middle" fill="{CYAN}" font-size="12" font-weight="600" {FONT}>241 Nodes &#183; 5 Tiers &#183; RL-Optimized Routing &#183; BFS Baseline + Q-Learning Enhancement</text>\n'
-
-    s += legend_box(30, h - 200, 200, 120, [
-        (CYAN, 'Earth nodes'),
-        (PURPLE, 'Deep space nodes'),
-        (ORANGE, 'Mars orbital'),
-        (GOLD, 'Mars surface'),
-        (GREEN, 'BFS/RL optimal path'),
-        (DGRAY, 'Standard links'),
-    ])
 
     s += svg_footer()
     return s, w, h

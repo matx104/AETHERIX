@@ -152,17 +152,4 @@
 <line x1="1075" y1="524" x2="1075" y2="558" stroke="#5a6578" stroke-width="1" stroke-dasharray="3,3"/>
 <rect x="100" y="665" width="1000" height="36" rx="6" fill="#00d4ff" fill-opacity="0.06" stroke="#00d4ff" stroke-opacity="0.2"/>
 <text x="600" y="688" text-anchor="middle" fill="#00d4ff" font-size="12" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">241 Nodes &#183; 5 Tiers &#183; 3 Redundant Paths &#183; No Single Point of Failure</text>
-<rect x="990" y="530" width="190" height="125" rx="6" fill="rgba(13,17,23,0.92)" stroke="#5a6578" stroke-opacity="0.4"/>
-<text x="1000" y="546" fill="#8892a4" font-size="11" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">LEGEND</text>
-<rect x="1000" y="557" width="10" height="10" rx="2" fill="#00d4ff"/>
-<text x="1018" y="566" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Earth Ground/Orbital</text>
-<rect x="1000" y="575" width="10" height="10" rx="2" fill="#7c5cf7"/>
-<text x="1018" y="584" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Deep Space Transit</text>
-<rect x="1000" y="593" width="10" height="10" rx="2" fill="#ff6b35"/>
-<text x="1018" y="602" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Mars Orbital</text>
-<rect x="1000" y="611" width="10" height="10" rx="2" fill="#d29922"/>
-<text x="1018" y="620" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Mars Surface</text>
-<rect x="1000" y="629" width="10" height="10" rx="2" fill="#3fb950"/>
-<text x="1018" y="638" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Redundant Path B</text>
-<rect x="1000" y="647" width="10" height="10" rx="2" fill="#5a6578"/>
-<text x="1018" y="656" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Link / Standard</text></svg>
+</svg>

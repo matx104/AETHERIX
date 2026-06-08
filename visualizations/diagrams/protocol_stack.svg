@@ -138,27 +138,4 @@
 <text x="220" y="542" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">High-rate downlink</text>
 <text x="76" y="558" fill="#d29922" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">1550nm Optical</text>
 <text x="220" y="558" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Deep space, 10-200 Mbps</text>
-<rect x="870" y="52" width="180" height="190" rx="6" fill="rgba(13,17,23,0.92)" stroke="#5a6578" stroke-opacity="0.4"/>
-<text x="880" y="68" fill="#8892a4" font-size="11" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">PROTOCOL LAYERS</text>
-<rect x="880" y="79" width="10" height="10" rx="2" fill="#00d4ff"/>
-<text x="898" y="88" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Application</text>
-<rect x="880" y="97" width="10" height="10" rx="2" fill="#7c5cf7"/>
-<text x="898" y="106" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Bundle Protocol</text>
-<rect x="880" y="115" width="10" height="10" rx="2" fill="#ff6b35"/>
-<text x="898" y="124" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Convergence</text>
-<rect x="880" y="133" width="10" height="10" rx="2" fill="#c84cff"/>
-<text x="898" y="142" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Security / QKD</text>
-<rect x="880" y="151" width="10" height="10" rx="2" fill="#d29922"/>
-<text x="898" y="160" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Physical</text><rect x="870" y="257" width="180" height="140" rx="6" fill="rgba(13,17,23,0.92)" stroke="#5a6578" stroke-opacity="0.4"/>
-<text x="880" y="274" fill="#8892a4" font-size="11" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">KEY CONCEPTS</text>
-<text x="880" y="292" fill="#00d4ff" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">&#x2191;&#x2193;</text>
-<text x="920" y="292" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Bidirectional data</text>
-<text x="880" y="310" fill="#00d4ff" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">BPv7</text>
-<text x="920" y="310" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Interoperable DTN</text>
-<text x="880" y="328" fill="#00d4ff" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">LTP</text>
-<text x="920" y="328" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Reliable deep space</text>
-<text x="880" y="346" fill="#00d4ff" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">QKD</text>
-<text x="920" y="346" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Quantum-secure keys</text>
-<text x="880" y="364" fill="#00d4ff" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">P0-P4</text>
-<text x="920" y="364" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Priority classes</text>
 </svg>

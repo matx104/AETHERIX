@@ -154,17 +154,4 @@
 <text x="560" y="432" text-anchor="middle" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" dx="40">Earth ground segment</text>
 <text x="800" y="432" fill="#8892a4" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">UDP-CL</text>
 <text x="800" y="432" text-anchor="middle" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" dx="40">Optical ISL, low latency</text>
-<rect x="980" y="238" width="200" height="148" rx="6" fill="rgba(13,17,23,0.92)" stroke="#5a6578" stroke-opacity="0.4"/>
-<text x="990" y="254" fill="#8892a4" font-size="11" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">LEGEND</text>
-<rect x="990" y="265" width="10" height="10" rx="2" fill="#3fb950"/>
-<text x="1008" y="274" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Source / Destination</text>
-<rect x="990" y="283" width="10" height="10" rx="2" fill="#00d4ff"/>
-<text x="1008" y="292" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Active forwarding</text>
-<rect x="990" y="301" width="10" height="10" rx="2" fill="#d29922"/>
-<text x="1008" y="310" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Store &amp; waiting</text>
-<rect x="990" y="319" width="10" height="10" rx="2" fill="#f85149"/>
-<text x="1008" y="328" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">TCP/IP failure</text>
-<rect x="990" y="337" width="10" height="10" rx="2" fill="#ff6b35"/>
-<text x="1008" y="346" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Convergence layers</text>
-<rect x="990" y="355" width="10" height="10" rx="2" fill="#5a6578"/>
-<text x="1008" y="364" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Standards reference</text></svg>
+</svg>

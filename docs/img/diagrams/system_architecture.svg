@@ -147,17 +147,4 @@
 <text x="305" y="436" text-anchor="middle" fill="#5a6578" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">CCSDS 734.2-B-1 &#183; CCSDS 735.1-B-1 &#183; CCSDS 141.0-B-1</text>
 <rect x="600" y="418" width="550" height="28" rx="4" fill="#7c5cf7" fill-opacity="0.04" stroke="#7c5cf7" stroke-opacity="0.15"/>
 <text x="875" y="436" text-anchor="middle" fill="#5a6578" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">RFC 9171 &#183; RFC 5326 &#183; RFC 7242 &#183; NIST FIPS 203/204</text>
-<rect x="1000" y="520" width="180" height="168" rx="6" fill="rgba(13,17,23,0.92)" stroke="#5a6578" stroke-opacity="0.4"/>
-<text x="1010" y="536" fill="#8892a4" font-size="11" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">LEGEND</text>
-<rect x="1010" y="547" width="10" height="10" rx="2" fill="#00d4ff"/>
-<text x="1028" y="556" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Infrastructure</text>
-<rect x="1010" y="565" width="10" height="10" rx="2" fill="#7c5cf7"/>
-<text x="1028" y="574" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Routing / Logic</text>
-<rect x="1010" y="583" width="10" height="10" rx="2" fill="#c84cff"/>
-<text x="1028" y="592" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Security / QKD</text>
-<rect x="1010" y="601" width="10" height="10" rx="2" fill="#ff6b35"/>
-<text x="1028" y="610" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Orbital / Simulation</text>
-<rect x="1010" y="619" width="10" height="10" rx="2" fill="#3fb950"/>
-<text x="1028" y="628" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Web Showcase</text>
-<rect x="1010" y="637" width="10" height="10" rx="2" fill="#5a6578"/>
-<text x="1028" y="646" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Standards</text></svg>
+</svg>

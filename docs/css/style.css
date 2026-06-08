@@ -3198,6 +3198,29 @@ body.pres-active .presentation-mode {
     font-size: 0.75rem;
     margin-left: 8px;
 }
+.legend-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 6px;
+}
+.legend-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.06);
+}
+.legend-chip .chip-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
 @media (max-width: 900px) {
     .chart-figure-gallery {
         flex-direction: column;
