@@ -110,8 +110,8 @@ def generate_distance_over_time(output_dir: str):
     # Simplified model of Earth-Mars distance over synodic period
     days = np.linspace(0, 780, 100)
 
-    # Model: opposition at day 0, conjunction at day 390
-    # Using simplified sinusoidal approximation
+    # Model: conjunction (farthest) at day 0, opposition (closest) at day 390
+    # cos(0)=1 → max distance at day 0 (conjunction), cos(pi)=-1 → min at day 390 (opposition)
     min_dist = 54.6  # Million km
     max_dist = 401   # Million km
     avg_dist = (min_dist + max_dist) / 2
@@ -124,15 +124,13 @@ def generate_distance_over_time(output_dir: str):
     ax.plot(days, distances, 'b-', linewidth=2)
     ax.fill_between(days, distances, alpha=0.3)
 
-    # Mark key points
     ax.axhline(y=min_dist, color='g', linestyle='--', alpha=0.7, label='Minimum (Opposition)')
     ax.axhline(y=max_dist, color='r', linestyle='--', alpha=0.7, label='Maximum (Conjunction)')
 
-    # Mark opposition and conjunction
-    ax.annotate('Opposition\n(Best comms)', xy=(0, min_dist), xytext=(50, 100),
-                fontsize=10, arrowprops=dict(arrowstyle='->', color='green'))
-    ax.annotate('Conjunction\n(Blackout)', xy=(390, max_dist), xytext=(320, 350),
+    ax.annotate('Conjunction\n(Blackout)', xy=(0, max_dist), xytext=(50, 100),
                 fontsize=10, arrowprops=dict(arrowstyle='->', color='red'))
+    ax.annotate('Opposition\n(Best comms)', xy=(390, min_dist), xytext=(320, 350),
+                fontsize=10, arrowprops=dict(arrowstyle='->', color='green'))
 
     ax.set_xlabel('Days from Conjunction', fontsize=12)
     ax.set_ylabel('Earth-Mars Distance (Million km)', fontsize=12)
@@ -441,12 +439,12 @@ def generate_contact_windows_chart(output_dir: str):
     # Model contact duration (hours/day) - affected by geometry
     phase = 2 * np.pi * days / 780
     base_duration = 8  # hours
-    # Reduced during conjunction (around day 390)
+    # Reduced near conjunction (day 0 = max distance = conjunction)
     conjunction_effect = np.clip(np.abs(np.sin(phase)), 0.1, 1.0)
     contact_duration = base_duration * conjunction_effect
 
-    # Solar conjunction blackout (~14 days centered around day 390)
-    blackout_mask = (days >= 383) & (days <= 397)
+    # Solar conjunction blackout (~14 days centered around day 0)
+    blackout_mask = (days <= 7) | (days >= 773)
     contact_duration[blackout_mask] = 0
     data_rates[blackout_mask] = 0
 
@@ -455,7 +453,8 @@ def generate_contact_windows_chart(output_dir: str):
     # Plot 1: Distance
     ax1.plot(days, distances, 'b-', linewidth=1.5)
     ax1.fill_between(days, distances, alpha=0.3)
-    ax1.axvspan(383, 397, alpha=0.3, color='red', label='Solar Conjunction Blackout')
+    ax1.axvspan(0, 7, alpha=0.3, color='red', label='Solar Conjunction Blackout')
+    ax1.axvspan(773, 780, alpha=0.3, color='red')
     ax1.set_ylabel('Distance\n(Million km)', fontsize=11)
     ax1.set_title('Earth-Mars Communication Windows Over Synodic Period', fontsize=14, fontweight='bold')
     ax1.legend(loc='upper right')
@@ -464,14 +463,16 @@ def generate_contact_windows_chart(output_dir: str):
     # Plot 2: Data Rate
     ax2.plot(days, data_rates, 'g-', linewidth=1.5)
     ax2.fill_between(days, data_rates, alpha=0.3, color='green')
-    ax2.axvspan(383, 397, alpha=0.3, color='red')
+    ax2.axvspan(0, 7, alpha=0.3, color='red')
+    ax2.axvspan(773, 780, alpha=0.3, color='red')
     ax2.set_ylabel('Max Data Rate\n(Mbps)', fontsize=11)
     ax2.set_yscale('log')
     ax2.grid(True, alpha=0.3)
 
     # Plot 3: Contact Duration
     ax3.bar(days, contact_duration, width=1, color='purple', alpha=0.7)
-    ax3.axvspan(383, 397, alpha=0.3, color='red')
+    ax3.axvspan(0, 7, alpha=0.3, color='red')
+    ax3.axvspan(773, 780, alpha=0.3, color='red')
     ax3.set_xlabel('Days from Conjunction', fontsize=12)
     ax3.set_ylabel('Contact Duration\n(hours/day)', fontsize=11)
     ax3.set_ylim(0, 10)

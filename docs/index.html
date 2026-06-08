@@ -694,11 +694,9 @@
           <div class="card-title"><span class="ct-dot"></span> Orbital Dance</div>
           <p style="line-height:1.7">Earth orbits the Sun every <strong>365.25 days</strong>. Mars takes <strong>686.98 days</strong>. Because they move at different speeds, Earth &#8220;laps&#8221; Mars roughly every 780 days (the synodic period). This creates a repeating pattern:</p>
           <div style="margin-top:14px;display:flex;flex-direction:column;gap:8px">
-            <div style="display:flex;align-items:center;gap:10px"><span class="badge success">Day 0</span> <span style="color:var(--text-secondary)">Opposition &#8212; closest, best conditions</span></div>
-            <div style="display:flex;align-items:center;gap:10px"><span class="badge accent">Day 195</span> <span style="color:var(--text-secondary)">Quadrature &#8212; moderate distance, good comms</span></div>
-            <div style="display:flex;align-items:center;gap:10px"><span class="badge mars">Day 390</span> <span style="color:var(--text-secondary)">Conjunction &#8212; farthest, solar blackout</span></div>
-            <div style="display:flex;align-items:center;gap:10px"><span class="badge quantum">Day 585</span> <span style="color:var(--text-secondary)">Quadrature again &#8212; conditions improving</span></div>
-            <div style="display:flex;align-items:center;gap:10px"><span class="badge success">Day 780</span> <span style="color:var(--text-secondary)">Back to opposition &#8212; cycle repeats</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="badge mars">Day 0</span> <span style="color:var(--text-secondary)">Conjunction &#8212; farthest, solar blackout</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="badge accent">Day 390</span> <span style="color:var(--text-secondary)">Opposition &#8212; closest, best conditions</span></div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="badge mars">Day 780</span> <span style="color:var(--text-secondary)">Back to conjunction &#8212; cycle repeats</span></div>
           </div>
         </div>
         <div class="card">
@@ -5221,13 +5219,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>Earth-Mars Distance Over Synodic Period</strong> — Cycles from 54.6M km (opposition) to 401M km (conjunction) over 780 days.<span class="gallery-ref">Journey to Mars</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
-<div class="chart-info">
+<p class="chart-description">This chart traces the Earth-Mars distance across one full 780-day synodic period using a cosine model, showing how the gap cycles from 54.6 million km at opposition to 401 million km at conjunction.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Earth and Mars orbit at different speeds, creating a 7x distance variation that changes link quality from excellent to impossible.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Maps the full 780-day synodic period so contact windows can be predicted months in advance.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Enables proactive data staging — pre-positioning critical bundles before conjunction blackout.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5236,13 +5231,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>Data Rate vs Distance</strong> — Optical link: 200 Mbps at closest approach, ~2 Mbps at maximum distance.<span class="gallery-ref">Optical Communications</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
-<div class="chart-info">
+<p class="chart-description">Plots achievable optical data rate against Earth-Mars separation, revealing how free-space path loss reduces throughput from 200 Mbps at closest approach to ~2 Mbps at maximum distance.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Optical link performance varies enormously with distance — 200 Mbps at opposition vs 2 Mbps at conjunction.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Shows the data rate envelope across the full distance range for mission planning.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Even at worst-case distance, AETHERIX delivers 2 Mbps — competitive with current RF at its best.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5251,13 +5243,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>Link Budget Breakdown</strong> — Signal power budget from Tx through FSPL, atmospheric loss, to receiver.<span class="gallery-ref">Optical Communications</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
-<div class="chart-info">
+<p class="chart-description">A waterfall-style breakdown of the 1550 nm optical link budget at average distance (225 M km), showing every gain and loss term from transmitter EIRP through free-space path loss to received power and margin.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Free-space path loss at interplanetary distances exceeds 300 dB — the link must be proven to close.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Breaks down every gain and loss term so engineers can validate the optical design.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Confirms positive link margin in all scenarios, validating the 1550nm laser choice.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5266,13 +5255,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>AETHERIX vs Current Systems</strong> — 10-100x faster data rates, >95% availability, quantum-secure.<span class="gallery-ref">Why It Matters</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
-<div class="chart-info">
+<p class="chart-description">A head-to-head comparison of AETHERIX against current Mars communication systems across five metrics: data rate, latency, availability, security, and cost-efficiency.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Current Mars communication delivers only 0.5–6 Mbps with 60–75% availability — far below what missions need.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Head-to-head comparison quantifying every improvement: bandwidth, latency, availability, and cost.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">AETHERIX delivers 10–100x faster, >95% availability, quantum-secure, at 1/10th the cost per MB.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5281,13 +5267,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>Optical vs RF Radar Comparison</strong> — Multi-axis comparison of optical and RF link characteristics.<span class="gallery-ref">Optical Communications</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
-<div class="chart-info">
+<p class="chart-description">A radar (spider) chart comparing optical and RF communications across bandwidth, power efficiency, weather resilience, cost, maturity, and beam divergence to justify the hybrid strategy.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Choosing between optical and RF involves tradeoffs across bandwidth, reliability, cost, and technology maturity.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Radar chart visualizes multi-dimensional comparison so the hybrid strategy is self-evident.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Justifies hybrid optical/RF: optical primary for throughput, RF backup for reliability.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5296,13 +5279,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>RL Q-Value Heatmap</strong> — Learned routing preferences across all node pairs.<span class="gallery-ref">Reinforcement Learning</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
-<div class="chart-info">
+<p class="chart-description">A heatmap of the RL agent's learned Q-values across all state-action pairs, visualizing which routes the agent has converged on as optimal after training.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Training an RL agent produces a Q-table with thousands of values — convergence must be visualized.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Shows which state-action pairs have converged to high values, confirming learned optimal routes.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Validates autonomous routing — the agent reliably selects best paths without human intervention.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5311,13 +5291,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>Energy Efficiency Trade-offs</strong> — Reward function balances delivery speed vs energy consumption.<span class="gallery-ref">Reinforcement Learning</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
-<div class="chart-info">
+<p class="chart-description">Compares energy-per-bit for optical vs RF links at varying distances, quantifying the power efficiency advantage of the 1550 nm laser.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Spacecraft have limited power budgets — every watt matters for science instruments.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Compares energy per transmitted bit for optical vs RF, quantifying the efficiency advantage.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Optical's superior efficiency means more power for science and longer mission durations.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5326,13 +5303,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>QBER vs Eavesdropper Detection</strong> — Below 11% = secure; above = abort.<span class="gallery-ref">Space Security</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
-<div class="chart-info">
+<p class="chart-description">Shows the quantum bit error rate (QBER) threshold for BB84 and E91 protocols, with the 11% security boundary marking the eavesdropper detection limit.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">QKD must detect eavesdroppers — the QBER threshold is the security boundary.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Shows QBER vs eavesdropping probability, proving below 11% the key is provably secure.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Provides information-theoretic security — even a quantum computer cannot break these keys.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5341,13 +5315,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>Key Generation Rate</strong> — BB84 achieves 1-10 kbps for LEO, E91 with repeaters for Mars.<span class="gallery-ref">Space Security</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
-<div class="chart-info">
+<p class="chart-description">Plots secure key generation rate versus channel loss (distance) for both BB84 and E91 QKD protocols, showing how key rate degrades with increasing distance.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">QKD key rates drop exponentially with distance, making direct Earth-Mars key exchange impractical.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Maps the key rate vs distance curve to determine where repeaters must be deployed.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Quantum repeaters at Lagrange points extend practical QKD range to 225M km.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5356,13 +5327,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>Contact Window Availability</strong> — Communication hours/day across the synodic period.<span class="gallery-ref">Journey to Mars</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
-<div class="chart-info">
+<p class="chart-description">Predicts communication contact windows across the synodic period, showing when optical links are available and highlighting the conjunction blackout zone.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Contact windows vary from 12 hrs/day at opposition to zero during conjunction.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Maps availability across the full synodic period for bundle scheduling optimization.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">With Lagrange relay backup, the network maintains >50% capacity even during conjunction blackouts.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5371,13 +5339,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>Node Distribution by Tier</strong> — T5 (Mars Surface) dominates with 177 nodes.<span class="gallery-ref">The Network</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
-<div class="chart-info">
+<p class="chart-description">Pie chart of the 241-node network across all five tiers, from 5 Earth ground stations down to 177 Mars surface assets.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Building a 241-node network requires understanding where nodes concentrate.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Shows the hierarchical structure so routing and security resources are allocated proportionally.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Reveals no single point of failure — every tier has redundancy.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5386,13 +5351,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>Development Roadmap Timeline</strong> — Phases 1-4 complete, Phase 5-7 planned.<span class="gallery-ref">Why It Matters</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
-<div class="chart-info">
+<p class="chart-description">A Gantt-style timeline of the AETHERIX project phases from research and simulation through orbital deployment and full operations.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Building an interplanetary network is a multi-phase effort spanning years.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Maps completed and future milestones for stakeholder understanding.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Phases 1–4 deliver working proof-of-concept; phases 5–7 move toward production deployment.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5401,13 +5363,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>Bandwidth Evolution</strong> — From Viking's 8 bps to AETHERIX's 200 Mbps over 50 years.<span class="gallery-ref">Optical Communications</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
-<div class="chart-info">
+<p class="chart-description">Historical and projected Mars communication bandwidth from 1997 (Mars Pathfinder) through 2040 (AETHERIX), showing the exponential growth trend.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Current RF systems are approaching physical limits — a new paradigm is needed.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Places AETHERIX in historical context alongside Mariner, Viking, and MRO.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Proves optical is the next paradigm shift — AETHERIX leapfrogs RF by 30 million times from Mariner.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5416,13 +5375,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>Bundle Priority Classes</strong> — P0 (Emergency) through P4 (Bulk) with delay targets.<span class="gallery-ref">What is DTN?</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
-<div class="chart-info">
+<p class="chart-description">Breaks down bundle traffic by priority class (Emergency, High, Normal, Low, Bulk), showing how the DTN system triages time-critical vs. bulk data.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">With only hours of contact time per day, prioritizing data transmission is critical for mission success.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Visualizes how the scheduler allocates bandwidth across priority classes.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Ensures 100% link utilization while guaranteeing safety-critical data preempts lower priorities.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5431,13 +5387,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>Latency Comparison</strong> — Light-time delay vs processing overhead across distance scenarios.<span class="gallery-ref">Journey to Mars</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
-<div class="chart-info">
+<p class="chart-description">Bar chart comparing end-to-end bundle delivery latency across three routing approaches: static Contact Graph Routing, AETHERIX RL routing, and opportunistic flooding.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">TCP/IP timeouts collapse at interplanetary distances — we must prove DTN adds minimal overhead.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Compares TCP, DTN, and AETHERIX latency to demonstrate minimal delay beyond physics.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Proves AETHERIX achieves near speed-of-light transit with <5% protocol overhead.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5446,13 +5399,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>Light-Time Delay</strong> — One-way signal propagation time as a function of Earth-Mars distance.<span class="gallery-ref">Journey to Mars</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
-<div class="chart-info">
+<p class="chart-description">Maps one-way light-time delay from 3 minutes at opposition to 22 minutes at conjunction, the fundamental physics constraint on real-time communication.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Light itself takes 3–22 minutes between Earth and Mars, making real-time communication impossible.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Quantifies the delay envelope so DTN protocols can be tuned properly.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Proves TCP/IP cannot work — validating our DTN approach with hard physics data.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5461,13 +5411,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>Daily Data Volume</strong> — Achievable throughput per sol at varying distances.<span class="gallery-ref">Optical Communications</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
-<div class="chart-info">
+<p class="chart-description">Projects cumulative data volume delivered over a 780-day mission, comparing AETHERIX throughput against current Mars relay capabilities.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Current Mars missions deliver only 5–10 GB/day — insufficient for high-resolution science and video.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Quantifies the throughput multiplier so stakeholders understand the operational value.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Enables new capabilities: real-time 4K video, bulk science dumps, software updates in hours.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5476,13 +5423,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>DSN Coverage Map</strong> — Goldstone, Madrid, and Canberra provide 24/7 deep-space coverage.<span class="gallery-ref">The Network</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
-<div class="chart-info">
+<p class="chart-description">Visualizes Deep Space Network station visibility over 24 hours, showing how Goldstone, Madrid, and Canberra provide overlapping coverage.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Continuous deep-space coverage requires at least three ground stations around the globe.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Shows each station's visibility windows for seamless contact handoff scheduling.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Ensures zero coverage gaps — any deep-space asset is visible to at least one DSN station.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5491,13 +5435,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           </div>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>Orbital Positions</strong> — Earth and Mars positions across the synodic period.<span class="gallery-ref">Journey to Mars</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this chart show?</button>
-<div class="chart-info">
+<p class="chart-description">Two side-by-side orbital diagrams showing Earth and Mars at opposition (closest, 54.6 M km) and conjunction (farthest, 401 M km) relative to the Sun.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Earth and Mars move continuously, changing distance, delay, and visibility in a complex pattern.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Maps the relative geometry so contact windows can be predicted months in advance.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Enables proactive data staging before conjunction blackout.</div></div>
-</div>
           </div>
         </figure>
       </div>
@@ -5511,13 +5452,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>System Architecture</strong> — Five core modules feeding the simulation engine and web showcase.<span class="gallery-ref">How It Works</span></div>
             <div class="legend-chips"><span class="legend-chip"><span class="chip-dot" style="background:#00d4ff"></span>Infrastructure</span><span class="legend-chip"><span class="chip-dot" style="background:#7c5cf7"></span>Routing</span><span class="legend-chip"><span class="chip-dot" style="background:#c84cff"></span>Security/QKD</span><span class="legend-chip"><span class="chip-dot" style="background:#ff6b35"></span>Orbital</span><span class="legend-chip"><span class="chip-dot" style="background:#3fb950"></span>Showcase</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this diagram show?</button>
-<div class="chart-info">
+<p class="chart-description">High-level system architecture showing all five AETHERIX modules — Infrastructure, Routing, Security, Orbital, and Simulation — with their CCSDS/RFC standards and inter-module data flows.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">AETHERIX has 27 Python modules across 6 packages — the data flow must be clear.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Shows how source modules feed into the simulation engine and web showcase.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Each module is independently testable — 189 automated tests validate correctness.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5527,13 +5465,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>5-Tier Network Diagram</strong> — 241 nodes from Earth ground to Mars surface.<span class="gallery-ref">The Network</span></div>
             <div class="legend-chips"><span class="legend-chip"><span class="chip-dot" style="background:#00d4ff"></span>Earth Ground</span><span class="legend-chip"><span class="chip-dot" style="background:#42a5f5"></span>Earth Orbital</span><span class="legend-chip"><span class="chip-dot" style="background:#7c5cf7"></span>Deep Space</span><span class="legend-chip"><span class="chip-dot" style="background:#ff6b35"></span>Mars Orbital</span><span class="legend-chip"><span class="chip-dot" style="background:#d29922"></span>Mars Surface</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this diagram show?</button>
-<div class="chart-info">
+<p class="chart-description">The complete five-tier network topology spanning Earth ground stations, Earth orbital relays, deep-space Lagrange-point relays, Mars orbital assets, and Mars surface nodes.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Spanning two planets requires a network architecture with no single point of failure.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Visualizes the complete 5-tier topology with 241 nodes and redundant paths.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Three independent paths ensure Earth-Mars communication survives any single link failure.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5543,13 +5478,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>DTN Store-and-Forward Flow</strong> — Bundle lifecycle from creation through custody transfer to delivery.<span class="gallery-ref">What is DTN?</span></div>
             <div class="legend-chips"><span class="legend-chip"><span class="chip-dot" style="background:#3fb950"></span>Source/Dest</span><span class="legend-chip"><span class="chip-dot" style="background:#00d4ff"></span>Active Forward</span><span class="legend-chip"><span class="chip-dot" style="background:#d29922"></span>Store &amp; Wait</span><span class="legend-chip"><span class="chip-dot" style="background:#f85149"></span>TCP/IP Failure</span><span class="legend-chip"><span class="chip-dot" style="background:#ff6b35"></span>Convergence</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this diagram show?</button>
-<div class="chart-info">
+<p class="chart-description">Step-by-step diagram of the DTN store-and-forward process: bundle creation, custody transfer, hop-by-hop forwarding with LTP reliability, and final delivery.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">TCP/IP requires live end-to-end connections — impossible with 22-minute delays.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Illustrates the store-and-forward process with custody transfer at each hop.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Zero data loss — bundles survive any single link failure and retry automatically.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5559,13 +5491,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>Earth-Mars Data Journey</strong> — 7-hop path from Perseverance to JPL Mission Control.<span class="gallery-ref">Journey to Mars</span></div>
             <div class="legend-chips"><span class="legend-chip"><span class="chip-dot" style="background:#ff6b35"></span>Mars Surface/UHF</span><span class="legend-chip"><span class="chip-dot" style="background:#7c5cf7"></span>Deep Space Relay</span><span class="legend-chip"><span class="chip-dot" style="background:#00d4ff"></span>Earth/Optical</span><span class="legend-chip"><span class="chip-dot" style="background:#3fb950"></span>Delivery</span><span class="legend-chip"><span class="chip-dot" style="background:#c84cff"></span>QKD</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this diagram show?</button>
-<div class="chart-info">
+<p class="chart-description">Illustrates the Earth-Mars communication path through all five network tiers, with distance markers and light-time delays at each hop.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Data must traverse 7 hops across 225 million km of space to reach Earth.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Maps the complete hop-by-hop route from Perseverance rover to JPL Mission Control.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Total transit ~13 min vs 12.5 min light-time — near speed of light with <5% overhead.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5575,13 +5504,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>End-to-End Data Flow</strong> — Application-to-delivery path through all protocol layers.<span class="gallery-ref">How It Works</span></div>
             <div class="legend-chips"><span class="legend-chip"><span class="chip-dot" style="background:#00d4ff"></span>Application</span><span class="legend-chip"><span class="chip-dot" style="background:#7c5cf7"></span>RL/BPv7</span><span class="legend-chip"><span class="chip-dot" style="background:#c84cff"></span>QKD</span><span class="legend-chip"><span class="chip-dot" style="background:#ff6b35"></span>LTP</span><span class="legend-chip"><span class="chip-dot" style="background:#d29922"></span>Storage</span><span class="legend-chip"><span class="chip-dot" style="background:#3fb950"></span>Delivery</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this diagram show?</button>
-<div class="chart-info">
+<p class="chart-description">End-to-end data flow from Mars surface sensor through the relay chain to Earth mission control, showing protocol processing at each node.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Data must pass through multiple protocol layers while maintaining integrity and security.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Traces the end-to-end data path from application through BPv7, RL routing, QKD, and LTP.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Proves the protocol stack is complete and every layer contributes to reliable delivery.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5591,13 +5517,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>Protocol Stack</strong> — BPv7, convergence layers (LTP, TCPCL, UDPCL), and physical layer.<span class="gallery-ref">How It Works</span></div>
             <div class="legend-chips"><span class="legend-chip"><span class="chip-dot" style="background:#00d4ff"></span>Application</span><span class="legend-chip"><span class="chip-dot" style="background:#7c5cf7"></span>Bundle Protocol</span><span class="legend-chip"><span class="chip-dot" style="background:#ff6b35"></span>Convergence</span><span class="legend-chip"><span class="chip-dot" style="background:#c84cff"></span>Security/QKD</span><span class="legend-chip"><span class="chip-dot" style="background:#d29922"></span>Physical</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this diagram show?</button>
-<div class="chart-info">
+<p class="chart-description">Layered protocol stack aligned against the CCSDS and IETF standards (BPv7, LTP, TCPCL/UDPCL), showing which protocol handles which communication segment.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">BPv7 must work across radically different link types — deep space, Earth ground, and inter-satellite.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Shows the full protocol stack with three convergence layers for different link types.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Standards-compliant implementation: RFC 9171, RFC 5326, RFC 7242, CCSDS 734.2-B-1.</div></div>
-</div>
           </div>
         </figure>
         <figure class="chart-figure chart-figure-gallery">
@@ -5607,13 +5530,10 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
           <div class="chart-gallery-info">
             <div class="chart-gallery-caption"><strong>Network Topology Graph</strong> — Redundant paths with BFS pathfinding.<span class="gallery-ref">The Network</span></div>
             <div class="legend-chips"><span class="legend-chip"><span class="chip-dot" style="background:#00d4ff"></span>Earth</span><span class="legend-chip"><span class="chip-dot" style="background:#7c5cf7"></span>Deep Space</span><span class="legend-chip"><span class="chip-dot" style="background:#ff6b35"></span>Mars Orbital</span><span class="legend-chip"><span class="chip-dot" style="background:#d29922"></span>Mars Surface</span><span class="legend-chip"><span class="chip-dot" style="background:#3fb950"></span>BFS/RL Path</span></div>
-            
-<button class="chart-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><span class="toggle-arrow">&#9654;</span> What does this diagram show?</button>
-<div class="chart-info">
+<p class="chart-description">Detailed node-level network topology with all 241 nodes and their inter-tier links, showing the full mesh of the AETHERIX backbone.</p>
 <div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">Routing across 241 nodes with varying link quality requires a graph-based approach.</div></div>
             <div class="chart-card purpose"><div class="chart-card-label">Purpose</div><div class="chart-card-text">Visualizes the network topology as a graph with BFS pathfinding for route computation.</div></div>
             <div class="chart-card impact"><div class="chart-card-label">Impact</div><div class="chart-card-text">Enables the RL agent to understand network structure and optimize routing decisions.</div></div>
-</div>
           </div>
         </figure>
       </div>
