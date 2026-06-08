@@ -185,7 +185,7 @@ def generate_system_architecture():
         ('ORBITAL', ORANGE,
          ['contact_windows.py', 'topology.py', 'doppler.py', 'bodies.py'],
          ['5-tier, 241 nodes', 'Synodic period model', 'Doppler compensation'],
-         'CCSDS 734.2-B-1'),
+         'Vallado Astrodynamics'),
         ('SIMULATION', GREEN,
          ['simulator.py', 'policy_engine.py', 'training.py', 'multi_agent.py'],
          ['Full sim engine', 'Policy routing', 'Federated Q-tables'],
@@ -218,7 +218,7 @@ def generate_system_architecture():
     std_y = web_bar_y + 58
     half_w = (w - 80) // 2 - 10
     s += f'<rect x="30" y="{std_y}" width="{half_w}" height="28" rx="4" fill="{CYAN}" fill-opacity="0.04" stroke="{CYAN}" stroke-opacity="0.15"/>\n'
-    s += f'<text x="{30 + half_w // 2}" y="{std_y + 18}" text-anchor="middle" fill="{DGRAY}" font-size="10" {FONT}>CCSDS 734.2-B-1 &#183; CCSDS 735.1-B-1 &#183; CCSDS 141.0-B-1</text>\n'
+    s += f'<text x="{30 + half_w // 2}" y="{std_y + 18}" text-anchor="middle" fill="{DGRAY}" font-size="10" {FONT}>CCSDS 734.2-B-1 &#183; CCSDS 734.3-B-1 &#183; CCSDS 141.0-B-1</text>\n'
     s += f'<rect x="{50 + half_w}" y="{std_y}" width="{half_w}" height="28" rx="4" fill="{PURPLE}" fill-opacity="0.04" stroke="{PURPLE}" stroke-opacity="0.15"/>\n'
     s += f'<text x="{50 + half_w + half_w // 2}" y="{std_y + 18}" text-anchor="middle" fill="{DGRAY}" font-size="10" {FONT}>RFC 9171 &#183; RFC 5326 &#183; RFC 7242 &#183; NIST FIPS 203/204</text>\n'
 

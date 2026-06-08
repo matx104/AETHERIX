@@ -117,7 +117,7 @@
 <text x="731" y="159" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Synodic period model</text>
 <text x="731" y="172" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Doppler compensation</text>
 <rect x="727" y="179" width="198" height="1" fill="#ff6b35" fill-opacity="0.15"/>
-<text x="731" y="193" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" font-style="italic">CCSDS 734.2-B-1</text>
+<text x="731" y="193" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" font-style="italic">Vallado Astrodynamics</text>
 <rect x="947" y="48" width="210" height="200" rx="8" fill="url(#gradGreen)" stroke="#3fb950" stroke-opacity="0.35"/>
 <rect x="947" y="48" width="210" height="24" rx="8" fill="#3fb950" fill-opacity="0.12"/>
 <text x="1052" y="65" text-anchor="middle" fill="#3fb950" font-size="12" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">SIMULATION</text>
@@ -144,7 +144,7 @@
 <text x="600" y="378" text-anchor="middle" fill="#3fb950" font-size="13" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" filter="url(#glow)">WEB SHOWCASE &#8212; 10 Interactive Demos</text>
 <text x="600" y="396" text-anchor="middle" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">FastAPI backend &#183; React frontend &#183; 149 tests &#183; 27 Python modules</text>
 <rect x="30" y="418" width="550" height="28" rx="4" fill="#00d4ff" fill-opacity="0.04" stroke="#00d4ff" stroke-opacity="0.15"/>
-<text x="305" y="436" text-anchor="middle" fill="#5a6578" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">CCSDS 734.2-B-1 &#183; CCSDS 735.1-B-1 &#183; CCSDS 141.0-B-1</text>
+<text x="305" y="436" text-anchor="middle" fill="#5a6578" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">CCSDS 734.2-B-1 &#183; CCSDS 734.3-B-1 &#183; CCSDS 141.0-B-1</text>
 <rect x="600" y="418" width="550" height="28" rx="4" fill="#7c5cf7" fill-opacity="0.04" stroke="#7c5cf7" stroke-opacity="0.15"/>
 <text x="875" y="436" text-anchor="middle" fill="#5a6578" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">RFC 9171 &#183; RFC 5326 &#183; RFC 7242 &#183; NIST FIPS 203/204</text>
 </svg>

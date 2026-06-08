@@ -70,7 +70,7 @@ def generate_performance_comparison(output_dir: str):
 
     categories = ['Downlink\n(Mbps)', 'Daily Data\n(GB)', 'Availability\n(%)', 'Scalability\n(nodes)']
     current = [6, 10, 75, 10]
-    aetherix = [200, 100, 95, 100]
+    aetherix = [200, 100, 95, 241]
 
     x = np.arange(len(categories))
     width = 0.35
@@ -134,7 +134,7 @@ def generate_distance_over_time(output_dir: str):
     ax.annotate('Conjunction\n(Blackout)', xy=(390, max_dist), xytext=(320, 350),
                 fontsize=10, arrowprops=dict(arrowstyle='->', color='red'))
 
-    ax.set_xlabel('Days from Opposition', fontsize=12)
+    ax.set_xlabel('Days from Conjunction', fontsize=12)
     ax.set_ylabel('Earth-Mars Distance (Million km)', fontsize=12)
     ax.set_title('Earth-Mars Distance Over Synodic Period (780 days)', fontsize=14, fontweight='bold')
     ax.set_xlim(0, 780)
@@ -171,7 +171,7 @@ def generate_network_topology_text(output_dir: str):
 ║  │   │     LEO Laser Constellation (48 sats)   │                      │    ║
 ║  │   └──────────────────────┬──────────────────┘                      │    ║
 ║  └──────────────────────────┼──────────────────────────────────────────┘    ║
-║                             │ Optical (12.5 min light-time)                  ║
+║                             │ Optical (8 min light-time)                   ║
 ║  ┌──────────────────────────┼──────────────────────────────────────────┐    ║
 ║  │ TIER 3: DEEP SPACE TRANSIT (4 nodes)                                │    ║
 ║  │                          │                                          │    ║
@@ -268,7 +268,7 @@ def generate_link_budget_breakdown_chart(output_dir: str):
         'Free Space\nLoss', 'Atm Loss',
         'Rx Antenna\nGain', 'Rx Losses', 'Link\nMargin'
     ]
-    values = [37.0, 108.5, -3.0, -375.3, -3.0, 123.4, -4.5, 3.1]
+    values = [37.0, 110.4, -3.0, -365.2, -3.0, 123.4, -4.5, 3.1]
 
     # Calculate running total for waterfall
     running_total = []
@@ -472,7 +472,7 @@ def generate_contact_windows_chart(output_dir: str):
     # Plot 3: Contact Duration
     ax3.bar(days, contact_duration, width=1, color='purple', alpha=0.7)
     ax3.axvspan(383, 397, alpha=0.3, color='red')
-    ax3.set_xlabel('Days from Opposition', fontsize=12)
+    ax3.set_xlabel('Days from Conjunction', fontsize=12)
     ax3.set_ylabel('Contact Duration\n(hours/day)', fontsize=11)
     ax3.set_ylim(0, 10)
     ax3.grid(True, alpha=0.3)
@@ -1049,9 +1049,9 @@ def generate_orbital_positions_chart(output_dir: str):
     mars_r = 1.52  # AU
     
     scenarios = [
-        ('Opposition (Closest)', 0, np.pi),
+        ('Conjunction (Farthest ~401M km)', 0, np.pi),
         ('Quadrature', 0, np.pi/2),
-        ('Conjunction (Farthest)', 0, 0)
+        ('Opposition (Closest ~54.6M km)', 0, 0)
     ]
     
     for ax, (title, earth_angle, mars_angle) in zip(axes, scenarios):
