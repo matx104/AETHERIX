@@ -1637,17 +1637,26 @@ window.App = (() => {
       this.startTimer();
     },
 
-    _chartSlide(title, tag, tagColor, imgSrc, caption, challenge, purpose, impact) {
+     _chartSlide(title, tag, tagColor, imgSrc, caption, challenge, purpose, impact, legendChips) {
       var tagClass = 'accent';
       if (tagColor === '#ff6b35' || tagColor === '#d29922') tagClass = 'mars';
       else if (tagColor === '#c84cff' || tagColor === '#7c5cf7') tagClass = 'quantum';
       else if (tagColor === '#3fb950') tagClass = 'success';
       else if (tagColor === '#f85149') tagClass = 'warning';
+      var chipsHtml = '';
+      if (legendChips && legendChips.length) {
+        chipsHtml = '<div class="legend-chips" style="margin-top:4px">';
+        for (var i = 0; i < legendChips.length; i++) {
+          chipsHtml += '<span class="legend-chip"><span class="chip-dot" style="background:' + legendChips[i][0] + '"></span>' + legendChips[i][1] + '</span>';
+        }
+        chipsHtml += '</div>';
+      }
       var html = '<h2><span class="pres-tag ' + tagClass + '">' + tag + '</span> ' + title + '</h2>' +
         '<div style="display:flex;gap:20px;align-items:flex-start">' +
           '<div style="flex:0 0 65%;min-width:0">' +
             '<img src="' + imgSrc + '" alt="' + title + '" style="width:100%;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1)">' +
             '<div style="font-size:0.78rem;color:var(--text-muted);margin-top:6px">' + caption + '</div>' +
+            chipsHtml +
           '</div>' +
           '<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:8px">' +
             '<div class="chart-card challenge"><div class="chart-card-label">Challenge</div><div class="chart-card-text">' + challenge + '</div></div>' +
@@ -1715,7 +1724,8 @@ window.App = (() => {
             'Five core modules feeding the simulation engine and web showcase &middot; 27 Python modules across 6 packages',
             'AETHERIX has 27 Python modules across 6 packages &mdash; the data flow must be clear.',
             'Shows how source modules feed into the simulation engine and web showcase.',
-            'Each module is independently testable &mdash; 189 automated tests validate correctness.'),
+            'Each module is independently testable &mdash; 189 automated tests validate correctness.',
+            [['#00d4ff','Infrastructure'],['#7c5cf7','Routing'],['#c84cff','Security/QKD'],['#ff6b35','Orbital'],['#3fb950','Showcase']]),
           speakerNotes: 'Architecture diagram showing source modules feeding simulation engine and web demos.'
         },
         {
@@ -1761,7 +1771,8 @@ window.App = (() => {
             '241 nodes from Earth ground to Mars surface &middot; 3 redundant paths &middot; No single point of failure',
             'Spanning two planets requires a network architecture with no single point of failure.',
             'Visualizes the complete 5-tier topology with 241 nodes and redundant paths.',
-            'Three independent paths ensure Earth-Mars communication survives any single link failure.'),
+            'Three independent paths ensure Earth-Mars communication survives any single link failure.',
+            [['#00d4ff','Earth Ground'],['#42a5f5','Earth Orbital'],['#7c5cf7','Deep Space'],['#ff6b35','Mars Orbital'],['#d29922','Mars Surface']]),
           speakerNotes: 'Visual overview of the 5-tier topology with 3 redundant paths.'
         },
         {
@@ -1904,7 +1915,8 @@ window.App = (() => {
             'Application-to-delivery path through all protocol layers &middot; BPv7 &rarr; RL Routing &rarr; QKD &rarr; LTP',
             'Data must pass through multiple protocol layers while maintaining integrity and security.',
             'Traces the end-to-end data path from application through BPv7, RL routing, QKD, and LTP.',
-            'Proves the protocol stack is complete and every layer contributes to reliable delivery.'),
+            'Proves the protocol stack is complete and every layer contributes to reliable delivery.',
+            [['#00d4ff','Application'],['#7c5cf7','RL/BPv7'],['#c84cff','QKD'],['#ff6b35','LTP'],['#d29922','Storage'],['#3fb950','Delivery']]),
           speakerNotes: 'End-to-end bundle journey through all protocol layers.'
         },
         {
