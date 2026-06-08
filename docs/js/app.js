@@ -1711,7 +1711,7 @@ window.App = (() => {
         },
         {
           title: 'Architecture Diagram',
-          content: this._chartSlide('Architecture Diagram', 'Architecture', '#00d4ff', 'img/diagrams/system_architecture.svg',
+          content: this._chartSlide('Architecture Diagram', 'Architecture', '#00d4ff', 'img/diagrams/system_architecture.png',
             'Five core modules feeding the simulation engine and web showcase &middot; 27 Python modules across 6 packages',
             'AETHERIX has 27 Python modules across 6 packages &mdash; the data flow must be clear.',
             'Shows how source modules feed into the simulation engine and web showcase.',
@@ -1757,7 +1757,7 @@ window.App = (() => {
         },
         {
           title: 'Network Diagram',
-          content: this._chartSlide('5-Tier Network Diagram', 'Network', '#00d4ff', 'img/diagrams/5tier_network.svg',
+          content: this._chartSlide('5-Tier Network Diagram', 'Network', '#00d4ff', 'img/diagrams/5tier_network.png',
             '241 nodes from Earth ground to Mars surface &middot; 3 redundant paths &middot; No single point of failure',
             'Spanning two planets requires a network architecture with no single point of failure.',
             'Visualizes the complete 5-tier topology with 241 nodes and redundant paths.',
@@ -1900,7 +1900,7 @@ window.App = (() => {
         },
         {
           title: 'Data Flow Diagram Visual',
-          content: this._chartSlide('End-to-End Data Flow', 'Data Flow', '#00d4ff', 'img/diagrams/data_flow.svg',
+          content: this._chartSlide('End-to-End Data Flow', 'Data Flow', '#00d4ff', 'img/diagrams/data_flow.png',
             'Application-to-delivery path through all protocol layers &middot; BPv7 &rarr; RL Routing &rarr; QKD &rarr; LTP',
             'Data must pass through multiple protocol layers while maintaining integrity and security.',
             'Traces the end-to-end data path from application through BPv7, RL routing, QKD, and LTP.',

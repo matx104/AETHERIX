@@ -1,124 +1,168 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540">
-<rect width="960" height="540" fill="#050a14"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750">
+<rect width="1200" height="750" fill="#0d1117"/>
 <defs>
-  <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="none" stroke="#5a6578" stroke-width="1.2"/></marker>
-  <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00d4ff" stop-opacity="0.15"/><stop offset="50%" stop-color="#7c5cf7" stop-opacity="0.4"/><stop offset="100%" stop-color="#ff6b35" stop-opacity="0.15"/></linearGradient>
-  <linearGradient id="gEarth" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#0d47a1"/><stop offset="100%" stop-color="#1e88e5"/></linearGradient>
-  <linearGradient id="gMars" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#bf360c"/><stop offset="100%" stop-color="#ff7043"/></linearGradient>
-  <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-  <filter id="softGlow"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="glow">
+    <feGaussianBlur stdDeviation="2" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glowStrong">
+    <feGaussianBlur stdDeviation="4" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <linearGradient id="gradCyan" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradPurple" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#7c5cf7" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#7c5cf7" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradOrange" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#ff6b35" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#ff6b35" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradGreen" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#3fb950" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#3fb950" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradMagenta" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#c84cff" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#c84cff" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradGold" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#d29922" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#d29922" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradRed" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#f85149" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#f85149" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradMarsEarth" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#ff6b35" stop-opacity="0.3"/>
+    <stop offset="50%" stop-color="#7c5cf7" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.3"/>
+  </linearGradient>
+  <marker id="arrCyan" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#00d4ff" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrPurple" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#7c5cf7" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrGray" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#5a6578" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#3fb950" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrOrange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#ff6b35" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrMagenta" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#c84cff" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrGold" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#d29922" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrRed" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#f85149" stroke-width="1.2"/>
+  </marker>
+  
 </defs>
-
-<!-- Star field -->
-<g opacity="0.35">
-  <circle cx="50" cy="40" r="0.8" fill="#c8d6e5"/><circle cx="180" cy="25" r="0.6" fill="#c8d6e5"/>
-  <circle cx="350" cy="15" r="0.7" fill="#c8d6e5"/><circle cx="500" cy="30" r="0.9" fill="#c8d6e5"/>
-  <circle cx="650" cy="20" r="0.6" fill="#c8d6e5"/><circle cx="800" cy="35" r="0.8" fill="#c8d6e5"/>
-  <circle cx="900" cy="12" r="0.7" fill="#c8d6e5"/><circle cx="100" cy="510" r="0.6" fill="#c8d6e5"/>
-  <circle cx="860" cy="500" r="0.8" fill="#c8d6e5"/><circle cx="450" cy="520" r="0.7" fill="#c8d6e5"/>
-</g>
-
-<!-- ===== LEFT SIDE: EARTH ===== -->
-<text x="220" y="28" text-anchor="middle" fill="#1e88e5" font-size="12" font-weight="700" letter-spacing="3" font-family="Inter,system-ui,sans-serif">EARTH</text>
-
-<!-- T1: Earth Ground -->
-<rect x="50" y="42" width="340" height="52" rx="8" fill="rgba(13,71,161,0.12)" stroke="#1e88e5" stroke-opacity="0.25" stroke-width="1"/>
-<rect x="62" y="52" width="88" height="32" rx="5" fill="url(#gEarth)" fill-opacity="0.7"/><text x="106" y="73" text-anchor="middle" fill="white" font-size="10" font-weight="600" font-family="Inter,sans-serif">Goldstone</text>
-<rect x="160" y="52" width="70" height="32" rx="5" fill="url(#gEarth)" fill-opacity="0.7"/><text x="195" y="73" text-anchor="middle" fill="white" font-size="10" font-weight="600" font-family="Inter,sans-serif">Madrid</text>
-<rect x="240" y="52" width="90" height="32" rx="5" fill="url(#gEarth)" fill-opacity="0.7"/><text x="285" y="73" text-anchor="middle" fill="white" font-size="10" font-weight="600" font-family="Inter,sans-serif">Canberra</text>
-<text x="220" y="87" text-anchor="middle" fill="#5a6578" font-size="8" font-family="Inter,sans-serif">T1: Earth Ground — 6 nodes</text>
-
-<!-- Arrow T1 -> T2 -->
-<line x1="220" y1="94" x2="220" y2="108" stroke="#42a5f5" stroke-width="1.5" marker-end="url(#arr)"/>
-
-<!-- T2: Earth Orbital -->
-<rect x="30" y="112" width="380" height="44" rx="8" fill="rgba(66,165,245,0.08)" stroke="#42a5f5" stroke-opacity="0.2" stroke-width="1"/>
-<rect x="42" y="120" width="55" height="26" rx="4" fill="#42a5f5" fill-opacity="0.45"/><text x="69" y="138" text-anchor="middle" fill="white" font-size="9" font-weight="600" font-family="Inter,sans-serif">GEO-1</text>
-<rect x="106" y="120" width="55" height="26" rx="4" fill="#42a5f5" fill-opacity="0.45"/><text x="133" y="138" text-anchor="middle" fill="white" font-size="9" font-weight="600" font-family="Inter,sans-serif">GEO-2</text>
-<rect x="170" y="120" width="55" height="26" rx="4" fill="#42a5f5" fill-opacity="0.45"/><text x="197" y="138" text-anchor="middle" fill="white" font-size="9" font-weight="600" font-family="Inter,sans-serif">GEO-3</text>
-<text x="290" y="137" text-anchor="start" fill="#42a5f5" font-size="9" font-weight="600" font-family="Inter,sans-serif">+ 48 LEO laser mesh</text>
-<text x="220" y="151" text-anchor="middle" fill="#5a6578" font-size="8" font-family="Inter,sans-serif">T2: Earth Orbital — 51 nodes</text>
-
-<!-- Arrow T2 -> T3 -->
-<line x1="220" y1="156" x2="220" y2="174" stroke="#7c5cf7" stroke-width="1.5" marker-end="url(#arr)"/>
-<text x="240" y="170" fill="#7c5cf7" font-size="7.5" font-family="Inter,sans-serif">1550nm optical</text>
-
-<!-- T3: Deep Space Transit -->
-<rect x="100" y="178" width="240" height="56" rx="8" fill="rgba(124,92,247,0.1)" stroke="#7c5cf7" stroke-opacity="0.3" stroke-width="1.5" filter="url(#glow)"/>
-<text x="220" y="198" text-anchor="middle" fill="#7c5cf7" font-size="11" font-weight="700" font-family="Inter,sans-serif">DEEP SPACE TRANSIT</text>
-<text x="220" y="214" text-anchor="middle" fill="#8892a4" font-size="9.5" font-family="Inter,sans-serif">ES-L4 · ES-L5 Lagrange Relays</text>
-<text x="220" y="228" text-anchor="middle" fill="#5a6578" font-size="8" font-family="Inter,sans-serif">T3: 4 nodes</text>
-
-<!-- ===== INTERPLANETARY LINK ===== -->
-<line x1="340" y1="206" x2="600" y2="206" stroke="url(#beam)" stroke-width="4" filter="url(#softGlow)"/>
-<line x1="340" y1="206" x2="600" y2="206" stroke="url(#beam)" stroke-width="14" opacity="0.06"/>
-<text x="470" y="196" text-anchor="middle" fill="#00d4ff" font-size="9" font-weight="600" font-family="Inter,sans-serif">Interplanetary Optical Link</text>
-<text x="470" y="222" text-anchor="middle" fill="#5a6578" font-size="8.5" font-family="Inter,sans-serif">~225M km · 12.5 min one-way · 2–200 Mbps</text>
-
-<!-- Redundant path labels -->
-<path d="M310,195 Q470,150 620,195" fill="none" stroke="#3fb950" stroke-width="1" stroke-dasharray="4,3" stroke-opacity="0.5"/>
-<text x="470" y="168" text-anchor="middle" fill="#3fb950" font-size="7" font-opacity="0.7" font-family="Inter,sans-serif">Redundant via ES-L5</text>
-
-<!-- ===== RIGHT SIDE: MARS ===== -->
-<text x="740" y="28" text-anchor="middle" fill="#ff7043" font-size="12" font-weight="700" letter-spacing="3" font-family="Inter,system-ui,sans-serif">MARS</text>
-
-<!-- T4: Mars Orbital -->
-<rect x="590" y="42" width="300" height="52" rx="8" fill="rgba(191,54,12,0.12)" stroke="#ff7043" stroke-opacity="0.25" stroke-width="1"/>
-<rect x="600" y="52" width="85" height="32" rx="5" fill="url(#gMars)" fill-opacity="0.7"/><text x="642" y="73" text-anchor="middle" fill="white" font-size="9" font-weight="600" font-family="Inter,sans-serif">MRS-Alpha</text>
-<rect x="695" y="52" width="75" height="32" rx="5" fill="url(#gMars)" fill-opacity="0.7"/><text x="732" y="73" text-anchor="middle" fill="white" font-size="9" font-weight="600" font-family="Inter,sans-serif">MRS-Beta</text>
-<rect x="780" y="52" width="85" height="32" rx="5" fill="url(#gMars)" fill-opacity="0.7"/><text x="822" y="73" text-anchor="middle" fill="white" font-size="9" font-weight="600" font-family="Inter,sans-serif">MRS-Polar</text>
-<text x="740" y="87" text-anchor="middle" fill="#5a6578" font-size="8" font-family="Inter,sans-serif">T4: Mars Orbital — 13 nodes</text>
-
-<!-- Arrow T4 -> T5 -->
-<line x1="740" y1="94" x2="740" y2="108" stroke="#d29922" stroke-width="1.5" marker-end="url(#arr)"/>
-
-<!-- T5: Mars Surface -->
-<rect x="570" y="112" width="340" height="44" rx="8" fill="rgba(210,153,34,0.08)" stroke="#d29922" stroke-opacity="0.2" stroke-width="1"/>
-<rect x="582" y="120" width="55" height="26" rx="4" fill="#d29922" fill-opacity="0.45"/><text x="609" y="138" text-anchor="middle" fill="white" font-size="8.5" font-weight="600" font-family="Inter,sans-serif">Base-1</text>
-<rect x="646" y="120" width="55" height="26" rx="4" fill="#d29922" fill-opacity="0.45"/><text x="673" y="138" text-anchor="middle" fill="white" font-size="8.5" font-weight="600" font-family="Inter,sans-serif">Base-2</text>
-<rect x="710" y="120" width="50" height="26" rx="4" fill="#d29922" fill-opacity="0.45"/><text x="735" y="138" text-anchor="middle" fill="white" font-size="8.5" font-weight="600" font-family="Inter,sans-serif">Rover</text>
-<text x="800" y="137" text-anchor="start" fill="#d29922" font-size="9" font-weight="600" font-family="Inter,sans-serif">+ 164 more</text>
-<text x="740" y="151" text-anchor="middle" fill="#5a6578" font-size="8" font-family="Inter,sans-serif">T5: Mars Surface — 167 nodes</text>
-
-<!-- ===== SUMMARY BAR ===== -->
-<rect x="50" y="260" width="860" height="4" rx="2" fill="url(#beam)" opacity="0.4"/>
-
-<!-- Stats row -->
-<rect x="60" y="285" width="190" height="60" rx="8" fill="rgba(0,212,255,0.06)" stroke="#00d4ff" stroke-opacity="0.2"/>
-<text x="155" y="312" text-anchor="middle" fill="#00d4ff" font-size="22" font-weight="800" font-family="Inter,sans-serif">241</text>
-<text x="155" y="330" text-anchor="middle" fill="#5a6578" font-size="9" font-family="Inter,sans-serif">Total Nodes</text>
-
-<rect x="270" y="285" width="190" height="60" rx="8" fill="rgba(124,92,247,0.06)" stroke="#7c5cf7" stroke-opacity="0.2"/>
-<text x="365" y="312" text-anchor="middle" fill="#7c5cf7" font-size="22" font-weight="800" font-family="Inter,sans-serif">5</text>
-<text x="365" y="330" text-anchor="middle" fill="#5a6578" font-size="9" font-family="Inter,sans-serif">Network Tiers</text>
-
-<rect x="480" y="285" width="190" height="60" rx="8" fill="rgba(63,185,80,0.06)" stroke="#3fb950" stroke-opacity="0.2"/>
-<text x="575" y="312" text-anchor="middle" fill="#3fb950" font-size="22" font-weight="800" font-family="Inter,sans-serif">3</text>
-<text x="575" y="330" text-anchor="middle" fill="#5a6578" font-size="9" font-family="Inter,sans-serif">Redundant Paths</text>
-
-<rect x="690" y="285" width="190" height="60" rx="8" fill="rgba(255,107,53,0.06)" stroke="#ff6b35" stroke-opacity="0.2"/>
-<text x="785" y="312" text-anchor="middle" fill="#ff6b35" font-size="22" font-weight="800" font-family="Inter,sans-serif">0</text>
-<text x="785" y="330" text-anchor="middle" fill="#5a6578" font-size="9" font-family="Inter,sans-serif">Single Points of Failure</text>
-
-<!-- Legend -->
-<g transform="translate(60,370)" font-family="Inter,sans-serif">
-  <rect width="840" height="140" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-  <text x="420" y="22" text-anchor="middle" fill="#8892a4" font-size="10" font-weight="600" letter-spacing="2">LINK CHARACTERISTICS</text>
-  
-  <circle cx="30" cy="50" r="6" fill="#1e88e5" fill-opacity="0.5"/><text x="45" y="54" fill="#8892a4" font-size="9">T1→T2</text><text x="110" y="54" fill="#c9d1d9" font-size="9" font-weight="600">DSN uplink</text><text x="210" y="54" fill="#5a6578" font-size="9">Ka-band · GEO relay</text>
-  
-  <circle cx="30" cy="75" r="6" fill="#42a5f5" fill-opacity="0.5"/><text x="45" y="79" fill="#8892a4" font-size="9">T2→T3</text><text x="110" y="79" fill="#c9d1d9" font-size="9" font-weight="600">1550nm optical</text><text x="210" y="79" fill="#5a6578" font-size="9">100 Mbps · Laser uplink</text>
-  
-  <circle cx="30" cy="100" r="6" fill="#7c5cf7" fill-opacity="0.5"/><text x="45" y="104" fill="#8892a4" font-size="9">T3→T4</text><text x="110" y="104" fill="#c9d1d9" font-size="9" font-weight="600">Deep space laser</text><text x="210" y="104" fill="#5a6578" font-size="9">2–200 Mbps · 225M km</text>
-  
-  <circle cx="30" cy="125" r="6" fill="#d29922" fill-opacity="0.5"/><text x="45" y="129" fill="#8892a4" font-size="9">T4→T5</text><text x="110" y="129" fill="#c9d1d9" font-size="9" font-weight="600">UHF/X-band</text><text x="210" y="129" fill="#5a6578" font-size="9">2 Mbps · Surface downlink</text>
-  
-  <text x="480" y="54" fill="#8892a4" font-size="9">LEO ISL</text><text x="560" y="54" fill="#c9d1d9" font-size="9" font-weight="600">Optical mesh</text><text x="660" y="54" fill="#5a6578" font-size="9">10 Gbps · 48 satellites</text>
-  <text x="480" y="79" fill="#8892a4" font-size="9">Latency</text><text x="560" y="79" fill="#c9d1d9" font-size="9" font-weight="600">3–22 min one-way</text><text x="660" y="79" fill="#5a6578" font-size="9">Distance dependent</text>
-  <text x="480" y="104" fill="#8892a4" font-size="9">Conjunction</text><text x="560" y="104" fill="#3fb950" font-size="9" font-weight="600">50–70% via Lagrange</text><text x="660" y="104" fill="#5a6578" font-size="9">No total blackout</text>
-  <text x="480" y="129" fill="#8892a4" font-size="9">Security</text><text x="560" y="129" fill="#c84cff" font-size="9" font-weight="600">QKD + PQC end-to-end</text><text x="660" y="129" fill="#5a6578" font-size="9">BB84 · ML-KEM</text>
-</g>
-
-</svg>
+<text x="600" y="28" text-anchor="middle" fill="#00d4ff" font-size="16" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" filter="url(#glow)">AETHERIX 5-TIER NETWORK TOPOLOGY</text>
+<rect x="20" y="34" width="1160" height="2" rx="1" fill="#00d4ff" fill-opacity="0.15"/>
+<text x="280" y="65" text-anchor="middle" fill="#00d4ff" font-size="12" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" letter-spacing="2">EARTH GROUND</text>
+<text x="280" y="79" text-anchor="middle" fill="#5a6578" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">T1 &#183; 6 nodes</text>
+<rect x="50" y="93" width="80" height="28" rx="4" fill="#00d4ff" fill-opacity="0.15" stroke="#00d4ff" stroke-opacity="0.4"/>
+<text x="90" y="111" text-anchor="middle" fill="white" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Goldstone</text>
+<rect x="140" y="93" width="80" height="28" rx="4" fill="#00d4ff" fill-opacity="0.15" stroke="#00d4ff" stroke-opacity="0.4"/>
+<text x="180" y="111" text-anchor="middle" fill="white" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Madrid</text>
+<rect x="230" y="93" width="80" height="28" rx="4" fill="#00d4ff" fill-opacity="0.15" stroke="#00d4ff" stroke-opacity="0.4"/>
+<text x="270" y="111" text-anchor="middle" fill="white" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Canberra</text>
+<rect x="320" y="93" width="80" height="28" rx="4" fill="#00d4ff" fill-opacity="0.15" stroke="#00d4ff" stroke-opacity="0.4"/>
+<text x="360" y="111" text-anchor="middle" fill="white" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">MOC</text>
+<rect x="410" y="93" width="80" height="28" rx="4" fill="#00d4ff" fill-opacity="0.15" stroke="#00d4ff" stroke-opacity="0.4"/>
+<text x="450" y="111" text-anchor="middle" fill="white" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">NOC</text>
+<rect x="500" y="93" width="80" height="28" rx="4" fill="#00d4ff" fill-opacity="0.15" stroke="#00d4ff" stroke-opacity="0.4"/>
+<text x="540" y="111" text-anchor="middle" fill="white" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">SOC</text>
+<text x="280" y="140" text-anchor="middle" fill="#00d4ff" font-size="12" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" letter-spacing="2">EARTH ORBITAL</text>
+<text x="280" y="154" text-anchor="middle" fill="#5a6578" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">T2 &#183; 51 nodes</text>
+<rect x="50" y="166" width="100" height="26" rx="4" fill="#00d4ff" fill-opacity="0.2" stroke="#00d4ff" stroke-opacity="0.5"/>
+<text x="100" y="183" text-anchor="middle" fill="white" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">GEO-Relay-1</text>
+<rect x="230" y="166" width="100" height="26" rx="4" fill="#00d4ff" fill-opacity="0.2" stroke="#00d4ff" stroke-opacity="0.5"/>
+<text x="280" y="183" text-anchor="middle" fill="white" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">GEO-Relay-2</text>
+<rect x="410" y="166" width="100" height="26" rx="4" fill="#00d4ff" fill-opacity="0.2" stroke="#00d4ff" stroke-opacity="0.5"/>
+<text x="460" y="183" text-anchor="middle" fill="white" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">GEO-Relay-3</text>
+<rect x="50" y="200" width="540" height="24" rx="4" fill="#00d4ff" fill-opacity="0.08" stroke="#00d4ff" stroke-opacity="0.2" stroke-dasharray="4,3"/>
+<text x="280" y="216" text-anchor="middle" fill="#00d4ff" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">+ 48 LEO laser mesh satellites (optical ISL, 10 Gbps interconnect)</text>
+<line x1="90" y1="121" x2="90" y2="166" stroke="#5a6578" stroke-width="1"/>
+<line x1="180" y1="121" x2="180" y2="166" stroke="#5a6578" stroke-width="1"/>
+<line x1="270" y1="121" x2="270" y2="166" stroke="#5a6578" stroke-width="1"/>
+<line x1="360" y1="121" x2="360" y2="166" stroke="#5a6578" stroke-width="1"/>
+<line x1="450" y1="121" x2="450" y2="166" stroke="#5a6578" stroke-width="1"/>
+<line x1="540" y1="121" x2="540" y2="166" stroke="#5a6578" stroke-width="1"/>
+<text x="600" y="255" text-anchor="middle" fill="#7c5cf7" font-size="12" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" letter-spacing="2">DEEP SPACE TRANSIT</text>
+<text x="600" y="269" text-anchor="middle" fill="#5a6578" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">T3 &#183; 4 nodes &#183; Lagrange point relays</text>
+<rect x="350" y="281" width="140" height="30" rx="6" fill="#7c5cf7" fill-opacity="0.15" stroke="#7c5cf7" stroke-opacity="0.4"/>
+<text x="420" y="301" text-anchor="middle" fill="white" font-size="11" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">ES-L4 Relay</text>
+<rect x="515" y="281" width="140" height="30" rx="6" fill="#7c5cf7" fill-opacity="0.15" stroke="#7c5cf7" stroke-opacity="0.4"/>
+<text x="585" y="301" text-anchor="middle" fill="white" font-size="11" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">ES-L5 Relay</text>
+<rect x="680" y="281" width="140" height="30" rx="6" fill="#7c5cf7" fill-opacity="0.15" stroke="#7c5cf7" stroke-opacity="0.4"/>
+<text x="750" y="301" text-anchor="middle" fill="white" font-size="11" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Transfer-1</text>
+<rect x="845" y="281" width="140" height="30" rx="6" fill="#7c5cf7" fill-opacity="0.15" stroke="#7c5cf7" stroke-opacity="0.4"/>
+<text x="915" y="301" text-anchor="middle" fill="white" font-size="11" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Transfer-2</text>
+<text x="600" y="335" text-anchor="middle" fill="#5a6578" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" font-style="italic">~225 million km average &#183; 12.5 min one-way light time</text>
+<rect x="100" y="355" width="1000" height="18" rx="3" fill="#00d4ff" fill-opacity="0.06" stroke="#00d4ff" stroke-opacity="0.2"/>
+<text x="110" y="368" fill="#00d4ff" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Path A: Goldstone → GEO-1 → ES-L4 → MRS-Alpha → Habitat-1 (primary)</text>
+<text x="1080" y="368" text-anchor="end" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">10-20 Mbps</text>
+<rect x="100" y="377" width="1000" height="18" rx="3" fill="#3fb950" fill-opacity="0.06" stroke="#3fb950" stroke-opacity="0.2"/>
+<text x="110" y="390" fill="#3fb950" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Path B: Madrid → GEO-2 → ES-L5 → MRS-Beta → Rover-1 (redundant)</text>
+<text x="1080" y="390" text-anchor="end" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">5-15 Mbps</text>
+<rect x="100" y="399" width="1000" height="18" rx="3" fill="#d29922" fill-opacity="0.06" stroke="#d29922" stroke-opacity="0.2"/>
+<text x="110" y="412" fill="#d29922" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Path C: Canberra → GEO-3 → Transfer-1 → Polar-1 → Base-2 (backup)</text>
+<text x="1080" y="412" text-anchor="end" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">2-10 Mbps</text>
+<text x="920" y="434" text-anchor="middle" fill="#ff6b35" font-size="12" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" letter-spacing="2">MARS ORBITAL</text>
+<text x="920" y="448" text-anchor="middle" fill="#5a6578" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">T4 &#183; 13 nodes</text>
+<rect x="690" y="460" width="110" height="28" rx="5" fill="#ff6b35" fill-opacity="0.2" stroke="#ff6b35" stroke-opacity="0.5"/>
+<text x="745" y="478" text-anchor="middle" fill="white" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Areostat-&#945;</text>
+<rect x="810" y="460" width="110" height="28" rx="5" fill="#ff6b35" fill-opacity="0.2" stroke="#ff6b35" stroke-opacity="0.5"/>
+<text x="865" y="478" text-anchor="middle" fill="white" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Areostat-&#946;</text>
+<rect x="930" y="460" width="110" height="28" rx="5" fill="#ff6b35" fill-opacity="0.2" stroke="#ff6b35" stroke-opacity="0.5"/>
+<text x="985" y="478" text-anchor="middle" fill="white" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Polar-1</text>
+<rect x="1050" y="460" width="110" height="28" rx="5" fill="#ff6b35" fill-opacity="0.2" stroke="#ff6b35" stroke-opacity="0.5"/>
+<text x="1105" y="478" text-anchor="middle" fill="white" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Polar-2</text>
+<rect x="690" y="496" width="460" height="24" rx="4" fill="#ff6b35" fill-opacity="0.08" stroke="#ff6b35" stroke-opacity="0.2" stroke-dasharray="4,3"/>
+<text x="920" y="512" text-anchor="middle" fill="#ff6b35" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">+ 9 relay satellites in equatorial &amp; polar orbits</text>
+<text x="920" y="534" text-anchor="middle" fill="#d29922" font-size="12" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" letter-spacing="2">MARS SURFACE</text>
+<text x="920" y="548" text-anchor="middle" fill="#5a6578" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">T5 &#183; 167 nodes</text>
+<rect x="670" y="558" width="120" height="38" rx="5" fill="#d29922" fill-opacity="0.12" stroke="#d29922" stroke-opacity="0.3"/>
+<text x="730" y="574" text-anchor="middle" fill="#d29922" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Habitats</text>
+<text x="730" y="588" text-anchor="middle" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">12 bases</text>
+<rect x="805" y="558" width="120" height="38" rx="5" fill="#d29922" fill-opacity="0.12" stroke="#d29922" stroke-opacity="0.3"/>
+<text x="865" y="574" text-anchor="middle" fill="#d29922" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Rovers</text>
+<text x="865" y="588" text-anchor="middle" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">24 mobile</text>
+<rect x="940" y="558" width="120" height="38" rx="5" fill="#d29922" fill-opacity="0.12" stroke="#d29922" stroke-opacity="0.3"/>
+<text x="1000" y="574" text-anchor="middle" fill="#d29922" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Drones</text>
+<text x="1000" y="588" text-anchor="middle" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">18 aerial</text>
+<rect x="1075" y="558" width="120" height="38" rx="5" fill="#d29922" fill-opacity="0.12" stroke="#d29922" stroke-opacity="0.3"/>
+<text x="1135" y="574" text-anchor="middle" fill="#d29922" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Sensors</text>
+<text x="1135" y="588" text-anchor="middle" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">113 fixed</text>
+<line x1="745" y1="524" x2="745" y2="558" stroke="#5a6578" stroke-width="1" stroke-dasharray="3,3"/>
+<line x1="910" y1="524" x2="910" y2="558" stroke="#5a6578" stroke-width="1" stroke-dasharray="3,3"/>
+<line x1="1075" y1="524" x2="1075" y2="558" stroke="#5a6578" stroke-width="1" stroke-dasharray="3,3"/>
+<rect x="100" y="665" width="1000" height="36" rx="6" fill="#00d4ff" fill-opacity="0.06" stroke="#00d4ff" stroke-opacity="0.2"/>
+<text x="600" y="688" text-anchor="middle" fill="#00d4ff" font-size="12" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">241 Nodes &#183; 5 Tiers &#183; 3 Redundant Paths &#183; No Single Point of Failure</text>
+<rect x="990" y="530" width="190" height="125" rx="6" fill="rgba(13,17,23,0.92)" stroke="#5a6578" stroke-opacity="0.4"/>
+<text x="1000" y="546" fill="#8892a4" font-size="11" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">LEGEND</text>
+<rect x="1000" y="557" width="10" height="10" rx="2" fill="#00d4ff"/>
+<text x="1018" y="566" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Earth Ground/Orbital</text>
+<rect x="1000" y="575" width="10" height="10" rx="2" fill="#7c5cf7"/>
+<text x="1018" y="584" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Deep Space Transit</text>
+<rect x="1000" y="593" width="10" height="10" rx="2" fill="#ff6b35"/>
+<text x="1018" y="602" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Mars Orbital</text>
+<rect x="1000" y="611" width="10" height="10" rx="2" fill="#d29922"/>
+<text x="1018" y="620" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Mars Surface</text>
+<rect x="1000" y="629" width="10" height="10" rx="2" fill="#3fb950"/>
+<text x="1018" y="638" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Redundant Path B</text>
+<rect x="1000" y="647" width="10" height="10" rx="2" fill="#5a6578"/>
+<text x="1018" y="656" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Link / Standard</text></svg>

@@ -1,83 +1,170 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 400" width="920" height="400" style="background:#050a14">
-<rect width="920" height="400" fill="#050a14"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700">
+<rect width="1200" height="700" fill="#0d1117"/>
 <defs>
-<marker id="dtA" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="none" stroke="#00d4ff" stroke-width="1.2"/></marker>
-<marker id="dtR" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="none" stroke="#f85149" stroke-width="1"/></marker>
+  <filter id="glow">
+    <feGaussianBlur stdDeviation="2" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glowStrong">
+    <feGaussianBlur stdDeviation="4" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <linearGradient id="gradCyan" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradPurple" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#7c5cf7" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#7c5cf7" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradOrange" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#ff6b35" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#ff6b35" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradGreen" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#3fb950" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#3fb950" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradMagenta" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#c84cff" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#c84cff" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradGold" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#d29922" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#d29922" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradRed" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#f85149" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#f85149" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradMarsEarth" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#ff6b35" stop-opacity="0.3"/>
+    <stop offset="50%" stop-color="#7c5cf7" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.3"/>
+  </linearGradient>
+  <marker id="arrCyan" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#00d4ff" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrPurple" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#7c5cf7" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrGray" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#5a6578" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#3fb950" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrOrange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#ff6b35" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrMagenta" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#c84cff" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrGold" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#d29922" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrRed" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#f85149" stroke-width="1.2"/>
+  </marker>
+  
 </defs>
-<text x="460" y="24" text-anchor="middle" fill="#8892a4" font-size="11" font-weight="600" letter-spacing="2">TCP/IP: END-TO-END CONNECTION (FAILS IN SPACE)</text>
-<rect x="60" y="36" width="120" height="40" rx="6" fill="rgba(0,212,255,0.1)" stroke="#00d4ff" stroke-opacity="0.4"/>
-<text x="120" y="60" text-anchor="middle" fill="#00d4ff" font-size="11" font-weight="600">Source</text>
-<line x1="180" y1="56" x2="250" y2="56" stroke="#00d4ff" stroke-width="1.5" stroke-dasharray="4,3"/>
-<rect x="250" y="36" width="120" height="40" rx="6" fill="rgba(0,212,255,0.1)" stroke="#00d4ff" stroke-opacity="0.4"/>
-<text x="310" y="60" text-anchor="middle" fill="#00d4ff" font-size="11" font-weight="600">Router</text>
-<line x1="370" y1="56" x2="440" y2="56" stroke="#00d4ff" stroke-width="1.5" stroke-dasharray="4,3"/>
-<rect x="440" y="36" width="120" height="40" rx="6" fill="rgba(0,212,255,0.1)" stroke="#00d4ff" stroke-opacity="0.4"/>
-<text x="500" y="60" text-anchor="middle" fill="#00d4ff" font-size="11" font-weight="600">Router</text>
-<line x1="560" y1="56" x2="630" y2="56" stroke="#f85149" stroke-width="1.5" stroke-dasharray="4,3"/>
-<rect x="630" y="36" width="120" height="40" rx="6" fill="rgba(248,81,73,0.1)" stroke="#f85149" stroke-opacity="0.4" stroke-dasharray="3,3"/>
-<text x="690" y="60" text-anchor="middle" fill="#f85149" font-size="11" font-weight="600">Dest</text>
-<text x="810" y="60" text-anchor="middle" fill="#f85149" font-size="22">✗</text>
-
-<text x="460" y="108" text-anchor="middle" fill="#8892a4" font-size="11" font-weight="600" letter-spacing="2">DTN: STORE-AND-FORWARD (WORKS IN SPACE)</text>
-
-<rect x="20" y="120" width="160" height="95" rx="8" fill="rgba(63,185,80,0.08)" stroke="#3fb950" stroke-opacity="0.3"/>
-<text x="100" y="142" text-anchor="middle" fill="#3fb950" font-size="11" font-weight="700">SOURCE</text>
-<text x="100" y="158" text-anchor="middle" fill="#8892a4" font-size="9">Create Bundle</text>
-<text x="100" y="172" text-anchor="middle" fill="#8892a4" font-size="9">Priority: P2</text>
-<text x="100" y="190" text-anchor="middle" fill="#5a6578" font-size="8">CUSTODY: Source</text>
-
-<line x1="180" y1="168" x2="220" y2="168" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#dtA)"/>
-<text x="200" y="160" text-anchor="middle" fill="#5a6578" font-size="8">link up</text>
-
-<rect x="220" y="120" width="160" height="95" rx="8" fill="rgba(0,212,255,0.08)" stroke="#00d4ff" stroke-opacity="0.3"/>
-<text x="300" y="142" text-anchor="middle" fill="#00d4ff" font-size="11" font-weight="700">NODE A</text>
-<text x="300" y="158" text-anchor="middle" fill="#8892a4" font-size="9">Forward bundle</text>
-<text x="300" y="172" text-anchor="middle" fill="#3fb950" font-size="9">Custody accepted ✓</text>
-<text x="300" y="195" text-anchor="middle" fill="#d29922" font-size="8">📁 STORE: 2 bundles</text>
-
-<line x1="380" y1="168" x2="420" y2="168" stroke="#d29922" stroke-width="1.5" stroke-dasharray="4,2"/>
-<text x="400" y="160" text-anchor="middle" fill="#d29922" font-size="8">no link</text>
-
-<rect x="420" y="120" width="160" height="95" rx="8" fill="rgba(210,153,34,0.08)" stroke="#d29922" stroke-opacity="0.3"/>
-<text x="500" y="142" text-anchor="middle" fill="#d29922" font-size="11" font-weight="700">NODE B</text>
-<text x="500" y="158" text-anchor="middle" fill="#8892a4" font-size="9">📁 Storing bundle</text>
-<text x="500" y="172" text-anchor="middle" fill="#8892a4" font-size="9">Waiting for link...</text>
-<text x="500" y="195" text-anchor="middle" fill="#d29922" font-size="8">⏳ WAIT 14 min</text>
-
-<line x1="580" y1="168" x2="620" y2="168" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#dtA)"/>
-<text x="600" y="160" text-anchor="middle" fill="#00d4ff" font-size="8">link up</text>
-
-<rect x="620" y="120" width="160" height="95" rx="8" fill="rgba(0,212,255,0.08)" stroke="#00d4ff" stroke-opacity="0.3"/>
-<text x="700" y="142" text-anchor="middle" fill="#00d4ff" font-size="11" font-weight="700">NODE C</text>
-<text x="700" y="158" text-anchor="middle" fill="#8892a4" font-size="9">Forward bundle</text>
-<text x="700" y="172" text-anchor="middle" fill="#3fb950" font-size="9">Custody accepted ✓</text>
-<text x="700" y="190" text-anchor="middle" fill="#5a6578" font-size="8">CUSTODY: Node C</text>
-
-<line x1="780" y1="168" x2="820" y2="168" stroke="#3fb950" stroke-width="1.5" marker-end="url(#dtA)"/>
-
-<rect x="820" y="130" width="80" height="75" rx="8" fill="rgba(63,185,80,0.08)" stroke="#3fb950" stroke-opacity="0.3"/>
-<text x="860" y="158" text-anchor="middle" fill="#3fb950" font-size="11" font-weight="700">DEST</text>
-<text x="860" y="178" text-anchor="middle" fill="#3fb950" font-size="18">✓</text>
-<text x="860" y="196" text-anchor="middle" fill="#8892a4" font-size="9">Delivered</text>
-
-<rect x="20" y="240" width="280" height="50" rx="6" fill="rgba(0,212,255,0.04)" stroke="#00d4ff" stroke-opacity="0.15"/>
-<text x="160" y="260" text-anchor="middle" fill="#00d4ff" font-size="10" font-weight="600">Key: Custody Transfer</text>
-<text x="160" y="278" text-anchor="middle" fill="#8892a4" font-size="9">Each node takes responsibility for the bundle</text>
-
-<rect x="320" y="240" width="280" height="50" rx="6" fill="rgba(63,185,80,0.04)" stroke="#3fb950" stroke-opacity="0.15"/>
-<text x="460" y="260" text-anchor="middle" fill="#3fb950" font-size="10" font-weight="600">Data Never Lost</text>
-<text x="460" y="278" text-anchor="middle" fill="#8892a4" font-size="9">Bundle stored until next hop confirms</text>
-
-<rect x="620" y="240" width="280" height="50" rx="6" fill="rgba(124,92,247,0.04)" stroke="#7c5cf7" stroke-opacity="0.15"/>
-<text x="760" y="260" text-anchor="middle" fill="#7c5cf7" font-size="10" font-weight="600">No End-to-End Needed</text>
-<text x="760" y="278" text-anchor="middle" fill="#8892a4" font-size="9">Hop-by-hop, works with 22-min delays</text>
-
-<rect x="20" y="310" width="880" height="45" rx="6" fill="rgba(255,107,53,0.04)" stroke="#ff6b35" stroke-opacity="0.15"/>
-<text x="460" y="332" text-anchor="middle" fill="#ff6b35" font-size="10" font-weight="600">Three Convergence Layers</text>
-<text x="200" y="348" text-anchor="middle" fill="#8892a4" font-size="9">LTP (RFC 5326) — Deep space</text>
-<text x="560" y="348" text-anchor="middle" fill="#8892a4" font-size="9">TCPCL (RFC 7242) — Earth segment</text>
-<text x="820" y="348" text-anchor="middle" fill="#8892a4" font-size="9">UDP-CL — Optical ISL</text>
-
-</svg>
+<text x="600" y="28" text-anchor="middle" fill="#00d4ff" font-size="16" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" filter="url(#glow)">DTN STORE-AND-FORWARD vs TCP/IP</text>
+<rect x="20" y="34" width="1160" height="2" rx="1" fill="#00d4ff" fill-opacity="0.15"/>
+<text x="600" y="56" text-anchor="middle" fill="#8892a4" font-size="13" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" letter-spacing="2">TCP/IP: END-TO-END CONNECTION (FAILS IN SPACE)</text>
+<rect x="80" y="72" width="140" height="40" rx="6" fill="#00d4ff" fill-opacity="0.12" stroke="#00d4ff" stroke-opacity="0.4"/>
+<text x="150" y="97" text-anchor="middle" fill="#00d4ff" font-size="12" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Source</text>
+<line x1="220" y1="92" x2="290" y2="92" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#arrCyan)"/>
+<rect x="290" y="72" width="140" height="40" rx="6" fill="#00d4ff" fill-opacity="0.12" stroke="#00d4ff" stroke-opacity="0.4"/>
+<text x="360" y="97" text-anchor="middle" fill="#00d4ff" font-size="12" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Router A</text>
+<line x1="430" y1="92" x2="500" y2="92" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#arrCyan)"/>
+<rect x="500" y="72" width="140" height="40" rx="6" fill="#00d4ff" fill-opacity="0.12" stroke="#00d4ff" stroke-opacity="0.4"/>
+<text x="570" y="97" text-anchor="middle" fill="#00d4ff" font-size="12" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Router B</text>
+<line x1="640" y1="92" x2="710" y2="92" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#arrCyan)"/>
+<rect x="710" y="72" width="140" height="40" rx="6" fill="#00d4ff" fill-opacity="0.12" stroke="#00d4ff" stroke-opacity="0.4"/>
+<text x="780" y="97" text-anchor="middle" fill="#00d4ff" font-size="12" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Router C</text>
+<line x1="850" y1="92" x2="920" y2="92" stroke="#f85149" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrRed)"/>
+<text x="885" y="84" text-anchor="middle" fill="#f85149" font-size="11" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" filter="url(#glow)">LINK LOST</text>
+<text x="885" y="120" text-anchor="middle" fill="#f85149" font-size="14" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">&#x2717; TIMEOUT</text>
+<rect x="920" y="72" width="140" height="40" rx="6" fill="#f85149" fill-opacity="0.12" stroke="#f85149" stroke-opacity="0.4" stroke-dasharray="4,3"/>
+<text x="990" y="97" text-anchor="middle" fill="#f85149" font-size="12" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Destination</text>
+<text x="600" y="152" text-anchor="middle" fill="#f85149" font-size="12" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">TCP requires end-to-end connectivity &#8212; impossible with 3-22 min light-time delays</text>
+<rect x="40" y="172" width="1120" height="1" fill="#5a6578" fill-opacity="0.3"/>
+<text x="600" y="192" text-anchor="middle" fill="#3fb950" font-size="13" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" letter-spacing="2">DTN: STORE-AND-FORWARD (WORKS IN SPACE)</text>
+<rect x="60" y="210" width="180" height="110" rx="8" fill="url(#gradGreen)" stroke="#3fb950" stroke-opacity="0.4"/>
+<rect x="60" y="210" width="180" height="22" rx="8" fill="#3fb950" fill-opacity="0.15"/>
+<text x="150" y="226" text-anchor="middle" fill="#3fb950" font-size="11" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">SOURCE</text>
+<text x="68" y="248" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Create Bundle</text>
+<text x="68" y="264" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Priority: P2</text>
+<text x="68" y="280" fill="#5a6578" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Lifetime: 24h</text>
+<text x="68" y="296" fill="#5a6578" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">CUSTODY: Source</text>
+<line x1="242" y1="265" x2="276" y2="265" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrCyan)"/>
+<text x="259" y="257" text-anchor="middle" fill="#00d4ff" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">link up</text>
+<text x="259" y="281" text-anchor="middle" fill="#3fb950" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">custody &#x2192;</text>
+<rect x="278" y="210" width="180" height="110" rx="8" fill="url(#gradCyan)" stroke="#00d4ff" stroke-opacity="0.4"/>
+<rect x="278" y="210" width="180" height="22" rx="8" fill="#00d4ff" fill-opacity="0.15"/>
+<text x="368" y="226" text-anchor="middle" fill="#00d4ff" font-size="11" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">NODE A</text>
+<text x="286" y="248" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Forward bundle</text>
+<text x="286" y="264" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Custody accepted &#x2713;</text>
+<text x="286" y="280" fill="#5a6578" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">RL route: Node B</text>
+<text x="286" y="296" fill="#5a6578" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">STORE: 2 bundles</text>
+<line x1="460" y1="265" x2="494" y2="265" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrCyan)"/>
+<text x="477" y="257" text-anchor="middle" fill="#00d4ff" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">link up</text>
+<text x="477" y="281" text-anchor="middle" fill="#3fb950" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">custody &#x2192;</text>
+<rect x="496" y="210" width="180" height="110" rx="8" fill="url(#gradGold)" stroke="#d29922" stroke-opacity="0.4"/>
+<rect x="496" y="210" width="180" height="22" rx="8" fill="#d29922" fill-opacity="0.15"/>
+<text x="586" y="226" text-anchor="middle" fill="#d29922" font-size="11" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">NODE B</text>
+<text x="504" y="248" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Storing bundle...</text>
+<text x="504" y="264" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Waiting for link...</text>
+<text x="504" y="280" fill="#5a6578" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">No contact window</text>
+<text x="504" y="296" fill="#d29922" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">&#x23F3; WAIT 14 min</text>
+<line x1="678" y1="265" x2="712" y2="265" stroke="#d29922" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrGold)"/>
+<text x="695" y="257" text-anchor="middle" fill="#d29922" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">no link</text>
+<rect x="714" y="210" width="180" height="110" rx="8" fill="url(#gradCyan)" stroke="#00d4ff" stroke-opacity="0.4"/>
+<rect x="714" y="210" width="180" height="22" rx="8" fill="#00d4ff" fill-opacity="0.15"/>
+<text x="804" y="226" text-anchor="middle" fill="#00d4ff" font-size="11" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">NODE C</text>
+<text x="722" y="248" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Forward bundle</text>
+<text x="722" y="264" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Custody accepted &#x2713;</text>
+<text x="722" y="280" fill="#5a6578" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">RL route: Dest</text>
+<text x="722" y="296" fill="#5a6578" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">CUSTODY: Node C</text>
+<line x1="896" y1="265" x2="930" y2="265" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrCyan)"/>
+<text x="913" y="257" text-anchor="middle" fill="#00d4ff" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">link up</text>
+<text x="913" y="281" text-anchor="middle" fill="#3fb950" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">custody &#x2192;</text>
+<rect x="932" y="210" width="180" height="110" rx="8" fill="url(#gradGreen)" stroke="#3fb950" stroke-opacity="0.4"/>
+<rect x="932" y="210" width="180" height="22" rx="8" fill="#3fb950" fill-opacity="0.15"/>
+<text x="1022" y="226" text-anchor="middle" fill="#3fb950" font-size="11" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">DESTINATION</text>
+<text x="940" y="248" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Reassemble</text>
+<text x="940" y="264" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Verify integrity</text>
+<text x="940" y="280" fill="#5a6578" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Decrypt (QKD)</text>
+<text x="940" y="296" fill="#3fb950" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">DELIVERED &#x2713;</text>
+<rect x="50" y="338" width="356" height="46" rx="6" fill="#3fb950" fill-opacity="0.05" stroke="#3fb950" stroke-opacity="0.2"/>
+<text x="228" y="356" text-anchor="middle" fill="#3fb950" font-size="11" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Custody Transfer</text>
+<text x="228" y="374" text-anchor="middle" fill="#8892a4" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Each node takes responsibility for the bundle</text>
+<rect x="421" y="338" width="356" height="46" rx="6" fill="#00d4ff" fill-opacity="0.05" stroke="#00d4ff" stroke-opacity="0.2"/>
+<text x="599" y="356" text-anchor="middle" fill="#00d4ff" font-size="11" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Store &amp; Wait</text>
+<text x="599" y="374" text-anchor="middle" fill="#8892a4" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Bundle stored safely until next hop available</text>
+<rect x="792" y="338" width="356" height="46" rx="6" fill="#d29922" fill-opacity="0.05" stroke="#d29922" stroke-opacity="0.2"/>
+<text x="970" y="356" text-anchor="middle" fill="#d29922" font-size="11" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Link Status</text>
+<text x="970" y="374" text-anchor="middle" fill="#8892a4" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Intermittent links handled gracefully</text>
+<rect x="40" y="398" width="1120" height="42" rx="6" fill="#ff6b35" fill-opacity="0.06" stroke="#ff6b35" stroke-opacity="0.2"/>
+<text x="600" y="414" text-anchor="middle" fill="#ff6b35" font-size="11" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">THREE CONVERGENCE LAYERS</text>
+<text x="320" y="432" fill="#8892a4" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">LTP (RFC 5326)</text>
+<text x="320" y="432" text-anchor="middle" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" dx="40">Deep space, retransmission</text>
+<text x="560" y="432" fill="#8892a4" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">TCPCL (RFC 7242)</text>
+<text x="560" y="432" text-anchor="middle" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" dx="40">Earth ground segment</text>
+<text x="800" y="432" fill="#8892a4" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">UDP-CL</text>
+<text x="800" y="432" text-anchor="middle" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" dx="40">Optical ISL, low latency</text>
+<rect x="980" y="238" width="200" height="148" rx="6" fill="rgba(13,17,23,0.92)" stroke="#5a6578" stroke-opacity="0.4"/>
+<text x="990" y="254" fill="#8892a4" font-size="11" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">LEGEND</text>
+<rect x="990" y="265" width="10" height="10" rx="2" fill="#3fb950"/>
+<text x="1008" y="274" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Source / Destination</text>
+<rect x="990" y="283" width="10" height="10" rx="2" fill="#00d4ff"/>
+<text x="1008" y="292" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Active forwarding</text>
+<rect x="990" y="301" width="10" height="10" rx="2" fill="#d29922"/>
+<text x="1008" y="310" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Store &amp; waiting</text>
+<rect x="990" y="319" width="10" height="10" rx="2" fill="#f85149"/>
+<text x="1008" y="328" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">TCP/IP failure</text>
+<rect x="990" y="337" width="10" height="10" rx="2" fill="#ff6b35"/>
+<text x="1008" y="346" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Convergence layers</text>
+<rect x="990" y="355" width="10" height="10" rx="2" fill="#5a6578"/>
+<text x="1008" y="364" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Standards reference</text></svg>

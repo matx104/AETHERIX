@@ -1,323 +1,164 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">
-  <defs>
-    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#0a0e27"/>
-      <stop offset="100%" stop-color="#0f1538"/>
-    </linearGradient>
-    <linearGradient id="blueGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#1e3a8a"/>
-      <stop offset="100%" stop-color="#2563eb"/>
-    </linearGradient>
-    <linearGradient id="purpleGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#5b21b6"/>
-      <stop offset="100%" stop-color="#7c3aed"/>
-    </linearGradient>
-    <linearGradient id="tealGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0f766e"/>
-      <stop offset="100%" stop-color="#14b8a6"/>
-    </linearGradient>
-    <linearGradient id="greenGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#166534"/>
-      <stop offset="100%" stop-color="#22c55e"/>
-    </linearGradient>
-    <linearGradient id="arrowGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.9"/>
-      <stop offset="100%" stop-color="#34d399" stop-opacity="0.9"/>
-    </linearGradient>
-    <filter id="shadow" x="-4%" y="-4%" width="108%" height="116%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.5"/>
-    </filter>
-    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <marker id="arrowDown" markerWidth="10" markerHeight="7" refX="5" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8"/>
-    </marker>
-    <marker id="arrowUp" markerWidth="10" markerHeight="7" refX="5" refY="3.5" orient="auto-start-reverse">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8"/>
-    </marker>
-  </defs>
-
-  <!-- Background -->
-  <rect width="900" height="700" fill="url(#bgGrad)"/>
-
-  <!-- Subtle grid pattern -->
-  <g opacity="0.04" stroke="#ffffff" stroke-width="0.5">
-    <line x1="0" y1="0" x2="900" y2="700"/>
-    <line x1="900" y1="0" x2="0" y2="700"/>
-    <line x1="450" y1="0" x2="450" y2="700"/>
-    <line x1="0" y1="350" x2="900" y2="350"/>
-    <circle cx="450" cy="350" r="300" fill="none"/>
-    <circle cx="450" cy="350" r="200" fill="none"/>
-  </g>
-
-  <!-- Decorative stars -->
-  <g fill="#ffffff" opacity="0.3">
-    <circle cx="45" cy="30" r="1"/>
-    <circle cx="120" cy="55" r="0.8"/>
-    <circle cx="830" cy="40" r="1.2"/>
-    <circle cx="780" cy="80" r="0.7"/>
-    <circle cx="50" cy="650" r="0.9"/>
-    <circle cx="860" cy="670" r="1"/>
-    <circle cx="200" cy="20" r="0.6"/>
-    <circle cx="700" cy="25" r="0.8"/>
-    <circle cx="400" cy="15" r="0.5"/>
-    <circle cx="600" cy="680" r="0.7"/>
-  </g>
-
-  <!-- Title -->
-  <text x="450" y="38" text-anchor="middle" fill="#e2e8f0" font-size="20" font-weight="700" letter-spacing="3">AETHERIX PROTOCOL STACK</text>
-  <text x="450" y="56" text-anchor="middle" fill="#64748b" font-size="10" letter-spacing="2">AUTONOMOUS EXTRATERRESTRIAL HIGH-THROUGHPUT ENHANCING ROUTING &amp; INTERPLANETARY EXCHANGE</text>
-  <line x1="100" y1="65" x2="800" y2="65" stroke="#334155" stroke-width="0.5"/>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- LAYER 1: APPLICATION LAYER                  -->
-  <!-- ═══════════════════════════════════════════ -->
-  <g filter="url(#shadow)">
-    <rect x="40" y="80" width="820" height="28" rx="6" fill="url(#blueGrad)" opacity="0.2"/>
-    <rect x="40" y="80" width="820" height="28" rx="6" fill="none" stroke="#3b82f6" stroke-width="0.5" opacity="0.4"/>
-    <text x="450" y="99" text-anchor="middle" fill="#93c5fd" font-size="13" font-weight="600" letter-spacing="1.5">APPLICATION LAYER</text>
-  </g>
-
-  <!-- App layer boxes -->
-  <g filter="url(#shadow)">
-    <!-- Science Data -->
-    <rect x="55" y="114" width="255" height="52" rx="8" fill="url(#blueGrad)" opacity="0.85"/>
-    <rect x="55" y="114" width="255" height="52" rx="8" fill="none" stroke="#60a5fa" stroke-width="1"/>
-    <text x="182" y="138" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="600">Science Data</text>
-    <text x="182" y="155" text-anchor="middle" fill="#bfdbfe" font-size="9.5" opacity="0.85">Imaging · Spectroscopy · Radar</text>
-
-    <!-- Commands -->
-    <rect x="322" y="114" width="255" height="52" rx="8" fill="url(#blueGrad)" opacity="0.85"/>
-    <rect x="322" y="114" width="255" height="52" rx="8" fill="none" stroke="#60a5fa" stroke-width="1"/>
-    <text x="449" y="138" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="600">Commands</text>
-    <text x="449" y="155" text-anchor="middle" fill="#bfdbfe" font-size="9.5" opacity="0.85">Uplink · Navigation · Config</text>
-
-    <!-- Telemetry -->
-    <rect x="589" y="114" width="255" height="52" rx="8" fill="url(#blueGrad)" opacity="0.85"/>
-    <rect x="589" y="114" width="255" height="52" rx="8" fill="none" stroke="#60a5fa" stroke-width="1"/>
-    <text x="716" y="138" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="600">Telemetry</text>
-    <text x="716" y="155" text-anchor="middle" fill="#bfdbfe" font-size="9.5" opacity="0.85">Health · Diagnostics · Position</text>
-  </g>
-
-  <!-- Arrows: App → BPv7 -->
-  <g opacity="0.6">
-    <line x1="182" y1="168" x2="182" y2="195" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="3,2"/>
-    <line x1="449" y1="168" x2="449" y2="195" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="3,2"/>
-    <line x1="716" y1="168" x2="716" y2="195" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="3,2"/>
-    <polygon points="182,198 178,192 186,192" fill="#60a5fa"/>
-    <polygon points="449,198 445,192 453,192" fill="#60a5fa"/>
-    <polygon points="716,198 712,192 720,192" fill="#60a5fa"/>
-  </g>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- LAYER 2: BUNDLE PROTOCOL v7                 -->
-  <!-- ═══════════════════════════════════════════ -->
-  <g filter="url(#shadow)">
-    <rect x="40" y="200" width="820" height="28" rx="6" fill="url(#purpleGrad)" opacity="0.2"/>
-    <rect x="40" y="200" width="820" height="28" rx="6" fill="none" stroke="#8b5cf6" stroke-width="0.5" opacity="0.4"/>
-    <text x="450" y="219" text-anchor="middle" fill="#c4b5fd" font-size="13" font-weight="600" letter-spacing="1.5">BUNDLE PROTOCOL v7</text>
-    <text x="450" y="219" text-anchor="middle" fill="#c4b5fd" font-size="13" font-weight="600" letter-spacing="1.5">BUNDLE PROTOCOL v7</text>
-  </g>
-
-  <!-- BPv7 main box -->
-  <g filter="url(#shadow)">
-    <rect x="55" y="234" width="789" height="62" rx="10" fill="url(#purpleGrad)" opacity="0.8"/>
-    <rect x="55" y="234" width="789" height="62" rx="10" fill="none" stroke="#a78bfa" stroke-width="1.2"/>
-    <text x="450" y="256" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">RFC 9171 — Delay-Tolerant Networking Core Protocol</text>
-
-    <!-- Feature tags -->
-    <rect x="73" y="266" width="105" height="20" rx="10" fill="#1e1b4b" opacity="0.7"/>
-    <text x="125" y="280" text-anchor="middle" fill="#c4b5fd" font-size="8.5" font-weight="500">Store-and-Forward</text>
-
-    <rect x="186" y="266" width="100" height="20" rx="10" fill="#1e1b4b" opacity="0.7"/>
-    <text x="236" y="280" text-anchor="middle" fill="#c4b5fd" font-size="8.5" font-weight="500">Custody Transfer</text>
-
-    <rect x="294" y="266" width="110" height="20" rx="10" fill="#1e1b4b" opacity="0.7"/>
-    <text x="349" y="280" text-anchor="middle" fill="#c4b5fd" font-size="8.5" font-weight="500">Priority Scheduling</text>
-
-    <rect x="412" y="266" width="80" height="20" rx="10" fill="#1e1b4b" opacity="0.7"/>
-    <text x="452" y="280" text-anchor="middle" fill="#fbbf24" font-size="8.5" font-weight="600">RL Routing</text>
-
-    <rect x="500" y="266" width="115" height="20" rx="10" fill="#1e1b4b" opacity="0.7"/>
-    <text x="557" y="280" text-anchor="middle" fill="#c4b5fd" font-size="8.5" font-weight="500">Bundle Fragmentation</text>
-
-    <rect x="623" y="266" width="115" height="20" rx="10" fill="#1e1b4b" opacity="0.7"/>
-    <text x="680" y="280" text-anchor="middle" fill="#c4b5fd" font-size="8.5" font-weight="500">Lifetime Management</text>
-  </g>
-
-  <!-- Arrows: BPv7 → Convergence Layers -->
-  <g opacity="0.6">
-    <line x1="200" y1="298" x2="200" y2="325" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="3,2"/>
-    <polygon points="200,328 196,322 204,322" fill="#a78bfa"/>
-    <line x1="450" y1="298" x2="450" y2="325" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="3,2"/>
-    <polygon points="450,328 446,322 454,322" fill="#a78bfa"/>
-    <line x1="700" y1="298" x2="700" y2="325" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="3,2"/>
-    <polygon points="700,328 696,322 704,322" fill="#a78bfa"/>
-  </g>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- LAYER 3: CONVERGENCE / TRANSPORT LAYERS     -->
-  <!-- ═══════════════════════════════════════════ -->
-  <g filter="url(#shadow)">
-    <rect x="40" y="330" width="820" height="28" rx="6" fill="url(#tealGrad)" opacity="0.2"/>
-    <rect x="40" y="330" width="820" height="28" rx="6" fill="none" stroke="#2dd4bf" stroke-width="0.5" opacity="0.4"/>
-    <text x="450" y="349" text-anchor="middle" fill="#5eead4" font-size="13" font-weight="600" letter-spacing="1.5">CONVERGENCE LAYER ADAPTERS</text>
-  </g>
-
-  <!-- LTP Box -->
-  <g filter="url(#shadow)">
-    <rect x="55" y="364" width="253" height="90" rx="10" fill="url(#tealGrad)" opacity="0.8"/>
-    <rect x="55" y="364" width="253" height="90" rx="10" fill="none" stroke="#2dd4bf" stroke-width="1.2"/>
-    <text x="181" y="387" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">LTP</text>
-    <text x="181" y="402" text-anchor="middle" fill="#ccfbf1" font-size="9.5">RFC 5326 — Licklider Transmission</text>
-    <line x1="75" y1="410" x2="288" y2="410" stroke="#2dd4bf" stroke-width="0.4" opacity="0.5"/>
-    <text x="181" y="425" text-anchor="middle" fill="#99f6e4" font-size="9">Deep Space Links</text>
-    <text x="181" y="438" text-anchor="middle" fill="#99f6e4" font-size="9">Link-layer Retransmission</text>
-    <text x="181" y="451" text-anchor="middle" fill="#99f6e4" font-size="9">Red / Green Data Classes</text>
-  </g>
-
-  <!-- TCPCL Box -->
-  <g filter="url(#shadow)">
-    <rect x="322" y="364" width="253" height="90" rx="10" fill="url(#tealGrad)" opacity="0.8"/>
-    <rect x="322" y="364" width="253" height="90" rx="10" fill="none" stroke="#2dd4bf" stroke-width="1.2"/>
-    <text x="448" y="387" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">TCPCL</text>
-    <text x="448" y="402" text-anchor="middle" fill="#ccfbf1" font-size="9.5">RFC 7242 — TCP Convergence</text>
-    <line x1="342" y1="410" x2="555" y2="410" stroke="#2dd4bf" stroke-width="0.4" opacity="0.5"/>
-    <text x="448" y="425" text-anchor="middle" fill="#99f6e4" font-size="9">Earth Segment</text>
-    <text x="448" y="438" text-anchor="middle" fill="#99f6e4" font-size="9">Reliable Connections</text>
-    <text x="448" y="451" text-anchor="middle" fill="#99f6e4" font-size="9">Standard TCP Transport</text>
-  </g>
-
-  <!-- UDPCL Box -->
-  <g filter="url(#shadow)">
-    <rect x="589" y="364" width="253" height="90" rx="10" fill="url(#tealGrad)" opacity="0.8"/>
-    <rect x="589" y="364" width="253" height="90" rx="10" fill="none" stroke="#2dd4bf" stroke-width="1.2"/>
-    <text x="715" y="387" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">UDP-CL</text>
-    <text x="715" y="402" text-anchor="middle" fill="#ccfbf1" font-size="9.5">Bundle over UDP</text>
-    <line x1="609" y1="410" x2="822" y2="410" stroke="#2dd4bf" stroke-width="0.4" opacity="0.5"/>
-    <text x="715" y="425" text-anchor="middle" fill="#99f6e4" font-size="9">Optical Inter-Satellite Links</text>
-    <text x="715" y="438" text-anchor="middle" fill="#99f6e4" font-size="9">Low Overhead</text>
-    <text x="715" y="451" text-anchor="middle" fill="#99f6e4" font-size="9">Best-Effort Delivery</text>
-  </g>
-
-  <!-- Arrows: Convergence → Physical -->
-  <g opacity="0.6">
-    <line x1="181" y1="456" x2="181" y2="483" stroke="#2dd4bf" stroke-width="1.5" stroke-dasharray="3,2"/>
-    <polygon points="181,486 177,480 185,480" fill="#2dd4bf"/>
-    <line x1="448" y1="456" x2="448" y2="483" stroke="#2dd4bf" stroke-width="1.5" stroke-dasharray="3,2"/>
-    <polygon points="448,486 444,480 452,480" fill="#2dd4bf"/>
-    <line x1="715" y1="456" x2="715" y2="483" stroke="#2dd4bf" stroke-width="1.5" stroke-dasharray="3,2"/>
-    <polygon points="715,486 711,480 719,480" fill="#2dd4bf"/>
-  </g>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- LAYER 4: PHYSICAL / DATA LINK LAYER         -->
-  <!-- ═══════════════════════════════════════════ -->
-  <g filter="url(#shadow)">
-    <rect x="40" y="488" width="820" height="28" rx="6" fill="url(#greenGrad)" opacity="0.2"/>
-    <rect x="40" y="488" width="820" height="28" rx="6" fill="none" stroke="#4ade80" stroke-width="0.5" opacity="0.4"/>
-    <text x="450" y="507" text-anchor="middle" fill="#86efac" font-size="13" font-weight="600" letter-spacing="1.5">PHYSICAL / DATA LINK LAYER</text>
-  </g>
-
-  <!-- Optical 1550nm -->
-  <g filter="url(#shadow)">
-    <rect x="55" y="522" width="253" height="80" rx="10" fill="url(#greenGrad)" opacity="0.8"/>
-    <rect x="55" y="522" width="253" height="80" rx="10" fill="none" stroke="#4ade80" stroke-width="1.2"/>
-    <rect x="55" y="522" width="253" height="26" rx="10" fill="#15803d" opacity="0.5"/>
-    <rect x="55" y="538" width="253" height="0" rx="0" fill="none"/>
-    <text x="181" y="541" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="700" letter-spacing="0.5">★ PRIMARY</text>
-    <text x="181" y="564" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">Optical 1550 nm</text>
-    <text x="181" y="580" text-anchor="middle" fill="#bbf7d0" font-size="10">2 – 200 Mbps</text>
-    <text x="181" y="594" text-anchor="middle" fill="#86efac" font-size="9">Deep Space &amp; ISL Links</text>
-  </g>
-
-  <!-- RF Ka-band -->
-  <g filter="url(#shadow)">
-    <rect x="322" y="522" width="253" height="80" rx="10" fill="url(#greenGrad)" opacity="0.6"/>
-    <rect x="322" y="522" width="253" height="80" rx="10" fill="none" stroke="#4ade80" stroke-width="1"/>
-    <rect x="322" y="522" width="253" height="26" rx="10" fill="#15803d" opacity="0.4"/>
-    <text x="448" y="541" text-anchor="middle" fill="#fb923c" font-size="10" font-weight="700" letter-spacing="0.5">◆ BACKUP</text>
-    <text x="448" y="564" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">RF Ka-band</text>
-    <text x="448" y="580" text-anchor="middle" fill="#bbf7d0" font-size="10">500 k – 10 Mbps</text>
-    <text x="448" y="594" text-anchor="middle" fill="#86efac" font-size="9">Reliable Fallback Channel</text>
-  </g>
-
-  <!-- RF UHF -->
-  <g filter="url(#shadow)">
-    <rect x="589" y="522" width="253" height="80" rx="10" fill="url(#greenGrad)" opacity="0.45"/>
-    <rect x="589" y="522" width="253" height="80" rx="10" fill="none" stroke="#4ade80" stroke-width="1"/>
-    <rect x="589" y="522" width="253" height="26" rx="10" fill="#15803d" opacity="0.3"/>
-    <text x="715" y="541" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="700" letter-spacing="0.5">◇ SURFACE</text>
-    <text x="715" y="564" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">RF UHF</text>
-    <text x="715" y="580" text-anchor="middle" fill="#bbf7d0" font-size="10">128 k – 2 Mbps</text>
-    <text x="715" y="594" text-anchor="middle" fill="#86efac" font-size="9">Mars Surface Operations</text>
-  </g>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- BIDIRECTIONAL DATA FLOW INDICATORS          -->
-  <!-- ═══════════════════════════════════════════ -->
-  <g opacity="0.35">
-    <!-- Left side flow arrow -->
-    <line x1="28" y1="140" x2="28" y2="560" stroke="url(#arrowGrad)" stroke-width="2"/>
-    <polygon points="28,140 24,148 32,148" fill="#60a5fa"/>
-    <polygon points="28,560 24,552 32,552" fill="#34d399"/>
-    <text x="16" y="355" text-anchor="middle" fill="#94a3b8" font-size="8" transform="rotate(-90 16 355)">DATA FLOW</text>
-
-    <!-- Right side flow arrow -->
-    <line x1="872" y1="560" x2="872" y2="140" stroke="url(#arrowGrad)" stroke-width="2"/>
-    <polygon points="872,140 868,148 876,148" fill="#60a5fa"/>
-    <polygon points="872,560 868,552 876,552" fill="#34d399"/>
-    <text x="884" y="355" text-anchor="middle" fill="#94a3b8" font-size="8" transform="rotate(90 884 355)">DATA FLOW</text>
-  </g>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- STANDARDS REFERENCE FOOTER                  -->
-  <!-- ═══════════════════════════════════════════ -->
-  <line x1="100" y1="625" x2="800" y2="625" stroke="#1e293b" stroke-width="0.5"/>
-
-  <g fill="#475569" font-size="8.5">
-    <text x="450" y="642" text-anchor="middle" font-weight="600" fill="#64748b" letter-spacing="1">STANDARDS COMPLIANCE</text>
-
-    <text x="135" y="660" text-anchor="middle">CCSDS 734.2-B-1</text>
-    <text x="135" y="672" text-anchor="middle" fill="#334155" font-size="7.5">DTN Architecture</text>
-
-    <text x="300" y="660" text-anchor="middle">CCSDS 735.1-B-1</text>
-    <text x="300" y="672" text-anchor="middle" fill="#334155" font-size="7.5">Bundle Protocol</text>
-
-    <text x="450" y="660" text-anchor="middle">RFC 9171</text>
-    <text x="450" y="672" text-anchor="middle" fill="#334155" font-size="7.5">BPv7 Core</text>
-
-    <text x="580" y="660" text-anchor="middle">RFC 5326</text>
-    <text x="580" y="672" text-anchor="middle" fill="#334155" font-size="7.5">LTP</text>
-
-    <text x="700" y="660" text-anchor="middle">CCSDS 141.0-B-1</text>
-    <text x="700" y="672" text-anchor="middle" fill="#334155" font-size="7.5">Optical Comms</text>
-  </g>
-
-  <!-- Color legend -->
-  <g transform="translate(55, 640)">
-    <text x="0" y="0" fill="#64748b" font-size="8" font-weight="600" letter-spacing="1">LAYERS</text>
-    <rect x="0" y="7" width="10" height="10" rx="2" fill="url(#blueGrad)"/>
-    <text x="14" y="16" fill="#64748b" font-size="7.5">Application</text>
-    <rect x="0" y="22" width="10" height="10" rx="2" fill="url(#purpleGrad)"/>
-    <text x="14" y="31" fill="#64748b" font-size="7.5">Bundle</text>
-  </g>
-  <g transform="translate(120, 647)">
-    <rect x="0" y="0" width="10" height="10" rx="2" fill="url(#tealGrad)"/>
-    <text x="14" y="9" fill="#64748b" font-size="7.5">Convergence</text>
-    <rect x="0" y="15" width="10" height="10" rx="2" fill="url(#greenGrad)"/>
-    <text x="14" y="24" fill="#64748b" font-size="7.5">Physical</text>
-  </g>
-
-  <!-- Bottom border accent -->
-  <rect x="0" y="694" width="900" height="6" fill="url(#bgGrad)"/>
-  <rect x="200" y="695" width="120" height="4" rx="2" fill="#3b82f6" opacity="0.5"/>
-  <rect x="340" y="695" width="120" height="4" rx="2" fill="#8b5cf6" opacity="0.5"/>
-  <rect x="480" y="695" width="120" height="4" rx="2" fill="#14b8a6" opacity="0.5"/>
-  <rect x="620" y="695" width="120" height="4" rx="2" fill="#22c55e" opacity="0.5"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750">
+<rect width="1200" height="750" fill="#0d1117"/>
+<defs>
+  <filter id="glow">
+    <feGaussianBlur stdDeviation="2" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glowStrong">
+    <feGaussianBlur stdDeviation="4" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <linearGradient id="gradCyan" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradPurple" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#7c5cf7" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#7c5cf7" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradOrange" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#ff6b35" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#ff6b35" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradGreen" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#3fb950" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#3fb950" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradMagenta" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#c84cff" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#c84cff" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradGold" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#d29922" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#d29922" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradRed" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#f85149" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#f85149" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradMarsEarth" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#ff6b35" stop-opacity="0.3"/>
+    <stop offset="50%" stop-color="#7c5cf7" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.3"/>
+  </linearGradient>
+  <marker id="arrCyan" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#00d4ff" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrPurple" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#7c5cf7" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrGray" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#5a6578" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#3fb950" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrOrange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#ff6b35" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrMagenta" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#c84cff" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrGold" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#d29922" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrRed" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#f85149" stroke-width="1.2"/>
+  </marker>
+  
+</defs>
+<text x="600" y="28" text-anchor="middle" fill="#00d4ff" font-size="16" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" filter="url(#glow)">AETHERIX PROTOCOL STACK</text>
+<rect x="20" y="34" width="1160" height="2" rx="1" fill="#00d4ff" fill-opacity="0.15"/>
+<rect x="60" y="52" width="780" height="95" rx="8" fill="url(#gradCyan)" stroke="#00d4ff" stroke-opacity="0.4"/>
+<rect x="60" y="52" width="780" height="22" rx="8" fill="#00d4ff" fill-opacity="0.12"/>
+<text x="72" y="68" fill="#00d4ff" font-size="12" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">APPLICATION LAYER</text>
+<text x="76" y="90" fill="#00d4ff" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Science Data</text>
+<text x="220" y="90" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Telemetry, imagery, spectral analysis</text>
+<text x="76" y="106" fill="#00d4ff" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Commands</text>
+<text x="220" y="106" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Uplink instructions, configuration</text>
+<text x="76" y="122" fill="#00d4ff" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Telemetry</text>
+<text x="220" y="122" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Spacecraft health, navigation data</text>
+<line x1="420" y1="147" x2="420" y2="157" stroke="#5a6578" stroke-width="1.5" marker-end="url(#arrGray)"/>
+<line x1="480" y1="157" x2="480" y2="147" stroke="#5a6578" stroke-width="1.5" marker-end="url(#arrGray)"/>
+<rect x="60" y="157" width="780" height="95" rx="8" fill="url(#gradPurple)" stroke="#7c5cf7" stroke-opacity="0.4"/>
+<rect x="60" y="157" width="780" height="22" rx="8" fill="#7c5cf7" fill-opacity="0.12"/>
+<text x="72" y="173" fill="#7c5cf7" font-size="12" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">BUNDLE PROTOCOL v7 (RFC 9171)</text>
+<text x="830" y="173" text-anchor="end" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">RFC 9171 / CCSDS 734.2-B-1</text>
+<text x="76" y="195" fill="#7c5cf7" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">P0 EMERGENCY</text>
+<text x="220" y="195" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Life-critical, immediate delivery</text>
+<text x="76" y="211" fill="#7c5cf7" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">P1-2 PRIORITY</text>
+<text x="220" y="211" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Command &amp; control, high-value science</text>
+<text x="76" y="227" fill="#7c5cf7" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">P3 NORMAL</text>
+<text x="220" y="227" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Routine data, standard telemetry</text>
+<text x="76" y="243" fill="#7c5cf7" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">P4 BULK</text>
+<text x="220" y="243" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Archive data, software updates</text>
+<line x1="420" y1="252" x2="420" y2="262" stroke="#5a6578" stroke-width="1.5" marker-end="url(#arrGray)"/>
+<line x1="480" y1="262" x2="480" y2="252" stroke="#5a6578" stroke-width="1.5" marker-end="url(#arrGray)"/>
+<rect x="60" y="262" width="780" height="95" rx="8" fill="url(#gradOrange)" stroke="#ff6b35" stroke-opacity="0.4"/>
+<rect x="60" y="262" width="780" height="22" rx="8" fill="#ff6b35" fill-opacity="0.12"/>
+<text x="72" y="278" fill="#ff6b35" font-size="12" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">CONVERGENCE LAYER</text>
+<text x="830" y="278" text-anchor="end" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">RFC 5326 / RFC 7242</text>
+<rect x="70" y="290" width="246" height="59" rx="4" fill="#ff6b35" fill-opacity="0.06" stroke="#ff6b35" stroke-opacity="0.15"/>
+<text x="76" y="306" fill="#ff6b35" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">LTP (RFC 5326)</text>
+<text x="76" y="320" fill="#8892a4" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Deep space links</text>
+<text x="76" y="334" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Reliable, retransmission</text>
+<rect x="321" y="290" width="246" height="59" rx="4" fill="#ff6b35" fill-opacity="0.06" stroke="#ff6b35" stroke-opacity="0.15"/>
+<text x="327" y="306" fill="#ff6b35" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">TCPCL (RFC 7242)</text>
+<text x="327" y="320" fill="#8892a4" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Earth ground segment</text>
+<text x="327" y="334" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Session-based</text>
+<rect x="572" y="290" width="246" height="59" rx="4" fill="#ff6b35" fill-opacity="0.06" stroke="#ff6b35" stroke-opacity="0.15"/>
+<text x="578" y="306" fill="#ff6b35" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">UDP-CL</text>
+<text x="578" y="320" fill="#8892a4" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Optical ISL</text>
+<text x="578" y="334" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Low-latency, fragmented</text>
+<line x1="420" y1="357" x2="420" y2="367" stroke="#5a6578" stroke-width="1.5" marker-end="url(#arrGray)"/>
+<line x1="480" y1="367" x2="480" y2="357" stroke="#5a6578" stroke-width="1.5" marker-end="url(#arrGray)"/>
+<rect x="60" y="367" width="780" height="95" rx="8" fill="url(#gradMagenta)" stroke="#c84cff" stroke-opacity="0.4"/>
+<rect x="60" y="367" width="780" height="22" rx="8" fill="#c84cff" fill-opacity="0.12"/>
+<text x="72" y="383" fill="#c84cff" font-size="12" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">SECURITY LAYER</text>
+<text x="830" y="383" text-anchor="end" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">NIST FIPS 203 / FIPS 197</text>
+<text x="76" y="405" fill="#c84cff" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">QKD: BB84/E91</text>
+<text x="220" y="405" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Quantum key distribution</text>
+<text x="76" y="421" fill="#c84cff" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Post-Quantum: ML-KEM</text>
+<text x="220" y="421" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">NIST FIPS 203 lattice-based</text>
+<text x="76" y="437" fill="#c84cff" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">AES-256-GCM</text>
+<text x="220" y="437" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Symmetric encryption</text>
+<line x1="420" y1="462" x2="420" y2="472" stroke="#5a6578" stroke-width="1.5" marker-end="url(#arrGray)"/>
+<line x1="480" y1="472" x2="480" y2="462" stroke="#5a6578" stroke-width="1.5" marker-end="url(#arrGray)"/>
+<rect x="60" y="472" width="780" height="95" rx="8" fill="url(#gradGold)" stroke="#d29922" stroke-opacity="0.4"/>
+<rect x="60" y="472" width="780" height="22" rx="8" fill="#d29922" fill-opacity="0.12"/>
+<text x="72" y="488" fill="#d29922" font-size="12" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">PHYSICAL LAYER</text>
+<text x="830" y="488" text-anchor="end" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">CCSDS 141.0-B-1</text>
+<text x="76" y="510" fill="#d29922" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">UHF 400 MHz</text>
+<text x="220" y="510" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Mars surface, short range</text>
+<text x="76" y="526" fill="#d29922" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">X-band 8.4 GHz</text>
+<text x="220" y="526" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Near-Earth telemetry</text>
+<text x="76" y="542" fill="#d29922" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Ka-band 32 GHz</text>
+<text x="220" y="542" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">High-rate downlink</text>
+<text x="76" y="558" fill="#d29922" font-size="10" font-weight="600" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">1550nm Optical</text>
+<text x="220" y="558" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Deep space, 10-200 Mbps</text>
+<rect x="870" y="52" width="180" height="190" rx="6" fill="rgba(13,17,23,0.92)" stroke="#5a6578" stroke-opacity="0.4"/>
+<text x="880" y="68" fill="#8892a4" font-size="11" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">PROTOCOL LAYERS</text>
+<rect x="880" y="79" width="10" height="10" rx="2" fill="#00d4ff"/>
+<text x="898" y="88" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Application</text>
+<rect x="880" y="97" width="10" height="10" rx="2" fill="#7c5cf7"/>
+<text x="898" y="106" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Bundle Protocol</text>
+<rect x="880" y="115" width="10" height="10" rx="2" fill="#ff6b35"/>
+<text x="898" y="124" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Convergence</text>
+<rect x="880" y="133" width="10" height="10" rx="2" fill="#c84cff"/>
+<text x="898" y="142" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Security / QKD</text>
+<rect x="880" y="151" width="10" height="10" rx="2" fill="#d29922"/>
+<text x="898" y="160" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Physical</text><rect x="870" y="257" width="180" height="140" rx="6" fill="rgba(13,17,23,0.92)" stroke="#5a6578" stroke-opacity="0.4"/>
+<text x="880" y="274" fill="#8892a4" font-size="11" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">KEY CONCEPTS</text>
+<text x="880" y="292" fill="#00d4ff" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">&#x2191;&#x2193;</text>
+<text x="920" y="292" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Bidirectional data</text>
+<text x="880" y="310" fill="#00d4ff" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">BPv7</text>
+<text x="920" y="310" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Interoperable DTN</text>
+<text x="880" y="328" fill="#00d4ff" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">LTP</text>
+<text x="920" y="328" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Reliable deep space</text>
+<text x="880" y="346" fill="#00d4ff" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">QKD</text>
+<text x="920" y="346" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Quantum-secure keys</text>
+<text x="880" y="364" fill="#00d4ff" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">P0-P4</text>
+<text x="920" y="364" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Priority classes</text>
 </svg>

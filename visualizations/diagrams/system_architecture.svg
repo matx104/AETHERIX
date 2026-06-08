@@ -1,65 +1,163 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 440" width="920" height="440" style="background:#050a14">
-<rect width="920" height="440" fill="#050a14"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700">
+<rect width="1200" height="700" fill="#0d1117"/>
 <defs>
-<linearGradient id="ga1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00d4ff" stop-opacity="0.2"/><stop offset="100%" stop-color="#7c5cf7" stop-opacity="0.1"/></linearGradient>
-<linearGradient id="ga2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6b35" stop-opacity="0.15"/><stop offset="100%" stop-color="#f85149" stop-opacity="0.08"/></linearGradient>
-<marker id="arrowW" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="none" stroke="#5a6578" stroke-width="1"/></marker>
+  <filter id="glow">
+    <feGaussianBlur stdDeviation="2" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glowStrong">
+    <feGaussianBlur stdDeviation="4" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <linearGradient id="gradCyan" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradPurple" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#7c5cf7" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#7c5cf7" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradOrange" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#ff6b35" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#ff6b35" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradGreen" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#3fb950" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#3fb950" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradMagenta" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#c84cff" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#c84cff" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradGold" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#d29922" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#d29922" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradRed" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#f85149" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#f85149" stop-opacity="0.03"/>
+  </linearGradient>
+  <linearGradient id="gradMarsEarth" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#ff6b35" stop-opacity="0.3"/>
+    <stop offset="50%" stop-color="#7c5cf7" stop-opacity="0.15"/>
+    <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.3"/>
+  </linearGradient>
+  <marker id="arrCyan" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#00d4ff" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrPurple" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#7c5cf7" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrGray" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#5a6578" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#3fb950" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrOrange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#ff6b35" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrMagenta" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#c84cff" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrGold" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#d29922" stroke-width="1.2"/>
+  </marker>
+  <marker id="arrRed" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#f85149" stroke-width="1.2"/>
+  </marker>
+  
 </defs>
-<text x="450" y="32" text-anchor="middle" fill="#00d4ff" font-size="16" font-weight="700" font-family="monospace">AETHERIX PLATFORM</text>
-<rect x="20" y="45" width="860" height="4" rx="2" fill="url(#ga1)"/>
-
-<rect x="20" y="60" width="200" height="130" rx="8" fill="rgba(0,212,255,0.06)" stroke="#00d4ff" stroke-opacity="0.25"/>
-<text x="120" y="82" text-anchor="middle" fill="#00d4ff" font-size="12" font-weight="700" font-family="monospace">INFRASTRUCTURE</text>
-<text x="120" y="100" text-anchor="middle" fill="#8892a4" font-size="10">link_budget.py</text>
-<text x="120" y="116" text-anchor="middle" fill="#8892a4" font-size="10">rf_link_budget.py</text>
-<text x="120" y="136" text-anchor="middle" fill="#5a6578" font-size="9">FSPL, EIRP, margin</text>
-<text x="120" y="152" text-anchor="middle" fill="#5a6578" font-size="9">Ka/X/S/UHF bands</text>
-<text x="120" y="168" text-anchor="middle" fill="#5a6578" font-size="9">CCSDS 141.0-B-1</text>
-
-<rect x="240" y="60" width="200" height="130" rx="8" fill="rgba(124,92,247,0.06)" stroke="#7c5cf7" stroke-opacity="0.25"/>
-<text x="340" y="82" text-anchor="middle" fill="#7c5cf7" font-size="12" font-weight="700" font-family="monospace">ROUTING</text>
-<text x="340" y="100" text-anchor="middle" fill="#8892a4" font-size="10">rl_agent.py</text>
-<text x="340" y="116" text-anchor="middle" fill="#8892a4" font-size="10">bundle.py / ltp.py</text>
-<text x="340" y="136" text-anchor="middle" fill="#5a6578" font-size="9">Q-learning, federated</text>
-<text x="340" y="152" text-anchor="middle" fill="#5a6578" font-size="9">BPv7, LTP, TCPCL, UDP-CL</text>
-<text x="340" y="168" text-anchor="middle" fill="#5a6578" font-size="9">RFC 9171, RFC 5326</text>
-
-<rect x="460" y="60" width="200" height="130" rx="8" fill="rgba(200,76,255,0.06)" stroke="#c84cff" stroke-opacity="0.25"/>
-<text x="560" y="82" text-anchor="middle" fill="#c84cff" font-size="12" font-weight="700" font-family="monospace">SECURITY</text>
-<text x="560" y="100" text-anchor="middle" fill="#8892a4" font-size="10">qkd.py</text>
-<text x="560" y="116" text-anchor="middle" fill="#8892a4" font-size="10">repeater_chain.py</text>
-<text x="560" y="136" text-anchor="middle" fill="#5a6578" font-size="9">BB84, E91 protocols</text>
-<text x="560" y="152" text-anchor="middle" fill="#5a6578" font-size="9">CASCADE reconciliation</text>
-<text x="560" y="168" text-anchor="middle" fill="#5a6578" font-size="9">NIST FIPS 203/204 (PQC)</text>
-
-<rect x="680" y="60" width="200" height="130" rx="8" fill="rgba(255,107,53,0.06)" stroke="#ff6b35" stroke-opacity="0.25"/>
-<text x="780" y="82" text-anchor="middle" fill="#ff6b35" font-size="12" font-weight="700" font-family="monospace">ORBITAL</text>
-<text x="780" y="100" text-anchor="middle" fill="#8892a4" font-size="10">contact_windows.py</text>
-<text x="780" y="116" text-anchor="middle" fill="#8892a4" font-size="10">topology.py / doppler.py</text>
-<text x="780" y="136" text-anchor="middle" fill="#5a6578" font-size="9">5-tier, 241 nodes</text>
-<text x="780" y="152" text-anchor="middle" fill="#5a6578" font-size="9">Synodic period modeling</text>
-<text x="780" y="168" text-anchor="middle" fill="#5a6578" font-size="9">Doppler compensation</text>
-
-<line x1="120" y1="190" x2="120" y2="215" stroke="#5a6578" stroke-width="1.5" marker-end="url(#arrowW)"/>
-<line x1="340" y1="190" x2="340" y2="215" stroke="#5a6578" stroke-width="1.5" marker-end="url(#arrowW)"/>
-<line x1="560" y1="190" x2="560" y2="215" stroke="#5a6578" stroke-width="1.5" marker-end="url(#arrowW)"/>
-<line x1="780" y1="190" x2="780" y2="215" stroke="#5a6578" stroke-width="1.5" marker-end="url(#arrowW)"/>
-
-<rect x="20" y="220" width="860" height="50" rx="8" fill="url(#ga2)" stroke="#ff6b35" stroke-opacity="0.25"/>
-<text x="450" y="242" text-anchor="middle" fill="#ff6b35" font-size="12" font-weight="700" font-family="monospace">SIMULATION ENGINE</text>
-<text x="450" y="260" text-anchor="middle" fill="#8892a4" font-size="10">simulator.py · policy_engine.py · training.py · multi_agent.py · forwarding_engine.py</text>
-
-<line x1="450" y1="270" x2="450" y2="290" stroke="#5a6578" stroke-width="1.5" marker-end="url(#arrowW)"/>
-
-<rect x="130" y="295" width="640" height="45" rx="8" fill="rgba(63,185,80,0.06)" stroke="#3fb950" stroke-opacity="0.25"/>
-<text x="450" y="316" text-anchor="middle" fill="#3fb950" font-size="12" font-weight="700" font-family="monospace">WEB SHOWCASE — 10 Interactive Demos</text>
-<text x="450" y="332" text-anchor="middle" fill="#8892a4" font-size="10">matx104.github.io/AETHERIX · 149 tests · 27 Python modules</text>
-
-<rect x="20" y="360" width="410" height="24" rx="4" fill="rgba(0,212,255,0.04)" stroke="#00d4ff" stroke-opacity="0.15"/>
-<text x="225" y="376" text-anchor="middle" fill="#5a6578" font-size="9">CCSDS 734.2-B-1 · CCSDS 735.1-B-1 · CCSDS 141.0-B-1</text>
-<rect x="470" y="360" width="410" height="24" rx="4" fill="rgba(124,92,247,0.04)" stroke="#7c5cf7" stroke-opacity="0.15"/>
-<text x="675" y="376" text-anchor="middle" fill="#5a6578" font-size="9">RFC 9171 · RFC 5326 · RFC 7242 · NIST FIPS 203/204</text>
-
-</svg>
+<text x="600" y="28" text-anchor="middle" fill="#00d4ff" font-size="16" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" filter="url(#glow)">AETHERIX SYSTEM ARCHITECTURE</text>
+<rect x="20" y="34" width="1160" height="2" rx="1" fill="#00d4ff" fill-opacity="0.15"/>
+<rect x="43" y="48" width="210" height="200" rx="8" fill="url(#gradCyan)" stroke="#00d4ff" stroke-opacity="0.35"/>
+<rect x="43" y="48" width="210" height="24" rx="8" fill="#00d4ff" fill-opacity="0.12"/>
+<text x="148" y="65" text-anchor="middle" fill="#00d4ff" font-size="12" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">INFRASTRUCTURE</text>
+<text x="53" y="86" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">link_budget.py</text>
+<text x="53" y="100" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">rf_link_budget.py</text>
+<text x="53" y="118" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">FSPL, EIRP, margin calc</text>
+<text x="53" y="131" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Ka/X/S/UHF bands</text>
+<text x="53" y="144" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Optical link budget</text>
+<rect x="49" y="151" width="198" height="1" fill="#00d4ff" fill-opacity="0.15"/>
+<text x="53" y="165" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" font-style="italic">CCSDS 141.0-B-1</text>
+<rect x="269" y="48" width="210" height="200" rx="8" fill="url(#gradPurple)" stroke="#7c5cf7" stroke-opacity="0.35"/>
+<rect x="269" y="48" width="210" height="24" rx="8" fill="#7c5cf7" fill-opacity="0.12"/>
+<text x="374" y="65" text-anchor="middle" fill="#7c5cf7" font-size="12" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">ROUTING</text>
+<text x="279" y="86" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">rl_agent.py</text>
+<text x="279" y="100" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">bundle.py</text>
+<text x="279" y="114" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">ltp.py</text>
+<text x="279" y="128" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">tcpcl.py</text>
+<text x="279" y="142" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">udp_cl.py</text>
+<text x="279" y="156" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">forwarding_engine.py</text>
+<text x="279" y="174" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Q-learning, federated</text>
+<text x="279" y="187" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">BPv7 custody transfer</text>
+<text x="279" y="200" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">LTP/TCPCL/UDP-CL</text>
+<rect x="275" y="207" width="198" height="1" fill="#7c5cf7" fill-opacity="0.15"/>
+<text x="279" y="221" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" font-style="italic">RFC 9171 / RFC 5326</text>
+<rect x="495" y="48" width="210" height="200" rx="8" fill="url(#gradMagenta)" stroke="#c84cff" stroke-opacity="0.35"/>
+<rect x="495" y="48" width="210" height="24" rx="8" fill="#c84cff" fill-opacity="0.12"/>
+<text x="600" y="65" text-anchor="middle" fill="#c84cff" font-size="12" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">SECURITY</text>
+<text x="505" y="86" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">qkd.py</text>
+<text x="505" y="100" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">repeater_chain.py</text>
+<text x="505" y="114" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">privacy_amplification.py</text>
+<text x="505" y="132" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">BB84, E91 protocols</text>
+<text x="505" y="145" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">CASCADE reconciliation</text>
+<text x="505" y="158" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Entanglement purification</text>
+<rect x="501" y="165" width="198" height="1" fill="#c84cff" fill-opacity="0.15"/>
+<text x="505" y="179" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" font-style="italic">NIST FIPS 203/204</text>
+<rect x="721" y="48" width="210" height="200" rx="8" fill="url(#gradOrange)" stroke="#ff6b35" stroke-opacity="0.35"/>
+<rect x="721" y="48" width="210" height="24" rx="8" fill="#ff6b35" fill-opacity="0.12"/>
+<text x="826" y="65" text-anchor="middle" fill="#ff6b35" font-size="12" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">ORBITAL</text>
+<text x="731" y="86" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">contact_windows.py</text>
+<text x="731" y="100" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">topology.py</text>
+<text x="731" y="114" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">doppler.py</text>
+<text x="731" y="128" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">bodies.py</text>
+<text x="731" y="146" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">5-tier, 241 nodes</text>
+<text x="731" y="159" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Synodic period model</text>
+<text x="731" y="172" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Doppler compensation</text>
+<rect x="727" y="179" width="198" height="1" fill="#ff6b35" fill-opacity="0.15"/>
+<text x="731" y="193" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" font-style="italic">CCSDS 734.2-B-1</text>
+<rect x="947" y="48" width="210" height="200" rx="8" fill="url(#gradGreen)" stroke="#3fb950" stroke-opacity="0.35"/>
+<rect x="947" y="48" width="210" height="24" rx="8" fill="#3fb950" fill-opacity="0.12"/>
+<text x="1052" y="65" text-anchor="middle" fill="#3fb950" font-size="12" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">SIMULATION</text>
+<text x="957" y="86" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">simulator.py</text>
+<text x="957" y="100" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">policy_engine.py</text>
+<text x="957" y="114" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">training.py</text>
+<text x="957" y="128" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">multi_agent.py</text>
+<text x="957" y="146" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Full sim engine</text>
+<text x="957" y="159" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Policy routing</text>
+<text x="957" y="172" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Federated Q-tables</text>
+<rect x="953" y="179" width="198" height="1" fill="#3fb950" fill-opacity="0.15"/>
+<text x="957" y="193" fill="#5a6578" font-size="9" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" font-style="italic">RFC 4838</text>
+<line x1="148" y1="252" x2="600" y2="282" stroke="#5a6578" stroke-width="1.5"/>
+<line x1="374" y1="252" x2="600" y2="282" stroke="#5a6578" stroke-width="1.5"/>
+<line x1="600" y1="252" x2="600" y2="282" stroke="#5a6578" stroke-width="1.5"/>
+<line x1="826" y1="252" x2="600" y2="282" stroke="#5a6578" stroke-width="1.5"/>
+<line x1="1052" y1="252" x2="600" y2="282" stroke="#5a6578" stroke-width="1.5"/>
+<circle cx="600" cy="282" r="4" fill="#ff6b35" filter="url(#glow)"/>
+<rect x="30" y="292" width="1140" height="48" rx="8" fill="url(#gradOrange)" stroke="#ff6b35" stroke-opacity="0.35"/>
+<text x="600" y="312" text-anchor="middle" fill="#ff6b35" font-size="13" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" filter="url(#glow)">SIMULATION ENGINE</text>
+<text x="600" y="330" text-anchor="middle" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">simulator.py &#183; policy_engine.py &#183; training.py &#183; multi_agent.py &#183; forwarding_engine.py</text>
+<line x1="600" y1="340" x2="600" y2="360" stroke="#5a6578" stroke-width="1.5" marker-end="url(#arrGray)"/>
+<rect x="80" y="360" width="1040" height="44" rx="8" fill="url(#gradGreen)" stroke="#3fb950" stroke-opacity="0.35"/>
+<text x="600" y="378" text-anchor="middle" fill="#3fb950" font-size="13" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace" filter="url(#glow)">WEB SHOWCASE &#8212; 10 Interactive Demos</text>
+<text x="600" y="396" text-anchor="middle" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">FastAPI backend &#183; React frontend &#183; 149 tests &#183; 27 Python modules</text>
+<rect x="30" y="418" width="550" height="28" rx="4" fill="#00d4ff" fill-opacity="0.04" stroke="#00d4ff" stroke-opacity="0.15"/>
+<text x="305" y="436" text-anchor="middle" fill="#5a6578" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">CCSDS 734.2-B-1 &#183; CCSDS 735.1-B-1 &#183; CCSDS 141.0-B-1</text>
+<rect x="600" y="418" width="550" height="28" rx="4" fill="#7c5cf7" fill-opacity="0.04" stroke="#7c5cf7" stroke-opacity="0.15"/>
+<text x="875" y="436" text-anchor="middle" fill="#5a6578" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">RFC 9171 &#183; RFC 5326 &#183; RFC 7242 &#183; NIST FIPS 203/204</text>
+<rect x="1000" y="520" width="180" height="168" rx="6" fill="rgba(13,17,23,0.92)" stroke="#5a6578" stroke-opacity="0.4"/>
+<text x="1010" y="536" fill="#8892a4" font-size="11" font-weight="700" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">LEGEND</text>
+<rect x="1010" y="547" width="10" height="10" rx="2" fill="#00d4ff"/>
+<text x="1028" y="556" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Infrastructure</text>
+<rect x="1010" y="565" width="10" height="10" rx="2" fill="#7c5cf7"/>
+<text x="1028" y="574" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Routing / Logic</text>
+<rect x="1010" y="583" width="10" height="10" rx="2" fill="#c84cff"/>
+<text x="1028" y="592" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Security / QKD</text>
+<rect x="1010" y="601" width="10" height="10" rx="2" fill="#ff6b35"/>
+<text x="1028" y="610" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Orbital / Simulation</text>
+<rect x="1010" y="619" width="10" height="10" rx="2" fill="#3fb950"/>
+<text x="1028" y="628" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Web Showcase</text>
+<rect x="1010" y="637" width="10" height="10" rx="2" fill="#5a6578"/>
+<text x="1028" y="646" fill="#8892a4" font-size="10" font-family="'SF Mono', 'Cascadia Code', 'Fira Code', monospace">Standards</text></svg>
