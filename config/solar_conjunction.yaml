@@ -1,0 +1,46 @@
+# AETHERIX Solar Conjunction Scenario
+# Simulates the ~2-week communications blackout when Earth and Mars
+# are on opposite sides of the Sun (solar elongation < 3 degrees).
+# Optical links fail entirely; Ka-band RF experiences severe degradation
+# from solar plasma scintillation. Reliance falls to X-band and
+# Lagrange-point store-and-forward.
+#
+# Usage:
+#   python src/simulation/run_scenario.py --config config/solar_conjunction.yaml
+
+scenario:
+  name: solar-conjunction
+  description: Solar conjunction blackout with degraded RF fallback
+  earth_mars_distance_km: 401000000
+  solar_elongation_deg: 2.0
+
+simulation:
+  duration_hours: 336              # 14 days
+  time_step_seconds: 300           # 5-minute steps (coarser — slow period)
+  seed: 42
+  bundle_generation_rate_per_hour: 20  # backlog accumulates
+  num_nodes: 241
+
+topology:
+  tiers: 5
+  optical_link_available: false    # optical blocked by Sun
+  rf_primary_band: x               # fall back to X-band
+  lagrange_relays_active: 4        # ES-L4/L5 provide store-and-forward
+
+failure_model:
+  optical_loss_additional_db: 60   # coronal extinction
+  rf_scintillation_margin_db: -8   # plasma scintillation penalty
+  conjunction_duration_hours: 336
+  recovery_ramp_hours: 48          # gradual link restoration
+
+link:
+  optical_wavelength_nm: 1550
+  optical_tx_power_w: 5
+  rf_band: x
+  rf_tx_power_w: 20
+  rf_tx_dish_m: 3.0
+  rf_rx_dish_m: 34.0
+
+output:
+  verbose: true
+  save_events: true

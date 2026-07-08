@@ -94,9 +94,9 @@
 | Multi-Agent Federation | `src/simulation/` | Complete |
 | Scenario Runner | `src/simulation/` | Complete |
 | Interactive Web Platform | `docs/` | Live |
-| Test Suite (189 tests) | `tests/` | Complete |
+| Test Suite (480 tests) | `tests/` | Complete |
 
-**27 source modules | 189 tests | 241-node topology | Live web platform**
+**27 source modules | 480 tests | 241-node topology | Live web platform**
 
 ## References (70+ total, IEEE format)
 
@@ -110,4 +110,4 @@ Full list in `references/REFERENCES.md` — foundational papers include:
 
 ---
 
-*70+ academic references | 27 source modules | 189 tests | 12 interactive demos | Live web platform | Docker-ready*
+*70+ academic references | 27 source modules | 480 tests | 12 interactive demos | Live web platform | Docker-ready*

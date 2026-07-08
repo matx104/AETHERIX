@@ -200,10 +200,12 @@ class ForwardingEngine:
     ) -> NetworkState:
         neighbor_ids = list(neighbors.keys())
         link_qualities: Dict[str, float] = {}
+        neighbor_tiers: Dict[str, int] = {}
         for nid, node in neighbors.items():
             if node.is_reachable():
                 quality = 1.0 - node.buffer_utilization()
                 link_qualities[nid] = round(max(0.0, min(1.0, quality)), 3)
+                neighbor_tiers[nid] = node.tier
 
         return NetworkState(
             current_node=self.local_node.node_id,
@@ -214,6 +216,8 @@ class ForwardingEngine:
             bundle_size_mb=bundle.payload_size_bytes / (1024.0 * 1024.0),
             bundle_deadline_hours=bundle.remaining_lifetime / 3600.0,
             destination_node=bundle.destination.node_id,
+            current_tier=self.local_node.tier,
+            neighbor_tiers=neighbor_tiers,
         )
 
     def _execute_decision(

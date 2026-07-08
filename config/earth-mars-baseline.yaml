@@ -1,0 +1,41 @@
+# AETHERIX Earth-Mars Baseline Scenario
+# Canonical 30-day simulation at average Earth-Mars distance (225 M km)
+#
+# Usage:
+#   python src/simulation/run_scenario.py --config config/earth-mars-baseline.yaml
+
+scenario:
+  name: earth-mars-baseline
+  description: 30-day DTN simulation at average opposition distance
+  earth_mars_distance_km: 225000000
+
+simulation:
+  duration_hours: 720
+  time_step_seconds: 60
+  seed: 42
+  bundle_generation_rate_per_hour: 10
+  num_nodes: 241
+  optical_data_rate_mbps: 50
+  rf_data_rate_mbps: 2
+
+topology:
+  tiers: 5
+  earth_ground_stations: 3       # Goldstone, Madrid, Canberra
+  earth_orbital_relays: 51       # GEO + 48 LEO laser sats
+  lagrange_relays: 4             # ES-L4 x2, ES-L5 x2
+  mars_orbital_relays: 4         # Areostationary + polar
+  mars_surface_nodes: 179        # Bases, rovers, drones, sensors
+
+link:
+  optical_wavelength_nm: 1550
+  optical_tx_power_w: 5
+  optical_tx_aperture_m: 0.22
+  optical_rx_aperture_m: 8.0
+  rf_band: ka
+  rf_tx_power_w: 20
+  rf_tx_dish_m: 3.0
+  rf_rx_dish_m: 34.0
+
+output:
+  verbose: true
+  save_events: true

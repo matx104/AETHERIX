@@ -138,7 +138,7 @@ Checking Python version...
 
 ### `run_tests.sh` -- Test Runner
 
-Runs the full test suite (149 tests across 10 test files). Uses **pytest**
+Runs the full test suite (480 tests across 22 test files). Uses **pytest**
 when available, falls back to **unittest**.
 
 **Usage:**
@@ -666,7 +666,7 @@ Builds and manages the AETHERIX showcase site container.
 | Script | Type | Category | One-liner |
 |--------|------|----------|-----------|
 | `init.sh` | Shell | Setup | Create venv, install deps, verify imports |
-| `run_tests.sh` | Shell | Testing | Run 149 tests via pytest or unittest |
+| `run_tests.sh` | Shell | Testing | Run 480 tests via pytest or unittest |
 | `run_demos.sh` | Shell | Demos | Interactive menu for 6 demo modules |
 | `link_budget_demo.sh` | Shell | Demos | Quick optical link-budget demo |
 | `lint.sh` | Shell | Quality | flake8 + black + isort + mypy |

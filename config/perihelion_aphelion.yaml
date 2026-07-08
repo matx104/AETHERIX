@@ -1,0 +1,38 @@
+# AETHERIX Perihelion vs Aphelion Comparison
+# Runs back-to-back simulations at closest approach (54.6 M km) and
+# farthest separation (401 M km) to quantify distance-dependent
+# performance bounds across the network.
+#
+# Usage:
+#   python src/simulation/run_scenario.py --config config/perihelion_aphelion.yaml
+
+scenario:
+  name: perihelion-aphelion
+  description: Best-case vs worst-case distance comparison
+  compare:
+    - label: perihelion
+      earth_mars_distance_km: 54600000
+      expected_optical_margin_db: -62.57
+      expected_rf_margin_db: -14.39
+    - label: aphelion
+      earth_mars_distance_km: 401000000
+      expected_optical_margin_db: -79.82
+      expected_rf_margin_db: -31.64
+
+simulation:
+  duration_hours: 168              # 7 days each
+  time_step_seconds: 60
+  seed: 42
+  bundle_generation_rate_per_hour: 10
+  num_nodes: 241
+
+topology:
+  tiers: 5
+
+link:
+  optical_wavelength_nm: 1550
+  rf_band: ka
+
+output:
+  verbose: true
+  comparison_table: true

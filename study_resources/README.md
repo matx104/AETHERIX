@@ -75,7 +75,7 @@ study_resources/
 
 ## Implementation Statistics
 
-AETHERIX's codebase spans **18 source modules** across 5 subsystems with **149 tests** providing comprehensive coverage:
+AETHERIX's codebase spans **18 source modules** across 5 subsystems with **480 tests** providing comprehensive coverage:
 
 | Subsystem | Modules | Key Capabilities |
 |-----------|:-------:|-----------------|

@@ -1,25 +1,46 @@
-# AETHERIX Requirements
-# =====================
-# Dependencies for the AETHERIX interplanetary DTN simulation platform
+# AETHERIX — Python Dependencies
+# ============================================================
 #
-# Core modules (src/) use only the Python standard library:
-#   dataclasses, enum, math, random, time, uuid, typing, collections
+# CORE SIMULATION (src/) + ENTRY POINT (run_simulation.py):
+#   ZERO external dependencies. Every module (link budgets, RL routing,
+#   QKD, orbital mechanics, radiation hardening, the DTN simulator) runs
+#   on the Python standard library alone. This is a deliberate design
+#   choice — it makes the architecture trivially reproducible:
+#
+#       git clone https://github.com/matx104/AETHERIX.git
+#       cd AETHERIX
+#       python run_simulation.py          # runs with no extra installs
+#
+# The production roadmap (DQN, JPL Horizons ephemeris, ns-3) is documented
+# in README.md; those heavyweight libraries are NOT required for this
+# demo/proof-of-concept stage.
+#
+# ============================================================
 
-# --- Testing ---
-pytest>=7.0.0
+# --- Testing (required to run the 202-test suite) ---
+pytest==9.0.3
+# pytest>=7.0 also works; pinned to the version this repo was validated with.
 
-# --- Development (pip install -r requirements.txt --group dev) ---
-# Uncomment or install individually:
-# flake8>=6.0.0            # PEP 8 linting
-# isort>=5.12.0            # Import ordering
-# black>=23.0.0            # Code formatting
-# mypy>=1.4.0              # Static type checking
-# pytest-cov>=4.0.0        # Coverage reporting
+# ============================================================
+# OPTIONAL — presentation / diagram generation
+# ============================================================
+# The committed PPTX/PDF outputs are already in presentation/output/ and the
+# diagram PNGs are in visualizations/ and docs/img/, so an examiner does NOT
+# need these to run the simulation. Install them only to regenerate decks:
+#
+#   pip install -r requirements.txt --group presentation
+#
+# (or copy the lines below into a dedicated install)
+#
+python-pptx==1.0.2        # PPTX deck generation (presentation/generate_pptx.py)
+lxml==6.1.1               # XML backing for python-pptx animation/transition XML
+reportlab==5.0.0          # PDF deck generation (presentation/generate_pdf.py)
+matplotlib==3.10.1        # chart/diagram rendering (visualizations/)
 
-# --- Future Production Dependencies ---
-# numpy>=1.24.0            # Advanced numerical calculations
-# matplotlib>=3.7.0        # Chart generation
-# gymnasium>=0.29.0        # RL agent training environment
-# torch>=2.0.0             # Deep Q-Network weights
-# astropy>=5.3.0           # Precise orbital ephemeris
-# jplephem>=2.22           # JPL Horizons ephemeris data
+# ============================================================
+# OPTIONAL — FastAPI backend (backend/)
+# ============================================================
+# Only needed to run the REST API server (not the simulation):
+#   pip install -r backend/requirements.txt
+# See backend/requirements.txt for the pinned backend stack (FastAPI,
+# SQLAlchemy, Pydantic, uvicorn, psycopg2-binary).

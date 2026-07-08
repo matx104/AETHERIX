@@ -1,0 +1,41 @@
+# AETHERIX RL Routing Training Configuration
+# Hyperparameters for the Q-learning routing agent.
+# See interview_prep/question_bank/rl_hyperparameters.md for the
+# per-parameter defense.
+#
+# Usage:
+#   python src/routing/train_agent.py --config config/training.yaml
+
+training:
+  episodes: 10000
+  epsilon_start: 1.0
+  epsilon_min: 0.01
+  epsilon_decay: 0.995
+  learning_rate: 0.1
+  discount_factor: 0.95
+  batch_size: 32
+  experience_replay_capacity: 10000
+  target_update_frequency: 100
+
+agent:
+  node_id: MARS_ORBIT_1
+  min_link_quality: 0.3
+  high_buffer_threshold: 0.8
+
+reward_weights:
+  alpha: 1.0          # delivery success
+  beta: 0.001         # delay per second
+  gamma: 0.1          # hop count
+  delta: 10.0         # bundle drop
+  epsilon: 0.01       # energy per Wh
+
+convergence:
+  patience: 500       # episodes without improvement before early stop
+  min_episodes: 1000
+  window: 100         # rolling-average window for reward
+
+output:
+  save_q_table: true
+  q_table_path: output/q_table.pkl
+  log_interval: 100
+  verbose: true

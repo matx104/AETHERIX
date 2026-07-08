@@ -1,0 +1,48 @@
+# AETHERIX Topology Presets
+# Node counts and link parameters per tier. These values are used by
+# orbital/topology.py to construct the 5-tier network.
+
+topology:
+  total_nodes: 241
+
+  tier_1_earth_ground:
+    count: 3
+    stations:
+      - { id: DSN_GOLDSTONE, lat: 35.4, lon: -116.9, dish_m: 34.0 }
+      - { id: DSN_MADRID, lat: 40.4, lon: -4.2, dish_m: 34.0 }
+      - { id: DSN_CANBERRA, lat: -35.4, lon: 149.2, dish_m: 34.0 }
+
+  tier_2_earth_orbital:
+    count: 51
+    geo_relays: 3
+    leo_laser_sats: 48
+    leo_altitude_km: 1200
+    leo_inclination_deg: 87
+
+  tier_3_lagrange:
+    count: 4
+    relays:
+      - { id: ES_L4_RELAY_A, point: L4, band: ka }
+      - { id: ES_L4_RELAY_B, point: L4, band: x }
+      - { id: ES_L5_RELAY_A, point: L5, band: ka }
+      - { id: ES_L5_RELAY_B, point: L5, band: x }
+
+  tier_4_mars_orbital:
+    count: 4
+    areostationary: 2
+    polar_orbit: 2
+    mars_orbit_altitude_km: 17000
+
+  tier_5_mars_surface:
+    count: 179
+    bases: 4
+    rovers: 12
+    drones: 20
+    fixed_sensors: 143
+
+inter_tier_links:
+  1_2: { type: rf, band: ka, data_rate_mbps: 100 }
+  2_3: { type: optical, wavelength_nm: 1550, data_rate_mbps: 50 }
+  3_4: { type: optical, wavelength_nm: 1550, data_rate_mbps: 50 }
+  4_5: { type: rf, band: uhf, data_rate_mbps: 1 }
+  2_2_isl: { type: optical, wavelength_nm: 1550, data_rate_mbps: 100 }

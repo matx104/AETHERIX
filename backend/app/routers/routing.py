@@ -78,8 +78,16 @@ def training_step(
     epsilon: float = 0.1,
     db: Session = Depends(get_db),
 ):
-    from routing.training import TrainingEnvironment
+    from routing.training import Trainer, TrainingConfig
 
-    env = TrainingEnvironment()
-    results = env.train(episodes=episodes, epsilon=epsilon)
-    return {"episodes": episodes, "results": results}
+    config = TrainingConfig(episodes=episodes, epsilon_start=epsilon)
+    agent = RLRoutingAgent(node_id="training")
+    trainer = Trainer(agent, config)
+    metrics = trainer.train()
+
+    return {
+        "episodes": episodes,
+        "total_episodes": metrics.total_episodes,
+        "avg_reward_last_100": metrics.avg_reward_last_100,
+        "convergence_episode": metrics.convergence_episode,
+    }

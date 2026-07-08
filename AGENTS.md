@@ -99,12 +99,21 @@ python src/orbital/contact_windows.py
 python src/routing/bundle.py
 ```
 
+### Scenario Runner & Agent Training (YAML-config driven)
+```bash
+# Run a simulation scenario from a YAML config
+python src/simulation/run_scenario.py --config config/earth-mars-baseline.yaml
+python src/simulation/run_scenario.py --config config/solar_conjunction.yaml
+python src/simulation/run_scenario.py --list-scenarios
+
+# Train the RL routing agent from a YAML config
+python src/routing/train_agent.py --config config/training.yaml
+python src/routing/train_agent.py --episodes 5000
+```
+
 ### Future Commands (Not Yet Implemented)
 ```bash
-# When implemented:
 ./scripts/setup-ion-dtn.sh
-python src/routing/train_agent.py --config config/training.yaml
-python src/simulation/run_scenario.py --config config/earth-mars-baseline.yaml
 ```
 
 ## Architecture
@@ -245,7 +254,7 @@ The project follows these standards:
 ## Development Notes
 
 ### Test Coverage
-149 tests across 10 test files (test_link_budget, test_rl_agent, test_qkd, test_orbital, test_bundle, test_topology, test_forwarding, test_training, test_quantum_extended, test_policy_engine)
+480 tests across 22 test files (test_link_budget, test_rl_agent, test_qkd, test_orbital, test_bundle, test_topology, test_forwarding, test_training, test_quantum_extended, test_policy_engine, test_radiation, test_prioritization, test_run_simulation, test_rf_link_budget, test_simulator, test_contact_graph, test_orbital_extended, test_ltp, test_tcpcl, test_udp_cl, test_node, test_api)
 
 ### Production Upgrades Needed
 The current implementations are demo-level. Production would require:

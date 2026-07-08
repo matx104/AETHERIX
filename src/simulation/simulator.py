@@ -97,6 +97,8 @@ class Simulator:
         self._delivered_bundles: List[Tuple[Bundle, float]] = []
         self._dropped_bundles: List[Bundle] = []
         self._expired_bundles: List[Bundle] = []
+        self._active_bundles: Dict[str, Bundle] = {}
+        self._bundle_sim_birth: Dict[str, float] = {}
         self._result: Optional[SimulationResult] = None
 
     def setup(self) -> None:
@@ -127,6 +129,8 @@ class Simulator:
         self._delivered_bundles.clear()
         self._dropped_bundles.clear()
         self._expired_bundles.clear()
+        self._active_bundles.clear()
+        self._bundle_sim_birth.clear()
         self._state = SimulationState.INITIALIZED
 
     def generate_bundle(self, time_step: int) -> Optional[Bundle]:
@@ -171,8 +175,9 @@ class Simulator:
             data_mb=size_mb,
             priority=priority,
         )
-        bundle.creation_time = self._current_time
         self._bundles_generated += 1
+        self._active_bundles[bundle.bundle_id] = bundle
+        self._bundle_sim_birth[bundle.bundle_id] = self._current_time
         return bundle
 
     def inject_bundle(
@@ -257,7 +262,44 @@ class Simulator:
                 self._accumulate_bundle_stats(fwd_ev, current_time)
 
         self._completed_steps += 1
+
+        self._propagate_forwarded(step_events)
         return step_events
+
+    def _propagate_forwarded(self, step_events: List[SimulationEvent]) -> None:
+        """
+        Hand-off store-and-forward propagation.
+
+        After every engine has ticked, bundles that were forwarded to a
+        neighbour node are delivered into that neighbour's forwarding
+        engine so they continue their journey on the next tick.  Bundles
+        that reach their destination are recorded as delivered; dropped
+        and expired bundles are retired from the active set.
+        """
+        for ev in step_events:
+            bid = ev.data.get("bundle_id", "")
+            if not bid:
+                continue
+
+            if ev.event_type == "forwarded":
+                bundle = self._active_bundles.get(bid)
+                if bundle is None:
+                    continue
+                next_hop = ev.data.get("next_hop", "")
+                dest_engine = self._engines.get(next_hop)
+                if dest_engine is not None:
+                    rcv = dest_engine.receive_bundle(bundle, ev.source)
+                    if rcv.event_type == "delivered":
+                        self._delivered_bundles.append((bundle, self._current_time))
+                        self._active_bundles.pop(bid, None)
+                    # Otherwise the bundle now sits in the next engine's
+                    # queue; keep it in the active set so the next hop's
+                    # forward is propagated too.
+
+            elif ev.event_type in ("dropped", "expired"):
+                bundle = self._active_bundles.pop(bid, None)
+                if bundle is not None and ev.event_type == "dropped":
+                    self._dropped_bundles.append(bundle)
 
     def _accumulate_bundle_stats(
         self, fwd_ev: ForwardingEvent, current_time: float
@@ -332,7 +374,8 @@ class Simulator:
         throughput_bytes = 0
 
         for bundle, deliver_time in self._delivered_bundles:
-            delay = deliver_time - bundle.creation_time
+            gen_sim = self._bundle_sim_birth.get(bundle.bundle_id, 0.0)
+            delay = deliver_time - gen_sim
             if delay >= 0:
                 delays.append(delay)
             hop_counts.append(len(bundle.hops))
@@ -419,4 +462,6 @@ class Simulator:
         self._delivered_bundles.clear()
         self._dropped_bundles.clear()
         self._expired_bundles.clear()
+        self._active_bundles.clear()
+        self._bundle_sim_birth.clear()
         self._result = None

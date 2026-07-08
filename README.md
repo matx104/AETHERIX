@@ -2,7 +2,7 @@
 
 **A**utonomous **E**xtraterrestrial **T**hrough-space **H**igh-throughput **E**nhancing **R**outing and **I**nterplanetary e**X**change
 
-[![Tests](https://img.shields.io/badge/Tests-189_passing-00d4aa?style=for-the-badge)]()
+[![Tests](https://img.shields.io/badge/Tests-202_passing-00d4aa?style=for-the-badge)]()
 [![Python](https://img.shields.io/badge/Python-3.9+-3776ab?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![License](https://img.shields.io/badge/License-Research-00d4aa?style=for-the-badge)](LICENSE)
 [![Live Demo](https://img.shields.io/badge/Live_Demo-GitHub_Pages-00d4aa?style=for-the-badge&logo=github&logoColor=white)](https://matx104.github.io/AETHERIX/)
@@ -17,7 +17,8 @@ Research / proof-of-concept architecture for delay-tolerant networking (DTN) bet
 - [Key Technologies](#key-technologies)
 - [Architecture](#architecture)
 - [Network Topology](#network-topology)
-- [Getting Started](#getting-started)
+- [Getting Started / Basic Usage](#getting-started)
+  - **[Full Usage Guide &amp; Design Rationale →](docs/USAGE_GUIDE.md)**
 - [Modules](#modules)
 - [Testing](#testing)
 - [Web Showcase](#web-showcase)
@@ -56,7 +57,8 @@ AETHERIX/
 │   ├── orbital/               # Contact windows, celestial bodies, Doppler, topology
 │   ├── computing/             # Radiation-hardened computing models
 │   └── simulation/            # Simulation engine, policy-based routing
-├── tests/                     # 189 unit tests across 12 test files
+├── tests/                     # 202 unit tests across 13 test files
+├── run_simulation.py          # one-command end-to-end driver (zero deps)
 ├── demos/                     # 6 interactive Python demos
 ├── docs/                      # Web showcase (GitHub Pages SPA)
 ├── presentation/              # 29-slide PPTX/PDF/web presentation with speaker notes
@@ -123,18 +125,47 @@ Key parameters: 54.6 M km (perihelion) to 401 M km (aphelion), 3--22 min one-way
 
 ### Prerequisites
 
-- Python 3.9+
+- **Python 3.9+** (only requirement for the simulation core)
+- Node.js 18+ *(optional — only for the web dashboard)*
+- Docker & Docker Compose *(optional — only for containerized deployment)*
 
-### Quick Start
+### Basic Usage
+
+The fastest path — clone and run the full simulation with **zero dependencies**:
 
 ```bash
 git clone https://github.com/matx104/AETHERIX.git
 cd AETHERIX
+python run_simulation.py
+```
 
-# Set up virtual environment and install dependencies
+That single command runs all six modules end-to-end (baseline DTN, optical/RF
+link budgets, RL routing, **failure & recovery**, QKD security, radiation
+hardening) using only the Python standard library — no `pip install` needed.
+
+The other commands you'll use most:
+
+```bash
+python run_simulation.py -m 4      # run just the failure & recovery scenario
+python -m pytest tests/ -q         # run the 337-test suite (needs: pip install pytest)
+./scripts/init.sh                  # set up venv + dev tools (linting, etc.)
+./scripts/dev.sh docker-up         # launch the full-stack web app in Docker
+```
+
+> **Full reference** → every command, every flag, plus the complete design
+> rationale (trade-offs, selection criteria, decision matrices) is in the
+> **[Usage Guide](docs/USAGE_GUIDE.md)**. For the exhaustive architectural
+> defense — Core Flight System mapping, whiteboarding scenarios, quantitative
+> derivations, and "why-not" rebuttals — see the
+> **[Design Rationale](docs/DESIGN_RATIONALE.md)**.
+
+### Full Setup
+
+```bash
+# Set up virtual environment and install test/dev dependencies
 ./scripts/init.sh
 
-# Run all tests (189 tests)
+# Run all tests (480 tests)
 ./scripts/run_tests.sh
 
 # Run interactive demos
@@ -166,6 +197,50 @@ python src/orbital/contact_windows.py        # Orbital mechanics
 python src/computing/radiation.py            # Radiation hardening
 ```
 
+### End-to-End Simulation Driver
+
+```bash
+# All six modules at once
+python run_simulation.py
+
+# Individual modules:  1 baseline | 2 link budget | 3 RL training
+#                      4 failure&recovery | 5 QKD | 6 radiation
+python run_simulation.py -m 4        # solar-conjunction optical blackout recovery
+python run_simulation.py --seed 7    # change the RNG seed
+```
+
+| Module | Demonstrates |
+|--------|-------------|
+| 1 | Baseline DTN store-and-forward over the 241-node topology |
+| 2 | 1550 nm optical vs Ka-band RF link budgets at 3 distances |
+| 3 | Q-learning convergence (ε-greedy decay = 0.995) |
+| 4 | **Failure & recovery**: solar conjunction → optical fails → Ka-band RF via ES-L4/L5 |
+| 5 | BB84 key exchange + eavesdropper detection (QBER < 11%) |
+| 6 | SEU mitigation: TMR, SECDED ECC, scrubbing, FDIR watchdog |
+
+### Scenario Runner & Agent Training (YAML-config driven)
+
+```bash
+# List available scenarios
+python src/simulation/run_scenario.py --list-scenarios
+
+# Run a simulation from a YAML config
+python src/simulation/run_scenario.py --config config/earth-mars-baseline.yaml
+python src/simulation/run_scenario.py --config config/solar_conjunction.yaml
+
+# Train the RL routing agent from a YAML config
+python src/routing/train_agent.py --config config/training.yaml
+python src/routing/train_agent.py --episodes 5000
+```
+
+| Config File | Description |
+|-------------|-------------|
+| `config/earth-mars-baseline.yaml` | 30-day baseline at average distance (225 M km) |
+| `config/solar_conjunction.yaml` | 14-day conjunction blackout with RF fallback |
+| `config/perihelion_aphelion.yaml` | Best-case vs worst-case distance comparison |
+| `config/training.yaml` | RL hyperparameters for agent training |
+| `config/topology_presets.yaml` | Node counts and link parameters per tier |
+
 ---
 
 ## Modules
@@ -190,6 +265,7 @@ python src/computing/radiation.py            # Radiation hardening
 | `tcpcl.py` | TCP Convergence Layer — session management for Earth segment. RFC 7242. |
 | `udp_cl.py` | UDP Convergence Layer — optical ISL fragmentation with loss simulation. |
 | `training.py` | RL training loop — `ExperienceReplay`, `TrainingEnvironment`, convergence detection. |
+| `train_agent.py` | YAML-config-driven RL agent trainer — `--config config/training.yaml`, `--episodes N`. |
 | `multi_agent.py` | Multi-agent federated learning — Q-table aggregation across distributed agents. |
 | `prioritization.py` | Mission data prioritization — `DataCategory` (4-tier classification), `Compressor` (CCSDS 121.0-B-3 lossless, 122.0-B-2 wavelet), `QoSScheduler` (deadline-aware, preemptive), `EmergencyProtocol` (safe-mode + preemption). |
 
@@ -222,32 +298,44 @@ python src/computing/radiation.py            # Radiation hardening
 |------|-------------|
 | `simulator.py` | Full simulation engine integrating topology, forwarding, and bundle generation. |
 | `policy_engine.py` | Policy-based routing engine with 5 default policies (congestion control, emergency fast-path, etc.). |
+| `run_scenario.py` | YAML-config-driven scenario runner — `--list-scenarios`, `--config config/*.yaml`. |
 
 ---
 
 ## Testing
 
-189 unit tests across 12 test files, all passing.
+480 unit tests across 22 test files, all passing.
 
 ```bash
 ./scripts/run_tests.sh        # run all tests
 ./scripts/run_tests.sh -v     # verbose output
+make test                     # via Makefile
 ```
 
 | Test File | Covers |
 |-----------|--------|
 | `tests/test_link_budget.py` | Optical and RF link budgets |
+| `tests/test_rf_link_budget.py` | RF link budget (Ka/X/S/UHF) — FSPL, antenna gain, noise, margin |
 | `tests/test_bundle.py` | BPv7 bundle data structures |
 | `tests/test_rl_agent.py` | RL routing agent |
 | `tests/test_training.py` | RL training loop |
 | `tests/test_forwarding.py` | Store-and-forward engine |
 | `tests/test_topology.py` | 5-tier topology and contact graph |
+| `tests/test_contact_graph.py` | Contact graph BFS pathfinding, reachability, active contacts |
+| `tests/test_simulator.py` | Simulation engine: setup, generation, stepping, run, failure recovery |
 | `tests/test_qkd.py` | BB84 and E91 QKD protocols |
 | `tests/test_quantum_extended.py` | Repeater chains and privacy amplification |
 | `tests/test_orbital.py` | Orbital mechanics, Doppler, celestial bodies |
+| `tests/test_orbital_extended.py` | Celestial body database, classical/relativistic Doppler |
 | `tests/test_policy_engine.py` | Routing policy engine |
 | `tests/test_radiation.py` | Radiation effects, TMR, SECDED ECC, scrubbing, FDIR |
 | `tests/test_prioritization.py` | Data prioritization, compression, QoS scheduler |
+| `tests/test_run_simulation.py` | End-to-end driver: all 6 modules + failure & recovery decision |
+| `tests/test_ltp.py` | LTP convergence layer (RFC 5326) — segmentation, reassembly, sessions, retransmission |
+| `tests/test_tcpcl.py` | TCP convergence layer (RFC 7242) — endpoints, sessions, bundle transfer |
+| `tests/test_udp_cl.py` | UDP convergence layer — optical ISL fragmentation, loss simulation, reassembly |
+| `tests/test_node.py` | DTN node model — buffer management, capabilities, reachability |
+| `tests/test_api.py` | Backend API integration — all 7 routers via FastAPI TestClient |
 
 ---
 
@@ -349,6 +437,11 @@ The `interview_prep/` directory contains materials for technical interviews and 
 | `cheat_sheets/` | Formulas, constants, and quick-reference cards |
 | `topic_summaries/` | Deep-dive summaries of key topics |
 | `practice/` | Practice exercises and worked examples |
+
+> **For the oral defense** — the exhaustive architectural defense covering
+> Core Flight System (cFS) mapping, six whiteboarding failure scenarios,
+> quantitative threshold derivations, and "why-not" alternative rebuttals is in
+> **[docs/DESIGN_RATIONALE.md](docs/DESIGN_RATIONALE.md)**.
 
 ---
 

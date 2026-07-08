@@ -35,14 +35,14 @@ CATEGORIES = {
             {
                 "id": "test", "label": "Run Test Suite", "icon": "test",
                 "cmd": "./scripts/run_tests.sh",
-                "description": "Runs the full pytest suite across all 12 test files.",
-                "expected": "A row of dots for passing tests, ending with '189 passed in <n>s'.",
+                "description": "Runs the full pytest suite across all 22 test files.",
+                "expected": "A row of dots for passing tests, ending with '480 passed in <n>s'.",
             },
             {
                 "id": "test-verbose", "label": "Run Tests (Verbose)", "icon": "test",
                 "cmd": "./scripts/run_tests.sh -v",
                 "description": "Runs the test suite with one line per test case.",
-                "expected": "Each test id printed with PASSED, ending with '189 passed'.",
+                "expected": "Each test id printed with PASSED, ending with '480 passed'.",
             },
             {
                 "id": "lint", "label": "Code Quality Check", "icon": "lint",

@@ -25,7 +25,7 @@ router = APIRouter(prefix="/orbital", tags=["orbital"])
 
 @router.get("/distance")
 def get_distance(true_anomaly_deg: float = 0.0):
-    dist = calculate_earth_mars_distance(true_anomaly_deg)
+    dist = calculate_earth_mars_distance(true_anomaly_deg, true_anomaly_deg)
     delay = calculate_light_time(dist)
     return {
         "true_anomaly_deg": true_anomaly_deg,
@@ -63,8 +63,8 @@ def compute_contact_windows(
     req: ContactWindowRequest, db: Session = Depends(get_db)
 ):
     windows = predict_contact_windows(
-        duration_days=req.duration_days,
-        min_elevation_deg=req.min_elevation_deg,
+        start_day=0,
+        duration_days=int(req.duration_days),
     )
 
     records = []

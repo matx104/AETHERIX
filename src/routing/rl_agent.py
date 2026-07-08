@@ -7,7 +7,7 @@ In production, this would use a full Deep Q-Network (DQN) implementation.
 """
 
 import random
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from typing import Dict, List, Optional, Tuple
 
@@ -39,6 +39,12 @@ class NetworkState:
     bundle_size_mb: float
     bundle_deadline_hours: float
     destination_node: str
+    # Optional tier context for Earth-ward (down-tier) routing. When the
+    # forwarding engine populates these, the agent prefers neighbours in a
+    # lower tier (closer to the Earth ground segment). Defaulted so existing
+    # callers and tests are unaffected.
+    current_tier: int = 0
+    neighbor_tiers: Dict[str, int] = field(default_factory=dict)
 
 
 @dataclass
@@ -245,14 +251,24 @@ class RLRoutingAgent:
             # In production, this would use the trained Q-values
             score = quality * 0.7  # Link quality component
 
-            # Prefer neighbors that are "closer" to destination
-            # (simplified: check if neighbor name suggests progress)
-            if "earth" in state.destination_node and "earth" in neighbor:
-                score += 0.2
-            elif "mars" in state.destination_node and "mars" in neighbor:
-                score += 0.2
-            elif "transit" in neighbor:
-                score += 0.1  # Relay nodes are often good choices
+            # Tier-aware Earth-ward routing: when the forwarding engine
+            # supplies tier context, strongly prefer neighbours in a lower
+            # tier (closer to the Earth ground segment) so bundles make
+            # directional progress instead of bouncing within a tier.
+            if state.neighbor_tiers:
+                n_tier = state.neighbor_tiers.get(neighbor, state.current_tier)
+                if n_tier < state.current_tier:
+                    # Each tier of downward progress is worth more than
+                    # a moderate quality gap, guaranteeing tier-ward motion.
+                    score += 0.5 + 0.1 * (state.current_tier - n_tier)
+            else:
+                # Name-based fallback for callers that do not supply tiers.
+                if "earth" in state.destination_node and "earth" in neighbor:
+                    score += 0.2
+                elif "mars" in state.destination_node and "mars" in neighbor:
+                    score += 0.2
+                elif "transit" in neighbor:
+                    score += 0.1  # Relay nodes are often good choices
 
             scores[neighbor] = score
 
