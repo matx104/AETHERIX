@@ -5,12 +5,53 @@
     "ebk1wkbC2a4",
     "WsvbJRCJD9g",
     "r5l4DFN-PY0",
-    "hot3st_of4w"
+    "hot3st_of4w",
+    "nIG8yAjD1aQ",
+    "oR0zMfHmVhA",
+    "V6fbfVC7E-g",
+    "OUiMvE7GRJI",
+    "7gBDSq8_ULo",
+    "pGwm-CxWnTk",
+    "5WuFZhTpE_E",
+    "NFMNQgHuaPs",
+    "r5nyH-HQoPU"
   ],
   "study_start_date": "2026-07-22",
   "study_end_date": "2026-08-01",
   "max_days": 10,
   "videos_per_day": 13,
-  "last_run_date": null,
-  "run_history": []
+  "last_run_date": "2026-07-22",
+  "run_history": [
+    {
+      "date": "2026-07-22",
+      "batch_size": 5,
+      "success": 1,
+      "failed": 4,
+      "video_ids": [
+        "nIG8yAjD1aQ",
+        "oR0zMfHmVhA",
+        "V6fbfVC7E-g",
+        "OUiMvE7GRJI",
+        "7gBDSq8_ULo"
+      ],
+      "day": 1
+    },
+    {
+      "date": "2026-07-22",
+      "batch_size": 8,
+      "success": 0,
+      "failed": 8,
+      "video_ids": [
+        "oR0zMfHmVhA",
+        "V6fbfVC7E-g",
+        "OUiMvE7GRJI",
+        "7gBDSq8_ULo",
+        "pGwm-CxWnTk",
+        "5WuFZhTpE_E",
+        "NFMNQgHuaPs",
+        "r5nyH-HQoPU"
+      ],
+      "day": 1
+    }
+  ]
 }

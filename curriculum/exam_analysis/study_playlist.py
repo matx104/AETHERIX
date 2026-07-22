@@ -73,6 +73,8 @@ def load_apify_token():
 
             token = secret_data.get("secret", {}).get("secretValue", "")
             if token:
+                # summarize CLI reads APIFY_API_TOKEN, not APIFY_TOKEN
+                os.environ["APIFY_API_TOKEN"] = token
                 os.environ["APIFY_TOKEN"] = token
                 return  # Success — we're done
 
@@ -86,7 +88,10 @@ def load_apify_token():
         for line in env_file.read_text().splitlines():
             if line.startswith("APIFY_TOKEN=") or line.startswith("APIFY_API_TOKEN="):
                 key, val = line.split("=", 1)
-                os.environ[key] = val.strip()
+                token_val = val.strip().strip("'\"")
+                # summarize CLI reads APIFY_API_TOKEN
+                os.environ["APIFY_API_TOKEN"] = token_val
+                os.environ[key] = token_val
 
 
 def load_progress():
@@ -157,7 +162,7 @@ def fetch_transcript(video_id):
         
         content = data.get("extracted", {}).get("content", "")
         source = data.get("extracted", {}).get("transcriptSource", "none")
-        word_count = data.get("extracted", {}).get("transcriptWordCount", 0)
+        word_count = data.get("extracted", {}).get("transcriptWordCount") or 0
         
         if not content or word_count < 50:
             return False, f"empty transcript (source={source}, words={word_count})"
