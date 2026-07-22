@@ -27,9 +27,60 @@ PROGRESS_FILE = BASE / "progress.json"
 TRANSCRIPTS_DIR = BASE / "transcripts"
 PATTERNS_FILE = BASE / "AETHERIX_EXAM_PATTERNS.md"
 
-# Load env vars for Apify
+# Load APIFY_TOKEN from Infisical vault (fallback: flat .env)
 def load_apify_token():
-    """Load APIFY_TOKEN from Hermes global .env"""
+    """Load APIFY_TOKEN from Infisical vault, fall back to flat .env if vault is unreachable."""
+    # --- Try Infisical first ---
+    try:
+        import urllib.request, json as _json
+
+        # Machine Identity creds live in AMEEN's .env (the vault keeper)
+        inf_env = Path("/home/ubuntu/.hermes/profiles/ameen/.env")
+        creds = {}
+        if inf_env.exists():
+            for line in inf_env.read_text().splitlines():
+                if line.startswith("INFISICAL_") and "=" in line:
+                    k, v = line.split("=", 1)
+                    creds[k] = v.strip()
+
+        client_id = creds.get("INFISICAL_CLIENT_ID", "")
+        client_secret = creds.get("INFISICAL_CLIENT_SECRET", "")
+        domain = creds.get("INFISICAL_DOMAIN", "https://app.infisical.com")
+        project_id = creds.get("INFISICAL_PROJECT_ID", "40614a4c-30a7-4efb-bc12-2354300d24b6")
+
+        if client_id and client_secret:
+            # Auth
+            auth_body = _json.dumps({"clientId": client_id, "clientSecret": client_secret}).encode()
+            req = urllib.request.Request(
+                f"{domain}/api/v1/auth/universal-auth/login",
+                data=auth_body,
+                headers={"Content-Type": "application/json"},
+                method="POST",
+            )
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                auth_data = _json.loads(resp.read())
+            access_token = auth_data["accessToken"]
+
+            # Read APIFY_TOKEN
+            secret_url = f"{domain}/api/v3/secrets/raw/APIFY_TOKEN?workspaceId={project_id}&environment=dev"
+            req2 = urllib.request.Request(
+                secret_url,
+                headers={"Authorization": f"Bearer {access_token}"},
+                method="GET",
+            )
+            with urllib.request.urlopen(req2, timeout=10) as resp:
+                secret_data = _json.loads(resp.read())
+
+            token = secret_data.get("secret", {}).get("secretValue", "")
+            if token:
+                os.environ["APIFY_TOKEN"] = token
+                return  # Success — we're done
+
+    except Exception as e:
+        # Vault unreachable — fall through to .env backup
+        print(f"  ⚠️  Infisical vault unreachable ({e}), falling back to .env")
+
+    # --- Fallback: flat .env ---
     env_file = Path("/home/ubuntu/.hermes/.env")
     if env_file.exists():
         for line in env_file.read_text().splitlines():
