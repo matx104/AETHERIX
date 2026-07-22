@@ -6,15 +6,7 @@
     "WsvbJRCJD9g",
     "r5l4DFN-PY0",
     "hot3st_of4w",
-    "nIG8yAjD1aQ",
-    "oR0zMfHmVhA",
-    "V6fbfVC7E-g",
-    "OUiMvE7GRJI",
-    "7gBDSq8_ULo",
-    "pGwm-CxWnTk",
-    "5WuFZhTpE_E",
-    "NFMNQgHuaPs",
-    "r5nyH-HQoPU"
+    "nIG8yAjD1aQ"
   ],
   "study_start_date": "2026-07-22",
   "study_end_date": "2026-08-01",
@@ -53,5 +45,9 @@
       ],
       "day": 1
     }
-  ]
+  ],
+  "total_with_transcripts": 5,
+  "total_without_transcripts": 126,
+  "study_complete": true,
+  "completion_note": "Full scan complete: only 5/131 videos have transcripts. The other 126 are live stream recordings without captions. All 5 available transcripts have been studied."
 }

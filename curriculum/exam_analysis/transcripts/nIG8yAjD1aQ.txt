@@ -1,0 +1,1695 @@
+Transcript:
+Mubarak ho.
+Congratulations.
+I was with Mr. Rajim Bismillah Al Rahim
+in the name of Allah the merciful the
+most merciful.
+Bismillah Al Rahman Al Rahim
+Assalamualaikum
+peace and blessings be upon you all. So
+my name is Muhammad Faisal and
+I'm the chief examiner of An-Nafi. And
+I'm the founder of An-Nafi as well.
+Uh
+An-Nafi is now becoming a Pearson
+accredited institute as well. So
+Uh and we are about to getting close in
+terms of becoming a university
+ourselves.
+Uh this is an EduQual exam.
+Down the line we will be taking EduQual
+and Pearson exam as one exam. So anyone
+who wants to go for their BTech or HNC
+or HND
+uh like
+uh basically higher national certificate
+higher national diploma
+from level four level five or AI ops
+combined together they will be going
+through the same process. This interview
+is regarding Shah Abdul Khair.
+He is a student of our
+uh diploma in artificial intelligence
+operations.
+He completed all of his MCQs.
+He completed most of his courses. There
+might be certain elements that are left.
+But you can do those after passing the
+last exam. We will not issue you the
+diploma until you meet all the other
+remaining requirements. Those are minor
+ones like attending some of the courses
+submitting some of the coursework that's
+it right? Our primary concern is
+regarding uh
+passing uh the MCQs exams. Anyone can
+pass the MCQ exams. It's pretty easy
+pretty simple pretty straightforward.
+Uh you know our goal is to ensure that
+you go through the experience of
+learning.
+And those MCQs are based on
+uh multiple scenarios. For example they
+are job based they are knowledge based
+they are skill based they are different
+things which are going on right?
+Uh
+you went through all of those things.
+You completed most of your courses. In
+our uh in our uh organization, in our
+institute, there's a policy. Since these
+courses are designed as per the job
+requirements, uh there is no need for
+you to complete 100% of the courses. No.
+Our goal is to give you the skills
+because the MCQs covers 100% of the
+courses anyway. Right? So, you're
+learning through attempting the
+questions. The second thing that you're
+doing right now is basically that you
+have to go through
+uh the
+uh
+the process of preparing yourself for
+the presentation.
+And one can only prepare for the
+presentation if they have completed all
+the core courses, right? Core courses
+means like these are the courses which
+from which we will attempt the exam.
+These qualifications uh of EduQual that
+we have designed are designed as per the
+job requirements, as per the job market.
+So, there's also an Al Razzaq component
+as well.
+When you started a diploma, Al Razzaq
+was not there. Al Al Razzaq recently
+came in, right?
+We have on on our roster more than
+30,000 jobs available for Al Razzaq. You
+are based in UAE, United Arab Emirates.
+Our students are coming from all over
+the world. There are jobs all over the
+world. We are specifically targeting G20
+countries, which are all together
+including the European Union, comes to
+around 70 plus countries, something like
+that, right? Which are classified as the
+G20 countries in the world. So, there's
+a lot of things that you can do and you
+can learn, right? Uh if you complete the
+Al Razzaq requirements, you know, part
+one is there, then part two is exams.
+Part one, passing the part one exam
+MCQs, and as you pass, keep on passing
+the courses, then you can appear for
+those Al Razzaq labs. You will be giving
+We'll We'll give you 10 labs, 20 labs at
+a time, which you have to record,
+complete, and submit to us, and our AI
+module will analyze this, right? We do
+keep a fingerprint, a facial recognition
+of your face,
+and your voice fingerprint.
+Because this is something which is
+required for us to distinguish and
+ensure that you are who you are, who you
+claim to be. So, one of the process that
+we have is know your customer, right?
+Know your student. And that that part of
+the process includes basically that we
+want to ensure
+that Shawwal Khan is who he is. We don't
+want to know that Shawwal Khan Shawwal
+Khan is basically Jason Bourne or James
+Bourne or something like that, right? Uh
+not that you don't want to be that
+person. I wouldn't want to be that
+person, but that's your own preference.
+But, uh we want to make sure that we are
+doing all of those things properly. Just
+give me 1 minute, please.
+So, uh in keeping all of these things,
+you have to go through the exam. Now,
+I'm going to start
+uh
+you know, by allowing you to go through
+your presentation. You can share your
+screen now.
+Right.
+I'm going to take a lot of notes as we
+move along. You already know the
+housekeeping items. Uh you know, if
+something happens to your internet or
+something like that,
+uh you know, what are the process of
+resuming this exam, so on and so forth.
+Since you are in UAE, I'm assuming there
+is no electric issue or internet issue
+or something like that, right? So,
+that's good that's a good thing.
+In other countries, in the developing
+countries, you will end up seeing those
+issues, right? So, uh
+let's start the exam. If you can start
+sharing your presentation,
+uh when I say uh I'm going to
+put you on the clock. When I say that
+you are ready, uh you know, take a
+pause, then you have to take a pause,
+and then you have to basically allow me
+to ask the questions because I only have
+uh you only have 15 to 20 minutes max to
+go through the presentation. It's 11:02.
+You can start now and let's uh start
+tracking your progress. Go ahead.
+Bismillah.
+So, can you see my screen?
+Yes, I can, but
+it's
+you know, it's a
+you have to minimize it.
+Yeah, I have to. Okay, so
+first of all, I have designed this in
+Adobe Adobe Cloud. So, I will be
+directly presenting it from here. So,
+this is basically designing software.
+So,
+I would present from here.
+Okay.
+So, it's easy for me. So, you can see.
+So, the topic assigned to me is the
+designing and implementing a secure and
+compliant Kubernetes environment on AWS
+best practice and strategies.
+So, if we approach to the table of
+contents, here is the
+complete table showing the purpose
+statement, implementing
+different topics and
+mainly the AWS well-architected
+framework, its implementation. So, all
+the six pillars are enlisted here and
+finally, there is the conclusion.
+So, I will go move to the
+So, in this topic, we will discuss how
+to address the security weaknesses in
+Kubernetes using AWS tools and how to
+design a secure and efficient Kubernetes
+environment
+by following the AWS best practices.
+So, we will cover how to monitor, scale,
+and secure Kubernetes cluster on AWS to
+ensure they are robust and perform well.
+We will examine shared responsibility
+model for security when using AWS EKS.
+This includes various strategies to
+maintain a secure Kubernetes environment
+such as protecting the software using
+best setup practices, selecting
+appropriate security tools, and being
+prepared to detect and respond to
+threats. And finally,
+we will explain the importance of
+complying to best practices outlined in
+the AWS Well-Architected Framework and
+how to apply these practices to create a
+safe and compliant Kubernetes
+environment on AWS.
+So, here I have a
+a diagram.
+This diagram outlines the
+Identify the specific security services
+utilized during the designing of a
+secure Kubernetes
+environment on AWS. So, different
+services are highlighted or mentioned
+here. I have taken this diagram from the
+AWS. I have not designed this diagram,
+but actually I am using this diagram to
+explain my point of view. So, here are
+enlisted if you can see here are listed
+enlisted the different different
+services
+offered by
+AWS in order to secure our Kubernetes
+cluster. The first one is the AWS Key
+Management Service. So, KMS is like a
+super secure vault for the secrets like
+password and codes. It mixes It mixes
+the
+It mixes the passwords and code with a
+special key, making them completely
+unrecognizable like a jumbled mess of
+letters and numbers. This way, even if
+someone sneaks into
+into the cluster, they wouldn't be able
+to understand what the secrets are.
+Second one is AWS Certificate Manager.
+So, ACM certificate acts like a security
+guard for connections within the
+Kubernetes environment. It creates
+special codes called certificates that
+verify the identity
+of applications talking to each other
+like checking IDs before allowing
+access. This helps ensure only
+authorized applications can communicate
+with each other, it harder for outsiders
+to sneak into the
+into the data. The next one is Amazon
+Inspector. Amazon Inspector is basically
+this is a security scanner for our
+Kubernetes environment. It continuously
+checks the
+application containers
+application applications and containers
+and servers is which are EC2 instances
+for weaknesses. If Inspect finds a
+weakness, it tells you what it is and
+how to fix it. And also it helps to
+identify and patch potential security
+holes before attackers can exploit them.
+The next one is Amazon GuardDuty. So
+Amazon GuardDuty acts like a security
+guard for a Kubernetes environment. It
+constantly monitors the
+AWS accounts
+and workloads looking for suspicious
+activity like strange login attempts or
+connections by staying vigilant.
+GuardDuty GuardDuty helps you catch the
+security threats early before they can
+harm the Kubernetes setup. So the next
+one is Amazon Detective. Amazon
+Detective is
+If you have a security incident in your
+environment like there is a suspicious
+login, so Amazon Amazon Detective acts
+as a forensic investigator and it
+collects information from logs and
+alerts to help you understand what has
+happened. So next one is identity and
+access management. So this is the most
+important services in the security of
+the architecture. So
+AWS
+access
+identity and access management I I am
+acts like a security guard controlling
+the keys to your Kubernetes environment.
+It checks who is trying to access the
+resources and make sure they have the
+right permission.
+It's like giving specific keys to the
+people so they can
+only enter the rooms they are allowed
+to. This prevents unauthorized access
+and keeps your Kubernetes environment
+secure. So next is identity center.
+Identity center is basically this is not
+related directly to the security of the
+Kubernetes, but actually it it has some
+alliance with the AWS identity and
+access management. And the next service
+is
+next service is AWS firewall manager.
+So, it's like a security gatekeeper for
+your entire AWS setup.
+It lets you set and enforce firewall
+rules across your network from one
+place. This helps protect your
+Kubernetes uh cluster by blocking
+external threats before they can reach
+it. So,
+next AWS web application web application
+firewall. AWS web
+application firewall is basically a
+guard for your web application
+Kubernetes. It sits in front of the
+application and monitors monitors all
+incoming traffic. So, web application
+blocks the suspicious and harmful
+request preventing attacks like SQL
+injection or data theft and keeping the
+web application safe. So, I would like
+to take water. Excuse me.
+So, one by one services are enlisted
+here. Like there is another service you
+can see here the Amazon container
+registry. So, basically
+Amazon container registry is a
+is a secure vault for container images
+used in Kubernetes application. These
+images contain code and dependencies.
+So, ECR encrypts them and uses digital
+keys to control access ensuring only
+authorized users can get into it. And
+next one is
+is AWS config. AWS config is this is
+important service. AWS config is like a
+security auditor
+for your Kubernetes environment.
+It monitors the configuration of your
+resources and tracks the changes. It's
+like keeping a detailed log of all
+security settings. If something is
+misconfigured or changes suspiciously
+suspiciously AWS config alerts you so
+you can
+take and fix it. So, next one is uh uh
+AWS system manager. AWS system manager
+is like a security chief of your
+Kubernetes environment. Next is AWS
+organization. Uh this is not also
+directly related to the uh security of
+the Kubernetes cluster, uh but AWS has
+mentioned uh
+has highlighted this service here, but
+this is not directly related with uh
+especially securing the Kubernetes
+infrastructure. Uh
+next there is AWS CloudTrail.
+Uh
+So, CloudTrail is like a security
+historian for your Kubernetes
+environment. It records all actions in
+your cluster like an audit log tracking
+who did what, when, and where.
+And next we can see some services here.
+There is Amazon EFS, Elastic File
+System. So, uh Elastic File System
+provides centralized storage,
+centralized storage for Kubernetes. It
+stores data persistently, but security
+depends on encryption. EBS can encrypt
+encrypt your data, protect it like a
+secret code. Without encryption,
+uh so, EB Here we can see this is the
+service, Amazon EBS. Amazon EBS is like
+a secure hard drive for Kubernetes. It
+stores data persistently, but security
+depends on encryption. If EBS is not
+encrypted properly, so data can be lost.
+Data maybe it's like
+data can be someone can theft can can do
+the theft of the data.
+So,
+uh
+different services are mentioned here
+like Amazon Route 53. We can hear the
+Amazon Route 53.
+Yes, here. So, Amazon Route 53 basically
+it's a traffic director. It's also once
+again it's also not directly related
+with the security of Kubernetes, but it
+directs the traffic
+like it directs the traffic. It is
+basically traffic director and it lets
+the user to reach the uh proper
+application where the user wants to go.
+So, this is all the security
+architecture the like how can we utilize
+the AWS services in order to secure our
+Kubernetes environment
+utilizing the AWS services. So, since
+our main focus is on security, I have
+changed the order of the
+AWS AWS
+well-architected framework pillars. So,
+if we come towards the
+pillars of the AWS well-architected
+framework, so I am mentioning here
+security pillar first and one by one we
+will be discussing the other pillar. So,
+since our topic is that we have to
+explain that the
+how to design and implement secure
+Kubernetes environment on AWS and also
+we have to
+ensure the compliance
+of
+compliance of our infrastructure with
+all of the AWS
+well-architected framework pillars. So,
+one by one one by one I will be
+discussing the pillars. So, I took the
+security pillar first. So,
+if we come towards the security pillar,
+here are the design principles like
+implement a strong identity foundation,
+maintain traceability,
+apply security at all layers, automate
+security best practices, protect data in
+transit and at rest, and keep people
+away from Now, all of these these are
+the design principles and design
+principles are
+are further
+elaborated by the
+best practices. So, I have mentioned the
+best practices here. So, we have to
+secure the environment where with the
+least privilege privilege by using the
+IAM identity and access management and
+by providing the least privilege to the
+user to access the system. We
+we have to
+separate the duties by using the I am
+the identity and access management and
+we have
+We have to
+use I am rules to centrally manage our
+cluster and we have
+we need to avoid storing the access keys
+or secrets in container images or
+configuration files. So using AWS secret
+manager
+for sensitive data we can do this. We
+can eliminate the static credentials. So
+next is
+we we have to
+continuously monitor our cluster
+activity and cluster health by using the
+cloud watch. We have we need to enable
+the audit logging.
+We can configure the Kubernetes
+audit logging to track user actions and
+API requests. Then we need to integrate
+our cluster with with same practices. So
+security information and even management
+practices.
+We need to implement the network
+segmentation to in order to make our our
+Kubernetes environment more more
+you know
+with more with substance. We need to
+restrict the we need to
+to use the
+security
+security rules. We need to
+we need to use the security groups
+used by the EC2 instances in Kubernetes
+environment and we
+we need to secure the control plane
+security but we can use I am rules to
+restrict access to the API service.
+We need to implement the vulnerability
+scanning by
+by integrating some vulnerability
+scanner
+at the time of developing the code. We
+have to implement the infrastructure as
+a code by using
+IAC tools like Terraform or or
+Uh Shaukat Ali, you have still four four
+slides remaining.
+So
+you don't have to emphasize a lot
+because I have a lot of questions
+regarding these things and I will cover,
+right? Uh
+keep keep note of the time. You only
+have 6 minutes remaining because I gave
+you 20 minutes.
+Okay.
+In 6 minutes time, it'll be all over,
+right?
+So Okay, I will I will quickly
+Q&A session will start. So please try to
+quickly go because I already know about
+these things. I have already covered
+these things. I'm going to ask you very
+specific questions regarding these
+things
+in Q&A session. So you can proceed
+proceed further.
+Okay, sir. So
+we need to encrypt the data. We encrypt
+the data in transit and then we need to
+encrypt the encrypt the secrets TLS
+encryption for
+the communication between services and
+we need to minimize the human access to
+the data and we need we need to prepare
+the incident response plan.
+For any untoward incident in the into
+the Kubernetes cluster, you can see all
+of these services are mentioned just for
+reference. I am I am taking all the
+services and mentioning here which we
+I have already discussed discussed these
+services during the explaining the
+architecture of Kubernetes. So next is
+the operational excellent. So always
+operation in operational
+operational excellence, it runs the AWS
+environments smoothly.
+Basically, operational excellence pillar
+gives us recommendation to run our AWS
+environment AWS or EKS environment
+smoothly and efficiently. So need to
+always use the need to use the
+infrastructure as a code, implement
+GitOps practices and custom controllers.
+So
+rolling updates, we need to update our
+application gradually. We need to
+implement the automated testing. We
+automated testing and we we
+to implement the robust CI/CD pipeline
+and then again once again the incident
+management, monitoring and alerting and
+documentation and knowledge sharing with
+the team. For example, if there is an
+incident and how this how did it happen
+and how we tackle the problem and how
+the incident response was we need to
+share all of these
+these events with the with the team.
+Then chaos engineering we like we need
+to simulate the problems and test the
+response of our cluster and then see in
+same time fault injection and then we
+need to learn learn from the we need to
+conduct post incident in a like if some
+incident happens so we need to conduct
+the investigation of the incident and we
+need to find out what happened how how
+did it happen and how we can prevent the
+recurrence.
+And then centralized logging,
+distributed tracing and metrics
+collection by from
+cloud trail
+and
+like this. So
+Next we can move to the
+So on this slide I'm putting the
+reliability pillar and performance
+efficiency pillar same same time. So we
+can so we can monitor we we should
+monitor the key performance indicators
+by using the AWS
+CloudWatch we set we we must
+set the
+CloudWatch alarms if
+to get if if something if something is
+happening wrong. So we can set the
+set the alarms. We need to implement
+automation and
+Kubernetes
+self healing we can use this Kubernetes
+self healing capabilities if some pods
+fails so it automatically replaces
+replaces the failing pods. And again
+chaos engineering disaster recovery
+details, backup and restore. So I I
+already explained the chaos engineering
+in previous slides.
+We need to implement the horizontal pod
+auto scaler in order to
+in order to adjust
+the
+nodes
+in order to adjust the worker nodes and
+then we need to implement the cluster
+auto scaler in order to
+to do the auto scaling of the
+cluster nodes and then we can we can
+deploy we can
+we can distribute our infrastructure
+across the multiple zone to
+ensure the
+reliability of the cluster.
+So, these are the there are the
+practices like which must use
+infrastructure and goals. We can we we
+need to
+implement the robust CICD pipelines and
+version control
+in order to track the changes whatever
+the whatever the changes are happening
+within the cluster and then continuous
+deployment with GitOps GitOps practices.
+Next is the same same there there is
+the performance efficient pillar is this
+is also mentioned on the same. So,
+we
+In order to
+democratize advanced technologies we we
+need to use the managed services
+integration. We need to integrate the
+managed services like databases
+relational databases like MongoDB, RDS
+into
+the development stage. We need in order
+to we need to configure the
+AWS Sagemaker in order to perform the
+machine learning task. We use to use
+elemental
+media converter for media transcoding
+and we need to use use service mesh like
+Istio to handle the communication
+between the services and we
+we must use the operators to handle the
+handle the complex operations of the
+applications. So, again multi
+multi-region deployment, cluster
+federation, global load balancing these
+we need to incorporate all all
+factors.
+So,
+uh
+I will I would I would move to the next
+Uh you only have 1 minute remaining, uh
+Shahwaleed.
+So, cost of cost optimization actually
+it
+cost optimization pillar gives us
+how we can control the cost, how we can
+how we can
+save money by using the right AWS
+services and avoiding unnecessary cost.
+Again, we need to establish a FinOps
+dedicated team to track the
+uh resource utilization. We need to
+conduct training our team for
+train our team on budgeting and costing.
+We
+we adopt uh
+right sizing instances model and then we
+need to measure overall efficiency by
+using the CloudWatch and Prometheus
+and then we need to spend money on like
+like we we need to use the managed
+services like like EKS, AWS Fargate,
+managed databases and storage
+to abstract away the struggle to manage
+these services if these are not managed.
+So,
+uh last one is the
+last one is the sustainability pillar.
+So, in sustainability pillar it gives us
+recommendation to minimize our
+environmental footprint by using AWS
+resources efficiency. So, again right
+sizing of the cluster uh
+carpenter is an open source tool that
+automatically provisions the
+right resources for the
+Okay, Shahwaleed, I have to take a pause
+here. You have to stop uh sharing your
+screen, please. Uh
+so, I went through your presentation and
+I took a lot of notes
+and prior to coming here uh
+I reviewed your presentation. It's good.
+It's very densely packed with
+information.
+But now it's the Q&A time, so we will go
+through that. Okay?
+Uh you can stop the sharing of your
+screen, please.
+All right. All right. Thank you.
+All right. Bismillah al-Rahman al-Rahim.
+So,
+the presentation was good.
+The topic you have covered very well.
+However, there's a lot of verbosity in
+the presentation.
+It's densely packed with a lot of
+information.
+Sometimes you only have to mention the
+headings, right? Rather than
+giving a heading name and then putting
+some description in the front as well.
+When you are presenting something to a
+C-level staff or to a technical teams,
+you only try to give them five to six
+slides maximum, right? And then
+you should know the topic well in
+advance so that you are able to
+uh basically answer the questions as
+they come along, right? So, one of the
+things I as I said is
+uh
+the exam is 25 and 25. Uh the MCQ is
+50%.
+The and then basically the presentation
+is 50%. The presentation has two parts.
+25 is the MCQ uh is the presentation and
+25 is the uh Q&A, right? Or something.
+That's that's how we break it down.
+In 3 months' time, Al Razak requirements
+will be labs requirements will become
+mandatory for everyone to do.
+So, so everyone needs to do at least 100
+labs to be submitted completed, right?
+Okay, so I'm going to start the
+questions. As I said, the the feedback
+is that presentation is good, but it's
+very densely packed and populated.
+Uh you need to use uh you know, better
+fonts, I would say.
+Uh the the you know, the the background
+was was very dark, right? So, this is an
+overview.
+So, we're going to start with the Q&A
+session. Uh the first thing I'm going to
+ask you is
+uh
+are you here?
+Because I need to see you.
+Yeah.
+Please do not disable your camera
+because it creates problem and I can't
+see you. Okay, so uh we have
+25 minutes 20 30 minutes to 20 roughly I
+would say
+10 20 30 30 minutes to cover everything
+up, right? And then 5 minutes is
+wrapping up time.
+Describe the core components of
+Kubernetes and their role in a cluster.
+You already went through that. So
+describe to me the core components.
+Uh
+You want to look at your presentation,
+it's fine.
+Yeah.
+Right? Because I have created these
+questions from your presentation. So
+uh if you want to see it
+and say, "Okay, let me go back to the
+slide." But quickly give me just the
+names of the core components. Do not
+give me a long answer.
+Give me
+a 20-second answer.
+You know, for example, core components
+include pods, services, deployments,
+etc. etc. You just give me the points.
+I've already given you three.
+Yeah, it's
+the core components API controller, API
+server, and the kubelet, and then pods,
+and then nodes, and then the then
+services like Istio and other services
+which are the parts of Kubernetes.
+Okay, I'm going to give you, you know,
+half an half a mark on this one to be
+honest because you have to be fast and
+you say pods, services, deployments,
+configuration secrets that you were
+covering, namespaces, nodes,
+you be API server that you just
+mentioned, right? Uh etcd services, etcd
+services, and the kube scheduler, the
+kube control manager, etc. etc. You have
+to have to give me something. That's how
+you have to answer, right?
+Uh please uh make sure that you pay
+attention, right? All right, so the next
+one is
+Name one of the BCP and DRP standard
+that we can implement for managing the
+Kubernetes on the AWS. Do you know any
+BCP DRP standard?
+We have covered that in the course.
+Yeah.
+These are
+The BCP DRP business continuity planning
+and disaster recovery planning. There's
+a standard
+Internationally there's only one
+standard that we follow. It's known as
+ISO 22301.
+Used to know used to be known as BS 17
+7739 something like that, right? That's
+that was their old name. Now it is
+22301, right? Okay.
+Describe the high availability
+configuration for
+Kubernetes on AWS. What are the core
+components for the high availability?
+You know, what do you see? What are the
+core components?
+Of the high availability.
+Uh, so the for high availability multi
+multi zone deployment
+Multi zone deployment?
+Uh,
+multi zone deployment and
+then
+Redundancy.
+Okay.
+Yeah.
+And then last one?
+This is from your own presentation. I
+was just taking notes while you were
+presenting.
+You need
+we need
+We need to
+We need to give you half of the marks on
+this one. Shaw Al Khair, you have to pay
+attention.
+This is why I tell everyone
+you have to pay attention because I'm
+asking questions from your presentation.
+Pay please pay attention, okay?
+All right.
+Explain the security implications of
+Kubernetes pods and services. What are
+the security implications that can go
+wrong or that can happen?
+You know.
+Um,
+For the pods, okay, tell me about the
+pods.
+Uh
+pod security policies
+and PSA PSPs, then the
+uh
+application security
+and the data data security.
+Okay.
+Uh
+Answer is as the smallest deployable pod
+is the smallest deployable unit, right?
+Yeah.
+Pods can introduce security risks if not
+uh properly isolated. So, you need to
+have segmentation because they have I I
+uh you know, they have I I they need to
+communicate to each other. So, the
+proper answer is segmentation
+to minimize security breaches.
+And then for the services
+which requires proper configuration to
+ensure only authorized traffic reaches
+the pods.
+You know, so that not the whole world
+can play with it. So, you have to pay
+attention. Pay attention, child of the
+good.
+Okay.
+What are the best practices for securing
+Kubernetes networking?
+This is a follow-up question from the
+from the previous one.
+What are the best I already gave you
+some. I already gave you some.
+For example
+You can open your presentation.
+Yeah, I will I will go there.
+Restrict inbound and outbound traffic
+and secure the control plane and
+implement the vulnerability scanning and
+then encrypt encrypt the
+Essentially, essentially
+you have to be prepared to be able to
+answer because this is the interview,
+right? When you go for the job, this
+that's exactly what they're going to ask
+you.
+Because there, you won't be able to open
+your presentation. You know, you are
+sitting in UAE.
+Uh in UAE, we are about to start our
+work with uh you know, Sheikh Khalid bin
+Zayed Al Nahyan. You already know he's
+the third in line
+as the prince.
+Uh
+a normal Kubernetes engineer with some
+good experience of artificial
+intelligence operations can earn
+25 to 35,000 dirham per month.
+It's a very very good salary. You
+already know that, right?
+So, that's how they're going to ask you.
+They're going to ask you, "Okay,
+explain to me the best practices for
+securing networking." So, you have to
+say network policies.
+Device designing, you know, network
+policy robust network policies,
+segmentation,
+isolation,
+air gapping,
+encryption, you know, using TLS
+for the communication. Service mesh,
+implement a service mesh like, you know,
+list here for better traffic management
+and security, and ingress and egress
+controls.
+The north and south controls, east and
+west controls, controlling the whole
+data plane.
+That's how you have to talk.
+Right? This is how you have to
+communicate because this is extremely
+important for you.
+Okay? All right, so
+explain to me what are the AWS
+well-architected framework core
+principles.
+A simple question. So, it's a very easy
+one. Slam dunk. Two points. You can get
+it.
+Uh uh uh
+Core principle
+There are five pillars of AWS.
+Yes. So, uh
+security pillar, reliability pillar,
+and cost optimization pillar,
+and
+uh uh
+uh performance excellence performance
+efficiency operational excellence
+pillar, and reli- and sustainability
+be fast. You have to say operational
+excellence, security, reliability,
+performance efficiency, cost
+optimization. If someone is going to pay
+you
+25 to 30,000 dirham
+per month,
+he needs to show that he needs to see
+that confidence resonating from you.
+Because if they're not seeing that, they
+might say, "You know what?
+This is not the guy that I'm looking
+for."
+The whole goal of An Nafe diploma
+programs is to prepare you for the job.
+This is not an academic qualification.
+This is hands-on qualification.
+Okay? So, you have to pay attention.
+All right. So,
+All right. I'll give you two marks for
+that.
+Uh how can the principles of This is a
+follow-up question.
+How can the principles of AWS
+Well-Architected Framework can be
+applied to the Kubernetes? How? What
+What are you know Okay, explain to me
+how can we implement operational
+excellence, which is AWS
+Well-Architected Framework,
+for managing Kubernetes clusters? What
+do we have to do?
+So, uh we can
+perform operation as a code, operation
+as a code. Then, we can
+anticipate failures.
+We can learn from the operational
+failures. We can use the managed and the
+service rather than using the services
+which are not
+managed. We can implement chaos
+engineering. We can
+use the rolling updates. We can use
+automated testing, and uh we can
+implement the robust
+that's good. That's good. That's good.
+That's good. Um
+So, it has to be implementing monitoring
+and automation tools for Kubernetes
+clusters, such as AWS. You already
+mentioned that CloudWatch and
+CloudFormation.
+You know, all of these things, right?
+For security,
+uh what
+AWS Well-Architected core security
+principles can be applied for
+securing Kubernetes environments and
+all, you know, over here. What do we
+have to do?
+So
+Please disable your, you know, your you
+know
+I'm not disabling. Actually, sir, this
+is happening by network.
+Oh, network, okay. Because sometimes
+your system goes away.
+no, no, no, no, I am I am not This is
+network problem.
+Okay.
+Okay, so can you please repeat the
+question?
+So how can you
+implement AWS security uh framework
+uh
+well well-architected security framework
+uh
+key services
+for securing a Kubernetes environment. I
+mean, what do we have to do? I can give
+an example, applying IAM roles. What
+else?
+Yeah, yeah, yeah. So, uh least privilege
+first of all by using the IAM role we
+we must use least privilege. Then we
+must use the the same IAM roles for the
+centralized identity. We must monitor
+the Again, we must monitor
+our cluster with CloudWatch. We monitor
+the So, uh and also restrict inbound and
+outbound traffic.
+So, and then we must secure the control
+plane, especially the control plane.
+And then again, once again,
+infrastructure as a code, vulnerability
+scanning and patch management.
+Okay, that's good. That's good. I mean,
+uh that's a good answer. The you know,
+applying IAM roles, network policies,
+encryption, other AWS security services
+like AWS
+KMS, AWS Shield, CloudWatch, you know,
+CloudFormation, there are tons of
+services, right? Which are very uh
+extremely uh approachable and easily
+acquirable, right?
+Okay, uh that's good. That's good to
+know. Uh
+what strategies can be employed to
+ensure performance efficiency in a
+Kubernetes
+deployment on AWS?
+Performance
+So
+This is a very cool thing because
+wherever you go for interview, because
+my role is not to give you the diploma.
+No. That's one part.
+My prime This This is a secondary goal.
+The prime This is the secondary goal to
+give you that you have the diploma. Your
+primary goal is
+you get on the job.
+Right? So, this is what they're going to
+ask you.
+You know, because the problem with
+containers is just like they keep on
+growing, right?
+So,
+what is the What are one of the
+strategies through which we can ensure
+performance efficiency in Kubernetes
+deployment?
+Uh we need to integrate the managed
+services at the development process and
+then
+we need
+we can use the service mesh and we can
+use the Kubernetes operators to handle
+the complex applications.
+Again, multi-region deployment.
+performance efficiency, you know, I'm
+not hearing the keyword right sizing,
+auto scaling.
+Yeah, right sizing right sizing of the
+cluster, auto auto scaling and
+then
+another service like
+managed services.
+Yeah, yeah, then deployment, canary
+deployment, blue/green deployment like
+Blue/green, yeah.
+That's good. That's good. Okay, that's
+fine. That's fine. Okay, yeah.
+Node auto scaling and
+So, you have to be fast, you know, you
+need to the confidence need to be
+resonated from your heart. I mean, I can
+see it on your face.
+I can see it on your face Kubernetes. If
+I If you have a cut,
+yeah, inside of the blood Kubernetes
+code should come out.
+Right?
+So, you have to be very good in terms of
+all of these things.
+Okay.
+The other thing is explain how cost
+optimization. This is cost That was
+performance optimization. This is cost
+optimization as per the AWS well
+architecture.
+How can we implement
+this on a Kubernetes workloads on AWS?
+Or whether it's AWS, Azure, it's the
+same thing. Every cloud provider has
+this problem, right? Uh whenever you are
+uh you know, whenever you deploy these
+things on the cloud,
+you need to know four key things.
+Every cloud provider provides that.
+Cost right sizing can be achieved
+through
+Number one?
+Uh right sizing and auto scaling.
+Auto scaling is not right sizing. Auto
+scaling is one. Another one?
+Another the auto scaling and then
+scheduled scaling.
+Use a Okay, reserve instance scheduling
+scaling. The answer is spot instances.
+Cost
+Spot instance
+Cost allocation tags for the teams and
+departments.
+Yeah, reserve instances. You can commit
+to long-term discounts.
+Yeah. Yeah, yeah, yeah, yeah, yeah,
+yeah, yeah, yeah.
+one of them and then monitoring
+analysis.
+We can use Fargate AWS. We can use
+utilize AWS Fargate.
+And
+uh we can implement the AWS cost
+explorer in order to
+Explorer. Cost explorer is the most
+important thing, right? Okay. Right,
+that's good. That's good. Okay, that was
+a tough one. Yeah, you scored good. All
+right, so the other one is
+uh
+Okay.
+I have to give you some tough questions.
+Uh describe the use of AWS key
+management, right? Describe the use of
+the key manage Okay. What are the key
+security challenges associated with the
+Kubernetes on AWS and how can they be
+mitigated?
+Uh
+sir, please repeat the
+This is a very big problem that every
+organization goes through.
+Uh these security challenges are a
+problem for every organization. Please
+explain it to me.
+So
+the security challenges are the
+Uh
+people can sneak into the cluster.
+You have to talk in
+Data protection.
+in a proper lingo, not like people can
+sneak into the cluster.
+No, it's like, you know, securing the
+API server.
+Data protection.
+Access control, compliance. These are
+the things. Shall I go ahead? It's not
+good.
+When you're going for an interview, you
+have to be ready for all the key
+questions that they're going to ask you.
+This is what we prepare you for, by the
+way.
+Right? This is the preparation. So, you
+can tap in, get your resume done once
+you complete everything, and when you
+apply for the job, we will prepare you
+for the interview.
+Right? That's one of the services you
+get after completing everything.
+In AWS Al Razzaq, like in the Al Razzaq
+program we have,
+we only will put you forward when we see
+that you have done all of our labs, all
+of our tasks, and that's exactly what we
+give you.
+You know, these are the tasks.
+Technical tasks that you have to go, do
+them, show it to us, upload the video,
+AI checks it, gives you a thumbs up,
+thumbs down, whatever, and if you pass
+that, then you then you move forward.
+Okay? All right, so the next question is
+One of the thing I wrote down, describe
+Okay.
+One of the things I've written down I'm
+looking at a presentation.
+How can IAM roles and network policies
+be used for fine-grained access controls
+in Kubernetes? How can we do that?
+You know, how can we fine-grain IAM
+roles, identity access management, and
+network policies? How can we do that?
+For the IAM Give me an example for the
+IAM.
+Uh
+IAM can be used to give the access to
+only to the users who have to perform
+the task. Uh
+for which they are entitled to do. So,
+we must give the least privilege.
+And uh
+uh
+Look, uh this is my feedback to you.
+You know the answer.
+But you are not using the right lingo.
+So, it says it says I am roles.
+Access uh assign specific permissions to
+service accounts used to ensure least
+privileges. That's how you have to The
+only keyword I picked up was least
+privilege. So, I'm giving you half a
+point for that.
+Right?
+So,
+each question is Some of the questions
+are two points. Some of the questions
+are
+five points. Okay? This is a two-pointer
+question. Next Next is
+network policies. How can we do that?
+You already know the answer because I
+asked you and I gave you the example in
+the previous question.
+For the network policies, how can we
+fine-grain them on for the access
+control for Kubernetes environment?
+What do we do?
+Yes,
+we can refer to the specific standards
+for network policy.
+What What standards? What do we have You
+have to mention define rules that
+control the traffic flow between pods
+and external services, limiting access
+on IP addresses, ports, and protocols by
+writing proper business justification.
+These are the That's the right answer.
+Okay?
+All right. So, let's move on.
+Uh this
+The other question I have is This is
+going to be easier one.
+Okay.
+Operational excellence with Kubernetes
+on AWS.
+How can automation tools like
+CloudFormation and Terraform be used to
+deploy
+Kubernetes clusters? Give me an example
+for AWS CloudFormation first. What does
+CloudFormation really does?
+What is it?
+So, we can use the we can use the
+blueprints
+for
+Kubernetes blueprints
+because these are the these these are
+the automatically configured.
+So, we can use the Kubernetes blueprints
+used with Terraform.
+To be used with Terraform.
+So,
+the answer is Terraform, okay? The
+answer is
+for the CloudFormation. I'm asking you
+for the CloudFormation.
+Your voice.
+Define in you know infrastructure as
+code templates as you mentioned
+blueprints
+to automate the deployment and
+management of Kubernetes clusters. So,
+I'm going to give you
+half of the point here. And then for the
+Terraform,
+what do we do for the Terraform? What
+How can we use it?
+So,
+for Terraform, we we can use the AWS
+defined templates
+in order to automatically provision the
+resources for clusters.
+Okay, I mean the proper answer is
+provide a
+platform agnostic
+approach to manage Kubernetes
+infrastructure enabling repeatable and
+consistent deployments, right?
+Terraform, what it does is it creates a
+process which is repeatable, right? You
+can repeat that.
+Yeah, we can use it anytime
+anytime even on different cloud networks
+different clouds like Azure and other
+other than AWS. So, we can repeat this
+deployment.
+Okay.
+Next is monitoring and logging.
+This is a slide I've done for you. It's
+an easier but it has more points.
+The easier it is the reason I'm saying
+easier is because we have emphasized a
+lot on this one.
+Yeah. Yeah. Yeah.
+So, what are the best practices for
+monitoring and logging in a Kubernetes
+environment on AWS? What are the best
+practices?
+So, use the
+See, there are three
+Use the Prometheus and Grafana.
+Uh and
+Yes. I mean, how the first thing we need
+to do is what?
+We need to use the um the use the
+Everything comes in one place. What do
+you call it?
+Yeah, CloudWatch Container Insight.
+It's known as centralized logging.
+Yeah, centralized logging and
+centralized logging
+CloudWatch logs, right? So, you
+aggregate all the logs and bring them
+into one place. That's number one. Then
+there's monitoring. You mentioned
+Prometheus.
+Yes.
+Monitor cluster performance and health.
+And the third one is?
+Third one is?
+Uh
+log tracing.
+It's alerting. Alerts, setting up alerts
+for anomalies detection.
+Right?
+Yeah.
+To enable prompt response. This is slam
+dunk.
+Okay.
+Um
+All right.
+Uh
+Next is
+uh we went through the incident response
+plan. I'm looking at your presentation.
+Um
+this is going to be my final question,
+right?
+Um
+and this is going to be a very easy one
+for you if you can pay attention.
+Uh what are the tools available?
+Give me names of five tools
+which are open source for managing
+Kubernetes uh containers
+or clusters. Cuz not container, but
+clusters.
+Give me name of five open source tools.
+And so
+cluster federation
+How do you keep it inside? So, okay. So,
+for example, the number one is that you
+went through the whole course is
+Kubernetes dashboard, right?
+Yes.
+Uh
+there's a very open source big tool
+available right now, which is known as
+Helm.
+H E L M, right? It's a package manager
+for Kubernetes. It defines installation
+and upgrade even for the most complex
+Kubernetes applications.
+Third one is
+Prometheus and Grafana.
+Prometheus and Grafana
+Keep an eye on the cluster. What is
+happening?
+Uh then there there is another one known
+as QB
+um
+ADM.
+QB ADM.
+QB ADM.
+QB ADM.
+ADM, right?
+Uh I'm managing my own teams, right?
+And I grill them so hard that these guys
+they can't even breathe in front of me.
+Right? The sysops guy manager
+you know, he can't even sit in front of
+me because he knows before he walks in
+to my office
+I can hear his knees crackling from far
+away.
+Right? So, you have to be prepared
+because when you go in an organization
+you will find people
+who's going to who are going to ask you
+questions and you have to be very
+upfront and straight you know, straight
+with them in terms of providing the
+answers properly.
+Okay?
+All right, then there is a there's a lot
+of others tools as well. Flannel,
+Calico, Istio, I mean there's so many,
+right?
+Proprietary tools, which are well known
+used by many organizations.
+Not the open source proprietary for
+which you have to pay.
+There's a number one tool available in
+the market used by Red Hat. What is the
+name of that tool?
+For managing
+Kubernetes platform enterprise at an
+enterprise level?
+OpenShift. Yes, good. That was a tough
+one. Okay.
+All right. So, uh there is another one
+which is used, you know,
+uh
+it's a complete container management
+platform for managing Kubernetes at at
+scale, right?
+Uh and it provides a single plane of
+glass to manage multiple Kubernetes
+clusters.
+Uh
+I know, but I'm
+Uh like it can
+it can manage the multiple clusters.
+It's a very well-known
+This is a open source tool.
+Let me give you an example. In Texas,
+you will find a lot of ranches.
+Hm.
+I've already given you the answer.
+You know ranch?
+It's a place where keep cows, horses.
+There are there's a cow ranch, there's a
+horse ranch. Right? The tool name is
+Rancher.
+Hm.
+It's a very well-known tool. In a
+Lazark, we have the labs for those
+tools.
+Right? Uh there's a tool by VMware.
+What's the name of that tool?
+For managing
+running, building
+Kubernetes uh
+controlled containers. What's the name
+of that?
+Do you know?
+I knew the name, but just it's it's
+slipping from my mind because just
+before this presentation I
+I'm going to tell you. It's VMware
+Tanzu.
+VMware Tanzu, okay? Okay, what's the
+name of the
+container management for
+uh
+Kubernetes on AWS? What do you call it?
+Uh
+AK EKS Elastic
+Yeah you have to be fast. What are you
+thinking?
+Elastic Kubernetes
+Uh and what is it known on uh Google?
+Uh what?
+What what do you call that same
+Kubernetes engine
+on Google? Google has their own.
+Uh
+it's GKS.
+GKE
+Google Kubernetes engine, right?
+Yeah.
+All right, so
+And for Azure, it is AKS.
+Yes, okay. Thank you.
+All right, all right, okay.
+All right, so
+your interview is over,
+okay?
+In total, I asked you a lot of
+questions. Everything is documented.
+Uh we have to send the data to the AI
+to calculate the total score.
+Okay, do you want to know the score
+right now?
+Yes, sir.
+I know my the Q&A session is not good.
+Okay, so
+All right, normally we tell you the
+score there and then.
+Just to relax you, otherwise you you
+know, you'll be very worried about all
+of those things,
+right?
+Uh
+you have done you have done okay. I'm
+not going to say done well, you have
+done okay.
+Uh
+the score is a passing score.
+Thanks God.
+All right, so that's a that's a good
+relief for you. Uh the next steps are we
+we are going but you know, I'm not happy
+per se to be honest because if you go
+with this attitude for an interview
+you know, with this knowledge, you are
+you have the knowledge but you're not
+able to express it. And then you're
+using you're not using the right lingo,
+you know, you're saying
+uh rather than using the proper security
+linguistic language using many people
+may attack or may come in or may come
+out. I mean, this is not a shop, right?
+Yeah.
+You can come in and go out. Uh you have
+to explain and use the proper linguistic
+terminology when you're interviewing uh
+or going for your interview. This is
+very extremely important for you, right?
+So
+uh your presentation was good. You
+scored 15 out of 25.
+Oh.
+But again, it was very densely populated
+and whatnot.
+And
+uh and here you scored basically
+you know
+I would say
+13 out of 25 in the Q&A session. Right?
+Uh
+so you scored okay
+27 out of
+50
+which is close.
+Right? But again, as I said, you can do
+a lot better.
+So use your time
+in terms of making sure this is my
+feedback to you. Use your time to go and
+brush up your skills.
+And go for the Al Razaq labs.
+Yeah.
+Because you're preparing yourself for
+the Al Razaq labs, we tell you each and
+everything to do.
+Yeah.
+And as you're doing it, you're preparing
+yourself. And that's how you have to
+present it in your video that you know,
+how did I configured an IDE
+uh the integrated development
+environment for Kubernetes, you know,
+the Lens application.
+I was able to configure graphical
+interface for managing and monitoring
+Kubernetes clusters,
+pods, services, etc. etc.
+So, you have to present yourself and use
+the proper linguistic terminology
+because people who are sitting on the
+other side,
+they will not be
+uh very merciful to you
+because they are paying you
+big bucks
+and they want the best of the best of
+the few and the proud.
+Right?
+Uh now, organizations are implementing
+artificial intelligence operations into
+all of these things.
+Right? And for the next 20 years,
+they'll be doing the same thing. It's
+not going to be easy because you know,
+there's a lot of things going on. So, my
+recommendation to you is, please brush
+up your skills, go back and do the Al
+Razaq labs.
+Yes.
+Right? Because this is extremely
+important for you because you will be
+going for interviews, right?
+Yes.
+start appearing for interviews. As I
+said, UAE is is
+you know, uh
+if we go through everything with uh
+Sheikh Khalid and if it works out,
+there are 5,000 positions that he is
+planning to create in UAE.
+Mhm.
+Right? In terms of making That's the
+plan I have for him
+to uh uplift the whole UAE economy
+towards a very technology-centric
+economy.
+Right? Make it the next Silicon Valley.
+All right.
+But again, to do that, they, you know,
+the the standard to pass and be in there
+is going to be Al Razaq program and
+that's not easy.
+It's difficult, but it's not impossible.
+Yes.
+Build up your foundation slowly and
+gradually, right? So, that's what you
+have to do, okay? So, thank you for your
+time. Do you have any questions for me?
+No, sir. Thank you very much for your
+mentorship.
+Uh
+as always, we are always available. I'm
+I'm really happy that you were able to
+pass the exam. We're going to check part
+two part one, we're going to check
+everything. We're going to check some of
+the things if you are if you see that
+you're missing few things here and
+there, we will ask you to complete those
+things before we can issue you the final
+diploma from Educor, okay? Again, thank
+you for your time and I hope that I hear
+good news from you that you are able to
+secure a better job in UAE.
+Inshallah.
+Jazakallah khair. Salaam alaikum
+warahmatullahi wabarakatuh.

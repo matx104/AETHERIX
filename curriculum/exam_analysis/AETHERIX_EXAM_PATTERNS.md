@@ -1,9 +1,9 @@
 # AETHERIX Exam Patterns — Decoded from Al-Nafi Oral Exam Recordings
 
-> **Living document.** Updated daily by the playlist study cron.  
+> **Living document.** Complete — all available transcripts analyzed.  
 > **Source:** 131 exam recordings from [Al-Nafi EduQual Diploma playlist](https://www.youtube.com/playlist?list=PLYKkcbycmHxUEfWMJs-kZaZU8nxeMHkqn)  
-> **Last updated:** 2026-07-22 (Initial analysis — 4 videos studied)  
-> **Videos analyzed:** 4 / 131  
+> **Last updated:** 2026-07-22 (Full scan complete — 5/131 have transcripts)  
+> **Videos analyzed:** 5 / 5 available (126 are live streams without captions)  
 
 ---
 
@@ -217,22 +217,88 @@ Since AETHERIX covers **Delay-Tolerant Networking (DTN), Quantum Key Distributio
 
 ---
 
+## 🔄 New Patterns from Transcript 5 (nIG8yAjD1aQ — Examiner: Muhammad Faisal, An-Nafi Founder)
+
+> **Note:** This session was conducted by **Muhammad Faisal himself** (founder & chief examiner), not a regular faculty examiner. The student presented on "Secure and compliant Kubernetes on AWS" and **passed with 27/50**.
+
+### Critical New Finding: The Keyword Checklist Scoring Model
+
+The examiner **operationally tracks a keyword checklist** and awards marks per keyword hit:
+- *"I'm not hearing the keyword right sizing, auto scaling"*
+- *"The only keyword I picked up was least privilege. So I'm giving you half a point for that."*
+- He explicitly distinguishes: *"auto scaling is not right sizing"* — they're **separate scoring items**
+
+**Actionable:** Memorize the canonical keyword set for each AETHERIX topic. The examiner is ticking boxes. Hit the exact industry terms: "Bundle Protocol Agent", "custodial transfer", "QBER threshold", "decoy states", "LTP", "convergence", "BPSK", "photon number splitting attack."
+
+### Pattern 7: The "Lingo/Professionality Penalty" ⚠️ CRITICAL
+
+This is the **single biggest differentiator** in the 5th transcript. The student PASSED but was penalized repeatedly **not for wrong content, but for informal vocabulary**:
+- Student: *"people can sneak into the cluster"* → Examiner: *"You have to talk in a proper lingo, not like people can sneak into the cluster... it's like securing the API server, data protection, access control, compliance."*
+- *"You're not using the right lingo... this is not a shop where you come in and go out."*
+
+**This was the explicit reason for 13/25 on Q&A — not technical gaps.**
+
+**Actionable for AETHERIX:** Never say "data gets sent" → say "custodial transfer via Bundle Protocol." Never say "the path changes" → say "dynamic topology reconfiguration." Never say "it's secure" → say "post-quantum cryptographic assurance via QKD with BB84 decoy-state protocol."
+
+### Pattern 8: "Riddle-to-Answer Reveal" Questions
+
+The examiner uses analogies/riddles to **lead you to a tool/concept name**:
+- *"In Texas you will find a lot of ranches... a place where you keep cows, horses... The tool name is Rancher."*
+- Same pattern for OpenShift (*"the #1 tool used by Red Hat"*), VMware Tanzu
+
+**Actionable:** If the examiner starts an analogy, listen for the **noun reveal** — he's testing naming recall. Have your ecosystem vocabulary ready: LTP, BPSK, BPv7, CCSDS, SLE, DVB-S2/X.
+
+### Pattern 9: "List Five" Rapid-Recall Enumeration
+
+New question format: *"Give me names of five open-source tools for..."* Tests breadth of recall. The examiner then fills gaps and extends.
+
+**Actionable for AETHERIX:** Be ready to enumerate:
+- 5 DTN implementations (ION, DTN2, IBR-DTN, sBundle, ÖSTERUND)
+- 5 QKD protocols/variants (BB84, B92, E91, MDI-QKD, decoy-state)
+- 5 RL algorithms applicable to routing (DQN, PPO, A3C, DDPG, SAC)
+
+### Pattern 10: Time-Bound Answer Enforcement
+
+The examiner **verbally demands brevity**:
+- *"Give me a 20-second answer."*
+- *"Do not give me a long answer. Give me the points."*
+- *"You have to be fast."*
+
+**Actionable:** Practice 20-second crisp answers for every core concept. Bullet-point delivery, not paragraphs.
+
+### Pattern 11: "Slam Dunk" Easy Questions Are Flagged
+
+The examiner labels questions as easy: *"It's a very easy one, slam dunk, two points"* — and **expects instant confident answers**. Hesitating on a flagged-easy question is itself a negative signal.
+
+### Scoring Mechanics (New Detail)
+
+- **Half-mark granularity** is standard: *"half a mark," "half of the point," "half a point"* — explicitly communicated in real time
+- **Live score reveal:** Score + critique is delivered on the spot at session end, with candid breakdown
+- **Camera-on mandatory:** *"Please do not disable your camera"* — required for Q&A phase
+
+### New Compliance Standard: ISO 22301
+
+**ISO 22301** for Business Continuity/Disaster Recovery Planning (formerly BS 25999) — tested and student didn't know. Add to the standards list alongside CCSDS, RFC 9171/9172/9174.
+
+---
+
 ## 📈 Study Progress Log
 
 | Date | Videos Studied | Cumulative | Key Findings Added |
 |---|---|---|---|
-| 2026-07-22 | 4 (manual) | 4/131 | Initial pattern decode — funnel technique, slide anchor, trap questions, tiered difficulty, presentation dos/don'ts |
+| 2026-07-22 | 4 (manual) | 4/5 | Initial pattern decode — funnel technique, slide anchor, trap questions, tiered difficulty, presentation dos/don'ts |
+| 2026-07-22 | 1 (batch) + 126 (scan) | 5/5 + 126 scanned | **STUDY COMPLETE.** Keyword checklist scoring, lingo penalty, riddle-reveal, list-five, time-bound answers, slam dunk flagging, half-mark granularity, live score reveal. Only 5/131 have transcripts. |
 
 ---
 
-## 🔄 Update Protocol
+## 📝 Final Status
 
-This document is updated daily by the playlist study cron:
-1. Cron fetches ~13 new transcripts via Apify
-2. Each transcript is analyzed for new patterns, trap questions, topic frequencies
-3. New findings are merged into the relevant sections above
-4. The Study Progress Log is updated
-5. Changes are committed to GitHub
+**Full scan of all 131 playlist videos complete.** Only 5 videos have YouTube captions available. The other 126 are live stream recordings without transcripts — no extraction method can recover them (Apify, youtube-transcript-api, Invidious, Piped, YouTube InnerTube API all return empty).
 
-**Cron runs:** Jul 23 - Aug 1, 2026 (10 days)  
-**After 10 days:** Cron auto-pauses. All 131 videos analyzed.
+The patterns documented here are derived from 5 diverse exam sessions covering:
+- DTN/space communications (AETHERIX domain)
+- Cloud security (AWS/K8s)
+- Cybersecurity compliance
+- Different student performance levels (high-pass to borderline)
+
+These 5 transcripts represent the **complete extractable intelligence** from the playlist. No further automated study is possible.
