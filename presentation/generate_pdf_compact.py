@@ -26,7 +26,7 @@ DIAGRAMS_DIR = os.path.join(BASE_DIR, "visualizations", "diagrams")
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-TOTAL_SLIDES = 33
+TOTAL_SLIDES = 34
 
 pdf_path = os.path.join(OUTPUT_DIR, "AETHERIX_Presentation_Compact.pdf")
 c = canvas.Canvas(pdf_path, pagesize=(PAGE_W, PAGE_H))
@@ -369,6 +369,40 @@ draw_text(c, "Multiple redundant paths at every tier ensure no single point of f
 draw_text(c, "during solar conjunction blackouts. Quantum repeaters co-located at L4/L5 enable end-to-end key distribution.", 55, PAGE_H - 418, size=10, color=LIGHT_GRAY)
 
 draw_footer(c, 9, citations="[A2] AETHERIX topology.py (241 nodes, 5 tiers)  \u00b7  [1] NASA Deep Space Network (Goldstone/Madrid/Canberra)")
+c.showPage()
+
+
+# ================================================================
+# PAGE — 5-Tier Network Detail
+# ================================================================
+print("Creating Page: 5-Tier Network Detail...")
+draw_bg(c)
+draw_text(c, "5-TIER NETWORK DETAIL", 40, PAGE_H - 50, size=28, color=WHITE, bold=True)
+draw_text(c, "Tier Breakdown & Link Characteristics", 40, PAGE_H - 75, size=14, color=GREEN)
+draw_accent_line(c, 40, PAGE_H - 85, 200, GREEN)
+
+tier_data = [
+    ["Tier", "Name", "Nodes", "Description"],
+    ["T1", "Earth Ground", "6", "DSN: Goldstone, Madrid, Canberra + MOC, NOC, SOC"],
+    ["T2", "Earth Orbital", "51", "3 GEO relays + 48 LEO laser mesh constellation"],
+    ["T3", "Deep Space", "4", "ES-L4 & ES-L5 Lagrange relays + 2 transfer orbit sats"],
+    ["T4", "Mars Orbital", "13", "2 areostationary + 2 polar orbiters + 9 relay sats"],
+    ["T5", "Mars Surface", "167", "Habitats, rovers, drones, sensor networks"],
+]
+draw_table(c, tier_data, 40, PAGE_H - 120, [50, 120, 50, 380], ACCENT_BLUE)
+
+link_data = [
+    ["Link", "Data Rate", "Type"],
+    ["Earth \u2194 Deep Space", "100 Mbps", "1550nm optical"],
+    ["Deep Space \u2194 Mars", "2\u2013200 Mbps", "Distance dependent"],
+    ["Mars Orb \u2194 Surface", "2 Mbps", "UHF/X-band"],
+    ["LEO ISL", "10 Gbps", "Optical inter-satellite"],
+]
+draw_table(c, link_data, 40, PAGE_H - 340, [180, 120, 180], ACCENT_ORANGE)
+
+draw_text(c, "3 redundant paths \u00b7 No single point of failure \u00b7 Lagrange relays for conjunction coverage", 40, PAGE_H - 480, size=11, color=ACCENT_CYAN, bold=True)
+
+draw_footer(c, citations="[A2] topology.py (241 nodes, 5 tiers)  \u00b7  [1] NASA DSN  \u00b7  [3] JPL Horizons (Lagrange geometry)")
 c.showPage()
 
 

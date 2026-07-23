@@ -43,7 +43,7 @@ YELLOW = RGBColor(0xFF, 0xD9, 0x3D)
 SLIDE_WIDTH = Inches(13.333)
 SLIDE_HEIGHT = Inches(7.5)
 
-TOTAL_SLIDES = 33
+TOTAL_SLIDES = 34
 
 prs = Presentation()
 prs.slide_width = SLIDE_WIDTH
@@ -656,8 +656,6 @@ for tier_name, node_count, desc, color in tiers:
 
     tier_y += Inches(0.78)
 
-add_image_safe(slide, os.path.join(DIAGRAMS_DIR, "5tier_network.png"), Inches(5.6), Inches(1.5), Inches(4.2), Inches(3.5))
-
 callout_bg = add_shape(
     slide, Inches(0.4), Inches(5.7), Inches(9.2), Inches(0.65),
     fill_color=CARD_BG, border_color=ACCENT_BLUE, shape_type=MSO_SHAPE.ROUNDED_RECTANGLE,
@@ -674,6 +672,57 @@ cp.font.color.rgb = ACCENT_CYAN
 cp.alignment = PP_ALIGN.CENTER
 
 add_footer(slide, 9, citations="[A2] AETHERIX topology.py (241 nodes, 5 tiers)  \u00b7  [1] NASA Deep Space Network (Goldstone/Madrid/Canberra)")
+
+
+# ============================================================
+# SLIDE — 5-Tier Network Detail
+# ============================================================
+print("Creating Slide: 5-Tier Network Detail...")
+slide = new_slide()
+set_slide_bg(slide, BG_DARK)
+add_slide_transition(slide, "fade")
+
+txBox = add_textbox(slide, Inches(0.6), Inches(0.3), Inches(9), Inches(0.6))
+p = txBox.text_frame.paragraphs[0]
+p.text = "5-TIER NETWORK DETAIL"
+p.font.size = Pt(32)
+p.font.bold = True
+p.font.color.rgb = WHITE
+p.alignment = PP_ALIGN.LEFT
+
+add_accent_line(slide, Inches(0.6), Inches(0.95), Inches(2.5))
+
+txBox2 = add_textbox(slide, Inches(0.6), Inches(0.9), Inches(9), Inches(0.4))
+p2 = txBox2.text_frame.paragraphs[0]
+p2.text = "Tier Breakdown & Link Characteristics"
+p2.font.size = Pt(16)
+p2.font.color.rgb = GREEN
+p2.alignment = PP_ALIGN.LEFT
+
+tier_headers = ["Tier", "Name", "Nodes", "Description"]
+tier_rows = [
+    ["T1", "Earth Ground", "6", "DSN: Goldstone, Madrid, Canberra"],
+    ["T2", "Earth Orbital", "51", "3 GEO + 48 LEO laser mesh"],
+    ["T3", "Deep Space", "4", "ES-L4 & ES-L5 Lagrange relays"],
+    ["T4", "Mars Orbital", "13", "Areostationary + polar + relay"],
+    ["T5", "Mars Surface", "167", "Habitats, rovers, drones, sensors"],
+]
+_t = [tier_headers] + tier_rows
+add_table(slide, Inches(0.5), Inches(1.4), Inches(5.6), Inches(3.5), len(_t), len(tier_headers), _t, header_color=ACCENT_BLUE)
+
+link_headers = ["Link", "Rate", "Type"]
+link_rows = [
+    ["Earth \u2194 Deep Space", "100 Mbps", "1550nm optical"],
+    ["Deep Space \u2194 Mars", "2\u2013200 Mbps", "Dist. dependent"],
+    ["Mars Orb \u2194 Surface", "2 Mbps", "UHF/X-band"],
+    ["LEO ISL", "10 Gbps", "Optical ISL"],
+]
+_l = [link_headers] + link_rows
+add_table(slide, Inches(6.5), Inches(1.4), Inches(5.8), Inches(2.8), len(_l), len(link_headers), _l, header_color=ACCENT_ORANGE)
+
+add_textbox(slide, Inches(6.5), Inches(4.5), Inches(5.8), Inches(0.8), "3 redundant paths \u00b7 No single point of failure \u00b7 Lagrange relays for conjunction coverage", font_size=11, color=ACCENT_CYAN, bold=True)
+
+add_footer(slide, citations="[A2] topology.py (241 nodes, 5 tiers)  \u00b7  [1] NASA DSN  \u00b7  [3] JPL Horizons")
 
 
 # ============================================================

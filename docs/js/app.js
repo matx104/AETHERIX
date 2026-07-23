@@ -1791,12 +1791,13 @@ window.App = (() => {
           speakerNotes: '241 nodes across 5 tiers. Walk through each tier. Earth Ground is the DSN - three stations around the globe for 24/7 coverage. Earth Orbital has LEO laser mesh for optical backhaul. Deep Space has Lagrange point relays - these are the critical innovation for conjunction coverage. Mars Orbital has areostationary relays at 17,032 km. Mars Surface is the most populated tier. (2 minutes)'
         },
         {
-          title: '5-Tier Network Diagram',
+          title: '5-Tier Network Detail',
           compact: true,
-          content: '<h2><span class="pres-tag accent">Network</span> 5-Tier Interplanetary Network &mdash; 241 Nodes</h2><div style="text-align:center;margin-bottom:14px"><img src="img/diagrams/5tier_network.png" style="max-width:100%;max-height:260px;border-radius:8px;border:1px solid rgba(255,255,255,0.1)" alt="5-Tier Network Architecture Diagram"></div><div class="pres-grid-2" style="margin-bottom:16px"><div class="pres-card"><div class="pres-card-title">Tier Breakdown</div><table class="pres-table"><tr><td><strong style="color:#00d4ff">T1 Earth Ground</strong></td><td>6 nodes</td><td>DSN: Goldstone, Madrid, Canberra + MOC, NOC, SOC</td></tr><tr><td><strong style="color:#7c5cf7">T2 Earth Orbital</strong></td><td>51 nodes</td><td>3 GEO relays + 48 LEO laser mesh constellation</td></tr><tr><td><strong style="color:#ff6b35">T3 Deep Space</strong></td><td>4 nodes</td><td>ES-L4 &amp; ES-L5 Lagrange relays + 2 transfer orbit sats</td></tr><tr><td><strong style="color:#f85149">T4 Mars Orbital</strong></td><td>13 nodes</td><td>2 areostationary + 2 polar orbiters + 9 relay sats</td></tr><tr><td><strong style="color:#d29922">T5 Mars Surface</strong></td><td>167 nodes</td><td>Habitats, rovers, drones, sensor networks</td></tr></table></div><div class="pres-card"><div class="pres-card-title">Link Characteristics</div><table class="pres-table"><tr><td>Earth &harr; Deep Space</td><td>100 Mbps</td><td>1550nm optical</td></tr><tr><td>Deep Space &harr; Mars</td><td>2&ndash;200 Mbps</td><td>Distance dependent</td></tr><tr><td>Mars Orb &harr; Surface</td><td>2 Mbps</td><td>UHF/X-band</td></tr><tr><td>LEO ISL</td><td>10 Gbps</td><td>Optical inter-satellite</td></tr></table><div style="margin-top:12px;font-size:0.82rem;color:var(--text-secondary)"><strong style="color:var(--accent)">3 redundant paths</strong> &middot; No single point of failure &middot; Lagrange relays for conjunction coverage</div></div></div>',
+          content: '<h2><span class="pres-tag accent">Network</span> 5-Tier Interplanetary Network &mdash; 241 Nodes</h2><div class="pres-grid-2" style="margin-bottom:16px"><div class="pres-card"><div class="pres-card-title">Tier Breakdown</div><table class="pres-table"><tr><td><strong style="color:#00d4ff">T1 Earth Ground</strong></td><td>6 nodes</td><td>DSN: Goldstone, Madrid, Canberra + MOC, NOC, SOC</td></tr><tr><td><strong style="color:#7c5cf7">T2 Earth Orbital</strong></td><td>51 nodes</td><td>3 GEO relays + 48 LEO laser mesh constellation</td></tr><tr><td><strong style="color:#ff6b35">T3 Deep Space</strong></td><td>4 nodes</td><td>ES-L4 &amp; ES-L5 Lagrange relays + 2 transfer orbit sats</td></tr><tr><td><strong style="color:#f85149">T4 Mars Orbital</strong></td><td>13 nodes</td><td>2 areostationary + 2 polar orbiters + 9 relay sats</td></tr><tr><td><strong style="color:#d29922">T5 Mars Surface</strong></td><td>167 nodes</td><td>Habitats, rovers, drones, sensor networks</td></tr></table></div><div class="pres-card"><div class="pres-card-title">Link Characteristics</div><table class="pres-table"><tr><td>Earth &harr; Deep Space</td><td>100 Mbps</td><td>1550nm optical</td></tr><tr><td>Deep Space &harr; Mars</td><td>2&ndash;200 Mbps</td><td>Distance dependent</td></tr><tr><td>Mars Orb &harr; Surface</td><td>2 Mbps</td><td>UHF/X-band</td></tr><tr><td>LEO ISL</td><td>10 Gbps</td><td>Optical inter-satellite</td></tr></table><div style="margin-top:12px;font-size:0.82rem;color:var(--text-secondary)"><strong style="color:var(--accent)">3 redundant paths</strong> &middot; No single point of failure &middot; Lagrange relays for conjunction coverage</div></div></div>',
         },
         {
-          title: 'Network Diagram',
+          title: '5-Tier Network Diagram',
+          compact: true,
           content: this._chartSlide('5-Tier Network Diagram', 'Network', '#00d4ff', 'img/diagrams/5tier_network.png',
             '241 nodes from Earth ground to Mars surface &middot; 3 redundant paths &middot; No single point of failure',
             'Spanning two planets requires a network architecture with no single point of failure.',
@@ -2118,7 +2119,8 @@ window.App = (() => {
         'DTN Diagram': "DTN diagram showing store-and-forward with custody transfer.",
         'Bundle Priority Chart': "The priority class distribution shows how bandwidth is allocated. Emergency traffic preempts everything. The deadline-aware scheduler ensures no bandwidth is wasted while respecting priority constraints.",
         'Network Topology': "The network spans five tiers with 241 nodes. Earth's ground segment with DSN stations in Goldstone, Madrid, and Canberra — spaced 120 degrees apart for 24/7 coverage. Tier 2 has GEO relays and a 48-satellite LEO laser constellation. Tier 3 has Lagrange point relays at ES-L4 and ES-L5 — critical because they maintain communication around the Sun during conjunction. Tier 4 is Mars orbital with areostationary relays at 17,032 km. Tier 5 is the Mars surface network.",
-        '5-Tier Network Diagram': "Earth-to-deep-space links at 100 Mbps via 1550 nm laser. Deep-space-to-Mars is distance-dependent at 2 to 200 Mbps. Mars orbital to surface uses UHF S-band at 2 Mbps. LEO inter-satellite mesh runs at 10 Gbps with laser links.",
+        '5-Tier Network Detail': "Earth-to-deep-space links at 100 Mbps via 1550 nm laser. Deep-space-to-Mars is distance-dependent at 2 to 200 Mbps. Mars orbital to surface uses UHF S-band at 2 Mbps. LEO inter-satellite mesh runs at 10 Gbps with laser links.",
+        '5-Tier Network Diagram': "This visualization shows the full 5-tier topology with three redundant paths. No single link failure can sever Earth-Mars communication.",
         'Network Diagram': "This visualization shows the full 5-tier topology with three redundant paths. No single link failure can sever Earth-Mars communication.",
         'DSN Coverage Chart': "DSN coverage showing three stations spaced 120 degrees apart for continuous coverage of any deep space asset.",
         'Orbital Positions Chart': "Orbital positions over the synodic period showing how Earth and Mars move relative to each other, determining contact quality.",
@@ -2239,6 +2241,11 @@ window.App = (() => {
       'Network Topology': [
         { type: 'learn', label: 'The Network', hash: 'the-network' },
         { type: 'demo', label: 'Dashboard', hash: 'dashboard' },
+        { type: 'ref', label: 'topology.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/orbital/topology.py' }
+      ],
+      '5-Tier Network Detail': [
+        { type: 'learn', label: 'The Network', hash: 'the-network' },
+        { type: 'ref', label: 'CCSDS 734.2-B-1', url: 'https://public.ccsds.org/Pubs/734x2b1.pdf' },
         { type: 'ref', label: 'topology.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/orbital/topology.py' }
       ],
       '5-Tier Network Diagram': [
