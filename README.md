@@ -147,7 +147,7 @@ The other commands you'll use most:
 
 ```bash
 python run_simulation.py -m 4      # run just the failure & recovery scenario
-python -m pytest tests/ -q         # run the 337-test suite (needs: pip install pytest)
+python -m pytest tests/ -q         # run the 480-test suite (needs: pip install pytest)
 ./scripts/init.sh                  # set up venv + dev tools (linting, etc.)
 ./scripts/dev.sh docker-up         # launch the full-stack web app in Docker
 ```

@@ -17,7 +17,7 @@
 #
 # ============================================================
 
-# --- Testing (required to run the 202-test suite) ---
+# --- Testing (required to run the 480-test suite) ---
 pytest==9.0.3
 # pytest>=7.0 also works; pinned to the version this repo was validated with.
 

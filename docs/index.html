@@ -87,6 +87,7 @@
         </ul>
       </li>
       <li class="topnav-link" data-route="study" role="menuitem" tabindex="0"><span class="nav-icon">&#128214;</span> Resources</li>
+      <li class="topnav-link" data-route="references" role="menuitem" tabindex="0"><span class="nav-icon">&#128206;</span> References</li>
       <li class="topnav-link" data-route="glossary" role="menuitem" tabindex="0"><span class="nav-icon">&#128218;</span> Glossary</li>
       <li class="topnav-link" data-route="built-by" role="menuitem" tabindex="0"><span class="nav-icon">&#128100;</span> Built By</li>
       <li class="topnav-link" data-route="usage" role="menuitem" tabindex="0"><span class="nav-icon">&#128214;</span> Usage</li>
@@ -5598,6 +5599,61 @@ aetherix-frontend   aetherix-frontend  <span class="t-green">Up (healthy)</span>
         </div>
         <div class="pres-speaker-notes" id="pres-speaker-notes" style="display:none"></div>
         <div class="pres-full-script" id="pres-full-script" style="display:none"></div>
+      </div>
+    </section>
+
+    <section id="references" class="tab" aria-label="References">
+      <div style="max-width:1100px;margin:0 auto;padding:40px 24px">
+        <h1 style="font-size:2.2rem;color:var(--text-primary);margin-bottom:8px">References &amp; Standards</h1>
+        <p style="color:var(--text-muted);font-size:1rem;margin-bottom:32px">Every claim in this project traces to a cited standard, NASA mission dataset, peer-reviewed protocol, or verifiable source module.</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:40px">
+          <div>
+            <h2 style="font-size:1.3rem;color:var(--accent-cyan,#00d4ff);margin-bottom:16px;border-bottom:1px solid rgba(0,212,255,0.2);padding-bottom:8px">Industry &amp; Scientific [1]&ndash;[20]</h2>
+            <table style="width:100%;border-collapse:collapse;font-size:0.85rem">
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-cyan,#00d4ff);font-weight:600;white-space:nowrap">[1]</td><td style="padding:6px 8px;color:var(--text-secondary)">NASA Mars Relay Network / MRO Ka-band (0.5&ndash;6 Mbps)</td></tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-cyan,#00d4ff);font-weight:600">[2]</td><td style="padding:6px 8px">CCSDS 734.2-B-1 &mdash; Bundle Protocol Spec</td></tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-cyan,#00d4ff);font-weight:600">[3]</td><td style="padding:6px 8px">JPL Horizons ephemeris (Earth&ndash;Mars geometry)</td></tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-cyan,#00d4ff);font-weight:600">[4]</td><td style="padding:6px 8px">NASA DSOC / Psyche (2023 optical demo)</td></tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-cyan,#00d4ff);font-weight:600">[5]</td><td style="padding:6px 8px">CCSDS 141.0-B-1 &mdash; Optical Communications</td></tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-cyan,#00d4ff);font-weight:600">[9]</td><td style="padding:6px 8px">IETF RFC 9171 &mdash; Bundle Protocol v7</td></tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-cyan,#00d4ff);font-weight:600">[10]</td><td style="padding:6px 8px">IETF RFC 5326 &mdash; Licklider Transmission Protocol</td></tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-cyan,#00d4ff);font-weight:600">[11]</td><td style="padding:6px 8px">IETF RFC 7242 &mdash; TCP Convergence Layer</td></tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-cyan,#00d4ff);font-weight:600">[12]</td><td style="padding:6px 8px">IETF RFC 4838 &mdash; DTN Architecture</td></tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-purple,#7c5cf7);font-weight:600">[13]</td><td style="padding:6px 8px">Bennett &amp; Brassard, 1984 &mdash; BB84 QKD</td></tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-purple,#7c5cf7);font-weight:600">[14]</td><td style="padding:6px 8px">Ekert, 1991 &mdash; E91 Entanglement QKD</td></tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-purple,#7c5cf7);font-weight:600">[15]</td><td style="padding:6px 8px">Shor &amp; Preskill, 2000 &mdash; QBER &lt; 11% proof</td></tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-orange,#ff6b35);font-weight:600">[16]</td><td style="padding:6px 8px">NIST FIPS 203 &mdash; ML-KEM (post-quantum)</td></tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-orange,#ff6b35);font-weight:600">[17]</td><td style="padding:6px 8px">NIST FIPS 204 &mdash; ML-DSA (post-quantum sig)</td></tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-red,#f85149);font-weight:600">[18]</td><td style="padding:6px 8px">BAE Systems RAD750 &mdash; rad-hard CPU</td></tr>
+              <tr><td style="padding:6px 8px;color:var(--accent-red,#f85149);font-weight:600">[19]</td><td style="padding:6px 8px">ESA / Cobham LEON3FT &mdash; fault-tolerant CPU</td></tr>
+            </table>
+          </div>
+
+          <div>
+            <h2 style="font-size:1.3rem;color:var(--accent-green,#3fb950);margin-bottom:16px;border-bottom:1px solid rgba(63,185,80,0.2);padding-bottom:8px">Project Source [A1]&ndash;[A8]</h2>
+            <table style="width:100%;border-collapse:collapse;font-size:0.85rem">
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-green,#3fb950);font-weight:600;white-space:nowrap">[A1]</td><td style="padding:6px 8px"><code style="color:var(--text-primary)">src/routing/rl_agent.py</code> &mdash; Q-learning agent</td></tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-green,#3fb950);font-weight:600">[A2]</td><td style="padding:6px 8px"><code>src/orbital/topology.py</code> &mdash; 241-node 5-tier network</td></tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-green,#3fb950);font-weight:600">[A3]</td><td style="padding:6px 8px"><code>src/simulation/run_simulation.py</code> &mdash; 7-module suite</td></tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-green,#3fb950);font-weight:600">[A4]</td><td style="padding:6px 8px"><code>src/infrastructure/link_budget.py</code> &mdash; optical 2&ndash;200 Mbps</td></tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-green,#3fb950);font-weight:600">[A5]</td><td style="padding:6px 8px"><code>src/security/qkd.py</code> &mdash; BB84, E91, repeater</td></tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-green,#3fb950);font-weight:600">[A6]</td><td style="padding:6px 8px"><code>src/computing/radiation.py</code> &mdash; SEU/TID, TMR, ECC</td></tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.06)"><td style="padding:6px 8px;color:var(--accent-green,#3fb950);font-weight:600">[A7]</td><td style="padding:6px 8px"><code>src/routing/prioritization.py</code> &mdash; QoS scheduler</td></tr>
+              <tr><td style="padding:6px 8px;color:var(--accent-green,#3fb950);font-weight:600">[A8]</td><td style="padding:6px 8px"><code>run_simulation.py</code> Module 4 &mdash; failure/recovery</td></tr>
+            </table>
+
+            <div style="margin-top:24px;padding:16px;background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.15);border-radius:8px">
+              <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px"><strong style="color:var(--text-primary)">Reproducibility:</strong> Every simulation result is seed-fixed and reproducible:</div>
+              <code style="font-size:0.78rem;color:var(--accent-cyan,#00d4ff)">python src/simulation/run_simulation.py</code>
+            </div>
+
+            <div style="margin-top:16px;font-size:0.8rem;color:var(--text-muted)">
+              Full 70+ academic reference list in <code>references/REFERENCES.md</code><br>
+              Source: <a href="https://github.com/matx104/AETHERIX" style="color:var(--accent-cyan,#00d4ff)">github.com/matx104/AETHERIX</a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>

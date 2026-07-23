@@ -21,7 +21,7 @@ from datetime import datetime, date
 from pathlib import Path
 
 # Paths
-BASE = Path("/home/ubuntu/AETHERIX/curriculum/exam_analysis")
+BASE = Path(__file__).resolve().parent
 PLAYLIST_FILE = BASE / "playlist_videos.json"
 PROGRESS_FILE = BASE / "progress.json"
 TRANSCRIPTS_DIR = BASE / "transcripts"
@@ -35,7 +35,7 @@ def load_apify_token():
         import urllib.request, json as _json
 
         # Machine Identity creds live in AMEEN's .env (the vault keeper)
-        inf_env = Path("/home/ubuntu/.hermes/profiles/ameen/.env")
+        inf_env = Path.home() / ".hermes" / "profiles" / "ameen" / ".env"
         creds = {}
         if inf_env.exists():
             for line in inf_env.read_text().splitlines():
@@ -83,7 +83,7 @@ def load_apify_token():
         print(f"  ⚠️  Infisical vault unreachable ({e}), falling back to .env")
 
     # --- Fallback: flat .env ---
-    env_file = Path("/home/ubuntu/.hermes/.env")
+    env_file = Path.home() / ".hermes" / ".env"
     if env_file.exists():
         for line in env_file.read_text().splitlines():
             if line.startswith("APIFY_TOKEN=") or line.startswith("APIFY_API_TOKEN="):

@@ -207,18 +207,21 @@ def add_slide_transition(slide, transition_type="fade", duration_ms=700):
 
 
 # Total slide count shown in footers (title slide 1 + Thank-You have no footer).
-TOTAL_SLIDES = 46
+TOTAL_SLIDES = 50
 # Auto-incrementing footer counter so inserting slides never requires renumbering.
 # Starts at 1 (the title slide is slide 1 and carries no footer); each footered
 # slide is numbered in document order.
 _footer_counter = [1]
 
 
-def add_footer(slide, slide_num=None, total=None):
+def add_footer(slide, slide_num=None, total=None, citations=None):
     # slide_num is ignored (kept for call-site compatibility); numbering is
     # derived from document order so slides can be inserted freely.
     _footer_counter[0] += 1
     n = _footer_counter[0]
+    if citations:
+        add_textbox(slide, Inches(0.5), Inches(7.22), Inches(12.5), Inches(0.25),
+                    citations, font_size=8, color=MED_GRAY)
     add_textbox(slide, Inches(0.5), Inches(7.0), Inches(5), Inches(0.4),
                 "AETHERIX — Interplanetary Communication Network", font_size=10, color=MED_GRAY)
     add_textbox(slide, Inches(11.0), Inches(7.0), Inches(2), Inches(0.4),
@@ -249,7 +252,7 @@ def new_slide():
     return slide
 
 
-def add_chart_slide(chart_file, title, subtitle, caption, accent_rgb):
+def add_chart_slide(chart_file, title, subtitle, caption, accent_rgb, citations=None):
     slide = new_slide()
     add_slide_transition(slide, "fade")
     add_textbox(slide, Inches(0.7), Inches(0.3), Inches(11.0), Inches(0.7),
@@ -260,7 +263,7 @@ def add_chart_slide(chart_file, title, subtitle, caption, accent_rgb):
     add_image_safe(slide, chart_file, Inches(0.7), Inches(1.5), Inches(7.0), Inches(4.5))
     add_textbox(slide, Inches(0.7), Inches(6.2), Inches(11.0), Inches(0.3),
                 caption, font_size=10, color=MED_GRAY, alignment=PP_ALIGN.CENTER)
-    add_footer(slide)
+    add_footer(slide, citations=citations)
     return slide
 
 
@@ -305,7 +308,7 @@ _SPEAKER_NOTES = {
     38: "Hit these numbers with confidence. 10-100x faster. >95% availability vs 60-75%. Quantum-secure. 241 nodes vs 5-10 assets. The conjunction improvement is thanks to Lagrange relays. All metrics are backed by our simulation engine. (1 minute)",
     39: "Side-by-side performance comparison chart. (15 seconds)",
     40: "Optical versus RF link capability radar chart. (15 seconds)",
-    41: "This is real, working code. 27 Python modules, 189 tests, 12 interactive demos. All the physics is real - no mocked data. The showcase site has live calculators you can use right now. Standards compliance is complete - CCSDS, IETF, and NIST. (1.5 minutes)",
+    41: "This is real, working code. 27 Python modules, 480 tests, 12 interactive demos. All the physics is real - no mocked data. The showcase site has live calculators you can use right now. Standards compliance is complete - CCSDS, IETF, and NIST. (1.5 minutes)",
     42: "Bandwidth evolution over deep-space missions. (15 seconds)",
     43: "Mission timeline deployment phases. (15 seconds)",
     44: "Phases 1-4 are done - this is what you see today. Phase 5: ns-3 simulation for realistic network modeling. Phase 6: Upgrade to DQN and integrate with NASA's ION-DTN implementation. Phase 7: Hardware prototypes with SDRs and optical links. (1.5 minutes)",
@@ -329,7 +332,7 @@ add_textbox(slide, Inches(2.0), Inches(4.0), Inches(9.3), Inches(0.5), "EduQual 
 add_textbox(slide, Inches(2.0), Inches(4.5), Inches(9.3), Inches(0.5), "Building an Interplanetary Communication Network with DTN,\nQuantum Communication, and Space-Based Infrastructure for Mars Mission Support", font_size=14, color=MED_GRAY, alignment=PP_ALIGN.CENTER)
 add_accent_line(slide, Inches(3.5), Inches(5.3), Inches(6.3), ACCENT_BLUE, Pt(2))
 add_textbox(slide, Inches(2.0), Inches(5.6), Inches(9.3), Inches(0.5), "Muhammad Abdullah Tariq", font_size=20, color=WHITE, bold=True, alignment=PP_ALIGN.CENTER)
-add_textbox(slide, Inches(2.0), Inches(6.1), Inches(9.3), Inches(0.5), "January 2026", font_size=14, color=MED_GRAY, alignment=PP_ALIGN.CENTER)
+add_textbox(slide, Inches(2.0), Inches(6.1), Inches(9.3), Inches(0.5), "September 2026", font_size=14, color=MED_GRAY, alignment=PP_ALIGN.CENTER)
 add_textbox(slide, Inches(2.0), Inches(6.7), Inches(9.3), Inches(0.4), "matx104.github.io/AETHERIX  |  github.com/matx104/AETHERIX", font_size=12, color=ACCENT_BLUE, alignment=PP_ALIGN.CENTER)
 add_shape(slide, Inches(0), Inches(7.44), SLIDE_WIDTH, Inches(0.06), fill_color=ACCENT_BLUE, shape_type=MSO_SHAPE.RECTANGLE)
 
@@ -339,7 +342,7 @@ slide = new_slide()
 add_slide_transition(slide, "push")
 add_textbox(slide, Inches(0.7), Inches(0.3), Inches(11.0), Inches(0.7), "PRESENTATION AGENDA", font_size=36, color=WHITE, bold=True, alignment=PP_ALIGN.LEFT)
 add_accent_line(slide, Inches(0.7), Inches(0.95), Inches(3.0), ACCENT_CYAN, Pt(3))
-add_footer(slide, 2)
+add_footer(slide, 2, citations="[A2] topology.py (241 nodes)  ·  References slides at end of deck")
 
 agenda_items = [
     ("01", "The Challenge", "Why space breaks the internet", ACCENT_BLUE),
@@ -374,7 +377,7 @@ add_slide_transition(slide, "fade")
 add_textbox(slide, Inches(0.7), Inches(0.3), Inches(11.0), Inches(0.7), "WHAT IS AETHERIX?", font_size=36, color=WHITE, bold=True, alignment=PP_ALIGN.LEFT)
 add_accent_line(slide, Inches(0.7), Inches(0.95), Inches(3.0), ACCENT_CYAN, Pt(3))
 add_textbox(slide, Inches(0.7), Inches(1.05), Inches(11.0), Inches(0.4), "Overview & The Problem", font_size=16, color=MED_GRAY)
-add_footer(slide, 3)
+add_footer(slide, 3, citations="[1] NASA MRN 2024  ·  [3] JPL Horizons  ·  [12] RFC 4838  ·  [A2] topology.py")
 
 card_left = add_card(slide, Inches(0.7), Inches(1.6), Inches(5.6), Inches(3.8), border=ACCENT_BLUE)
 add_textbox(slide, Inches(0.9), Inches(1.7), Inches(5.2), Inches(0.45), "What is AETHERIX?", font_size=18, color=ACCENT_BLUE, bold=True)
@@ -414,7 +417,7 @@ add_slide_transition(slide, "push")
 add_textbox(slide, Inches(0.7), Inches(0.3), Inches(11.0), Inches(0.7), "THE DISTANCE", font_size=36, color=WHITE, bold=True, alignment=PP_ALIGN.LEFT)
 add_accent_line(slide, Inches(0.7), Inches(0.95), Inches(3.0), ACCENT_RED, Pt(3))
 add_textbox(slide, Inches(0.7), Inches(1.05), Inches(11.0), Inches(0.4), "Why Space Breaks the Internet", font_size=16, color=MED_GRAY)
-add_footer(slide, 4)
+add_footer(slide, 4, citations="[3] JPL Horizons (distance/light-time)  ·  [12] RFC 4838  ·  [1] NASA MRO data rate")
 
 left_headers = ["Parameter", "Value"]
 left_rows = [
@@ -457,7 +460,7 @@ print("Creating Slide 5: Chart — Distance Over Time...")
 add_chart_slide(
     os.path.join(CHARTS_DIR, "distance_over_time.png"),
     "DISTANCE OVER TIME", "Earth-Mars Distance Variation",
-    "Earth-Mars distance over the 780-day synodic period", ACCENT_RED,
+    "Earth-Mars distance over the 780-day synodic period", ACCENT_RED, citations="[3] JPL Horizons (synodic 779.94 d)  ·  [1] NASA"
 )
 
 # --- SLIDE 6 — Chart: Light Time Delay ---
@@ -465,7 +468,7 @@ print("Creating Slide 6: Chart — Light Time Delay...")
 add_chart_slide(
     os.path.join(CHARTS_DIR, "light_time_delay.png"),
     "LIGHT TIME DELAY", "One-Way Signal Propagation Time",
-    "Signal delay ranges from 3 to 22 minutes depending on orbital position", ACCENT_ORANGE,
+    "Signal delay ranges from 3 to 22 minutes depending on orbital position", ACCENT_ORANGE, citations="[3] JPL Horizons (c=299,792 km/s)  ·  [12] RFC 4838"
 )
 
 # --- SLIDE 7 — The Answer ---
@@ -475,7 +478,7 @@ add_slide_transition(slide, "wipe")
 add_textbox(slide, Inches(0.7), Inches(0.3), Inches(11.0), Inches(0.7), "THE ANSWER", font_size=36, color=WHITE, bold=True, alignment=PP_ALIGN.LEFT)
 add_accent_line(slide, Inches(0.7), Inches(0.95), Inches(3.0), ACCENT_CYAN, Pt(3))
 add_textbox(slide, Inches(0.7), Inches(1.05), Inches(11.0), Inches(0.4), "Delay-Tolerant Networking", font_size=16, color=MED_GRAY)
-add_footer(slide, 5)
+add_footer(slide, 5, citations="[9] RFC 9171 BPv7  ·  [10] RFC 5326 LTP  ·  [11] RFC 7242 TCPCL  ·  [12] RFC 4838")
 
 flow_labels = ["Bundle", "Store", "Wait", "Forward", "Deliver"]
 flow_colors = [ACCENT_BLUE, ACCENT_PURPLE, ACCENT_ORANGE, ACCENT_CYAN, GREEN]
@@ -523,7 +526,7 @@ add_slide_transition(slide, "cover")
 add_textbox(slide, Inches(0.7), Inches(0.3), Inches(11.0), Inches(0.7), "SYSTEM ARCHITECTURE", font_size=36, color=WHITE, bold=True, alignment=PP_ALIGN.LEFT)
 add_accent_line(slide, Inches(0.7), Inches(0.95), Inches(3.0), ACCENT_CYAN, Pt(3))
 add_textbox(slide, Inches(0.7), Inches(1.05), Inches(11.0), Inches(0.4), "Five Core Modules", font_size=16, color=MED_GRAY)
-add_footer(slide, 6)
+add_footer(slide, 6, citations="[A1] rl_agent.py  ·  [A2] topology.py  ·  [A3] simulator.py  ·  [A4] link_budget.py  ·  [A5] qkd.py")
 
 modules = [
     ("1", "Infrastructure", "Link budget & RF/optical analysis", ACCENT_BLUE),
@@ -557,7 +560,7 @@ slide = new_slide()
 add_slide_transition(slide, "fade")
 add_textbox(slide, Inches(0.7), Inches(0.3), Inches(11.0), Inches(0.7), "ARCHITECTURE DIAGRAM", font_size=36, color=WHITE, bold=True, alignment=PP_ALIGN.LEFT)
 add_accent_line(slide, Inches(0.7), Inches(0.95), Inches(3.0), ACCENT_CYAN, Pt(3))
-add_footer(slide, 7)
+add_footer(slide, 7, citations="[A2] AETHERIX topology.py  ·  github.com/matx104/AETHERIX")
 
 arch_img_path = os.path.join(DIAGRAMS_DIR, "system_architecture.png")
 add_image_safe(slide, arch_img_path, Inches(0.7), Inches(1.2), Inches(11.6), Inches(5.8))
@@ -567,7 +570,7 @@ print("Creating Slide 10: Chart \u2014 Network Tier Distribution...")
 add_chart_slide(
     os.path.join(CHARTS_DIR, "network_tier_distribution.png"),
     "NETWORK TIER DISTRIBUTION", "241 Nodes Across 5 Tiers",
-    "Node count by network tier \u2014 Mars Surface is the most populated", ACCENT_BLUE,
+    "Node count by network tier \u2014 Mars Surface is the most populated", ACCENT_BLUE, citations="[A2] AETHERIX topology.py (241 nodes, 5 tiers)"
 )
 
 # --- SLIDE 11 — BPv7 Deep Dive ---
@@ -577,7 +580,7 @@ add_slide_transition(slide, "push")
 add_textbox(slide, Inches(0.7), Inches(0.3), Inches(11.0), Inches(0.7), "BPv7 DEEP DIVE", font_size=36, color=WHITE, bold=True, alignment=PP_ALIGN.LEFT)
 add_accent_line(slide, Inches(0.7), Inches(0.95), Inches(3.0), ACCENT_CYAN, Pt(3))
 add_textbox(slide, Inches(0.7), Inches(1.05), Inches(11.0), Inches(0.4), "The Foundation", font_size=16, color=MED_GRAY)
-add_footer(slide, 8)
+add_footer(slide, 8, citations="[9] RFC 9171  ·  [2] CCSDS 734.2-B-1  ·  [10] RFC 5326 LTP  ·  [11] RFC 7242 TCPCL  ·  [12] RFC 4838")
 
 stack_layers = [
     ("Application Layer", "User data, commands, telemetry", ACCENT_BLUE),
@@ -626,7 +629,7 @@ print("Creating Slide 12: Chart \u2014 Bundle Priority Classes...")
 add_chart_slide(
     os.path.join(CHARTS_DIR, "bundle_priority_classes.png"),
     "BUNDLE PRIORITY CLASSES", "BPv7 QoS Tiers",
-    "Five priority levels from P0 Emergency to P4 Bulk ensure critical data arrives first", ACCENT_PURPLE,
+    "Five priority levels from P0 Emergency to P4 Bulk ensure critical data arrives first", ACCENT_PURPLE, citations="[9] RFC 9171  ·  [2] CCSDS 734.2-B-1"
 )
 
 # ── SLIDE 13 ── DTN Store-and-Forward ──────────────────────────────────────────
@@ -716,7 +719,7 @@ add_card(
     border=ACCENT_ORANGE,
 )
 
-add_footer(slide, 9)
+add_footer(slide, 9, citations="[9] RFC 9171  ·  [10] RFC 5326  ·  [11] RFC 7242")
 
 # ── SLIDE 14 ── Network Topology ──────────────────────────────────────────────
 slide = new_slide()
@@ -795,7 +798,7 @@ cp.font.size = Pt(11)
 cp.font.color.rgb = ACCENT_CYAN
 cp.alignment = PP_ALIGN.CENTER
 
-add_footer(slide, 10)
+add_footer(slide, 10, citations="[A2] AETHERIX topology.py (241 nodes, 5 tiers)  ·  [1] NASA Deep Space Network")
 
 # ── SLIDE 15 ── 5-Tier Network Diagram ────────────────────────────────────────
 slide = new_slide()
@@ -839,7 +842,7 @@ add_table(
     header_color=ACCENT_BLUE,
 )
 
-add_footer(slide, 11)
+add_footer(slide, 11, citations="[A2] topology.py  ·  [3] JPL Horizons (Lagrange ES-L4/L5 geometry)")
 
 # ── SLIDE 16 ── Network Diagram Visual ────────────────────────────────────────
 slide = new_slide()
@@ -861,14 +864,14 @@ add_image_safe(
     Inches(0.5), Inches(1.2), Inches(9.0), Inches(5.3),
 )
 
-add_footer(slide, 12)
+add_footer(slide, 12, citations="[A2] topology.py  ·  [3] JPL Horizons (Lagrange ES-L4/L5 geometry)")
 
 # --- SLIDE 17 — Chart: DSN Coverage ---
 print("Creating Slide 17: Chart \u2014 DSN Coverage...")
 add_chart_slide(
     os.path.join(CHARTS_DIR, "dsn_coverage.png"),
     "DSN COVERAGE", "Deep Space Network Ground Stations",
-    "Goldstone, Madrid, and Canberra provide 24/7 coverage with 120\u00b0 spacing", ACCENT_BLUE,
+    "Goldstone, Madrid, and Canberra provide 24/7 coverage with 120\u00b0 spacing", ACCENT_BLUE, citations="[1] NASA Deep Space Network"
 )
 
 # --- SLIDE 18 — Chart: Orbital Positions ---
@@ -876,7 +879,7 @@ print("Creating Slide 18: Chart \u2014 Orbital Positions...")
 add_chart_slide(
     os.path.join(CHARTS_DIR, "orbital_positions.png"),
     "ORBITAL POSITIONS", "Key Relay Positions in the Network",
-    "Lagrange point relays at ES-L4 and ES-L5 maintain connectivity during conjunction", ACCENT_ORANGE,
+    "Lagrange point relays at ES-L4 and ES-L5 maintain connectivity during conjunction", ACCENT_ORANGE, citations="[3] JPL Horizons (ES-L4/L5)  ·  [A2] topology.py"
 )
 
 # ── SLIDE 19 ── Optical Communications ────────────────────────────────────────
@@ -930,14 +933,14 @@ add_table(
     header_color=ACCENT_BLUE,
 )
 
-add_footer(slide, 13)
+add_footer(slide, 13, citations="[5] CCSDS 141.0-B-1 (optical link)  ·  [A4] AETHERIX link_budget.py  ·  [1] NASA MRO (6 Mbps RF baseline)")
 
 # --- SLIDE 20 — Chart: Data Rate vs Distance ---
 print("Creating Slide 20: Chart \u2014 Data Rate vs Distance...")
 add_chart_slide(
     os.path.join(CHARTS_DIR, "data_rate_vs_distance.png"),
     "DATA RATE VS DISTANCE", "Optical Link Performance",
-    "Data rate degrades with distance squared \u2014 200 Mbps at closest to 2 Mbps at farthest", ACCENT_BLUE,
+    "Data rate degrades with distance squared \u2014 200 Mbps at closest to 2 Mbps at farthest", ACCENT_BLUE, citations="[5] CCSDS 141.0-B-1  ·  [A4] link_budget.py  ·  design target",
 )
 
 # --- SLIDE 21 — Chart: Link Budget Breakdown ---
@@ -945,7 +948,7 @@ print("Creating Slide 21: Chart \u2014 Link Budget Breakdown...")
 add_chart_slide(
     os.path.join(CHARTS_DIR, "link_budget_breakdown.png"),
     "LINK BUDGET BREAKDOWN", "Optical Link Analysis",
-    "Free-space path loss is the dominant factor \u2014 over 350 dB at average distance", ACCENT_CYAN,
+    "Free-space path loss is the dominant factor \u2014 over 350 dB at average distance", ACCENT_CYAN, citations="[5] CCSDS 141.0-B-1  ·  [A4] AETHERIX link_budget.py"
 )
 
 # ── SLIDE 22 ── Earth-Mars Journey ────────────────────────────────────────────
@@ -987,17 +990,17 @@ add_table(
 
 add_stat_card(slide, Inches(0.2), Inches(4.4), Inches(2.35), Inches(1.1), "~13min", "End-to-end latency", ACCENT_BLUE)
 add_stat_card(slide, Inches(2.65), Inches(4.4), Inches(2.35), Inches(1.1), "<5%", "Protocol overhead", GREEN)
-add_stat_card(slide, Inches(5.1), Inches(4.4), Inches(2.35), Inches(1.1), "98.7%", "Delivery ratio", ACCENT_PURPLE)
+add_stat_card(slide, Inches(5.1), Inches(4.4), Inches(2.35), Inches(1.1), "Tgt >98%", "Delivery (goal)", ACCENT_PURPLE)
 add_stat_card(slide, Inches(7.55), Inches(4.4), Inches(2.35), Inches(1.1), "7 hops", "Store-and-forward", ACCENT_ORANGE)
 
-add_footer(slide, 14)
+add_footer(slide, 14, citations="[A2] topology.py (7-hop path)  ·  [3] JPL Horizons (light-time)  ·  delivery/throughput are design targets")
 
 # --- SLIDE 23 — Chart: Latency Comparison ---
 print("Creating Slide 23: Chart \u2014 Latency Comparison...")
 add_chart_slide(
     os.path.join(CHARTS_DIR, "latency_comparison.png"),
     "LATENCY COMPARISON", "Protocol Performance",
-    "DTN overhead adds less than 5% to the pure light-time delay", ACCENT_BLUE,
+    "DTN overhead adds less than 5% to the pure light-time delay", ACCENT_BLUE, citations="[9][10][11] IETF RFCs  ·  [12] RFC 4838  ·  [A3] run_simulation"
 )
 
 # --- SLIDE 24 — Chart: Data Volume ---
@@ -1005,7 +1008,7 @@ print("Creating Slide 24: Chart \u2014 Data Volume...")
 add_chart_slide(
     os.path.join(CHARTS_DIR, "data_volume.png"),
     "DATA VOLUME ANALYSIS", "Daily Throughput Comparison",
-    "AETHERIX delivers 10\u201320x more data per day than current systems", GREEN,
+    "AETHERIX delivers 10\u201320x more data per day than current systems", GREEN, citations="[A2] topology.py  ·  [1] NASA MRO baseline  ·  design targets"
 )
 
 # ── SLIDE 25 ── RL Routing ────────────────────────────────────────────────────
@@ -1058,18 +1061,18 @@ add_card(
     border=ACCENT_CYAN,
 )
 
-add_stat_card(slide, Inches(0.3), Inches(4.25), Inches(3.1), Inches(1.1), "+20\u201340%", "Faster delivery vs CGR", GREEN)
-add_stat_card(slide, Inches(3.55), Inches(4.25), Inches(3.1), Inches(1.1), "3600\u00d7", "Recovery speed", ACCENT_BLUE)
+add_stat_card(slide, Inches(0.3), Inches(4.25), Inches(3.1), Inches(1.1), "Tgt +20\u201340%", "vs CGR (goal)", GREEN)
+add_stat_card(slide, Inches(3.55), Inches(4.25), Inches(3.1), Inches(1.1), "Tgt 1000\u00d7", "Recovery (goal)", ACCENT_BLUE)
 add_stat_card(slide, Inches(6.8), Inches(4.25), Inches(3.1), Inches(1.1), "Federated", "Multi-agent learning", ACCENT_PURPLE)
 
-add_footer(slide, 15)
+add_footer(slide, 15, citations="[A1] rl_agent.py (reward fn, ε-decay 0.995)  ·  [A3] run_simulation Module 3 (training convergence 713/800)")
 
 # --- SLIDE 26 — Chart: RL Routing Heatmap ---
 print("Creating Slide 26: Chart \u2014 RL Routing Heatmap...")
 add_chart_slide(
     os.path.join(CHARTS_DIR, "rl_routing_heatmap.png"),
     "RL ROUTING HEATMAP", "Q-Value Distribution",
-    "Learned routing preferences across network nodes \u2014 brighter = higher Q-value", ACCENT_CYAN,
+    "Learned routing preferences across network nodes \u2014 brighter = higher Q-value", ACCENT_CYAN, citations="[A1] rl_agent.py (Q-table, ε-greedy)  ·  [A3] Module 3"
 )
 
 # --- SLIDE 27 — Chart: Energy Efficiency ---
@@ -1077,7 +1080,7 @@ print("Creating Slide 27: Chart \u2014 Energy Efficiency...")
 add_chart_slide(
     os.path.join(CHARTS_DIR, "energy_efficiency.png"),
     "ENERGY EFFICIENCY", "RL Agent Power Optimization",
-    "The reward function penalizes energy waste, optimizing for mission lifetime", ACCENT_PURPLE,
+    "The reward function penalizes energy waste, optimizing for mission lifetime", ACCENT_PURPLE, citations="[A1] rl_agent.py (energy penalty in reward fn)"
 )
 
 # ── SLIDE 28 ── Quantum Security ──────────────────────────────────────────────
@@ -1142,14 +1145,14 @@ add_table(
     header_color=ACCENT_PURPLE,
 )
 
-add_footer(slide, 16)
+add_footer(slide, 16, citations="[13] Bennett-Brassard 1984  ·  [14] Ekert 1991  ·  [15] Shor-Preskill 2000 (QBER<11%)  ·  [16][17] NIST FIPS 203/204  ·  [A5] qkd.py")
 
 # --- SLIDE 29 — Chart: QKD Security ---
 print("Creating Slide 29: Chart \u2014 QKD Security...")
 add_chart_slide(
     os.path.join(CHARTS_DIR, "qkd_security.png"),
     "QKD SECURITY ANALYSIS", "Quantum Bit Error Rate",
-    "QBER below 11% confirms secure key exchange \u2014 no eavesdropper detected", ACCENT_PURPLE,
+    "QBER below 11% confirms secure key exchange \u2014 no eavesdropper detected", ACCENT_PURPLE, citations="[13] Bennett-Brassard 1984  ·  [15] Shor-Preskill 2000 (QBER<11%)  ·  [A5] qkd.py"
 )
 
 # --- SLIDE 30 — Chart: QKD Key Rate ---
@@ -1157,7 +1160,7 @@ print("Creating Slide 30: Chart \u2014 QKD Key Rate...")
 add_chart_slide(
     os.path.join(CHARTS_DIR, "qkd_key_rate.png"),
     "QKD KEY GENERATION RATE", "Secure Key Rate vs Distance",
-    "Key rate decreases with channel loss \u2014 repeater chains extend operational range", ACCENT_CYAN,
+    "Key rate decreases with channel loss \u2014 repeater chains extend operational range", ACCENT_CYAN, citations="[13] BB84  ·  [14] Ekert 1991  ·  [A5] qkd.py + repeater_chain.py"
 )
 
 # ── SLIDE 31 ── Orbital Mechanics ─────────────────────────────────────────────
@@ -1209,14 +1212,14 @@ add_table(
     header_color=ACCENT_BLUE,
 )
 
-add_footer(slide, 17)
+add_footer(slide, 17, citations="[3] JPL Horizons (synodic 779.94 d, 54.6M–401M km)  ·  [A2] topology.py  ·  [A4] link_budget.py")
 
 # --- SLIDE 32 — Chart: Contact Windows ---
 print("Creating Slide 32: Chart \u2014 Contact Windows...")
 add_chart_slide(
     os.path.join(CHARTS_DIR, "contact_windows.png"),
     "CONTACT WINDOWS", "Communication Opportunity Prediction",
-    "Contact windows vary from 4 to 12 hours depending on orbital geometry", ACCENT_ORANGE,
+    "Contact windows vary from 4 to 12 hours depending on orbital geometry", ACCENT_ORANGE, citations="[3] JPL Horizons  ·  [A2] topology.py / contact_windows.py"
 )
 
 # ── SLIDE 33 ── Radiation-Hardened Computing ──────────────────────────────────
@@ -1273,7 +1276,7 @@ pn.text = ("Model: 512 Mbit, ~210-day GCR cruise. ~37,000 raw bit upsets reduced
            "~186 uncorrectable over the mission. Heritage: NASA RAD750 (Curiosity/"
            "Perseverance), ESA LEON3FT.  \u2192  src/computing/radiation.py")
 pn.font.size, pn.font.color.rgb = Pt(11), MED_GRAY
-add_footer(slide)
+add_footer(slide, citations="[A6] AETHERIX radiation.py (Module 6: 37,159 upsets, 200×/3,334×/2,127×)  ·  [18] BAE RAD750  ·  [19] ESA LEON3FT")
 
 # ── SLIDE 34 ── Mission-Critical Data Prioritization ──────────────────────────
 slide = new_slide()
@@ -1327,7 +1330,100 @@ pn.text = ("Scenario: 30 Mbps, 15-min contact, oversubscribed. Deadline-aware, "
            "6 GB software update fragmented to the next pass.  \u2192  "
            "src/routing/prioritization.py")
 pn.font.size, pn.font.color.rgb = Pt(11), MED_GRAY
-add_footer(slide)
+add_footer(slide, citations="[A7] AETHERIX prioritization.py  ·  [7] CCSDS 121.0-B-3  ·  [8] CCSDS 122.0-B-2  ·  [9] RFC 9171")
+
+# ── SLIDE ── Engineering Trade-offs ───────────────────────────────────────────
+slide = new_slide()
+set_slide_bg(slide, BG_DARK)
+add_slide_transition(slide, "fade")
+
+txBox = add_textbox(slide, Inches(0.6), Inches(0.3), Inches(11), Inches(0.6))
+p = txBox.text_frame.paragraphs[0]
+p.text = "ENGINEERING TRADE-OFFS"
+p.font.size, p.font.bold, p.font.color.rgb, p.alignment = Pt(30), True, WHITE, PP_ALIGN.LEFT
+
+txBox2 = add_textbox(slide, Inches(0.6), Inches(0.9), Inches(11), Inches(0.4))
+p2 = txBox2.text_frame.paragraphs[0]
+p2.text = "Every design choice is a trade-off \u2014 here are the four we made"
+p2.font.size, p2.font.color.rgb = Pt(15), ACCENT_ORANGE
+
+add_accent_line(slide, Inches(0.6), Inches(1.35), Inches(2.5), ACCENT_ORANGE)
+
+trade_data = [
+    ["Decision", "Chose", "Trade-off accepted"],
+    ["Optical vs RF", "1550 nm laser", "Needs clear line-of-sight; clouds block"],
+    ["DTN vs TCP", "Store-and-forward", "Storage + custody overhead (~5%)"],
+    ["RL vs CGR", "Q-learning adaptive", "Training time; exploration risk early on"],
+    ["QKD vs AES", "BB84/E91 + PQC", "Key rate drops with distance; HW complexity"],
+]
+add_table(slide, Inches(0.3), Inches(1.6), Inches(12.6), Inches(2.8),
+          len(trade_data), len(trade_data[0]), trade_data, header_color=ACCENT_ORANGE)
+
+trade_card = add_card(
+    slide, Inches(0.6), Inches(4.7), Inches(12.0), Inches(1.8),
+    title="Net result of the trade-offs",
+    body_lines=[
+        "\u2022 10\u2013100\u00d7 more data than RF-only systems  \u2192  worth the line-of-sight constraint",
+        "\u2022 <5% DTN overhead buys tolerance to 22-minute disruptions  \u2192  worth the storage cost",
+        "\u2022 RL adds autonomy (no human replanning)  \u2192  worth the convergence period",
+        "\u2022 QKD + PQC gives information-theoretic security  \u2192  worth the key-rate limit",
+    ],
+    title_color=ACCENT_ORANGE,
+)
+
+add_footer(slide, citations="[A4] link_budget.py (optical vs RF)  ·  [A1] rl_agent.py (RL vs CGR)  ·  [A5] qkd.py (QKD vs AES)")
+
+# ── SLIDE ── Failure Detection & Recovery ─────────────────────────────────────
+slide = new_slide()
+set_slide_bg(slide, BG_DARK)
+add_slide_transition(slide, "fade")
+
+txBox = add_textbox(slide, Inches(0.6), Inches(0.3), Inches(11), Inches(0.6))
+p = txBox.text_frame.paragraphs[0]
+p.text = "FAILURE DETECTION & RECOVERY"
+p.font.size, p.font.bold, p.font.color.rgb, p.alignment = Pt(30), True, WHITE, PP_ALIGN.LEFT
+
+txBox2 = add_textbox(slide, Inches(0.6), Inches(0.9), Inches(11), Inches(0.4))
+p2 = txBox2.text_frame.paragraphs[0]
+p2.text = "When links fail, the RL agent reroutes through Lagrange relays"
+p2.font.size, p2.font.color.rgb = Pt(15), ACCENT_CYAN
+
+add_accent_line(slide, Inches(0.6), Inches(1.35), Inches(2.5), ACCENT_CYAN)
+
+fail_data = [
+    ["Scenario", "Route", "Reward", "Outcome"],
+    ["Optical link OPEN", "Direct GEO \u2192 Areostation", "\u20131.438", "Baseline path"],
+    ["ES-L4/L5 OPEN", "Reroute via Lagrange relay", "\u20130.201", "7\u00d7 better"],
+    ["All links up", "RL optimal path", "+0.156", "Full throughput"],
+]
+add_table(slide, Inches(0.3), Inches(1.6), Inches(12.6), Inches(2.4),
+          len(fail_data), len(fail_data[0]), fail_data, header_color=ACCENT_CYAN)
+
+recovery_card = add_card(
+    slide, Inches(0.6), Inches(4.3), Inches(6.0), Inches(2.4),
+    title="How recovery works",
+    body_lines=[
+        "\u2022 RL agent detects link failure via Q-value collapse",
+        "\u2022 Explores alternate neighbours (ES-L4, ES-L5, LEO mesh)",
+        "\u2022 Converges on best alternate in <1 epoch",
+        "\u2022 Custody transfer guarantees no bundle loss",
+    ],
+    title_color=ACCENT_CYAN,
+)
+
+resilience_card = add_card(
+    slide, Inches(6.9), Inches(4.3), Inches(6.0), Inches(2.4),
+    title="Resilience metrics",
+    body_lines=[
+        "\u2022 Solar conjunction: 50\u201370% throughput via L4/L5 vs 0% blackout",
+        "\u2022 Node failure: <1 epoch rerouting (federated Q-table)",
+        "\u2022 Bundle loss: 0 (custody + LTP retransmission)",
+        "\u2022 Mean time to recover: dominated by light-time, not compute",
+    ],
+    title_color=ACCENT_CYAN,
+)
+
+add_footer(slide, citations="[A8] AETHERIX run_simulation Module 4 (\u20131.438 \u2192 \u20130.201 demonstrated)  ·  [A1] rl_agent.py  ·  [3] JPL Horizons (Lagrange geometry)")
 
 # ── SLIDE 35 ── End-to-End Mission ────────────────────────────────────────────
 
@@ -1375,7 +1471,7 @@ for i, hop in enumerate(hops):
 stats_18 = [
     ("~13 min", "End-to-End Latency", ACCENT_BLUE),
     ("<5%", "Packet Loss", GREEN),
-    ("98.7%", "Delivery Rate", ACCENT_PURPLE),
+    ("Tgt >98%", "Delivery (goal)", ACCENT_PURPLE),
     ("7 hops", "Network Path", ACCENT_ORANGE),
 ]
 stat_w = Inches(2.1)
@@ -1406,7 +1502,7 @@ p_fail_body.text = (
 )
 p_fail_body.font.size, p_fail_body.font.color.rgb = Pt(11), WHITE
 
-add_footer(slide, 18)
+add_footer(slide, 18, citations="[A2] topology.py  ·  [A3] run_simulation  ·  targets clearly labelled")
 
 # ── SLIDE 36 ── Data Flow Diagram (Text) ────────────────────────────────────────
 
@@ -1469,7 +1565,7 @@ for step_title, step_desc in right_steps:
     p_d.text = step_desc
     p_d.font.size, p_d.font.color.rgb = Pt(9), LIGHT_GRAY
 
-add_footer(slide, 19)
+add_footer(slide, 19, citations="[A2] topology.py (full data path Mars→Earth)")
 
 # ── SLIDE 37 ── Data Flow Visual ────────────────────────────────────────────────
 
@@ -1488,7 +1584,7 @@ add_image_safe(
     Inches(0.4), Inches(1.2), Inches(9.2), Inches(5.5),
 )
 
-add_footer(slide, 20)
+add_footer(slide, 20, citations="[A2] topology.py (full data path Mars→Earth)")
 
 # ── SLIDE 38 ── Performance ────────────────────────────────────────────────────
 
@@ -1510,11 +1606,10 @@ perf_data = [
     ["Metric", "Current (MRO)", "AETHERIX", "Improvement"],
     ["Downlink Rate", "0.5-6 Mbps", "2-200 Mbps", "10-100\u00d7"],
     ["Daily Volume", "5-10 GB", "50-100 GB", "10-20\u00d7"],
-    ["Availability", "60-75%", ">95%", "+20-35%"],
+    ["Availability", "60-75%", ">95% (tgt)", "+20-35%"],
     ["Routing", "Static (CGR)", "RL-adaptive", "Autonomous"],
     ["Security", "AES-256", "QKD + PQC", "Quantum-proof"],
     ["Scalability", "5-10 assets", "241 nodes", "24-48\u00d7"],
-    ["Cost per MB", "$0.10", "$0.01", "10\u00d7 cheaper"],
     ["Conjunction", "Blackout", "50-70% via L4/L5", "+50-70%"],
 ]
 add_table(
@@ -1522,14 +1617,14 @@ add_table(
     header_color=GREEN,
 )
 
-add_footer(slide, 21)
+add_footer(slide, 21, citations="[1] NASA MRO (0.5–6 Mbps)  ·  [A4] link_budget.py (2–200 Mbps capability)  ·  [A2] topology.py  ·  [A8] Module 4  ·  targets clearly labelled")
 
 # --- SLIDE 39 — Chart: Performance Comparison ---
 print("Creating Slide 39: Chart \u2014 Performance Comparison...")
 add_chart_slide(
     os.path.join(CHARTS_DIR, "performance_comparison.png"),
     "PERFORMANCE COMPARISON", "AETHERIX vs Current Systems",
-    "AETHERIX achieves 10-100x improvement across all key metrics", GREEN,
+    "AETHERIX achieves 10-100x improvement across all key metrics", GREEN, citations="[1] NASA MRO  ·  [A4] link_budget.py  ·  [A2] topology.py  ·  design targets"
 )
 
 # --- SLIDE 40 — Chart: Optical vs RF Radar ---
@@ -1537,7 +1632,7 @@ print("Creating Slide 40: Chart \u2014 Optical vs RF Radar...")
 add_chart_slide(
     os.path.join(CHARTS_DIR, "optical_vs_rf_radar.png"),
     "OPTICAL vs RF", "Link Technology Comparison",
-    "Optical links provide dramatically higher data rates, especially at shorter ranges", ACCENT_BLUE,
+    "Optical links provide dramatically higher data rates, especially at shorter ranges", ACCENT_BLUE, citations="[5] CCSDS 141.0-B-1 (optical)  ·  [1] NASA MRO (RF)  ·  [A4] link_budget.py"
 )
 
 # ── SLIDE 41 ── Implementation ──────────────────────────────────────────────────
@@ -1605,14 +1700,14 @@ std_tbl = add_table(
     header_color=ACCENT_BLUE,
 )
 
-add_footer(slide, 22)
+add_footer(slide, 22, citations="[9][10][11][12] IETF RFCs  ·  [2][5] CCSDS standards  ·  [A1]–[A8] AETHERIX modules")
 
 # --- SLIDE 42 — Chart: Bandwidth Evolution ---
 print("Creating Slide 42: Chart \u2014 Bandwidth Evolution...")
 add_chart_slide(
     os.path.join(CHARTS_DIR, "bandwidth_evolution.png"),
     "BANDWIDTH EVOLUTION", "Deep-Space Communications Timeline",
-    "Optical communications represent the next leap in deep-space data rates", ACCENT_CYAN,
+    "Optical communications represent the next leap in deep-space data rates", ACCENT_CYAN, citations="[1] NASA (historical)  ·  [4] NASA DSOC/Psyche 2023"
 )
 
 # --- SLIDE 43 — Chart: Mission Timeline ---
@@ -1620,7 +1715,7 @@ print("Creating Slide 43: Chart \u2014 Mission Timeline...")
 add_chart_slide(
     os.path.join(CHARTS_DIR, "mission_timeline.png"),
     "MISSION TIMELINE", "Deployment Roadmap",
-    "Phases 1-4 are complete \u2014 Phase 5 targets ns-3 integration", GREEN,
+    "Phases 1-4 are complete \u2014 Phase 5 targets ns-3 integration", GREEN, citations="[A1]–[A8] AETHERIX modules  ·  [4] NASA DSOC heritage"
 )
 
 # ── SLIDE 44 ── Roadmap ────────────────────────────────────────────────────────
@@ -1640,7 +1735,7 @@ p2.text = "From Demo to Deployment"
 p2.font.size, p2.font.color.rgb, p2.alignment = Pt(14), ACCENT_CYAN, PP_ALIGN.LEFT
 
 phases = [
-    ("Phase 1-4  \u2713 Complete", "Topology \u2022 RL \u2022 QKD \u2022 Web UI \u2022 189 tests", GREEN),
+    ("Phase 1-4  \u2713 Complete", "Topology \u2022 RL \u2022 QKD \u2022 Web UI \u2022 480 tests", GREEN),
     ("Phase 5  Network Sim", "ns-3 integration, realistic channel models", ACCENT_BLUE),
     ("Phase 6  Production", "DQN agent, ION-DTN stack, hardware-in-loop", ACCENT_PURPLE),
     ("Phase 7  Hardware", "SDR prototyping, optical ground station demo", ACCENT_ORANGE),
@@ -1667,7 +1762,7 @@ for idx, (title, desc, color) in enumerate(phases):
     p_ph2.text = desc
     p_ph2.font.size, p_ph2.font.color.rgb = Pt(9), LIGHT_GRAY
 
-add_footer(slide, 23)
+add_footer(slide, 23, citations="[A1]–[A8] AETHERIX source modules  ·  [4] NASA DSOC (Psyche) heritage  ·  DQN/ns-3/ION-DTN on production roadmap")
 
 # ── SLIDE 45 ── Conclusion ──────────────────────────────────────────────────────
 
@@ -1716,7 +1811,7 @@ p_built_b.font.size, p_built_b.font.color.rgb = Pt(12), WHITE
 
 conc_stats = [
     ("10-100\u00d7", "Data Rate", GREEN),
-    (">95%", "Availability", ACCENT_BLUE),
+    (">95%", "Availability (tgt)", ACCENT_BLUE),
     ("RL", "Adaptive Routing", ACCENT_PURPLE),
     ("QKD", "Quantum Security", ACCENT_ORANGE),
 ]
@@ -1729,7 +1824,7 @@ for idx, (val, label, color) in enumerate(conc_stats):
     sx = stat_x0_c + int((stat_w_c + stat_gap_c) * idx)
     add_stat_card(slide, sx, Inches(3.7), stat_w_c, stat_h_c, val, label, color)
 
-add_footer(slide, 24)
+add_footer(slide, 24, citations="[1] NASA  ·  [3] JPL Horizons  ·  [9][12] IETF  ·  [13][15] QKD  ·  [A1][A2][A4][A5][A8] AETHERIX")
 
 # ── SLIDE 46 ── Thank You ──────────────────────────────────────────────────────
 
@@ -1764,7 +1859,7 @@ p_q.font.size, p_q.font.bold, p_q.font.color.rgb, p_q.alignment = (
 
 ty_stats = [
     ("10-100\u00d7", "Data Rate", GREEN),
-    (">95%", "Availability", ACCENT_BLUE),
+    (">95%", "Availability (tgt)", ACCENT_BLUE),
     ("RL", "Adaptive Routing", ACCENT_PURPLE),
     ("QKD", "Quantum Security", ACCENT_ORANGE),
 ]
@@ -1799,6 +1894,112 @@ bottom_bar = add_shape(
     slide, Inches(0), SLIDE_HEIGHT - Inches(0.08), SLIDE_WIDTH, Inches(0.08), shape_type=MSO_SHAPE.RECTANGLE,
     fill_color=ACCENT_BLUE,
 )
+
+# ── SLIDE ── References (Industry / Scientific) ───────────────────────────────
+slide = new_slide()
+set_slide_bg(slide, BG_DARK)
+add_slide_transition(slide, "fade")
+
+txBox = add_textbox(slide, Inches(0.6), Inches(0.3), Inches(11), Inches(0.6))
+p = txBox.text_frame.paragraphs[0]
+p.text = "REFERENCES \u2014 INDUSTRY & SCIENTIFIC"
+p.font.size, p.font.bold, p.font.color.rgb, p.alignment = Pt(28), True, WHITE, PP_ALIGN.LEFT
+
+txBox2 = add_textbox(slide, Inches(0.6), Inches(0.85), Inches(11), Inches(0.4))
+p2 = txBox2.text_frame.paragraphs[0]
+p2.text = "Standards, NASA mission data, and peer-reviewed protocols"
+p2.font.size, p2.font.color.rgb = Pt(14), ACCENT_CYAN
+
+add_accent_line(slide, Inches(0.6), Inches(1.25), Inches(2.5), ACCENT_CYAN)
+
+refs_industry_left = [
+    "[1]  NASA Mars Relay Network / MRO Ka-band (0.5\u20136 Mbps)",
+    "[2]  CCSDS 734.2-B-1 \u2014 Bundle Protocol Spec",
+    "[3]  JPL Horizons ephemeris (Earth\u2013Mars geometry)",
+    "[4]  NASA DSOC / Psyche (2023 optical demo)",
+    "[5]  CCSDS 141.0-B-1 \u2014 Optical Communications",
+    "[6]  IETF RFC 9171 \u2014 Bundle Protocol v7",
+    "[7]  CCSDS 121.0-B-3 \u2014 Lossless Data Compression",
+    "[8]  CCSDS 122.0-B-2 \u2014 Image Data Compression",
+    "[9]  IETF RFC 9171 \u2014 BPv7 (primary reference)",
+    "[10] IETF RFC 5326 \u2014 Licklider Transmission Protocol",
+]
+refs_industry_right = [
+    "[11] IETF RFC 7242 \u2014 TCP Convergence Layer",
+    "[12] IETF RFC 4838 \u2014 DTN Architecture",
+    "[13] Bennett & Brassard, 1984 \u2014 BB84 QKD protocol",
+    "[14] Ekert, 1991 \u2014 E91 entanglement-based QKD",
+    "[15] Shor & Preskill, 2000 \u2014 QBER < 11% security proof",
+    "[16] NIST FIPS 203 \u2014 ML-KEM (post-quantum)",
+    "[17] NIST FIPS 204 \u2014 ML-DSA (post-quantum signatures)",
+    "[18] BAE Systems RAD750 \u2014 radiation-hardened CPU",
+    "[19] ESA / Cobham LEON3FT \u2014 fault-tolerant processor",
+    "[20] NASA TMR / SEU mitigation heritage (Voyager\u2013Perseverance)",
+]
+
+left_box = add_textbox(slide, Inches(0.5), Inches(1.5), Inches(6.3), Inches(5.0))
+tf_l = left_box.text_frame
+tf_l.word_wrap = True
+for i, ref in enumerate(refs_industry_left):
+    para = tf_l.paragraphs[0] if i == 0 else tf_l.add_paragraph()
+    para.text = ref
+    para.font.size, para.font.color.rgb = Pt(11), WHITE
+    para.space_after = Pt(6)
+
+right_box = add_textbox(slide, Inches(7.0), Inches(1.5), Inches(6.3), Inches(5.0))
+tf_r = right_box.text_frame
+tf_r.word_wrap = True
+for i, ref in enumerate(refs_industry_right):
+    para = tf_r.paragraphs[0] if i == 0 else tf_r.add_paragraph()
+    para.text = ref
+    para.font.size, para.font.color.rgb = Pt(11), WHITE
+    para.space_after = Pt(6)
+
+add_footer(slide, citations="Industry & scientific references [1]\u2013[20]")
+
+# ── SLIDE ── References (Project Source Code) ─────────────────────────────────
+slide = new_slide()
+set_slide_bg(slide, BG_DARK)
+add_slide_transition(slide, "fade")
+
+txBox = add_textbox(slide, Inches(0.6), Inches(0.3), Inches(11), Inches(0.6))
+p = txBox.text_frame.paragraphs[0]
+p.text = "REFERENCES \u2014 PROJECT SOURCE"
+p.font.size, p.font.bold, p.font.color.rgb, p.alignment = Pt(28), True, WHITE, PP_ALIGN.LEFT
+
+txBox2 = add_textbox(slide, Inches(0.6), Inches(0.85), Inches(11), Inches(0.4))
+p2 = txBox2.text_frame.paragraphs[0]
+p2.text = "Every demonstrated number traces to a verifiable Python module"
+p2.font.size, p2.font.color.rgb = Pt(14), ACCENT_ORANGE
+
+add_accent_line(slide, Inches(0.6), Inches(1.25), Inches(2.5), ACCENT_ORANGE)
+
+refs_proj = [
+    "[A1] src/routing/rl_agent.py \u2014 Q-learning agent, \u03b5-greedy, reward function",
+    "[A2] src/orbital/topology.py \u2014 5-tier network (241 nodes), BFS routing, Lagrange relays",
+    "[A3] src/simulation/run_simulation.py \u2014 7-module integration test (training, delivery, rewards)",
+    "[A4] src/infrastructure/link_budget.py \u2014 optical link analysis, 2\u2013200 Mbps, 1550 nm",
+    "[A5] src/security/qkd.py \u2014 BB84, E91, quantum repeater, QBER detection",
+    "[A6] src/computing/radiation.py \u2014 SEU/TID model, TMR, ECC, scrubbing (37,159 upsets)",
+    "[A7] src/routing/prioritization.py \u2014 deadline-aware QoS scheduler, BPv7 priority classes",
+    "[A8] src/simulation/run_simulation.py Module 4 \u2014 failure/recovery rewards (\u20131.438 / \u20130.201)",
+]
+
+proj_box = add_textbox(slide, Inches(0.6), Inches(1.6), Inches(12.5), Inches(4.5))
+tf_p = proj_box.text_frame
+tf_p.word_wrap = True
+for i, ref in enumerate(refs_proj):
+    para = tf_p.paragraphs[0] if i == 0 else tf_p.add_paragraph()
+    para.text = ref
+    para.font.size, para.font.color.rgb = Pt(13), WHITE
+    para.space_after = Pt(10)
+
+repo_box = add_textbox(slide, Inches(0.6), Inches(6.0), Inches(12.5), Inches(0.5))
+p_repo = repo_box.text_frame.paragraphs[0]
+p_repo.text = "All source: github.com/matx104/AETHERIX  |  Live demos: matx104.github.io/AETHERIX"
+p_repo.font.size, p_repo.font.color.rgb, p_repo.alignment = Pt(12), MED_GRAY, PP_ALIGN.CENTER
+
+add_footer(slide, citations="Project references [A1]\u2013[A8]  \u00b7  github.com/matx104/AETHERIX")
 
 # ── SAVE BLOCK ─────────────────────────────────────────────────────────────────
 

@@ -224,7 +224,7 @@
 
 **Say:**
 
-"This is real, working code. 27 Python modules, 189 tests, 12 interactive demos. All the physics is real — no mocked data. The showcase site has live calculators you can use right now. Standards compliance is complete — CCSDS, IETF, and NIST. We reference seven CCSDS Blue Books and four IETF RFCs."
+"This is real, working code. 27 Python modules, 480 tests, 12 interactive demos. All the physics is real — no mocked data. The showcase site has live calculators you can use right now. Standards compliance is complete — CCSDS, IETF, and NIST. We reference seven CCSDS Blue Books and four IETF RFCs."
 
 ---
 

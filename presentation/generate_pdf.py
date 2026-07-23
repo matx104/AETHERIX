@@ -60,15 +60,19 @@ def draw_bottom_bar(c, color=ACCENT_BLUE):
     c.rect(0, 0, PAGE_W, 6, fill=1, stroke=0)
 
 
-TOTAL_SLIDES = 47
+TOTAL_SLIDES = 50
 # Auto-incrementing page counter (title page is page 1 and carries no footer);
 # inserting pages never requires renumbering the call sites.
 _footer_counter = [1]
 
 
-def draw_footer(c, num=None, total=None):
+def draw_footer(c, num=None, total=None, citations=None):
     _footer_counter[0] += 1
     n = _footer_counter[0]
+    if citations:
+        c.setFont("Helvetica-Oblique", 7)
+        c.setFillColor(MED_GRAY)
+        c.drawString(30, 32, citations)
     c.setFont("Helvetica", 8)
     c.setFillColor(MED_GRAY)
     c.drawString(30, 18, "AETHERIX \u2014 Interplanetary Communication Network")
@@ -175,7 +179,7 @@ _SPEAKER_NOTES = {
     36: "End-to-end bundle journey through all protocol layers.",
     37: "Visual data flow through the protocol stack.",
     38: "Hit these numbers with confidence. 10-100x faster. >95% availability vs 60-75%. Quantum-secure. 241 nodes vs 5-10 assets. The conjunction improvement is thanks to Lagrange relays. All metrics are backed by our simulation engine. (1 minute)",
-    41: "This is real, working code. 27 Python modules, 189 tests, 12 interactive demos. All the physics is real - no mocked data. The showcase site has live calculators you can use right now. Standards compliance is complete - CCSDS, IETF, and NIST. (1.5 minutes)",
+    41: "This is real, working code. 27 Python modules, 480 tests, 12 interactive demos. All the physics is real - no mocked data. The showcase site has live calculators you can use right now. Standards compliance is complete - CCSDS, IETF, and NIST. (1.5 minutes)",
     42: "Phases 1-4 are done - this is what you see today. Phase 5: ns-3 simulation for realistic network modeling. Phase 6: Upgrade to DQN and integrate with NASA's ION-DTN implementation. Phase 7: Hardware prototypes with SDRs and optical links. (1.5 minutes)",
     45: "Summarize the problem and solution clearly. Re-read the exam topic verbatim. Point to the numbers. Offer to show live demos or answer questions. Thank the examiners. (1 minute)",
     46: "Summarize the four key numbers: 10-100x faster, >95% availability, AI-powered routing, quantum-secure. Invite questions confidently. Make eye contact. Point to the live demo link. Thank the audience. (30 seconds)",
@@ -217,7 +221,7 @@ def _draw_speaker_notes(c, text):
     c.restoreState()
 
 
-def draw_chart_page(c, chart_file, title, subtitle, caption, accent_color=ACCENT_BLUE, notes=None):
+def draw_chart_page(c, chart_file, title, subtitle, caption, accent_color=ACCENT_BLUE, notes=None, citations=None):
     draw_bg(c)
     draw_text(c, title, 40, PAGE_H - 50, size=22, color=WHITE, bold=True)
     if subtitle:
@@ -229,7 +233,7 @@ def draw_chart_page(c, chart_file, title, subtitle, caption, accent_color=ACCENT
         draw_text(c, caption, 40, 70, size=9, color=MED_GRAY)
     if notes:
         _SPEAKER_NOTES[_footer_counter[0] + 1] = notes
-    draw_footer(c)
+    draw_footer(c, citations=citations)
     c.showPage()
 
 
@@ -249,7 +253,7 @@ draw_text(c, "Building an Interplanetary Communication Network with DTN,", PAGE_
 draw_text(c, "Quantum Communication, and Space-Based Infrastructure for Mars Mission Support", PAGE_W / 2, PAGE_H - 250, size=13, color=LIGHT_GRAY, align="center")
 draw_accent_line(c, PAGE_W / 2 - 150, PAGE_H - 275, 300, ACCENT_BLUE, 2)
 draw_text(c, "Muhammad Abdullah Tariq", PAGE_W / 2, PAGE_H - 310, size=18, color=WHITE, bold=True, align="center")
-draw_text(c, "EduQual Level 6 Diploma in AI Operations  |  Topic 59  |  January 2026", PAGE_W / 2, PAGE_H - 335, size=12, color=MED_GRAY, align="center")
+draw_text(c, "EduQual Level 6 Diploma in AI Operations  |  Topic 59  |  September 2026", PAGE_W / 2, PAGE_H - 335, size=12, color=MED_GRAY, align="center")
 draw_text(c, "matx104.github.io/AETHERIX  |  github.com/matx104/AETHERIX", PAGE_W / 2, PAGE_H - 390, size=11, color=ACCENT_BLUE, align="center")
 _draw_speaker_notes(c, _SPEAKER_NOTES[1])
 c.showPage()
@@ -289,7 +293,7 @@ for i, (num, title, desc, color) in enumerate(agenda):
     draw_text(c, f"{num}  {title}", cx + 15, cy + 10, size=13, color=color, bold=True)
     draw_text(c, desc, cx + 15, cy - 10, size=10, color=MED_GRAY)
 
-draw_footer(c, 2)
+draw_footer(c, 2, citations="[A2] topology.py (241 nodes)  \u00b7  References slides at end of deck")
 c.showPage()
 
 
@@ -332,14 +336,14 @@ draw_card(c, 40, PAGE_H - 380, 820, 80, ACCENT_CYAN)
 draw_text(c, "AETHERIX delivers a complete interplanetary networking solution", 55, PAGE_H - 325, size=12, color=ACCENT_CYAN, bold=True)
 draw_text(c, "combining DTN protocols, AI-driven routing, quantum-secure keys, and hybrid optical/RF links for Mars mission support.", 55, PAGE_H - 345, size=10, color=LIGHT_GRAY)
 
-stats = [("10-100\u00d7", "Faster", ACCENT_BLUE), (">95%", "Availability", GREEN), ("241", "Nodes", ACCENT_ORANGE), ("189", "Tests", ACCENT_PURPLE)]
+stats = [("10-100\u00d7", "Faster", ACCENT_BLUE), (">95%", "Availability (target)", GREEN), ("241", "Nodes [A2]", ACCENT_ORANGE), ("480", "Tests", ACCENT_PURPLE)]
 for i, (val, label, color) in enumerate(stats):
     x = 40 + 210 * i
     draw_card(c, x, 60, 195, 55, color)
     draw_text(c, val, x + 97, 95, size=18, color=color, bold=True, align="center")
     draw_text(c, label, x + 97, 72, size=10, color=LIGHT_GRAY, align="center")
 
-draw_footer(c, 3)
+draw_footer(c, 3, citations="[1] NASA MRN 2024  \u00b7  [3] JPL Horizons  \u00b7  [12] RFC 4838  \u00b7  [A2] topology.py")
 c.showPage()
 
 
@@ -375,16 +379,18 @@ draw_text(c, '"At aphelion, a single ping-pong takes 44 minutes.', 475, PAGE_H -
 draw_text(c, 'No TCP session can survive that. We need an entirely', 475, PAGE_H - 412, size=11, color=ACCENT_ORANGE)
 draw_text(c, 'different networking paradigm."', 475, PAGE_H - 429, size=11, color=ACCENT_ORANGE)
 
-draw_footer(c, 4)
+draw_footer(c, 4, citations="[3] JPL Horizons (distance/light-time)  \u00b7  [12] RFC 4838  \u00b7  [1] NASA MRO data rate")
 c.showPage()
 
 print("Creating Chart Page: Distance Over Time...")
 draw_chart_page(c, "distance_over_time.png", "EARTH-MARS DISTANCE OVER TIME", "780-Day Synodic Period", "Distance varies 7\u00d7 from 54.6M to 401M km \u00b7 Solar conjunction causes ~14-day blackout every 26 months", ACCENT_ORANGE,
-    "The distance chart shows the fundamental challenge: a 7x variation over the synodic period. At opposition, 55 million km. At conjunction, over 400 million km with the Sun blocking direct communication.")
+    "The distance chart shows the fundamental challenge: a 7x variation over the synodic period. At opposition, 55 million km. At conjunction, over 400 million km with the Sun blocking direct communication.",
+    citations="[3] JPL Horizons (distance/light-time)  \u00b7  [12] RFC 4838  \u00b7  [1] NASA MRO data rate")
 
 print("Creating Chart Page: Light-Time Delay...")
 draw_chart_page(c, "light_time_delay.png", "ONE-WAY LIGHT-TIME DELAY", "3\u201322 Minutes Depending on Distance", "Light-time delay drives every protocol design decision in AETHERIX", ACCENT_ORANGE,
-    "Light-time delay ranges from 3 minutes at closest approach to 22 minutes at maximum distance. TCP/IP expects sub-second round trips — this is why we need DTN.")
+    "Light-time delay ranges from 3 minutes at closest approach to 22 minutes at maximum distance. TCP/IP expects sub-second round trips — this is why we need DTN.",
+    citations="[3] JPL Horizons (distance/light-time)  \u00b7  [12] RFC 4838  \u00b7  [1] NASA MRO data rate")
 
 
 # ================================================================
@@ -426,7 +432,7 @@ draw_text(c, "the next node accepts custody \u2014 enabling communication even w
 
 draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "dtn_store_and_forward.png"), 40, 50, w=820)
 
-draw_footer(c, 5)
+draw_footer(c, 5, citations="[9] RFC 9171 BPv7  \u00b7  [10] RFC 5326 LTP  \u00b7  [11] RFC 7242 TCPCL  \u00b7  [12] RFC 4838")
 c.showPage()
 
 
@@ -464,7 +470,7 @@ draw_table(c, arch_data, 40, PAGE_H - 370, [100, 120, 120, 150], ACCENT_BLUE)
 
 draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "protocol_stack.png"), 480, PAGE_H - 350, w=360)
 
-draw_footer(c, 6)
+draw_footer(c, 6, citations="[A1] rl_agent.py  \u00b7  [A2] topology.py  \u00b7  [A3] simulator.py  \u00b7  [A4] link_budget.py  \u00b7  [A5] qkd.py")
 c.showPage()
 
 
@@ -478,7 +484,7 @@ draw_accent_line(c, 40, PAGE_H - 62, 200, ACCENT_BLUE)
 
 draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "system_architecture.png"), 40, 30, w=PAGE_W - 80, h=PAGE_H - 110)
 
-draw_footer(c, 7)
+draw_footer(c, 7, citations="[A2] AETHERIX topology.py  \u00b7  github.com/matx104/AETHERIX")
 c.showPage()
 
 
@@ -536,12 +542,13 @@ pri_data = [
 ]
 draw_table(c, pri_data, 40, PAGE_H - 420, [60, 80, 80, 120], ACCENT_BLUE)
 
-draw_footer(c, 8)
+draw_footer(c, 8, citations="[9] RFC 9171  \u00b7  [2] CCSDS 734.2-B-1  \u00b7  [10] RFC 5326 LTP  \u00b7  [11] RFC 7242 TCPCL  \u00b7  [12] RFC 4838")
 c.showPage()
 
 print("Creating Chart Page: Bundle Priority Classes...")
 draw_chart_page(c, "bundle_priority_classes.png", "BUNDLE PRIORITY CLASSES", "Bandwidth Allocation Across Priority Levels", "P0 Emergency through P4 Bulk \u00b7 Deadline-aware scheduling \u00b7 Preemption for critical traffic", ACCENT_BLUE,
-    "Priority class distribution showing how bandwidth is allocated. Emergency traffic preempts everything. The deadline-aware scheduler ensures no bandwidth is wasted.")
+    "Priority class distribution showing how bandwidth is allocated. Emergency traffic preempts everything. The deadline-aware scheduler ensures no bandwidth is wasted.",
+    citations="[9] RFC 9171  \u00b7  [2] CCSDS 734.2-B-1  \u00b7  [10] RFC 5326 LTP  \u00b7  [11] RFC 7242 TCPCL  \u00b7  [12] RFC 4838")
 
 
 # ================================================================
@@ -592,7 +599,7 @@ for i, (name, full, desc, col) in enumerate(cl_cards):
 
 draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "dtn_store_and_forward.png"), 40, 40, w=820)
 
-draw_footer(c, 9)
+draw_footer(c, 9, citations="[9] RFC 9171  \u00b7  [10] RFC 5326  \u00b7  [11] RFC 7242")
 c.showPage()
 
 
@@ -626,12 +633,13 @@ draw_text(c, "DESIGN PHILOSOPHY", 55, PAGE_H - 385, size=12, color=ACCENT_CYAN, 
 draw_text(c, "Multiple redundant paths at every tier ensure no single point of failure. Lagrange point relays provide coverage", 55, PAGE_H - 402, size=10, color=LIGHT_GRAY)
 draw_text(c, "during solar conjunction blackouts. Quantum repeaters co-located at L4/L5 enable end-to-end key distribution.", 55, PAGE_H - 418, size=10, color=LIGHT_GRAY)
 
-draw_footer(c, 10)
+draw_footer(c, 10, citations="[A2] AETHERIX topology.py (241 nodes, 5 tiers)  \u00b7  [1] NASA Deep Space Network")
 c.showPage()
 
 print("Creating Chart Page: Network Tier Distribution...")
 draw_chart_page(c, "network_tier_distribution.png", "NODE DISTRIBUTION ACROSS 5 TIERS", "241 Nodes Total", "Mars Surface (167) is the largest tier \u00b7 Deep Space (4) provides critical Lagrange relay coverage", GREEN,
-    "The tier distribution shows where the 241 nodes sit. Mars Surface dominates with 167 nodes. The 4 deep space nodes at Lagrange points are few but critical for conjunction survival.")
+    "The tier distribution shows where the 241 nodes sit. Mars Surface dominates with 167 nodes. The 4 deep space nodes at Lagrange points are few but critical for conjunction survival.",
+    citations="[A2] AETHERIX topology.py (241 nodes, 5 tiers)  \u00b7  [1] NASA Deep Space Network")
 
 
 # ================================================================
@@ -665,7 +673,7 @@ draw_table(c, link_data, 40, PAGE_H - 280, [130, 100, 100, 80, 80], GREEN)
 
 draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "network_topology.png"), 40, 40, w=820)
 
-draw_footer(c, 11)
+draw_footer(c, 11, citations="[A2] topology.py  \u00b7  [3] JPL Horizons (Lagrange ES-L4/L5 geometry)")
 c.showPage()
 
 
@@ -680,7 +688,7 @@ draw_accent_line(c, 40, PAGE_H - 85, 200, GREEN)
 
 draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "5tier_network.png"), 40, 30, w=PAGE_W - 80, h=PAGE_H - 110)
 
-draw_footer(c, 12)
+draw_footer(c, 12, citations="[A2] topology.py  \u00b7  [3] JPL Horizons (Lagrange ES-L4/L5 geometry)")
 c.showPage()
 
 
@@ -724,16 +732,18 @@ config_data = [
 ]
 draw_table(c, config_data, 40, PAGE_H - 310, [100, 100, 140], ACCENT_ORANGE)
 
-draw_footer(c, 13)
+draw_footer(c, 13, citations="[5] CCSDS 141.0-B-1 (optical link)  \u00b7  [A4] AETHERIX link_budget.py  \u00b7  [1] NASA MRO (6 Mbps RF baseline)")
 c.showPage()
 
 print("Creating Chart Page: Data Rate vs Distance...")
 draw_chart_page(c, "data_rate_vs_distance.png", "DATA RATE VS DISTANCE", "1550 nm Optical Link Performance", "200 Mbps at closest approach to 2 Mbps at maximum distance \u00b7 10\u2013100\u00d7 improvement over RF", ACCENT_ORANGE,
-    "Data rate degrades from 200 Mbps at closest approach to 2 Mbps at maximum distance — but even minimum is competitive with current RF systems.")
+    "Data rate degrades from 200 Mbps at closest approach to 2 Mbps at maximum distance — but even minimum is competitive with current RF systems.",
+    citations="[5] CCSDS 141.0-B-1 (optical link)  \u00b7  [A4] AETHERIX link_budget.py  \u00b7  [1] NASA MRO (6 Mbps RF baseline)")
 
 print("Creating Chart Page: Link Budget Breakdown...")
 draw_chart_page(c, "link_budget_breakdown.png", "OPTICAL LINK BUDGET BREAKDOWN", "Where the Decibels Go", "FSPL dominates at \u2212280 to \u2212310 dB \u00b7 Optical aperture gain recovers >100 dB", ACCENT_ORANGE,
-    "Link budget breakdown showing where the decibels go — free-space path loss is the dominant factor, compensated by high-gain optical apertures.")
+    "Link budget breakdown showing where the decibels go — free-space path loss is the dominant factor, compensated by high-gain optical apertures.",
+    citations="[5] CCSDS 141.0-B-1 (optical link)  \u00b7  [A4] AETHERIX link_budget.py  \u00b7  [1] NASA MRO (6 Mbps RF baseline)")
 
 
 # ================================================================
@@ -758,10 +768,10 @@ journey_data = [
 draw_table(c, journey_data, 40, PAGE_H - 100, [40, 110, 110, 90, 70], ACCENT_ORANGE)
 
 metric_cards = [
-    ("~13 min", "Total Transfer", GREEN),
-    ("98.7%", "Delivery Ratio", ACCENT_BLUE),
-    ("15 Mbps", "Throughput", ACCENT_CYAN),
-    ("7 hops", "Path Length", ACCENT_ORANGE),
+    ("~13 min", "Total Transfer [3]", GREEN),
+    ("98.7%", "Delivery (target)", ACCENT_BLUE),
+    ("15 Mbps", "Throughput (target)", ACCENT_CYAN),
+    ("7 hops", "Path Length [A2]", ACCENT_ORANGE),
 ]
 for i, (val, label, col) in enumerate(metric_cards):
     x = 40 + 220 * i
@@ -771,16 +781,18 @@ for i, (val, label, col) in enumerate(metric_cards):
 
 draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "earth_mars_journey.png"), 40, 50, w=820)
 
-draw_footer(c, 14)
+draw_footer(c, 14, citations="[A2] topology.py (7-hop path)  \u00b7  [3] JPL Horizons (light-time)  \u00b7  delivery/throughput are design targets")
 c.showPage()
 
 print("Creating Chart Page: Latency Comparison...")
 draw_chart_page(c, "latency_comparison.png", "LATENCY: TCP vs DTN vs AETHERIX", "Protocol Overhead Comparison", "DTN adds <5% overhead beyond physical light-time \u00b7 TCP fails catastrophically at interplanetary distances", ACCENT_BLUE,
-    "Latency comparison showing TCP failing catastrophically, while DTN adds under 5% overhead beyond the physical light-time limit.")
+    "Latency comparison showing TCP failing catastrophically, while DTN adds under 5% overhead beyond the physical light-time limit.",
+    citations="[A2] topology.py (7-hop path)  \u00b7  [3] JPL Horizons (light-time)  \u00b7  delivery/throughput are design targets")
 
 print("Creating Chart Page: Data Volume...")
 draw_chart_page(c, "data_volume.png", "DAILY DATA VOLUME COMPARISON", "AETHERIX vs Current Systems", "10\u201320\u00d7 daily data volume improvement over current Mars missions", GREEN,
-    "AETHERIX delivers 10 to 20 times more data per day than current Mars missions.")
+    "AETHERIX delivers 10 to 20 times more data per day than current Mars missions.",
+    citations="[A2] topology.py (7-hop path)  \u00b7  [3] JPL Horizons (light-time)  \u00b7  delivery/throughput are design targets")
 
 
 # ================================================================
@@ -819,7 +831,7 @@ for i, line in enumerate(rl_lines):
 result_cards = [
     ("97%", "Delivery Ratio", "+5% vs CGR", GREEN),
     ("-20%", "Delivery Time", "1.2\u00d7 light-time", ACCENT_CYAN),
-    ("3600\u00d7", "Recovery Speed", "Auto vs manual", ACCENT_ORANGE),
+    ("seconds", "Recovery vs hours", "Auto vs manual [A1]", ACCENT_ORANGE),
 ]
 for i, (val, title, desc, col) in enumerate(result_cards):
     x = 40 + 280 * i
@@ -828,16 +840,18 @@ for i, (val, title, desc, col) in enumerate(result_cards):
     draw_text(c, title, x + 15, PAGE_H - 308, size=12, color=WHITE, bold=True)
     draw_text(c, desc, x + 15, PAGE_H - 325, size=9, color=MED_GRAY)
 
-draw_footer(c, 15)
+draw_footer(c, 15, citations="[A1] rl_agent.py (reward fn, \u03b5-decay 0.995)  \u00b7  [A3] run_simulation Module 3 (training convergence 713/800)")
 c.showPage()
 
 print("Creating Chart Page: RL Routing Heatmap...")
 draw_chart_page(c, "rl_routing_heatmap.png", "RL ROUTING Q-VALUE HEATMAP", "Convergence of Optimal Routing Decisions", "Warm colors = high-value actions \u00b7 Cool colors = poor choices the agent avoids", ACCENT_CYAN,
-    "The Q-value heatmap shows how the RL agent converges on optimal routing decisions. Warm colors represent high-value routes the agent has learned work best.")
+    "The Q-value heatmap shows how the RL agent converges on optimal routing decisions. Warm colors represent high-value routes the agent has learned work best.",
+    citations="[A1] rl_agent.py (reward fn, \u03b5-decay 0.995)  \u00b7  [A3] run_simulation Module 3 (training convergence 713/800)")
 
 print("Creating Chart Page: Energy Efficiency...")
 draw_chart_page(c, "energy_efficiency.png", "ENERGY EFFICIENCY PER BIT", "Optical vs RF Energy Consumption", "Optical links use significantly less energy per bit than RF", GREEN,
-    "Energy efficiency comparison showing optical links use significantly less energy per transmitted bit than RF alternatives.")
+    "Energy efficiency comparison showing optical links use significantly less energy per transmitted bit than RF alternatives.",
+    citations="[A1] rl_agent.py (reward fn, \u03b5-decay 0.995)  \u00b7  [A3] run_simulation Module 3 (training convergence 713/800)")
 
 
 # ================================================================
@@ -852,10 +866,10 @@ draw_accent_line(c, 40, PAGE_H - 85, 180, ACCENT_PURPLE)
 draw_card(c, 40, PAGE_H - 250, 420, 150, ACCENT_CYAN)
 draw_text(c, "BB84 PROTOCOL STEPS", 55, PAGE_H - 115, size=12, color=ACCENT_CYAN, bold=True)
 bb84_steps = [
-    "1. Alice sends qubits in random bases (rectilinear/diagonal)",
+    "1. Alice sends qubits in random bases (rectilinear/diagonal) [13]",
     "2. Bob measures each qubit in random basis",
     "3. Public reconciliation of basis choices (~50% retained)",
-    "4. QBER estimation: < 11% = SECURE, \u2265 11% = ABORT",
+    "4. QBER estimation: < 11% = SECURE [15], \u2265 11% = ABORT",
     "5. CASCADE error reconciliation",
     "6. Privacy amplification via universal hashing",
     "7. Final shared secret key",
@@ -873,20 +887,22 @@ draw_table(c, deploy_data, 480, PAGE_H - 100, [70, 120, 100, 80], ACCENT_PURPLE)
 
 draw_card(c, 480, PAGE_H - 300, 380, 100, GREEN)
 draw_text(c, "POST-QUANTUM CRYPTO (PQC)", 495, PAGE_H - 215, size=11, color=GREEN, bold=True)
-draw_text(c, "Kyber (ML-KEM) \u2014 Key encapsulation", 495, PAGE_H - 238, size=10, color=LIGHT_GRAY)
-draw_text(c, "Dilithium (ML-DSA) \u2014 Digital signatures", 495, PAGE_H - 255, size=10, color=LIGHT_GRAY)
+draw_text(c, "Kyber (ML-KEM, FIPS 203) \u2014 Key encapsulation [16]", 495, PAGE_H - 238, size=10, color=LIGHT_GRAY)
+draw_text(c, "Dilithium (ML-DSA, FIPS 204) \u2014 Digital signatures [17]", 495, PAGE_H - 255, size=10, color=LIGHT_GRAY)
 draw_text(c, "Hybrid: QKD + PQC for defense in depth", 495, PAGE_H - 272, size=9, color=MED_GRAY)
 
-draw_footer(c, 16)
+draw_footer(c, 16, citations="[13] Bennett-Brassard 1984  \u00b7  [14] Ekert 1991  \u00b7  [15] Shor-Preskill 2000 (QBER<11%)  \u00b7  [16][17] NIST FIPS 203/204  \u00b7  [A5] qkd.py")
 c.showPage()
 
 print("Creating Chart Page: QKD Security...")
 draw_chart_page(c, "qkd_security.png", "QKD SECURITY ANALYSIS", "QBER vs Eavesdropper Detection", "QBER < 11% threshold ensures security \u00b7 Any eavesdropping attempt is detected", ACCENT_PURPLE,
-    "QBER analysis showing the security threshold. Below 11% QBER, no eavesdropper can have intercepted the key without detection.")
+    "QBER analysis showing the security threshold. Below 11% QBER, no eavesdropper can have intercepted the key without detection.",
+    citations="[13] Bennett-Brassard 1984  \u00b7  [14] Ekert 1991  \u00b7  [15] Shor-Preskill 2000 (QBER<11%)  \u00b7  [16][17] NIST FIPS 203/204  \u00b7  [A5] qkd.py")
 
 print("Creating Chart Page: QKD Key Rate...")
 draw_chart_page(c, "qkd_key_rate.png", "KEY GENERATION RATE VS DISTANCE", "Quantum Key Distribution Performance", "Key rates decrease with distance \u00b7 Quantum repeaters extend practical range", ACCENT_PURPLE,
-    "Key generation rates decrease with distance, which is why we deploy quantum repeaters at Lagrange points to extend range.")
+    "Key generation rates decrease with distance, which is why we deploy quantum repeaters at Lagrange points to extend range.",
+    citations="[13] Bennett-Brassard 1984  \u00b7  [14] Ekert 1991  \u00b7  [15] Shor-Preskill 2000 (QBER<11%)  \u00b7  [16][17] NIST FIPS 203/204  \u00b7  [A5] qkd.py")
 
 
 # ================================================================
@@ -919,20 +935,23 @@ windows_data = [
 ]
 draw_table(c, windows_data, 340, PAGE_H - 100, [130, 80, 80, 120], ACCENT_ORANGE)
 
-draw_footer(c, 17)
+draw_footer(c, 17, citations="[3] JPL Horizons (synodic 779.94 d, 54.6M\u2013401M km)  \u00b7  [A2] topology.py  \u00b7  [A4] link_budget.py")
 c.showPage()
 
 print("Creating Chart Page: DSN Coverage...")
 draw_chart_page(c, "dsn_coverage.png", "DEEP SPACE NETWORK COVERAGE", "24/7 Global Antenna Coverage", "Goldstone, Madrid, Canberra \u00b7 120\u00b0 spacing for continuous coverage", ACCENT_BLUE,
-    "DSN coverage showing three stations spaced 120 degrees apart for continuous coverage of any deep space asset.")
+    "DSN coverage showing three stations spaced 120 degrees apart for continuous coverage of any deep space asset.",
+    citations="[3] JPL Horizons (synodic 779.94 d, 54.6M\u2013401M km)  \u00b7  [A2] topology.py  \u00b7  [A4] link_budget.py")
 
 print("Creating Chart Page: Orbital Positions...")
 draw_chart_page(c, "orbital_positions.png", "ORBITAL POSITIONS OVER SYNODIC PERIOD", "Earth and Mars Relative Motion", "Orbital positions determine link quality windows and contact scheduling", ACCENT_BLUE,
-    "Orbital positions over the synodic period showing how Earth and Mars move relative to each other.")
+    "Orbital positions over the synodic period showing how Earth and Mars move relative to each other.",
+    citations="[3] JPL Horizons (synodic 779.94 d, 54.6M\u2013401M km)  \u00b7  [A2] topology.py  \u00b7  [A4] link_budget.py")
 
 print("Creating Chart Page: Contact Windows...")
 draw_chart_page(c, "contact_windows.png", "CONTACT WINDOW AVAILABILITY", "Communication Windows Over Synodic Period", "8\u201312 hrs/day at opposition \u00b7 Solar conjunction blackout \u00b7 Lagrange relays provide backup", ACCENT_BLUE,
-    "Contact window availability over the full synodic period. Notice the solar conjunction gap where direct communication drops to zero.")
+    "Contact window availability over the full synodic period. Notice the solar conjunction gap where direct communication drops to zero.",
+    citations="[3] JPL Horizons (synodic 779.94 d, 54.6M\u2013401M km)  \u00b7  [A2] topology.py  \u00b7  [A4] link_budget.py")
 
 
 # ================================================================
@@ -977,7 +996,7 @@ for i, (val, lab, col) in enumerate(rad_stats):
 
 draw_multiline(c, "Model: 512 Mbit, ~210-day GCR cruise. ~37,000 raw bit upsets reduced to ~186 uncorrectable\nover the mission. Heritage: NASA RAD750 (Curiosity/Perseverance), ESA LEON3FT.  ->  src/computing/radiation.py",
                40, 95, size=9, color=MED_GRAY, leading=13)
-draw_footer(c, 18)
+draw_footer(c, 18, citations="[A6] AETHERIX radiation.py (demonstrated Module 6)  \u00b7  [18] BAE RAD750  \u00b7  [19] ESA LEON3FT")
 c.showPage()
 
 
@@ -1021,7 +1040,7 @@ for i, (val, lab, col) in enumerate(pri_stats):
 
 draw_multiline(c, "Scenario: 30 Mbps, 15-min contact, oversubscribed. Deadline-aware, preemptive QoS scheduler\ndelivers emergency + mission + science first; 6 GB software update fragmented to the next pass.  ->  src/routing/prioritization.py",
                40, 95, size=9, color=MED_GRAY, leading=13)
-draw_footer(c, 19)
+draw_footer(c, 19, citations="[A7] AETHERIX prioritization.py  \u00b7  [7] CCSDS 121.0-B-3  \u00b7  [8] CCSDS 122.0-B-2  \u00b7  [9] RFC 9171")
 c.showPage()
 
 
@@ -1066,7 +1085,7 @@ draw_text(c, "\u2022  Delay: ~30 minutes additional  \u2022  Data: NOT LOST \u20
 
 draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "earth_mars_journey.png"), 40, 40, w=820)
 
-draw_footer(c, 18)
+draw_footer(c, 18, citations="[A2] topology.py  \u00b7  [A3] run_simulation  \u00b7  targets clearly labelled")
 c.showPage()
 
 
@@ -1107,7 +1126,7 @@ for i, (step, desc, col) in enumerate(phy_steps):
 
 draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "dtn_store_and_forward.png"), 40, 40, w=820)
 
-draw_footer(c, 19)
+draw_footer(c, 19, citations="[A2] topology.py  \u00b7  [3] JPL Horizons (Lagrange ES-L4/L5 geometry)")
 c.showPage()
 
 
@@ -1122,7 +1141,7 @@ draw_accent_line(c, 40, PAGE_H - 85, 200, ACCENT_CYAN)
 
 draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "data_flow.png"), 40, 30, w=PAGE_W - 80, h=PAGE_H - 110)
 
-draw_footer(c, 20)
+draw_footer(c, 20, citations="[A2] topology.py  \u00b7  [3] JPL Horizons (Lagrange ES-L4/L5 geometry)")
 c.showPage()
 
 
@@ -1136,28 +1155,109 @@ draw_text(c, "Head-to-Head Performance Comparison", 40, PAGE_H - 75, size=14, co
 draw_accent_line(c, 40, PAGE_H - 85, 180, GREEN)
 
 comp_data = [
-    ["Metric", "Current (MRO)", "AETHERIX", "Improvement"],
-    ["Downlink rate", "0.5\u20136 Mbps", "2\u2013200 Mbps", "10\u2013100\u00d7"],
-    ["Daily volume", "5\u201310 GB", "50\u2013100 GB", "10\u201320\u00d7"],
-    ["Availability", "60\u201375%", ">95%", "+20\u201335%"],
-    ["Routing", "Static (CGR)", "RL-adaptive", "+20\u201340%"],
-    ["Security", "AES-256", "QKD + PQC", "Future-proof"],
-    ["Scalability", "5\u201310 assets", "241 nodes", "10\u2013100\u00d7"],
-    ["Conjunction", "Blackout", "50\u201370% via L4/L5", "+50\u201370%"],
-    ["Recovery time", "Manual (hours)", "Auto (seconds)", "3600\u00d7"],
+    ["Metric", "Current (MRO) [1]", "AETHERIX [A4]", "Note"],
+    ["Downlink rate", "0.5\u20136 Mbps", "2\u2013200 Mbps", "10\u2013100\u00d7 capability"],
+    ["Daily volume", "5\u201310 GB", "50\u2013100 GB", "Est. (link-driven)"],
+    ["Availability", "60\u201375%", ">95%", "Design target"],
+    ["Routing", "Static (CGR)", "RL-adaptive", "Adaptive [A1]"],
+    ["Security", "AES-256", "QKD + PQC", "Future-proof [16][17]"],
+    ["Scalability", "5\u201310 assets", "241 nodes", "10\u2013100\u00d7 [A2]"],
+    ["Conjunction", "Blackout", "50\u201370% via L4/L5", "+50\u201370% [A8]"],
+    ["Recovery time", "Manual (hours)", "Auto (seconds)", "Auto [A1]"],
 ]
 draw_table(c, comp_data, 40, PAGE_H - 100, [100, 100, 120, 110], GREEN)
 
-draw_footer(c, 21)
+draw_footer(c, 21, citations="[1] NASA MRO (0.5\u20136 Mbps)  \u00b7  [A4] link_budget.py (2\u2013200 Mbps capability)  \u00b7  [A2] topology.py  \u00b7  [A8] Module 4 conjunction")
 c.showPage()
 
 print("Creating Chart Page: Performance Comparison...")
 draw_chart_page(c, "performance_comparison.png", "AETHERIX vs CURRENT SYSTEMS", "Head-to-Head Performance Metrics", "10\u2013100\u00d7 improvement across all metrics", GREEN,
-    "Head-to-head comparison showing AETHERIX outperforming current systems across every metric.")
+    "Head-to-head comparison showing AETHERIX outperforming current systems across every metric.",
+    citations="[1] NASA MRO (0.5\u20136 Mbps)  \u00b7  [A4] link_budget.py (2\u2013200 Mbps capability)  \u00b7  [A2] topology.py  \u00b7  [A8] Module 4 conjunction")
 
 print("Creating Chart Page: Optical vs RF Radar...")
 draw_chart_page(c, "optical_vs_rf_radar.png", "OPTICAL vs RF CAPABILITY RADAR", "Why Hybrid Optical/RF Wins", "Optical dominates bandwidth \u00b7 RF provides reliability in adverse conditions", GREEN,
-    "Radar chart showing why we chose optical as primary with RF backup — optical dominates bandwidth and efficiency, while RF provides reliability.")
+    "Radar chart showing why we chose optical as primary with RF backup — optical dominates bandwidth and efficiency, while RF provides reliability.",
+    citations="[1] NASA MRO (0.5\u20136 Mbps)  \u00b7  [A4] link_budget.py (2\u2013200 Mbps capability)  \u00b7  [A2] topology.py  \u00b7  [A8] Module 4 conjunction")
+
+
+# ================================================================
+# PAGE — Trade-off Analysis
+# ================================================================
+print("Creating slide: Trade-off Analysis...")
+draw_bg(c)
+draw_text(c, "TRADE-OFF ANALYSIS \u2014 WHY THESE CHOICES", 40, PAGE_H - 50, size=24, color=WHITE, bold=True)
+draw_text(c, "Every Decision Traded Performance for Auditability & Reproducibility", 40, PAGE_H - 75, size=13, color=ACCENT_CYAN)
+draw_accent_line(c, 40, PAGE_H - 85, 180, ACCENT_CYAN)
+
+trade_data = [
+    ["Decision", "Choice", "Rationale (vs alternative)"],
+    ["Optical vs RF", "Hybrid 1550 nm + Ka-band fallback [4]", "10\u2013100\u00d7 throughput [A4]; RF survives clouds & corona"],
+    ["Routing", "Custom Q-learning, not ION-DTN CGR [A1]", "Adapts to live state; CGR re-plans on stale schedule"],
+    ["RL model", "Q-tables now, DQN later (Phase 6)", "Every Q-value human-auditable; trains in seconds"],
+    ["State space", "Discretised, 241 nodes [A2]", "Right-sized for tabular policy; DQN path documented"],
+    ["Reward weights", "\u03b1=1.0, \u03b4=10.0, \u03b5-decay 0.995 [A1]", "Drop penalty 10\u00d7 delivery to forbid bundle loss"],
+]
+draw_table(c, trade_data, 40, PAGE_H - 105, [110, 250, 320], ACCENT_CYAN)
+
+draw_card(c, 40, PAGE_H - 320, 820, 70, GREEN)
+draw_text(c, "BOTTOM LINE", 55, PAGE_H - 270, size=12, color=GREEN, bold=True)
+draw_text(c, "Each choice sacrifices maximum theoretical performance for auditability and reproducibility \u2014 exactly what a defence", 55, PAGE_H - 290, size=10, color=LIGHT_GRAY)
+draw_text(c, "and a research artefact require. DQN / ns-3 / ION-DTN are the documented production transition (Phases 7\u20139).", 55, PAGE_H - 306, size=10, color=LIGHT_GRAY)
+draw_text(c, "DSOC heritage: NASA flew optical + RF side-by-side on Psyche [4] \u2014 AETHERIX mirrors that hybrid model.", 40, PAGE_H - 360, size=10, color=ACCENT_ORANGE, bold=True)
+
+draw_footer(c, citations="[A1] rl_agent.py / training.py  \u00b7  [A4] link_budget.py  \u00b7  [4] NASA DSOC (Psyche)  \u00b7  [A2] topology.py")
+c.showPage()
+
+
+# ================================================================
+# PAGE — Failure & Recovery
+# ================================================================
+print("Creating slide: Failure & Recovery...")
+draw_bg(c)
+draw_text(c, "FAILURE & RECOVERY", 40, PAGE_H - 50, size=28, color=WHITE, bold=True)
+draw_text(c, "Autonomous Solar-Conjunction Link-Blackout Survival", 40, PAGE_H - 75, size=14, color=ACCENT_RED)
+draw_accent_line(c, 40, PAGE_H - 85, 180, ACCENT_RED)
+draw_text(c, "SCENARIO: Earth\u2013Sun\u2013Mars conjunction \u2014 corona collapses the 1550 nm link below the 0.3 forward threshold [A1]", 40, PAGE_H - 108, size=10, color=LIGHT_GRAY)
+
+path_data = [
+    ["Path", "Band", "Link Quality", "Status", "Reward [A8]"],
+    ["Direct Mars \u2192 Earth", "1550 nm optical", "0.05", "CLOSED", "\u22121.438"],
+    ["Mars \u2192 ES-L4 \u2192 Earth", "Ka-band RF", "0.65", "OPEN", "\u22120.201"],
+    ["Mars \u2192 ES-L5 \u2192 Earth", "Ka-band RF", "0.60", "OPEN", "\u22120.201"],
+]
+draw_table(c, path_data, 40, PAGE_H - 130, [170, 110, 90, 70, 80], ACCENT_RED)
+
+draw_card(c, 40, PAGE_H - 300, 410, 150, ACCENT_CYAN)
+draw_text(c, "HOW AETHERIX RECOVERS (automatically)", 55, PAGE_H - 165, size=11, color=ACCENT_CYAN, bold=True)
+rec_lines = [
+    "1. Detect \u2014 optical Q-value collapses (q<0.3 \u2192 no reward)",
+    "2. Re-route \u2014 agent picks highest-Q: ES-L4",
+    "   (Ka-band RF, 60\u00b0 solar elongation, avoids corona)",
+    "3. Prioritise \u2014 policy engine fires two rules:",
+    "   P0 EMERGENCY \u2192 forward on best (Ka-band) link",
+    "   P4 BULK \u2192 store locally, defer past conjunction",
+]
+for i, line in enumerate(rec_lines):
+    draw_text(c, line, 55, PAGE_H - 188 - 17 * i, size=9, color=LIGHT_GRAY)
+
+draw_card(c, 480, PAGE_H - 300, 380, 150, ACCENT_PURPLE)
+draw_text(c, "WHY LAGRANGE RELAYS [3][A2]", 495, PAGE_H - 165, size=11, color=ACCENT_PURPLE, bold=True)
+lag_lines = [
+    "ES-L4 / ES-L5 sit 60\u00b0 ahead/behind Earth in its orbit.",
+    "They keep line-of-sight to Mars around the solar limb",
+    "even at true conjunction.",
+    "Direct Earth\u2013Mars link: 0% availability at conjunction.",
+    "Via ES-L4/L5: 50\u201370% availability retained [A8].",
+    "Geometry is Earth-side \u2014 no Mars relay solves this.",
+]
+for i, line in enumerate(lag_lines):
+    draw_text(c, line, 495, PAGE_H - 188 - 16 * i, size=9, color=LIGHT_GRAY)
+
+draw_text(c, "Outcome: throughput drops (optical\u2192RF) but no mission-critical data lost. Run live: python run_simulation.py --module 4", 40, PAGE_H - 360, size=10, color=GREEN, bold=True)
+
+draw_footer(c, citations="[A8] run_simulation Module 4 (\u22121.438 / \u22120.201)  \u00b7  [A1] rl_agent.py (0.3 threshold)  \u00b7  [3] JPL Horizons (Lagrange)  \u00b7  [A2] topology.py")
+c.showPage()
 
 
 # ================================================================
@@ -1166,12 +1266,12 @@ draw_chart_page(c, "optical_vs_rf_radar.png", "OPTICAL vs RF CAPABILITY RADAR", 
 print("Creating Page 22: Implementation...")
 draw_bg(c)
 draw_text(c, "IMPLEMENTATION", 40, PAGE_H - 50, size=28, color=WHITE, bold=True)
-draw_text(c, "27 Modules, 189 Tests, Full Python Stack", 40, PAGE_H - 75, size=14, color=ACCENT_BLUE)
+draw_text(c, "27 Modules, 480 Tests, Full Python Stack", 40, PAGE_H - 75, size=14, color=ACCENT_BLUE)
 draw_accent_line(c, 40, PAGE_H - 85, 180, ACCENT_BLUE)
 
 impl_cards = [
     ("27", "Source Modules", ACCENT_BLUE),
-    ("189", "Unit Tests", GREEN),
+    ("480", "Unit Tests", GREEN),
     ("241", "Network Nodes", ACCENT_ORANGE),
     ("12", "Interactive Demos", ACCENT_PURPLE),
 ]
@@ -1210,7 +1310,7 @@ std_data = [
 ]
 draw_table(c, std_data, 480, PAGE_H - 210, [100, 140, 70], ACCENT_BLUE)
 
-draw_footer(c, 22)
+draw_footer(c, 22, citations="[9][10][11][12] IETF RFCs  \u00b7  [2][5] CCSDS standards  \u00b7  [A1]\u2013[A8] AETHERIX modules")
 c.showPage()
 
 
@@ -1246,16 +1346,18 @@ future_data = [
 ]
 draw_table(c, future_data, 480, PAGE_H - 100, [50, 100, 130, 70], ACCENT_ORANGE)
 
-draw_footer(c, 23)
+draw_footer(c, 23, citations="[A1]\u2013[A8] AETHERIX source modules  \u00b7  [4] NASA DSOC (Psyche) heritage  \u00b7  DQN/ns-3/ION-DTN on production roadmap")
 c.showPage()
 
 print("Creating Chart Page: Bandwidth Evolution...")
 draw_chart_page(c, "bandwidth_evolution.png", "BANDWIDTH EVOLUTION", "Past, Present, AETHERIX", "From Mariner 8.3 bps to AETHERIX 200 Mbps \u00b7 30 million times improvement", ACCENT_CYAN,
-    "Bandwidth evolution from Mariner at 8.3 bps to MRO at 6 Mbps to AETHERIX targeting 200 Mbps — a 30 million times improvement.")
+    "Bandwidth evolution from Mariner at 8.3 bps to MRO at 6 Mbps to AETHERIX targeting 200 Mbps — a 30 million times improvement.",
+    citations="[1] NASA MRO (6 Mbps)  \u00b7  [A4] AETHERIX link_budget.py (200 Mbps capability)")
 
 print("Creating Chart Page: Mission Timeline...")
 draw_chart_page(c, "mission_timeline.png", "MISSION TIMELINE & MILESTONES", "Development Roadmap", "Phases 1\u20134 complete \u00b7 Phases 5\u20137 planned for production deployment", ACCENT_CYAN,
-    "Mission timeline showing development milestones from proof-of-concept to production deployment.")
+    "Mission timeline showing development milestones from proof-of-concept to production deployment.",
+    citations="[A1]\u2013[A8] AETHERIX modules  \u00b7  [4] NASA DSOC heritage")
 
 
 # ================================================================
@@ -1270,11 +1372,11 @@ draw_accent_line(c, 40, PAGE_H - 85, 180, GREEN)
 draw_card(c, 40, PAGE_H - 230, 400, 130, ACCENT_RED)
 draw_text(c, "THE PROBLEM", 55, PAGE_H - 115, size=14, color=ACCENT_RED, bold=True)
 problem_lines = [
-    "\u2022  54.6\u2013401M km Earth-Mars distance",
-    "\u2022  3\u201322 min one-way light delay",
-    "\u2022  TCP/IP fundamentally broken in space",
-    "\u2022  Current: only 0.5\u20136 Mbps",
-    "\u2022  2-week solar conjunction blackouts",
+    "\u2022  54.6\u2013401M km Earth-Mars distance [3]",
+    "\u2022  3\u201322 min one-way light delay [3]",
+    "\u2022  TCP/IP fundamentally broken in space [12]",
+    "\u2022  Current RF: only 0.5\u20136 Mbps [1]",
+    "\u2022  2-week solar conjunction blackouts [3]",
 ]
 for i, line in enumerate(problem_lines):
     draw_text(c, line, 55, PAGE_H - 140 - 17 * i, size=10, color=LIGHT_GRAY)
@@ -1282,20 +1384,20 @@ for i, line in enumerate(problem_lines):
 draw_card(c, 460, PAGE_H - 230, 400, 130, GREEN)
 draw_text(c, "THE SOLUTION", 475, PAGE_H - 115, size=14, color=GREEN, bold=True)
 solution_lines = [
-    "\u2022  BPv7 DTN: store-and-forward works",
-    "\u2022  RL routing: 20\u201340% faster delivery",
-    "\u2022  Optical: 10\u2013100\u00d7 data rate increase",
-    "\u2022  QKD: future-proof quantum security",
-    "\u2022  Lagrange relays: conjunction coverage",
+    "\u2022  BPv7 DTN: store-and-forward works [9]",
+    "\u2022  RL routing: adaptive, auditable policy [A1]",
+    "\u2022  Optical: 10\u2013100\u00d7 data-rate capability [A4]",
+    "\u2022  QKD: future-proof quantum security [13][15]",
+    "\u2022  Lagrange relays: conjunction coverage [A8]",
 ]
 for i, line in enumerate(solution_lines):
     draw_text(c, line, 475, PAGE_H - 140 - 17 * i, size=10, color=LIGHT_GRAY)
 
 stat_cards = [
-    ("10\u2013100\u00d7", "Faster Rates", ACCENT_BLUE),
-    (">95%", "Availability", GREEN),
-    ("AI-Driven", "Routing", ACCENT_CYAN),
-    ("Quantum", "Security", ACCENT_PURPLE),
+    ("10\u2013100\u00d7", "Faster Rates [A4]", ACCENT_BLUE),
+    (">95%", "Availability (target)", GREEN),
+    ("AI-Driven", "Routing [A1]", ACCENT_CYAN),
+    ("Quantum", "Security [13][15]", ACCENT_PURPLE),
 ]
 for i, (val, label, col) in enumerate(stat_cards):
     x = 40 + 210 * i
@@ -1304,10 +1406,93 @@ for i, (val, label, col) in enumerate(stat_cards):
     draw_text(c, label, x + 100, PAGE_H - 362, size=12, color=WHITE, bold=True, align="center")
 
 draw_text(c, "NOVEL CONTRIBUTIONS", 40, PAGE_H - 430, size=13, color=ACCENT_CYAN, bold=True)
-contrib = "RL autonomous routing (20-40% faster) | 5-tier DTN (>95% availability) | Optical/RF hybrid (10-100\u00d7) | Quantum links (future-proof) | Full simulation (189 tests)"
+contrib = "RL autonomous routing (auditable Q-table) [A1] | 5-tier DTN (241 nodes) [A2] | Optical/RF hybrid (10-100x capability) [A4] | Quantum links (future-proof) [A5] | Full simulation (480 tests)"
 draw_text(c, contrib, 40, PAGE_H - 450, size=10, color=LIGHT_GRAY)
 
-draw_footer(c, 24)
+draw_footer(c, 24, citations="[1] NASA  \u00b7  [3] JPL Horizons  \u00b7  [9][12] IETF  \u00b7  [13][15] QKD  \u00b7  [A1][A2][A4][A5][A8] AETHERIX")
+c.showPage()
+
+
+# ================================================================
+# PAGE — References (Industry & Scientific Sources)
+# ================================================================
+print("Creating slide: References (Industry)...")
+draw_bg(c)
+draw_text(c, "REFERENCES", 40, PAGE_H - 50, size=26, color=WHITE, bold=True)
+draw_text(c, "Industry & Scientific Sources [1]\u2013[20]  \u00b7  Three-layer attribution: [N] industry \u00b7 [AN] this project", 40, PAGE_H - 73, size=11, color=ACCENT_CYAN)
+draw_accent_line(c, 40, PAGE_H - 83, 180, ACCENT_CYAN)
+
+refs_left = [
+    "[1] NASA JPL, \u201cMars Relay Network User's Guide,\u201d 2024. jpl.nasa.gov/marsrelay",
+    "[2] CCSDS, \u201cBundle Protocol Spec.,\u201d 734.2-B-1, 2021. public.ccsds.org",
+    "[3] JPL Horizons, \u201cEarth\u2013Mars Ephemeris,\u201d 2025. ssd.jpl.nasa.gov/horizons",
+    "[4] NASA, \u201cDeep Space Optical Comm. (DSOC),\u201d Psyche, 2024.",
+    "[5] CCSDS, \u201cOptical Comm. Coding & Sync.,\u201d 141.0-B-1, 2019. public.ccsds.org",
+    "[6] CCSDS, \u201cTM Space Data Link Protocol,\u201d 131.0-B-3, 2017. public.ccsds.org",
+    "[7] CCSDS, \u201cLossless Data Compression,\u201d 121.0-B-3, 2020. public.ccsds.org",
+    "[8] CCSDS, \u201cImage Data Compression,\u201d 122.0-B-2, 2017. public.ccsds.org",
+    "[9] IETF, \u201cBundle Protocol Version 7,\u201d RFC 9171, 2022. rfc-editor.org/rfc/rfc9171",
+    "[10] IETF, \u201cLicklider Transmission Protocol,\u201d RFC 5326, 2008. rfc-editor.org/rfc/rfc5326",
+]
+refs_right = [
+    "[11] IETF, \u201cDTN TCP Convergence Layer,\u201d RFC 7242, 2014. rfc-editor.org/rfc/rfc7242",
+    "[12] IETF, \u201cDelay-Tolerant Networking Architecture,\u201d RFC 4838, 2007.",
+    "[13] Bennett & Brassard, \u201cQuantum Cryptography,\u201d Proc. IEEE ICC, 1984.",
+    "[14] Ekert, \u201cQuantum Cryptography Based on Bell's Theorem,\u201d PRL 67, 661, 1991.",
+    "[15] Shor & Preskill, \u201cSimple Proof of Security of BB84,\u201d PRL 85, 441, 2000.",
+    "[16] NIST, \u201cModule-Lattice-Based KEM,\u201d FIPS 203, 2024. csrc.nist.gov/pubs/fips/203",
+    "[17] NIST, \u201cModule-Lattice-Based Digital Signature,\u201d FIPS 204, 2024.",
+    "[18] BAE Systems, \u201cRAD750 Radiation-Hardened PowerPC,\u201d 2024. baesystems.com/rad750",
+    "[19] ESA/Gaisler, \u201cLEON3FT Processor,\u201d 2023. gaisler.com/products/processors/leon3ft",
+    "[20] IETF, RFC 4838 \u00a73.1, 2007 (long delay, intermittent connectivity challenges).",
+]
+for i, ref in enumerate(refs_left):
+    draw_text(c, ref, 40, PAGE_H - 110 - 34 * i, size=8, color=LIGHT_GRAY)
+for i, ref in enumerate(refs_right):
+    draw_text(c, ref, 440, PAGE_H - 110 - 34 * i, size=8, color=LIGHT_GRAY)
+
+draw_footer(c, citations="Full URLs on project site: github.com/matx104/AETHERIX  \u00b7  next slide: project sources [A1]\u2013[A8]")
+c.showPage()
+
+
+# ================================================================
+# PAGE — References (Project Sources [A1]-[A8])
+# ================================================================
+print("Creating slide: References (Project)...")
+draw_bg(c)
+draw_text(c, "REFERENCES (cont.)", 40, PAGE_H - 50, size=26, color=WHITE, bold=True)
+draw_text(c, "Project Sources [A1]\u2013[A8]  \u00b7  M. A. Tariq, AETHERIX, github.com/matx104/AETHERIX (2025)", 40, PAGE_H - 73, size=11, color=ACCENT_CYAN)
+draw_accent_line(c, 40, PAGE_H - 83, 180, ACCENT_CYAN)
+
+proj_left = [
+    "[A1] RL Routing Agent \u2014 src/routing/rl_agent.py",
+    "[A2] Network Topology \u2014 src/orbital/topology.py",
+    "[A3] End-to-End Simulation \u2014 run_simulation.py Module 3 (RL training)",
+    "[A4] Optical Link Budget Calculator \u2014 src/infrastructure/link_budget.py",
+]
+proj_right = [
+    "[A5] QKD Protocol Implementation \u2014 src/security/qkd.py",
+    "[A6] Radiation Hardening Model \u2014 src/computing/radiation.py",
+    "[A7] Data Prioritization Engine \u2014 src/routing/prioritization.py",
+    "[A8] Failure & Recovery Simulation \u2014 run_simulation.py Module 4 (conjunction)",
+]
+for i, ref in enumerate(proj_left):
+    draw_text(c, ref, 40, PAGE_H - 115 - 24 * i, size=9, color=LIGHT_GRAY)
+for i, ref in enumerate(proj_right):
+    draw_text(c, ref, 440, PAGE_H - 115 - 24 * i, size=9, color=LIGHT_GRAY)
+
+draw_card(c, 40, PAGE_H - 290, 820, 120, ACCENT_PURPLE)
+draw_text(c, "THREE-LAYER ATTRIBUTION (resolves the prior citation gap)", 55, PAGE_H - 190, size=12, color=ACCENT_PURPLE, bold=True)
+attr_lines = [
+    "Layer A \u2014 Industry/Scientific baseline [1]\u2013[20]: someone else's data (e.g. NASA MRO 0.5\u20136 Mbps [1]).",
+    "Layer B \u2014 This project's design decision [A1]\u2013[A8]: cite the code (e.g. RL agent src/routing/rl_agent.py [A1]).",
+    "Layer C \u2014 Demonstrated simulation results [A6][A8]: cite the specific run (e.g. radiation 200\u00d7 \u2014 Module 6 [A6]).",
+    "Design targets (>95% availability, 2\u2013200 Mbps capability) are labelled as such, never presented as measured results.",
+]
+for i, line in enumerate(attr_lines):
+    draw_text(c, line, 55, PAGE_H - 213 - 17 * i, size=9, color=LIGHT_GRAY)
+
+draw_footer(c, citations="All results reproducible: python run_simulation.py  \u00b7  480 tests: python -m pytest tests/ -q  \u00b7  matx104.github.io/AETHERIX")
 c.showPage()
 
 
@@ -1325,9 +1510,9 @@ draw_text(c, "Questions?", PAGE_W / 2, PAGE_H - 175, size=28, color=ACCENT_CYAN,
 
 stat_cards = [
     ("10\u2013100\u00d7", "Faster", ACCENT_BLUE),
-    (">95%", "Available", GREEN),
+    (">95%", "Available (target)", GREEN),
     ("241", "Nodes", ACCENT_ORANGE),
-    ("189", "Tests", ACCENT_PURPLE),
+    ("480", "Tests", ACCENT_PURPLE),
 ]
 for i, (val, label, col) in enumerate(stat_cards):
     x = PAGE_W / 2 - 440 + 220 * i
@@ -1342,7 +1527,7 @@ draw_card(c, PAGE_W / 2 - 200, 60, 400, 110, ACCENT_CYAN)
 draw_text(c, "LIVE DEMO & RESOURCES", PAGE_W / 2, 148, size=13, color=ACCENT_CYAN, bold=True, align="center")
 draw_text(c, "matx104.github.io/AETHERIX \u2014 Interactive simulations", PAGE_W / 2, 125, size=11, color=LIGHT_GRAY, align="center")
 draw_text(c, "github.com/matx104/AETHERIX \u2014 Source code + documentation", PAGE_W / 2, 105, size=11, color=LIGHT_GRAY, align="center")
-draw_text(c, "EduQual Level 6 Diploma in AI Operations | Topic 59 | January 2026", PAGE_W / 2, 82, size=9, color=MED_GRAY, align="center")
+draw_text(c, "EduQual Level 6 Diploma in AI Operations | Topic 59 | September 2026", PAGE_W / 2, 82, size=9, color=MED_GRAY, align="center")
 
 _draw_speaker_notes(c, _SPEAKER_NOTES[27])
 c.showPage()

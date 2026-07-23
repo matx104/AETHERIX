@@ -66,3 +66,7 @@ docker-compose.override.yml
 
 # Build artifacts
 backend/__pycache__/
+
+# Private exam-strategy material — NEVER push (repo is PUBLIC and the
+# examiner inspects it). See curriculum/exam_analysis/EXAM_SUBMISSION_GUIDELINES.md
+#curriculum/exam_analysis/EXAM_SUBMISSION_GUIDELINES.md
