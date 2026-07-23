@@ -1647,7 +1647,7 @@ window.App = (() => {
       var isDiagram = legendChips && legendChips.length;
       var html = '<h2 style="margin-bottom:8px"><span class="pres-tag ' + tagClass + '">' + tag + '</span> ' + title + '</h2>';
       if (isDiagram) {
-        html += '<img src="' + imgSrc + '" alt="' + title + '" style="width:100%;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1)">';
+        html += '<img class="pres-diagram-fig" src="' + imgSrc + '" alt="' + title + '" style="width:100%;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1)">';
         html += '<div style="display:flex;align-items:center;gap:12px;margin-top:6px;flex-wrap:wrap">';
         html += '<div class="legend-chips">';
         for (var i = 0; i < legendChips.length; i++) {
@@ -1664,7 +1664,7 @@ window.App = (() => {
       } else {
         html += '<div style="display:flex;gap:20px;align-items:flex-start">' +
           '<div style="flex:0 0 65%;min-width:0">' +
-            '<img src="' + imgSrc + '" alt="' + title + '" style="width:100%;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1)">' +
+            '<img class="pres-chart-img" src="' + imgSrc + '" alt="' + title + '" style="width:100%;border-radius:var(--radius-lg);border:1px solid rgba(0,212,255,0.1)">' +
             '<div style="font-size:0.78rem;color:var(--text-muted);margin-top:6px">' + caption + '</div>' +
           '</div>' +
           '<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:8px">' +

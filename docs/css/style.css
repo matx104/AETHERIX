@@ -3315,3 +3315,173 @@ body.pres-active .presentation-mode {
     font-size: 0.82rem;
     color: var(--text-secondary);
 }
+
+/* =====================================================================
+   PRESENTATION VIEW — PREMIUM THEME
+   Aligns the in-browser deck with the polished PDF/PPTX slide design:
+   Lato display type, deep-space gradient backdrop, blue->cyan accent
+   signature, matted chart panels, and refined cards. Everything here is
+   scoped under body.pres-active / .pres-* so the rest of the site is
+   untouched.
+   ===================================================================== */
+
+body.pres-active {
+    --pres-blue: #009eff;
+    --pres-cyan: #00d4aa;
+    --pres-display: 'Lato', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Deep-space gradient backdrop + vignette so content reads cleanly.
+   The cosmos canvas is dimmed to a faint starfield rather than the busy
+   planet scene, matching the PDF's quiet starfield. */
+body.pres-active #cosmos-canvas { opacity: 0.16 !important; }
+
+body.pres-active .presentation-mode::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+        radial-gradient(120% 80% at 50% -10%, rgba(0, 158, 255, 0.10), transparent 60%),
+        radial-gradient(90% 70% at 50% 120%, rgba(0, 212, 170, 0.07), transparent 55%),
+        linear-gradient(180deg, #0a0e1a 0%, #0b1120 55%, #131c33 100%);
+}
+
+/* Signature top bar — thin blue->cyan gradient across the viewport. */
+body.pres-active .presentation-mode::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--pres-blue), var(--pres-cyan));
+    z-index: 210;
+    pointer-events: none;
+}
+
+body.pres-active .pres-progress-fill {
+    background: linear-gradient(90deg, var(--pres-blue), var(--pres-cyan));
+    box-shadow: 0 0 16px rgba(0, 158, 255, 0.5), 0 0 40px rgba(0, 212, 170, 0.2);
+}
+
+/* ---- Typography -------------------------------------------------- */
+body.pres-active .pres-hero-title {
+    font-family: var(--pres-display);
+    font-weight: 900;
+    letter-spacing: 10px;
+    background: none;
+    -webkit-text-fill-color: #f4f8ff;
+    color: #f4f8ff;
+    text-shadow: 0 0 42px rgba(0, 158, 255, 0.35);
+    animation: none;
+}
+
+body.pres-active .pres-hero-sub { font-family: var(--pres-display); }
+
+body.pres-active .pres-divider {
+    background: linear-gradient(90deg, var(--pres-blue), var(--pres-cyan));
+    opacity: 0.9;
+    height: 3px;
+    width: 200px;
+}
+
+/* Section headings: Lato Black + PDF-style accent underline. */
+body.pres-active .pres-slide-body h2 {
+    font-family: var(--pres-display);
+    font-weight: 900;
+    letter-spacing: 0.3px;
+    position: relative;
+    padding-bottom: 14px;
+    margin-bottom: 26px;
+}
+body.pres-active .pres-slide-body h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 180px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--pres-blue), var(--pres-cyan));
+}
+
+/* ---- Cards ------------------------------------------------------- */
+body.pres-active .pres-card {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(19, 26, 46, 0.92), rgba(13, 19, 34, 0.92));
+    border: 1px solid rgba(0, 158, 255, 0.18);
+    box-shadow: 0 10px 34px rgba(0, 0, 0, 0.35);
+}
+/* Top accent bar, tinted per card variant. */
+body.pres-active .pres-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--pres-blue), var(--pres-cyan));
+    opacity: 0.9;
+}
+body.pres-active .pres-card-danger::before { background: linear-gradient(90deg, #ff4d4d, #ff8c00); }
+body.pres-active .pres-card-quantum::before { background: linear-gradient(90deg, #8b5cf6, #c84cff); }
+body.pres-active .pres-card-danger { border-color: rgba(255, 77, 77, 0.28); }
+body.pres-active .pres-card-quantum { border-color: rgba(139, 92, 246, 0.28); }
+body.pres-active .pres-card-title { font-family: var(--pres-display); }
+
+body.pres-active .pres-callout {
+    background: rgba(0, 158, 255, 0.06);
+    border-color: rgba(0, 158, 255, 0.22);
+}
+
+/* ---- Stat cards & flow ------------------------------------------ */
+body.pres-active .pres-stat-card {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(19, 26, 46, 0.92), rgba(13, 19, 34, 0.92));
+    border: 1px solid rgba(0, 158, 255, 0.18);
+    box-shadow: 0 10px 34px rgba(0, 0, 0, 0.35);
+}
+body.pres-active .pres-stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--pres-blue), var(--pres-cyan));
+    opacity: 0.85;
+}
+body.pres-active .pres-stat-value { font-family: var(--pres-display); font-weight: 900; }
+
+body.pres-active .pres-flow-step {
+    background: linear-gradient(180deg, rgba(19, 26, 46, 0.9), rgba(13, 19, 34, 0.9));
+    border: 1px solid rgba(0, 158, 255, 0.22);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ---- Tables ------------------------------------------------------ */
+body.pres-active .pres-table th {
+    color: var(--pres-cyan);
+    border-bottom-color: rgba(0, 158, 255, 0.28);
+}
+body.pres-active .pres-table tr:hover td { background: rgba(0, 158, 255, 0.03); }
+
+/* ---- Tags -------------------------------------------------------- */
+body.pres-active .pres-slide-body h2 .pres-tag {
+    font-family: var(--pres-display);
+    font-weight: 700;
+}
+
+/* ---- Chart panels: matte white, matching the PDF chart slides ---- */
+body.pres-active .pres-chart-img {
+    background: #ffffff;
+    padding: 16px;
+    box-shadow: 0 12px 38px rgba(0, 0, 0, 0.4);
+}
+/* Dark system diagrams sit on a subtle dark panel instead. */
+body.pres-active .pres-diagram-fig {
+    background: rgba(7, 12, 24, 0.6);
+    padding: 12px;
+    box-shadow: 0 12px 38px rgba(0, 0, 0, 0.4);
+}
+
+/* Closing slide echoes the title treatment. */
+body.pres-active .pres-conclusion .pres-hero-title,
+body.pres-active .pres-conclusion h1 { font-family: var(--pres-display); }
