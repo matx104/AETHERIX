@@ -1793,7 +1793,7 @@ window.App = (() => {
         {
           title: '5-Tier Network Diagram',
           compact: true,
-          content: '<h2><span class="pres-tag accent">Network</span> 5-Tier Interplanetary Network &mdash; 241 Nodes</h2><div class="pres-grid-2" style="margin-bottom:16px"><div class="pres-card"><div class="pres-card-title">Tier Breakdown</div><table class="pres-table"><tr><td><strong style="color:#00d4ff">T1 Earth Ground</strong></td><td>6 nodes</td><td>DSN: Goldstone, Madrid, Canberra + MOC, NOC, SOC</td></tr><tr><td><strong style="color:#7c5cf7">T2 Earth Orbital</strong></td><td>51 nodes</td><td>3 GEO relays + 48 LEO laser mesh constellation</td></tr><tr><td><strong style="color:#ff6b35">T3 Deep Space</strong></td><td>4 nodes</td><td>ES-L4 &amp; ES-L5 Lagrange relays + 2 transfer orbit sats</td></tr><tr><td><strong style="color:#f85149">T4 Mars Orbital</strong></td><td>13 nodes</td><td>2 areostationary + 2 polar orbiters + 9 relay sats</td></tr><tr><td><strong style="color:#d29922">T5 Mars Surface</strong></td><td>167 nodes</td><td>Habitats, rovers, drones, sensor networks</td></tr></table></div><div class="pres-card"><div class="pres-card-title">Link Characteristics</div><table class="pres-table"><tr><td>Earth &harr; Deep Space</td><td>100 Mbps</td><td>1550nm optical</td></tr><tr><td>Deep Space &harr; Mars</td><td>2&ndash;200 Mbps</td><td>Distance dependent</td></tr><tr><td>Mars Orb &harr; Surface</td><td>2 Mbps</td><td>UHF/X-band</td></tr><tr><td>LEO ISL</td><td>10 Gbps</td><td>Optical inter-satellite</td></tr></table><div style="margin-top:12px;font-size:0.82rem;color:var(--text-secondary)"><strong style="color:var(--accent)">3 redundant paths</strong> &middot; No single point of failure &middot; Lagrange relays for conjunction coverage</div></div></div>',
+          content: '<h2><span class="pres-tag accent">Network</span> 5-Tier Interplanetary Network &mdash; 241 Nodes</h2><div style="text-align:center;margin-bottom:14px"><img src="img/diagrams/5tier_network.png" style="max-width:100%;max-height:260px;border-radius:8px;border:1px solid rgba(255,255,255,0.1)" alt="5-Tier Network Architecture Diagram"></div><div class="pres-grid-2" style="margin-bottom:16px"><div class="pres-card"><div class="pres-card-title">Tier Breakdown</div><table class="pres-table"><tr><td><strong style="color:#00d4ff">T1 Earth Ground</strong></td><td>6 nodes</td><td>DSN: Goldstone, Madrid, Canberra + MOC, NOC, SOC</td></tr><tr><td><strong style="color:#7c5cf7">T2 Earth Orbital</strong></td><td>51 nodes</td><td>3 GEO relays + 48 LEO laser mesh constellation</td></tr><tr><td><strong style="color:#ff6b35">T3 Deep Space</strong></td><td>4 nodes</td><td>ES-L4 &amp; ES-L5 Lagrange relays + 2 transfer orbit sats</td></tr><tr><td><strong style="color:#f85149">T4 Mars Orbital</strong></td><td>13 nodes</td><td>2 areostationary + 2 polar orbiters + 9 relay sats</td></tr><tr><td><strong style="color:#d29922">T5 Mars Surface</strong></td><td>167 nodes</td><td>Habitats, rovers, drones, sensor networks</td></tr></table></div><div class="pres-card"><div class="pres-card-title">Link Characteristics</div><table class="pres-table"><tr><td>Earth &harr; Deep Space</td><td>100 Mbps</td><td>1550nm optical</td></tr><tr><td>Deep Space &harr; Mars</td><td>2&ndash;200 Mbps</td><td>Distance dependent</td></tr><tr><td>Mars Orb &harr; Surface</td><td>2 Mbps</td><td>UHF/X-band</td></tr><tr><td>LEO ISL</td><td>10 Gbps</td><td>Optical inter-satellite</td></tr></table><div style="margin-top:12px;font-size:0.82rem;color:var(--text-secondary)"><strong style="color:var(--accent)">3 redundant paths</strong> &middot; No single point of failure &middot; Lagrange relays for conjunction coverage</div></div></div>',
         },
         {
           title: 'Network Diagram',
@@ -1972,6 +1972,7 @@ window.App = (() => {
         },
         {
           title: 'Protocol Stack Diagram',
+          compact: true,
           content: this._chartSlide('Protocol Stack', 'Stack', '#00d4ff', 'img/diagrams/protocol_stack.png',
             'BPv7 with three convergence layers (LTP, TCPCL, UDP-CL) &middot; Standards-compliant',
             'BPv7 must work across radically different link types &mdash; deep space, Earth ground, and inter-satellite.',
@@ -1982,6 +1983,7 @@ window.App = (() => {
         },
         {
           title: 'Network Topology Diagram',
+          compact: true,
           content: this._chartSlide('Network Topology Graph', 'Topology', '#00d4ff', 'img/diagrams/network_topology.png',
             '241 nodes with BFS pathfinding &middot; RL-optimized routing on top of graph structure',
             'Routing across 241 nodes with varying link quality requires a graph-based approach.',

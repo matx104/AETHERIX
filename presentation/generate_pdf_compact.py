@@ -26,7 +26,7 @@ DIAGRAMS_DIR = os.path.join(BASE_DIR, "visualizations", "diagrams")
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-TOTAL_SLIDES = 31
+TOTAL_SLIDES = 33
 
 pdf_path = os.path.join(OUTPUT_DIR, "AETHERIX_Presentation_Compact.pdf")
 c = canvas.Canvas(pdf_path, pagesize=(PAGE_W, PAGE_H))
@@ -388,6 +388,21 @@ c.showPage()
 
 
 # ================================================================
+# PAGE — Network Topology Graph
+# ================================================================
+print("Creating Page: Network Topology Graph...")
+draw_bg(c)
+draw_text(c, "NETWORK TOPOLOGY GRAPH", 40, PAGE_H - 50, size=28, color=WHITE, bold=True)
+draw_text(c, "241 Nodes \u2014 BFS Pathfinding + RL-Optimized Routing", 40, PAGE_H - 75, size=14, color=ACCENT_BLUE)
+draw_accent_line(c, 40, PAGE_H - 85, 180, ACCENT_BLUE)
+
+draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "network_topology.png"), 40, 90, w=PAGE_W - 80, h=PAGE_H - 195)
+
+draw_footer(c, citations="[A2] topology.py (241-node graph with BFS)  \u00b7  [A1] rl_agent.py (RL routing on graph)")
+c.showPage()
+
+
+# ================================================================
 # PAGE 11 — Optical Communications
 # ================================================================
 print("Creating Page 11: Optical Communications...")
@@ -726,6 +741,21 @@ draw_accent_line(c, 40, PAGE_H - 85, 200, ACCENT_CYAN)
 draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "data_flow.png"), 40, 90, w=PAGE_W - 80, h=PAGE_H - 195)
 
 draw_footer(c, 19, citations="[A2] topology.py (full data path Mars\u2192Earth)")
+c.showPage()
+
+
+# ================================================================
+# PAGE — Protocol Stack Diagram
+# ================================================================
+print("Creating Page: Protocol Stack Diagram...")
+draw_bg(c)
+draw_text(c, "PROTOCOL STACK", 40, PAGE_H - 50, size=28, color=WHITE, bold=True)
+draw_text(c, "BPv7 + Three Convergence Layers \u2014 Standards-Compliant", 40, PAGE_H - 75, size=14, color=ACCENT_BLUE)
+draw_accent_line(c, 40, PAGE_H - 85, 180, ACCENT_BLUE)
+
+draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "protocol_stack.png"), 40, 90, w=PAGE_W - 80, h=PAGE_H - 195)
+
+draw_footer(c, citations="[9] RFC 9171 (BPv7)  \u00b7  [10] RFC 5326 (LTP)  \u00b7  [11] RFC 7242 (TCPCL)  \u00b7  [A6] bundle.py")
 c.showPage()
 
 

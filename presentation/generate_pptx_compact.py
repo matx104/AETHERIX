@@ -43,7 +43,7 @@ YELLOW = RGBColor(0xFF, 0xD9, 0x3D)
 SLIDE_WIDTH = Inches(13.333)
 SLIDE_HEIGHT = Inches(7.5)
 
-TOTAL_SLIDES = 31
+TOTAL_SLIDES = 33
 
 prs = Presentation()
 prs.slide_width = SLIDE_WIDTH
@@ -703,6 +703,32 @@ add_footer(slide, 10, citations="[A2] AETHERIX topology.py  \u00b7  [3] JPL Hori
 
 
 # ============================================================
+# SLIDE — Network Topology Graph
+# ============================================================
+print("Creating Slide: Network Topology Graph...")
+slide = new_slide()
+set_slide_bg(slide, BG_DARK)
+add_slide_transition(slide, "fade")
+
+txBox = add_textbox(slide, Inches(0.6), Inches(0.3), Inches(9), Inches(0.6))
+p = txBox.text_frame.paragraphs[0]
+p.text = "NETWORK TOPOLOGY GRAPH"
+p.font.size = Pt(32)
+p.font.bold = True
+p.font.color.rgb = WHITE
+p.alignment = PP_ALIGN.LEFT
+
+add_accent_line(slide, Inches(0.6), Inches(0.95), Inches(2.5))
+
+add_image_safe(
+    slide, os.path.join(DIAGRAMS_DIR, "network_topology.png"),
+    Inches(0.5), Inches(1.2), Inches(9.0), Inches(5.3),
+)
+
+add_footer(slide, citations="[A2] topology.py (241-node graph)  \u00b7  [A1] rl_agent.py (RL routing)")
+
+
+# ============================================================
 # SLIDE 11 — Optical Communications
 # ============================================================
 print("Creating Slide 11: Optical Communications...")
@@ -1046,6 +1072,32 @@ add_image_safe(
 )
 
 add_footer(slide, 19, citations="[A2] topology.py (full data path Mars\u2192Earth)")
+
+
+# ============================================================
+# SLIDE — Protocol Stack Diagram
+# ============================================================
+print("Creating Slide: Protocol Stack Diagram...")
+slide = new_slide()
+set_slide_bg(slide, BG_DARK)
+add_slide_transition(slide, "fade")
+
+txBox = add_textbox(slide, Inches(0.6), Inches(0.3), Inches(9), Inches(0.6))
+p = txBox.text_frame.paragraphs[0]
+p.text = "PROTOCOL STACK"
+p.font.size = Pt(32)
+p.font.bold = True
+p.font.color.rgb = WHITE
+p.alignment = PP_ALIGN.LEFT
+
+add_accent_line(slide, Inches(0.6), Inches(0.95), Inches(2.5))
+
+add_image_safe(
+    slide, os.path.join(DIAGRAMS_DIR, "protocol_stack.png"),
+    Inches(0.5), Inches(1.2), Inches(9.0), Inches(5.3),
+)
+
+add_footer(slide, citations="[9] RFC 9171  \u00b7  [10] RFC 5326  \u00b7  [11] RFC 7242  \u00b7  [A6] bundle.py")
 
 
 # ============================================================
