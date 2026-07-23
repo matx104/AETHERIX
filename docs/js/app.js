@@ -2166,172 +2166,287 @@ window.App = (() => {
 
     slideLinks: {
       'Introduction': [
-        { type: 'ref', label: 'RFC 4838', url: 'https://www.rfc-editor.org/rfc/rfc4838' }
+        { type: 'ref', label: 'RFC 4838', url: 'https://www.rfc-editor.org/rfc/rfc4838' },
+        { type: 'ref', label: 'GitHub', url: 'https://github.com/matx104/AETHERIX' }
       ],
       'Agenda': [
-        { type: 'learn', label: 'What is DTN', hash: 'what-is-dtn' }
+        { type: 'learn', label: 'What is DTN', hash: 'what-is-dtn' },
+        { type: 'ref', label: 'RFC 4838', url: 'https://www.rfc-editor.org/rfc/rfc4838' }
       ],
       'What is AETHERIX': [
         { type: 'learn', label: 'What is DTN', hash: 'what-is-dtn' },
-        { type: 'learn', label: 'Why It Matters', hash: 'why-it-matters' }
+        { type: 'learn', label: 'Why It Matters', hash: 'why-it-matters' },
+        { type: 'ref', label: 'RFC 4838', url: 'https://www.rfc-editor.org/rfc/rfc4838' }
       ],
       'The Distance': [
-        { type: 'learn', label: 'Journey to Mars', hash: 'journey-to-mars' }
+        { type: 'learn', label: 'Journey to Mars', hash: 'journey-to-mars' },
+        { type: 'ref', label: 'JPL Horizons', url: 'https://ssd.jpl.nasa.gov/horizons/' },
+        { type: 'ref', label: 'contact_windows.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/orbital/contact_windows.py' }
       ],
-      'Distance &amp; Delay Charts': [
-        { type: 'learn', label: 'Journey to Mars', hash: 'journey-to-mars' }
+      'Distance Over Time Chart': [
+        { type: 'learn', label: 'Journey to Mars', hash: 'journey-to-mars' },
+        { type: 'ref', label: 'JPL Horizons', url: 'https://ssd.jpl.nasa.gov/horizons/' },
+        { type: 'ref', label: 'contact_windows.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/orbital/contact_windows.py' }
+      ],
+      'Light-Time Delay Chart': [
+        { type: 'learn', label: 'Journey to Mars', hash: 'journey-to-mars' },
+        { type: 'ref', label: 'JPL Horizons', url: 'https://ssd.jpl.nasa.gov/horizons/' },
+        { type: 'ref', label: 'contact_windows.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/orbital/contact_windows.py' }
       ],
       'The Answer': [
         { type: 'learn', label: 'What is DTN', hash: 'what-is-dtn' },
-        { type: 'learn', label: 'How It Works', hash: 'how-it-works' }
+        { type: 'learn', label: 'How It Works', hash: 'how-it-works' },
+        { type: 'ref', label: 'RFC 4838', url: 'https://www.rfc-editor.org/rfc/rfc4838' },
+        { type: 'ref', label: 'RFC 9171', url: 'https://www.rfc-editor.org/rfc/rfc9171' }
       ],
       'System Architecture': [
         { type: 'learn', label: 'How It Works', hash: 'how-it-works' },
-        { type: 'ref', label: 'CCSDS 734.2-B-1', url: 'https://public.ccsds.org/Pubs/734x2b1.pdf' }
+        { type: 'ref', label: 'CCSDS 734.2-B-1', url: 'https://public.ccsds.org/Pubs/734x2b1.pdf' },
+        { type: 'ref', label: 'RFC 9171', url: 'https://www.rfc-editor.org/rfc/rfc9171' }
       ],
       'Architecture Diagram': [
-        { type: 'learn', label: 'How It Works', hash: 'how-it-works' }
+        { type: 'learn', label: 'How It Works', hash: 'how-it-works' },
+        { type: 'ref', label: 'CCSDS 734.2-B-1', url: 'https://public.ccsds.org/Pubs/734x2b1.pdf' }
       ],
       'Network Tier Distribution Chart': [
-        { type: 'learn', label: 'The Network', hash: 'the-network' }
+        { type: 'learn', label: 'The Network', hash: 'the-network' },
+        { type: 'ref', label: 'topology.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/orbital/topology.py' }
       ],
       'BPv7 Deep Dive': [
         { type: 'learn', label: 'DTN Protocols', hash: 'what-is-dtn' },
         { type: 'demo', label: 'Bundle Demo', hash: 'bundle' },
-        { type: 'ref', label: 'RFC 9171', url: 'https://www.rfc-editor.org/rfc/rfc9171' }
+        { type: 'ref', label: 'RFC 9171', url: 'https://www.rfc-editor.org/rfc/rfc9171' },
+        { type: 'ref', label: 'bundle.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/routing/bundle.py' }
       ],
       'DTN Store-and-Forward': [
         { type: 'learn', label: 'DTN Protocols', hash: 'what-is-dtn' },
         { type: 'demo', label: 'DTN Engine', hash: 'dtn-engine' },
-        { type: 'ref', label: 'RFC 5326', url: 'https://www.rfc-editor.org/rfc/rfc5326' }
+        { type: 'ref', label: 'RFC 5326', url: 'https://www.rfc-editor.org/rfc/rfc5326' },
+        { type: 'ref', label: 'forwarding_engine.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/routing/forwarding_engine.py' }
+      ],
+      'DTN Diagram': [
+        { type: 'learn', label: 'DTN Protocols', hash: 'what-is-dtn' },
+        { type: 'demo', label: 'DTN Engine', hash: 'dtn-engine' },
+        { type: 'ref', label: 'RFC 9171', url: 'https://www.rfc-editor.org/rfc/rfc9171' }
       ],
       'Bundle Priority Chart': [
-        { type: 'learn', label: 'Prioritization', hash: 'prioritization' }
+        { type: 'learn', label: 'Prioritization', hash: 'prioritization' },
+        { type: 'ref', label: 'RFC 9171', url: 'https://www.rfc-editor.org/rfc/rfc9171' },
+        { type: 'ref', label: 'bundle.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/routing/bundle.py' }
       ],
       'Network Topology': [
         { type: 'learn', label: 'The Network', hash: 'the-network' },
-        { type: 'demo', label: 'Dashboard', hash: 'dashboard' }
+        { type: 'demo', label: 'Dashboard', hash: 'dashboard' },
+        { type: 'ref', label: 'topology.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/orbital/topology.py' }
       ],
       '5-Tier Network Diagram': [
         { type: 'learn', label: 'The Network', hash: 'the-network' },
-        { type: 'ref', label: 'CCSDS 734.2-B-1', url: 'https://public.ccsds.org/Pubs/734x2b1.pdf' }
+        { type: 'ref', label: 'CCSDS 734.2-B-1', url: 'https://public.ccsds.org/Pubs/734x2b1.pdf' },
+        { type: 'ref', label: 'topology.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/orbital/topology.py' }
       ],
       'Network Diagram': [
-        { type: 'learn', label: 'The Network', hash: 'the-network' }
-      ],
-      'DSN Coverage &amp; Orbital Charts': [
         { type: 'learn', label: 'The Network', hash: 'the-network' },
-        { type: 'learn', label: 'Journey to Mars', hash: 'journey-to-mars' }
+        { type: 'ref', label: 'topology.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/orbital/topology.py' }
+      ],
+      'DSN Coverage Chart': [
+        { type: 'learn', label: 'The Network', hash: 'the-network' },
+        { type: 'learn', label: 'Journey to Mars', hash: 'journey-to-mars' },
+        { type: 'ref', label: 'NASA DSN', url: 'https://deepspace.jpl.nasa.gov/' }
+      ],
+      'Orbital Positions Chart': [
+        { type: 'learn', label: 'Journey to Mars', hash: 'journey-to-mars' },
+        { type: 'ref', label: 'JPL Horizons', url: 'https://ssd.jpl.nasa.gov/horizons/' },
+        { type: 'ref', label: 'contact_windows.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/orbital/contact_windows.py' }
       ],
       'Optical Communications': [
         { type: 'learn', label: 'Optical Comms', hash: 'optical-comms' },
         { type: 'demo', label: 'Link Budget', hash: 'link-budget' },
         { type: 'demo', label: 'RF Budget', hash: 'rf-budget' },
-        { type: 'ref', label: 'CCSDS 141.0-B-1', url: 'https://public.ccsds.org/Pubs/141x0b1.pdf' }
+        { type: 'ref', label: 'CCSDS 141.0-B-1', url: 'https://public.ccsds.org/Pubs/141x0b1.pdf' },
+        { type: 'ref', label: 'NASA DSOC', url: 'https://www.jpl.nasa.gov/missions/deep-space-optical-communications-dsoc/' }
       ],
-      'Link Budget Charts': [
+      'Data Rate vs Distance Chart': [
         { type: 'learn', label: 'Optical Comms', hash: 'optical-comms' },
-        { type: 'demo', label: 'Link Budget', hash: 'link-budget' }
+        { type: 'demo', label: 'Link Budget', hash: 'link-budget' },
+        { type: 'ref', label: 'CCSDS 141.0-B-1', url: 'https://public.ccsds.org/Pubs/141x0b1.pdf' },
+        { type: 'ref', label: 'link_budget.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/infrastructure/link_budget.py' }
+      ],
+      'Link Budget Breakdown Chart': [
+        { type: 'learn', label: 'Optical Comms', hash: 'optical-comms' },
+        { type: 'demo', label: 'Link Budget', hash: 'link-budget' },
+        { type: 'ref', label: 'link_budget.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/infrastructure/link_budget.py' }
       ],
       'Earth-Mars Journey': [
         { type: 'learn', label: 'Journey to Mars', hash: 'journey-to-mars' },
-        { type: 'demo', label: 'Mission', hash: 'mission' }
+        { type: 'demo', label: 'Mission', hash: 'mission' },
+        { type: 'ref', label: 'JPL Horizons', url: 'https://ssd.jpl.nasa.gov/horizons/' }
       ],
-      'Latency &amp; Data Volume Charts': [
-        { type: 'learn', label: 'Journey to Mars', hash: 'journey-to-mars' }
+      'Earth-Mars Journey Diagram': [
+        { type: 'learn', label: 'Journey to Mars', hash: 'journey-to-mars' },
+        { type: 'ref', label: 'JPL Horizons', url: 'https://ssd.jpl.nasa.gov/horizons/' },
+        { type: 'ref', label: 'bodies.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/orbital/bodies.py' }
+      ],
+      'Latency Comparison Chart': [
+        { type: 'learn', label: 'Journey to Mars', hash: 'journey-to-mars' },
+        { type: 'ref', label: 'RFC 5326', url: 'https://www.rfc-editor.org/rfc/rfc5326' },
+        { type: 'ref', label: 'contact_windows.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/orbital/contact_windows.py' }
+      ],
+      'Data Volume Chart': [
+        { type: 'learn', label: 'Journey to Mars', hash: 'journey-to-mars' },
+        { type: 'ref', label: 'CCSDS 122.0-B-2', url: 'https://public.ccsds.org/Pubs/122x0b2.pdf' },
+        { type: 'ref', label: 'link_budget.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/infrastructure/link_budget.py' }
       ],
       'RL Routing': [
         { type: 'learn', label: 'RL Routing', hash: 'reinforcement-learning' },
         { type: 'demo', label: 'Routing Demo', hash: 'routing' },
-        { type: 'ref', label: 'Sutton & Barto', url: 'http://incompleteideas.net/book/the-book.html' }
+        { type: 'ref', label: 'Sutton & Barto', url: 'http://incompleteideas.net/book/the-book.html' },
+        { type: 'ref', label: 'rl_agent.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/routing/rl_agent.py' }
       ],
       'RL Routing Heatmap Chart': [
         { type: 'learn', label: 'RL Routing', hash: 'reinforcement-learning' },
-        { type: 'demo', label: 'Routing Demo', hash: 'routing' }
+        { type: 'demo', label: 'Routing Demo', hash: 'routing' },
+        { type: 'ref', label: 'rl_agent.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/routing/rl_agent.py' }
       ],
       'Quantum Security': [
         { type: 'learn', label: 'Space Security', hash: 'space-security' },
         { type: 'learn', label: 'QKD Science', hash: 'qkd-science' },
         { type: 'demo', label: 'QKD Demo', hash: 'qkd' },
-        { type: 'ref', label: 'NIST FIPS 203', url: 'https://csrc.nist.gov/pubs/fips/203/final' }
+        { type: 'ref', label: 'NIST FIPS 203', url: 'https://csrc.nist.gov/pubs/fips/203/final' },
+        { type: 'ref', label: 'qkd.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/security/qkd.py' }
       ],
-      'QKD Charts': [
+      'QKD Security Chart': [
         { type: 'learn', label: 'Space Security', hash: 'space-security' },
-        { type: 'demo', label: 'QKD Demo', hash: 'qkd' }
+        { type: 'demo', label: 'QKD Demo', hash: 'qkd' },
+        { type: 'ref', label: 'Bennett & Brassard 1984', url: 'https://www.semanticscholar.org/search?q=Quantum%20Cryptography%20Public%20Key%20Distribution%20Bennett%20Brassard%201984' },
+        { type: 'ref', label: 'qkd.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/security/qkd.py' }
+      ],
+      'QKD Key Rate Chart': [
+        { type: 'learn', label: 'QKD Science', hash: 'qkd-science' },
+        { type: 'demo', label: 'QKD Demo', hash: 'qkd' },
+        { type: 'ref', label: 'Ekert 1991', url: 'https://doi.org/10.1103/PhysRevLett.67.661' },
+        { type: 'ref', label: 'qkd.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/security/qkd.py' }
       ],
       'Orbital Mechanics': [
         { type: 'learn', label: 'Journey to Mars', hash: 'journey-to-mars' },
-        { type: 'demo', label: 'Orbital Demo', hash: 'orbital' }
+        { type: 'demo', label: 'Orbital Demo', hash: 'orbital' },
+        { type: 'ref', label: 'JPL Horizons', url: 'https://ssd.jpl.nasa.gov/horizons/' }
       ],
       'Contact Windows Chart': [
         { type: 'learn', label: 'Journey to Mars', hash: 'journey-to-mars' },
-        { type: 'demo', label: 'Orbital Demo', hash: 'orbital' }
+        { type: 'demo', label: 'Orbital Demo', hash: 'orbital' },
+        { type: 'ref', label: 'JPL Horizons', url: 'https://ssd.jpl.nasa.gov/horizons/' },
+        { type: 'ref', label: 'contact_windows.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/orbital/contact_windows.py' }
       ],
       'Radiation Hardening': [
         { type: 'learn', label: 'Radiation', hash: 'radiation' },
         { type: 'demo', label: 'Radiation Demo', hash: 'radiation-demo' },
-        { type: 'ref', label: 'CCSDS 131.0-B-4', url: 'https://public.ccsds.org/Pubs/131x0b4e2.pdf' }
+        { type: 'ref', label: 'CCSDS 131.0-B-4', url: 'https://public.ccsds.org/Pubs/131x0b4e2.pdf' },
+        { type: 'ref', label: 'radiation.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/computing/radiation.py' }
       ],
       'Data Prioritization': [
         { type: 'learn', label: 'Prioritization', hash: 'prioritization' },
         { type: 'demo', label: 'Priority Demo', hash: 'priority-demo' },
-        { type: 'ref', label: 'CCSDS 121.0-B-3', url: 'https://public.ccsds.org/Pubs/121x0b3e1.pdf' }
+        { type: 'ref', label: 'CCSDS 121.0-B-3', url: 'https://public.ccsds.org/Pubs/121x0b3e1.pdf' },
+        { type: 'ref', label: 'prioritization.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/routing/prioritization.py' }
       ],
       'End-to-End Mission': [
         { type: 'demo', label: 'Mission', hash: 'mission' },
-        { type: 'demo', label: 'Simulation', hash: 'simulation' }
+        { type: 'demo', label: 'Simulation', hash: 'simulation' },
+        { type: 'ref', label: 'RFC 9171', url: 'https://www.rfc-editor.org/rfc/rfc9171' },
+        { type: 'ref', label: 'run_simulation.py', url: 'https://github.com/matx104/AETHERIX/blob/main/run_simulation.py' }
       ],
       'Data Flow Diagram': [
         { type: 'learn', label: 'DTN Protocols', hash: 'what-is-dtn' },
         { type: 'demo', label: 'DTN Engine', hash: 'dtn-engine' },
-        { type: 'ref', label: 'RFC 7242', url: 'https://www.rfc-editor.org/rfc/rfc7242' }
+        { type: 'ref', label: 'RFC 7242', url: 'https://www.rfc-editor.org/rfc/rfc7242' },
+        { type: 'ref', label: 'forwarding_engine.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/routing/forwarding_engine.py' }
       ],
       'Data Flow Diagram Visual': [
-        { type: 'learn', label: 'DTN Protocols', hash: 'what-is-dtn' }
+        { type: 'learn', label: 'DTN Protocols', hash: 'what-is-dtn' },
+        { type: 'demo', label: 'DTN Engine', hash: 'dtn-engine' },
+        { type: 'ref', label: 'RFC 9171', url: 'https://www.rfc-editor.org/rfc/rfc9171' }
+      ],
+      'Protocol Stack Diagram': [
+        { type: 'learn', label: 'DTN Protocols', hash: 'what-is-dtn' },
+        { type: 'ref', label: 'RFC 9171', url: 'https://www.rfc-editor.org/rfc/rfc9171' },
+        { type: 'ref', label: 'bundle.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/routing/bundle.py' }
+      ],
+      'Network Topology Diagram': [
+        { type: 'learn', label: 'The Network', hash: 'the-network' },
+        { type: 'ref', label: 'CCSDS 734.2-B-1', url: 'https://public.ccsds.org/Pubs/734x2b1.pdf' },
+        { type: 'ref', label: 'topology.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/orbital/topology.py' }
       ],
       'Performance': [
-        { type: 'demo', label: 'Dashboard', hash: 'dashboard' }
-      ],
-      'Performance Charts': [
         { type: 'demo', label: 'Dashboard', hash: 'dashboard' },
-        { type: 'learn', label: 'Optical Comms', hash: 'optical-comms' }
+        { type: 'ref', label: 'NASA MRO', url: 'https://mars.nasa.gov/mro/' },
+        { type: 'ref', label: 'run_simulation.py', url: 'https://github.com/matx104/AETHERIX/blob/main/run_simulation.py' }
+      ],
+      'Performance Comparison Chart': [
+        { type: 'demo', label: 'Dashboard', hash: 'dashboard' },
+        { type: 'learn', label: 'Optical Comms', hash: 'optical-comms' },
+        { type: 'ref', label: 'NASA MRO', url: 'https://mars.nasa.gov/mro/' },
+        { type: 'ref', label: 'link_budget.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/infrastructure/link_budget.py' }
+      ],
+      'Trade-off Analysis': [
+        { type: 'ref', label: 'NASA DSOC', url: 'https://www.jpl.nasa.gov/missions/deep-space-optical-communications-dsoc/' },
+        { type: 'ref', label: 'Sutton & Barto', url: 'http://incompleteideas.net/book/the-book.html' },
+        { type: 'ref', label: 'rl_agent.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/routing/rl_agent.py' }
+      ],
+      'Failure & Recovery': [
+        { type: 'demo', label: 'DTN Engine', hash: 'dtn-engine' },
+        { type: 'ref', label: 'JPL Horizons', url: 'https://ssd.jpl.nasa.gov/horizons/' },
+        { type: 'ref', label: 'run_simulation.py', url: 'https://github.com/matx104/AETHERIX/blob/main/run_simulation.py' }
+      ],
+      'Optical vs RF Radar Chart': [
+        { type: 'learn', label: 'Optical Comms', hash: 'optical-comms' },
+        { type: 'demo', label: 'Link Budget', hash: 'link-budget' },
+        { type: 'ref', label: 'CCSDS 141.0-B-1', url: 'https://public.ccsds.org/Pubs/141x0b1.pdf' },
+        { type: 'ref', label: 'rf_link_budget.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/infrastructure/rf_link_budget.py' }
       ],
       'Implementation': [
         { type: 'learn', label: 'Standards', hash: 'deep-space-standards' },
         { type: 'demo', label: 'Dashboard', hash: 'dashboard' },
         { type: 'ref', label: 'CCSDS 735.1-B-1', url: 'https://public.ccsds.org/Pubs/735x1b1.pdf' }
       ],
-      'System Evolution Charts': [
+      'Bandwidth Evolution Chart': [
         { type: 'learn', label: 'Why It Matters', hash: 'why-it-matters' },
-        { type: 'demo', label: 'Dashboard', hash: 'dashboard' }
+        { type: 'demo', label: 'Dashboard', hash: 'dashboard' },
+        { type: 'ref', label: 'NASA DSOC', url: 'https://www.jpl.nasa.gov/missions/deep-space-optical-communications-dsoc/' }
+      ],
+      'Energy Efficiency Chart': [
+        { type: 'learn', label: 'RL Routing', hash: 'reinforcement-learning' },
+        { type: 'demo', label: 'Routing Demo', hash: 'routing' },
+        { type: 'ref', label: 'Sutton & Barto', url: 'http://incompleteideas.net/book/the-book.html' },
+        { type: 'ref', label: 'rl_agent.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/routing/rl_agent.py' }
+      ],
+      'Mission Timeline Chart': [
+        { type: 'learn', label: 'Standards', hash: 'deep-space-standards' },
+        { type: 'demo', label: 'Mission', hash: 'mission' },
+        { type: 'ref', label: 'NASA DSN', url: 'https://deepspace.jpl.nasa.gov/' }
       ],
       'Roadmap': [
         { type: 'learn', label: 'Standards', hash: 'deep-space-standards' },
-        { type: 'ref', label: 'CCSDS 142.0-B-2', url: 'https://public.ccsds.org/Pubs/142x0b2.pdf' }
-      ],
-      'Thank You': [
-        { type: 'demo', label: 'Dashboard', hash: 'dashboard' },
-        { type: 'ref', label: 'LinkedIn', url: 'https://www.linkedin.com/in/matx104' },
-        { type: 'ref', label: 'Portfolio', url: 'https://matx104.com.pk' }
+        { type: 'ref', label: 'CCSDS 142.0-B-2', url: 'https://public.ccsds.org/Pubs/142x0b2.pdf' },
+        { type: 'ref', label: 'GitHub', url: 'https://github.com/matx104/AETHERIX' }
       ],
       'Conclusion': [
         { type: 'demo', label: 'Dashboard', hash: 'dashboard' },
-        { type: 'ref', label: 'GitHub', url: 'https://github.com/matx104/AETHERIX' }
-      ],
-      'Trade-off Analysis': [
-        { type: 'ref', label: 'NASA DSOC', url: 'https://www.jpl.nasa.gov/missions/deep-space-optical-communications-dsoc/' },
-        { type: 'ref', label: 'rl_agent.py', url: 'https://github.com/matx104/AETHERIX/blob/main/src/routing/rl_agent.py' }
-      ],
-      'Failure & Recovery': [
-        { type: 'demo', label: 'DTN Engine', hash: 'dtn-engine' },
-        { type: 'ref', label: 'JPL Horizons', url: 'https://ssd.jpl.nasa.gov/horizons/' }
+        { type: 'ref', label: 'GitHub', url: 'https://github.com/matx104/AETHERIX' },
+        { type: 'ref', label: 'Live Showcase', url: 'https://matx104.github.io/AETHERIX/' }
       ],
       'References': [
         { type: 'ref', label: 'RFC 9171', url: 'https://www.rfc-editor.org/rfc/rfc9171' },
-        { type: 'ref', label: 'CCSDS 734.2-B-1', url: 'https://public.ccsds.org/Pubs/734x2b1.pdf' }
+        { type: 'ref', label: 'CCSDS 734.2-B-1', url: 'https://public.ccsds.org/Pubs/734x2b1.pdf' },
+        { type: 'ref', label: 'NIST FIPS 203', url: 'https://csrc.nist.gov/pubs/fips/203/final' }
       ],
       'References (cont.)': [
-        { type: 'ref', label: 'GitHub', url: 'https://github.com/matx104/AETHERIX' }
+        { type: 'ref', label: 'GitHub', url: 'https://github.com/matx104/AETHERIX' },
+        { type: 'ref', label: 'run_simulation.py', url: 'https://github.com/matx104/AETHERIX/blob/main/run_simulation.py' }
+      ],
+      'Thank You': [
+        { type: 'demo', label: 'Dashboard', hash: 'dashboard' },
+        { type: 'ref', label: 'GitHub', url: 'https://github.com/matx104/AETHERIX' },
+        { type: 'ref', label: 'Live Showcase', url: 'https://matx104.github.io/AETHERIX/' }
       ]
     },
 
