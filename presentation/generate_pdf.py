@@ -1,17 +1,23 @@
 #!/usr/bin/env python3
 """
 AETHERIX PDF Presentation Generator
-Creates a landscape PDF with the same content as the PPTX.
+Creates the full 50-slide deck. All geometry, color, typography and shared
+drawing helpers come from deck_style.py (kept identical with the compact deck).
 """
 
 import os
-from reportlab.lib.pagesizes import landscape, A4
-from reportlab.lib.units import inch, mm
-from reportlab.lib.colors import Color, HexColor
 from reportlab.pdfgen import canvas
-from reportlab.lib.utils import ImageReader
-from reportlab.platypus import Table, TableStyle
-from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_RIGHT
+
+import deck_style as ds
+from deck_style import (  # noqa: F401 — names used throughout the page code
+    PAGE_W, PAGE_H,
+    BG_DARK, ACCENT_BLUE, ACCENT_CYAN, ACCENT_PURPLE, ACCENT_ORANGE,
+    ACCENT_RED, WHITE, LIGHT_GRAY, MED_GRAY, CARD_BG, CARD_BORDER, GREEN,
+    TABLE_ROW_ALT,
+    draw_bg, draw_starfield, draw_orbit_arc, draw_accent_line,
+    draw_top_bar, draw_bottom_bar, draw_card, draw_text, draw_multiline,
+    draw_image_safe, draw_table, draw_footer,
+)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUTPUT_DIR = os.path.join(BASE_DIR, "presentation", "output")
@@ -20,144 +26,15 @@ DIAGRAMS_DIR = os.path.join(BASE_DIR, "visualizations", "diagrams")
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-PAGE_W, PAGE_H = landscape(A4)
-
-BG_DARK = HexColor("#0B0E1A")
-ACCENT_BLUE = HexColor("#009EFF")
-ACCENT_CYAN = HexColor("#00D4AA")
-ACCENT_PURPLE = HexColor("#8B5CF6")
-ACCENT_ORANGE = HexColor("#FF8C00")
-ACCENT_RED = HexColor("#FF4D4D")
-WHITE = HexColor("#FFFFFF")
-LIGHT_GRAY = HexColor("#B0B8CC")
-MED_GRAY = HexColor("#6B7B96")
-CARD_BG = HexColor("#141B2D")
-CARD_BORDER = HexColor("#1E2A42")
-GREEN = HexColor("#2ECC71")
-TABLE_ROW_ALT = HexColor("#182236")
-
 pdf_path = os.path.join(OUTPUT_DIR, "AETHERIX_Presentation.pdf")
-c = canvas.Canvas(pdf_path, pagesize=landscape(A4))
-
-
-def draw_bg(c):
-    c.setFillColor(BG_DARK)
-    c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
-
-
-def draw_accent_line(c, x, y, w, color=ACCENT_BLUE, h=3):
-    c.setFillColor(color)
-    c.rect(x, y, w, h, fill=1, stroke=0)
-
-
-def draw_top_bar(c, color=ACCENT_BLUE):
-    c.setFillColor(color)
-    c.rect(0, PAGE_H - 6, PAGE_W, 6, fill=1, stroke=0)
-
-
-def draw_bottom_bar(c, color=ACCENT_BLUE):
-    c.setFillColor(color)
-    c.rect(0, 0, PAGE_W, 6, fill=1, stroke=0)
+c = canvas.Canvas(pdf_path, pagesize=(PAGE_W, PAGE_H))
 
 
 TOTAL_SLIDES = 50
-# Auto-incrementing page counter (title page is page 1 and carries no footer);
-# inserting pages never requires renumbering the call sites.
-_footer_counter = [1]
-
-
-def draw_footer(c, num=None, total=None, citations=None):
-    _footer_counter[0] += 1
-    n = _footer_counter[0]
-    if citations:
-        c.setFont("Helvetica-Oblique", 7)
-        c.setFillColor(MED_GRAY)
-        c.drawString(30, 32, citations)
-    c.setFont("Helvetica", 8)
-    c.setFillColor(MED_GRAY)
-    c.drawString(30, 18, "AETHERIX \u2014 Interplanetary Communication Network")
-    c.drawRightString(PAGE_W - 30, 18, f"{n} / {TOTAL_SLIDES}")
-    if n in _SPEAKER_NOTES:
-        _draw_speaker_notes(c, _SPEAKER_NOTES[n])
-
-
-def draw_card(c, x, y, w, h, border_color=ACCENT_BLUE):
-    c.setFillColor(CARD_BG)
-    c.setStrokeColor(border_color)
-    c.setLineWidth(1.5)
-    c.roundRect(x, y, w, h, 5, fill=1, stroke=1)
-
-
-def draw_text(c, text, x, y, font="Helvetica", size=14, color=WHITE, bold=False, align="left"):
-    fn = "Helvetica-Bold" if bold else font
-    c.setFont(fn, size)
-    c.setFillColor(color)
-    if align == "center":
-        c.drawCentredString(x, y, text)
-    elif align == "right":
-        c.drawRightString(x, y, text)
-    else:
-        c.drawString(x, y, text)
-
-
-def draw_multiline(c, text, x, y, font="Helvetica", size=12, color=WHITE, leading=16, bold=False):
-    fn = "Helvetica-Bold" if bold else font
-    c.setFont(fn, size)
-    c.setFillColor(color)
-    for line in text.split("\n"):
-        c.drawString(x, y, line)
-        y -= leading
-    return y
-
-
-def draw_image_safe(c, img_path, x, y, w=None, h=None):
-    if os.path.exists(img_path):
-        try:
-            img = ImageReader(img_path)
-            iw, ih = img.getSize()
-            aspect = iw / ih
-            if w and not h:
-                h = w / aspect
-            elif h and not w:
-                w = h * aspect
-            elif not w and not h:
-                w = iw * 0.5
-                h = ih * 0.5
-            c.drawImage(img_path, x, y, width=w, height=h, preserveAspectRatio=True, mask='auto')
-        except Exception:
-            pass
-
-
-def draw_table(c, data, x, y, col_widths, header_color=ACCENT_BLUE):
-    style = TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), header_color),
-        ('TEXTCOLOR', (0, 0), (-1, 0), WHITE),
-        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 0), (-1, -1), 9),
-        ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
-        ('TEXTCOLOR', (0, 1), (-1, -1), LIGHT_GRAY),
-        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-        ('TOPPADDING', (0, 0), (-1, -1), 3),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
-        ('LEFTPADDING', (0, 0), (-1, -1), 4),
-        ('RIGHTPADDING', (0, 0), (-1, -1), 4),
-        ('GRID', (0, 0), (-1, -1), 0.5, HexColor("#1E2A42")),
-    ])
-    for i in range(1, len(data)):
-        bg = CARD_BG if i % 2 == 1 else TABLE_ROW_ALT
-        style.add('BACKGROUND', (0, i), (-1, i), bg)
-
-    t = Table(data, colWidths=col_widths)
-    t.setStyle(style)
-    tw, th = t.wrap(0, 0)
-    t.drawOn(c, x, y - th)
-    return th
-
 
 _SPEAKER_NOTES = {
     1: "State your name clearly. Read the topic number and title exactly as on the exam paper. Pause to let examiners see it. Point to the logo. This is your first impression. (30 seconds)",
-    2: "Quick overview of what we will cover. 13 topics across 47 slides. About 20 minutes. (20 seconds)",
+    2: "Quick overview of what we will cover. 13 topics across 50 slides. About 20 minutes. (20 seconds)",
     3: "This slide sets up the narrative arc. First explain what AETHERIX is in plain language - it's like the postal service for interplanetary space. Then pivot to the problem: TCP/IP was never designed for space. 22-minute delays break every assumption. Solar conjunction blackouts. Static routing. Vulnerable crypto. Each problem maps to one of our solutions. (1.5 minutes)",
     4: "Start with the scale. 54.6M to 401M km. Light itself takes 3-22 minutes one way. TCP/IP was designed for sub-second round trips. In space, by the time a packet acknowledgment returns, the link may be gone. Solar conjunction causes 2-week blackout. This is why NASA calls it Delay-Tolerant Networking. (1.5 minutes)",
     7: "The key insight: instead of requiring an end-to-end connection like TCP, DTN works like the postal service. Each node takes custody of your data and forwards it when a link becomes available. Three pillars: BPv7 for the protocol, RL for intelligent routing, QKD for security. (1.5 minutes)",
@@ -186,55 +63,14 @@ _SPEAKER_NOTES = {
 }
 
 
-def _draw_speaker_notes(c, text):
-    c.saveState()
-    nf = "Helvetica-Oblique"
-    ns = 6
-    lh = 7.5
-    ml = 4
-    bh = 14 + lh * ml
-    by = 30
-    c.setFillColor(Color(0.04, 0.05, 0.10, alpha=0.92))
-    c.rect(25, by, PAGE_W - 50, bh, fill=1, stroke=0)
-    c.setFillColor(HexColor("#FFD93D"))
-    c.setFont("Helvetica-Bold", 6)
-    c.drawString(30, by + bh - 10, "Speaker Notes:")
-    c.setFillColor(HexColor("#B0B8CC"))
-    c.setFont(nf, ns)
-    mw = PAGE_W - 65
-    words = text.split()
-    lines = []
-    cur = ""
-    for w in words:
-        t = cur + (" " if cur else "") + w
-        if c.stringWidth(t, nf, ns) <= mw:
-            cur = t
-        else:
-            if cur:
-                lines.append(cur)
-            cur = w
-    if cur:
-        lines.append(cur)
-    y = by + bh - 20
-    for i, ln in enumerate(lines[:ml]):
-        c.drawString(30, y - lh * i, ln)
-    c.restoreState()
+# Register this deck (page counter + notes registry) with the shared style.
+ds.configure(TOTAL_SLIDES, _SPEAKER_NOTES)
+_draw_speaker_notes = ds.draw_speaker_notes
 
 
 def draw_chart_page(c, chart_file, title, subtitle, caption, accent_color=ACCENT_BLUE, notes=None, citations=None):
-    draw_bg(c)
-    draw_text(c, title, 40, PAGE_H - 50, size=22, color=WHITE, bold=True)
-    if subtitle:
-        draw_text(c, subtitle, 40, PAGE_H - 75, size=13, color=accent_color)
-    draw_accent_line(c, 40, PAGE_H - 85, 180, accent_color)
-    img_path = os.path.join(CHARTS_DIR, chart_file)
-    draw_image_safe(c, img_path, 100, 100, w=PAGE_W - 200, h=PAGE_H - 220)
-    if caption:
-        draw_text(c, caption, 40, 70, size=9, color=MED_GRAY)
-    if notes:
-        _SPEAKER_NOTES[_footer_counter[0] + 1] = notes
-    draw_footer(c, citations=citations)
-    c.showPage()
+    ds.draw_chart_page(c, CHARTS_DIR, chart_file, title, subtitle, caption,
+                       accent_color=accent_color, notes=notes, citations=citations)
 
 
 # ================================================================
@@ -242,10 +78,12 @@ def draw_chart_page(c, chart_file, title, subtitle, caption, accent_color=ACCENT
 # ================================================================
 print("Creating Page 1: Title...")
 draw_bg(c)
+draw_starfield(c)
+draw_orbit_arc(c)
 draw_top_bar(c)
 draw_bottom_bar(c)
 
-draw_text(c, "AETHERIX", PAGE_W / 2, PAGE_H - 120, size=52, color=WHITE, bold=True, align="center")
+draw_text(c, "AETHERIX", PAGE_W / 2, PAGE_H - 120, size=54, color=WHITE, bold=True, align="center")
 draw_accent_line(c, PAGE_W / 2 - 100, PAGE_H - 140, 200, ACCENT_CYAN, 4)
 draw_text(c, "Autonomous Extraterrestrial High-throughput Enhancing Routing", PAGE_W / 2, PAGE_H - 175, size=16, color=ACCENT_CYAN, align="center")
 draw_text(c, "and Inter-planetary eXchange", PAGE_W / 2, PAGE_H - 195, size=16, color=ACCENT_CYAN, align="center")
@@ -289,7 +127,7 @@ start_y = PAGE_H - 95
 for i, (num, title, desc, color) in enumerate(agenda):
     cx = col1_x if i < 6 else col2_x
     cy = start_y - 80 * (i % 6)
-    draw_card(c, cx, cy - 35, PAGE_W / 2 - 55, 70, color)
+    draw_card(c, cx, cy - 35, PAGE_W / 2 - 70, 70, color)
     draw_text(c, f"{num}  {title}", cx + 15, cy + 10, size=13, color=color, bold=True)
     draw_text(c, desc, cx + 15, cy - 10, size=10, color=MED_GRAY)
 
@@ -339,9 +177,9 @@ draw_text(c, "combining DTN protocols, AI-driven routing, quantum-secure keys, a
 stats = [("10-100\u00d7", "Faster", ACCENT_BLUE), (">95%", "Availability (target)", GREEN), ("241", "Nodes [A2]", ACCENT_ORANGE), ("480", "Tests", ACCENT_PURPLE)]
 for i, (val, label, color) in enumerate(stats):
     x = 40 + 210 * i
-    draw_card(c, x, 60, 195, 55, color)
-    draw_text(c, val, x + 97, 95, size=18, color=color, bold=True, align="center")
-    draw_text(c, label, x + 97, 72, size=10, color=LIGHT_GRAY, align="center")
+    draw_card(c, x, 96, 190, 55, color)
+    draw_text(c, val, x + 95, 131, size=18, color=color, bold=True, align="center")
+    draw_text(c, label, x + 95, 108, size=10, color=LIGHT_GRAY, align="center")
 
 draw_footer(c, 3, citations="[1] NASA MRN 2024  \u00b7  [3] JPL Horizons  \u00b7  [12] RFC 4838  \u00b7  [A2] topology.py")
 c.showPage()
@@ -405,13 +243,13 @@ draw_accent_line(c, 40, PAGE_H - 85, 180, ACCENT_CYAN)
 flow_steps = ["CREATE\nBundle", "STORE\nLocally", "WAIT\nFor Link", "FORWARD\nNext Hop", "DELIVER\nDestination"]
 step_colors = [ACCENT_BLUE, ACCENT_ORANGE, ACCENT_PURPLE, ACCENT_CYAN, GREEN]
 for i, (step, col) in enumerate(zip(flow_steps, step_colors)):
-    x = 40 + 175 * i
-    draw_card(c, x, PAGE_H - 185, 160, 80, col)
+    x = 40 + 166 * i
+    draw_card(c, x, PAGE_H - 185, 156, 80, col)
     lines = step.split("\n")
-    draw_text(c, lines[0], x + 80, PAGE_H - 125, size=12, color=col, bold=True, align="center")
-    draw_text(c, lines[1], x + 80, PAGE_H - 145, size=10, color=LIGHT_GRAY, align="center")
+    draw_text(c, lines[0], x + 78, PAGE_H - 125, size=12, color=col, bold=True, align="center")
+    draw_text(c, lines[1], x + 78, PAGE_H - 145, size=10, color=LIGHT_GRAY, align="center")
     if i < len(flow_steps) - 1:
-        draw_text(c, "\u2192", x + 163, PAGE_H - 140, size=18, color=MED_GRAY, bold=True)
+        draw_text(c, "\u2192", x + 161, PAGE_H - 140, size=16, color=MED_GRAY, bold=True)
 
 stat_cards = [
     ("BPv7", "RFC 9171", "Store-and-forward\nCustody transfer", ACCENT_BLUE),
@@ -420,17 +258,15 @@ stat_cards = [
 ]
 for i, (title, sub, desc, col) in enumerate(stat_cards):
     x = 40 + 280 * i
-    draw_card(c, x, PAGE_H - 330, 265, 120, col)
+    draw_card(c, x, PAGE_H - 330, 260, 120, col)
     draw_text(c, title, x + 15, PAGE_H - 225, size=16, color=col, bold=True)
     draw_text(c, sub, x + 15, PAGE_H - 245, size=10, color=MED_GRAY)
     for j, line in enumerate(desc.split("\n")):
         draw_text(c, line, x + 15, PAGE_H - 268 - 15 * j, size=9, color=LIGHT_GRAY)
 
-draw_card(c, 40, PAGE_H - 430, 820, 70, ACCENT_CYAN)
-draw_text(c, "Key Insight: DTN moves reliability from end-to-end to hop-by-hop. Each custodian is responsible until", 55, PAGE_H - 385, size=11, color=ACCENT_CYAN, bold=True)
-draw_text(c, "the next node accepts custody \u2014 enabling communication even with 44-minute round-trip delays.", 55, PAGE_H - 402, size=10, color=LIGHT_GRAY)
-
-draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "dtn_store_and_forward.png"), 40, 50, w=820)
+draw_card(c, 40, PAGE_H - 440, 820, 80, ACCENT_CYAN)
+draw_text(c, "Key Insight: DTN moves reliability from end-to-end to hop-by-hop. Each custodian is responsible until", 55, PAGE_H - 390, size=11, color=ACCENT_CYAN, bold=True)
+draw_text(c, "the next node accepts custody \u2014 enabling communication even with 44-minute round-trip delays.", 55, PAGE_H - 408, size=10, color=LIGHT_GRAY)
 
 draw_footer(c, 5, citations="[9] RFC 9171 BPv7  \u00b7  [10] RFC 5326 LTP  \u00b7  [11] RFC 7242 TCPCL  \u00b7  [12] RFC 4838")
 c.showPage()
@@ -482,7 +318,7 @@ draw_bg(c)
 draw_text(c, "SYSTEM ARCHITECTURE DIAGRAM", 40, PAGE_H - 50, size=28, color=WHITE, bold=True)
 draw_accent_line(c, 40, PAGE_H - 62, 200, ACCENT_BLUE)
 
-draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "system_architecture.png"), 40, 30, w=PAGE_W - 80, h=PAGE_H - 110)
+draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "system_architecture.png"), 40, 90, w=PAGE_W - 80, h=PAGE_H - 195)
 
 draw_footer(c, 7, citations="[A2] AETHERIX topology.py  \u00b7  github.com/matx104/AETHERIX")
 c.showPage()
@@ -591,13 +427,11 @@ cl_cards = [
 ]
 for i, (name, full, desc, col) in enumerate(cl_cards):
     x = 40 + 280 * i
-    draw_card(c, x, PAGE_H - 390, 265, 140, col)
+    draw_card(c, x, PAGE_H - 390, 260, 140, col)
     draw_text(c, name, x + 15, PAGE_H - 265, size=16, color=col, bold=True)
     draw_text(c, full, x + 15, PAGE_H - 283, size=9, color=MED_GRAY)
     for j, line in enumerate(desc.split("\n")):
         draw_text(c, line, x + 15, PAGE_H - 306 - 15 * j, size=9, color=LIGHT_GRAY)
-
-draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "dtn_store_and_forward.png"), 40, 40, w=820)
 
 draw_footer(c, 9, citations="[9] RFC 9171  \u00b7  [10] RFC 5326  \u00b7  [11] RFC 7242")
 c.showPage()
@@ -651,27 +485,29 @@ draw_text(c, "5-TIER NETWORK \u2014 DETAILED BREAKDOWN", 40, PAGE_H - 50, size=2
 draw_text(c, "Tier Composition and Link Characteristics", 40, PAGE_H - 75, size=14, color=ACCENT_BLUE)
 draw_accent_line(c, 40, PAGE_H - 85, 180, ACCENT_BLUE)
 
+draw_text(c, "TIER COMPOSITION", 40, PAGE_H - 108, size=10, color=ACCENT_BLUE, bold=True)
 tier_data = [
     ["Tier", "Location", "Nodes", "Key Assets", "Role"],
-    ["T1", "Earth Ground", "6", "DSN stations, MOC", "Gateway & control"],
-    ["T2", "Earth Orbital", "51", "GEO relays, LEO lasers", "Aggregation"],
-    ["T3", "Deep Space", "4", "ES-L4, ES-L5 relays", "Conjunction coverage"],
-    ["T4", "Mars Orbital", "4", "Areo + polar orbiters", "Mars relay"],
-    ["T5", "Mars Surface", "176", "Bases, rovers, sensors", "End users"],
+    ["T1", "Earth Ground", "6", "DSN, MOC", "Gateway & control"],
+    ["T2", "Earth Orbital", "51", "GEO + LEO lasers", "Aggregation"],
+    ["T3", "Deep Space", "4", "ES-L4, ES-L5", "Conjunction coverage"],
+    ["T4", "Mars Orbital", "4", "Areo + polar", "Mars relay"],
+    ["T5", "Mars Surface", "176", "Rovers, sensors", "End users"],
 ]
-draw_table(c, tier_data, 40, PAGE_H - 100, [40, 100, 50, 170, 140], ACCENT_BLUE)
+draw_table(c, tier_data, 40, PAGE_H - 116, [34, 84, 42, 108, 122], ACCENT_BLUE)
 
+draw_text(c, "LINK CHARACTERISTICS", 460, PAGE_H - 108, size=10, color=GREEN, bold=True)
 link_data = [
-    ["Segment", "Technology", "Data Rate", "Latency", "Availability"],
-    ["Earth \u2194 Earth Orbit", "Fiber + laser", "1\u2013100 Gbps", "~120 ms", "99.9%"],
-    ["Earth \u2194 Mars (optical)", "1550 nm laser", "2\u2013200 Mbps", "4\u201324 min", "85\u201395%"],
-    ["Earth \u2194 Mars (RF)", "Ka-band", "0.5\u20136 Mbps", "4\u201324 min", "90\u201398%"],
-    ["Mars Orbit \u2194 Surface", "UHF + optical", "2\u2013100 Mbps", "2\u201340 ms", "70\u201390%"],
-    ["Inter-Satellite (ISL)", "Optical crosslink", "1\u201310 Gbps", "1\u201310 ms", "98%"],
+    ["Segment", "Data Rate", "Latency", "Avail."],
+    ["Earth \u2194 Earth Orbit", "1\u2013100 Gbps", "~120 ms", "99.9%"],
+    ["Earth \u2194 Mars (optical)", "2\u2013200 Mbps", "4\u201324 min", "85\u201395%"],
+    ["Earth \u2194 Mars (RF)", "0.5\u20136 Mbps", "4\u201324 min", "90\u201398%"],
+    ["Mars Orbit \u2194 Surface", "2\u2013100 Mbps", "2\u201340 ms", "70\u201390%"],
+    ["Inter-Satellite (ISL)", "1\u201310 Gbps", "1\u201310 ms", "98%"],
 ]
-draw_table(c, link_data, 40, PAGE_H - 280, [130, 100, 100, 80, 80], GREEN)
+draw_table(c, link_data, 460, PAGE_H - 116, [148, 90, 82, 80], GREEN)
 
-draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "network_topology.png"), 40, 40, w=820)
+draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "network_topology.png"), 40, 90, w=PAGE_W - 80, h=PAGE_H - 340)
 
 draw_footer(c, 11, citations="[A2] topology.py  \u00b7  [3] JPL Horizons (Lagrange ES-L4/L5 geometry)")
 c.showPage()
@@ -686,7 +522,7 @@ draw_text(c, "5-TIER NETWORK DIAGRAM", 40, PAGE_H - 50, size=28, color=WHITE, bo
 draw_text(c, "241 Nodes from Earth to Mars Surface", 40, PAGE_H - 75, size=14, color=GREEN)
 draw_accent_line(c, 40, PAGE_H - 85, 200, GREEN)
 
-draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "5tier_network.png"), 40, 30, w=PAGE_W - 80, h=PAGE_H - 110)
+draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "5tier_network.png"), 40, 90, w=PAGE_W - 80, h=PAGE_H - 195)
 
 draw_footer(c, 12, citations="[A2] topology.py  \u00b7  [3] JPL Horizons (Lagrange ES-L4/L5 geometry)")
 c.showPage()
@@ -708,7 +544,7 @@ stat_cards = [
 ]
 for i, (val, title, desc, col) in enumerate(stat_cards):
     x = 40 + 280 * i
-    draw_card(c, x, PAGE_H - 195, 265, 90, col)
+    draw_card(c, x, PAGE_H - 195, 260, 90, col)
     draw_text(c, val, x + 15, PAGE_H - 125, size=20, color=col, bold=True)
     draw_text(c, title, x + 15, PAGE_H - 148, size=11, color=WHITE, bold=True)
     draw_text(c, desc, x + 15, PAGE_H - 165, size=9, color=MED_GRAY)
@@ -774,12 +610,12 @@ metric_cards = [
     ("7 hops", "Path Length [A2]", ACCENT_ORANGE),
 ]
 for i, (val, label, col) in enumerate(metric_cards):
-    x = 40 + 220 * i
-    draw_card(c, x, PAGE_H - 310, 210, 55, col)
-    draw_text(c, val, x + 105, PAGE_H - 272, size=16, color=col, bold=True, align="center")
-    draw_text(c, label, x + 105, PAGE_H - 290, size=10, color=LIGHT_GRAY, align="center")
+    x = 40 + 208 * i
+    draw_card(c, x, PAGE_H - 310, 196, 55, col)
+    draw_text(c, val, x + 98, PAGE_H - 272, size=16, color=col, bold=True, align="center")
+    draw_text(c, label, x + 98, PAGE_H - 290, size=10, color=LIGHT_GRAY, align="center")
 
-draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "earth_mars_journey.png"), 40, 50, w=820)
+draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "earth_mars_journey.png"), 40, 86, w=820, h=192)
 
 draw_footer(c, 14, citations="[A2] topology.py (7-hop path)  \u00b7  [3] JPL Horizons (light-time)  \u00b7  delivery/throughput are design targets")
 c.showPage()
@@ -835,7 +671,7 @@ result_cards = [
 ]
 for i, (val, title, desc, col) in enumerate(result_cards):
     x = 40 + 280 * i
-    draw_card(c, x, PAGE_H - 370, 265, 110, col)
+    draw_card(c, x, PAGE_H - 370, 260, 110, col)
     draw_text(c, val, x + 15, PAGE_H - 285, size=22, color=col, bold=True)
     draw_text(c, title, x + 15, PAGE_H - 308, size=12, color=WHITE, bold=True)
     draw_text(c, desc, x + 15, PAGE_H - 325, size=9, color=MED_GRAY)
@@ -990,12 +826,12 @@ rad_stats = [
 ]
 for i, (val, lab, col) in enumerate(rad_stats):
     x = 40 + i * 198
-    draw_card(c, x, 120, 188, 70, col)
-    draw_text(c, val, x + 14, 168, size=20, color=col, bold=True)
-    draw_text(c, lab, x + 14, 140, size=8, color=LIGHT_GRAY)
+    draw_card(c, x, 150, 188, 70, col)
+    draw_text(c, val, x + 14, 198, size=20, color=col, bold=True)
+    draw_text(c, lab, x + 14, 170, size=8, color=LIGHT_GRAY)
 
 draw_multiline(c, "Model: 512 Mbit, ~210-day GCR cruise. ~37,000 raw bit upsets reduced to ~186 uncorrectable\nover the mission. Heritage: NASA RAD750 (Curiosity/Perseverance), ESA LEON3FT.  ->  src/computing/radiation.py",
-               40, 95, size=9, color=MED_GRAY, leading=13)
+               40, 118, size=9, color=MED_GRAY, leading=13)
 draw_footer(c, 18, citations="[A6] AETHERIX radiation.py (demonstrated Module 6)  \u00b7  [18] BAE RAD750  \u00b7  [19] ESA LEON3FT")
 c.showPage()
 
@@ -1034,12 +870,12 @@ pri_stats = [
 ]
 for i, (val, lab, col) in enumerate(pri_stats):
     x = 40 + i * 198
-    draw_card(c, x, 120, 188, 70, col)
-    draw_text(c, val, x + 14, 168, size=18, color=col, bold=True)
-    draw_text(c, lab, x + 14, 140, size=8, color=LIGHT_GRAY)
+    draw_card(c, x, 150, 188, 70, col)
+    draw_text(c, val, x + 14, 198, size=18, color=col, bold=True)
+    draw_text(c, lab, x + 14, 170, size=8, color=LIGHT_GRAY)
 
 draw_multiline(c, "Scenario: 30 Mbps, 15-min contact, oversubscribed. Deadline-aware, preemptive QoS scheduler\ndelivers emergency + mission + science first; 6 GB software update fragmented to the next pass.  ->  src/routing/prioritization.py",
-               40, 95, size=9, color=MED_GRAY, leading=13)
+               40, 118, size=9, color=MED_GRAY, leading=13)
 draw_footer(c, 19, citations="[A7] AETHERIX prioritization.py  \u00b7  [7] CCSDS 121.0-B-3  \u00b7  [8] CCSDS 122.0-B-2  \u00b7  [9] RFC 9171")
 c.showPage()
 
@@ -1072,18 +908,16 @@ metric_cards = [
     ("7 hops", "Path Length", ACCENT_ORANGE),
 ]
 for i, (val, label, col) in enumerate(metric_cards):
-    x = 40 + 220 * i
-    draw_card(c, x, PAGE_H - 290, 210, 55, col)
-    draw_text(c, val, x + 105, PAGE_H - 252, size=16, color=col, bold=True, align="center")
-    draw_text(c, label, x + 105, PAGE_H - 270, size=10, color=LIGHT_GRAY, align="center")
+    x = 40 + 208 * i
+    draw_card(c, x, PAGE_H - 290, 196, 55, col)
+    draw_text(c, val, x + 98, PAGE_H - 252, size=16, color=col, bold=True, align="center")
+    draw_text(c, label, x + 98, PAGE_H - 270, size=10, color=LIGHT_GRAY, align="center")
 
 draw_card(c, 40, PAGE_H - 430, 820, 100, ACCENT_RED)
 draw_text(c, "FAILURE SCENARIO", 55, PAGE_H - 345, size=13, color=ACCENT_RED, bold=True)
 draw_text(c, "If optical link drops at Hop 4 (ES-L5):", 55, PAGE_H - 365, size=10, color=LIGHT_GRAY)
 draw_text(c, "\u2022  Bundle stored at MRS-Polar with custody \u2022  RL agent reroutes via ES-L4 alternate path", 55, PAGE_H - 382, size=10, color=LIGHT_GRAY)
 draw_text(c, "\u2022  Delay: ~30 minutes additional  \u2022  Data: NOT LOST \u2014 store-and-forward guarantees delivery", 55, PAGE_H - 399, size=10, color=LIGHT_GRAY)
-
-draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "earth_mars_journey.png"), 40, 40, w=820)
 
 draw_footer(c, 18, citations="[A2] topology.py  \u00b7  [A3] run_simulation  \u00b7  targets clearly labelled")
 c.showPage()
@@ -1124,8 +958,6 @@ for i, (step, desc, col) in enumerate(phy_steps):
     draw_text(c, step, 55, y - 2, size=11, color=col, bold=True)
     draw_text(c, desc, 180, y - 2, size=10, color=LIGHT_GRAY)
 
-draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "dtn_store_and_forward.png"), 40, 40, w=820)
-
 draw_footer(c, 19, citations="[A2] topology.py  \u00b7  [3] JPL Horizons (Lagrange ES-L4/L5 geometry)")
 c.showPage()
 
@@ -1139,7 +971,7 @@ draw_text(c, "DATA FLOW DIAGRAM", 40, PAGE_H - 50, size=28, color=WHITE, bold=Tr
 draw_text(c, "Complete Data Path from Mars Surface to Earth Control", 40, PAGE_H - 75, size=14, color=ACCENT_CYAN)
 draw_accent_line(c, 40, PAGE_H - 85, 200, ACCENT_CYAN)
 
-draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "data_flow.png"), 40, 30, w=PAGE_W - 80, h=PAGE_H - 110)
+draw_image_safe(c, os.path.join(DIAGRAMS_DIR, "data_flow.png"), 40, 90, w=PAGE_W - 80, h=PAGE_H - 195)
 
 draw_footer(c, 20, citations="[A2] topology.py  \u00b7  [3] JPL Horizons (Lagrange ES-L4/L5 geometry)")
 c.showPage()
@@ -1228,8 +1060,8 @@ path_data = [
 ]
 draw_table(c, path_data, 40, PAGE_H - 130, [170, 110, 90, 70, 80], ACCENT_RED)
 
-draw_card(c, 40, PAGE_H - 300, 410, 150, ACCENT_CYAN)
-draw_text(c, "HOW AETHERIX RECOVERS (automatically)", 55, PAGE_H - 165, size=11, color=ACCENT_CYAN, bold=True)
+draw_card(c, 40, PAGE_H - 390, 410, 150, ACCENT_CYAN)
+draw_text(c, "HOW AETHERIX RECOVERS (automatically)", 55, PAGE_H - 255, size=11, color=ACCENT_CYAN, bold=True)
 rec_lines = [
     "1. Detect \u2014 optical Q-value collapses (q<0.3 \u2192 no reward)",
     "2. Re-route \u2014 agent picks highest-Q: ES-L4",
@@ -1239,10 +1071,10 @@ rec_lines = [
     "   P4 BULK \u2192 store locally, defer past conjunction",
 ]
 for i, line in enumerate(rec_lines):
-    draw_text(c, line, 55, PAGE_H - 188 - 17 * i, size=9, color=LIGHT_GRAY)
+    draw_text(c, line, 55, PAGE_H - 278 - 17 * i, size=9, color=LIGHT_GRAY)
 
-draw_card(c, 480, PAGE_H - 300, 380, 150, ACCENT_PURPLE)
-draw_text(c, "WHY LAGRANGE RELAYS [3][A2]", 495, PAGE_H - 165, size=11, color=ACCENT_PURPLE, bold=True)
+draw_card(c, 480, PAGE_H - 390, 380, 150, ACCENT_PURPLE)
+draw_text(c, "WHY LAGRANGE RELAYS [3][A2]", 495, PAGE_H - 255, size=11, color=ACCENT_PURPLE, bold=True)
 lag_lines = [
     "ES-L4 / ES-L5 sit 60\u00b0 ahead/behind Earth in its orbit.",
     "They keep line-of-sight to Mars around the solar limb",
@@ -1252,9 +1084,9 @@ lag_lines = [
     "Geometry is Earth-side \u2014 no Mars relay solves this.",
 ]
 for i, line in enumerate(lag_lines):
-    draw_text(c, line, 495, PAGE_H - 188 - 16 * i, size=9, color=LIGHT_GRAY)
+    draw_text(c, line, 495, PAGE_H - 278 - 16 * i, size=9, color=LIGHT_GRAY)
 
-draw_text(c, "Outcome: throughput drops (optical\u2192RF) but no mission-critical data lost. Run live: python run_simulation.py --module 4", 40, PAGE_H - 360, size=10, color=GREEN, bold=True)
+draw_text(c, "Outcome: throughput drops (optical\u2192RF) but no mission-critical data lost. Run live: python run_simulation.py --module 4", 40, PAGE_H - 425, size=10, color=GREEN, bold=True)
 
 draw_footer(c, citations="[A8] run_simulation Module 4 (\u22121.438 / \u22120.201)  \u00b7  [A1] rl_agent.py (0.3 threshold)  \u00b7  [3] JPL Horizons (Lagrange)  \u00b7  [A2] topology.py")
 c.showPage()
@@ -1276,10 +1108,10 @@ impl_cards = [
     ("12", "Interactive Demos", ACCENT_PURPLE),
 ]
 for i, (val, label, col) in enumerate(impl_cards):
-    x = 40 + 220 * i
-    draw_card(c, x, PAGE_H - 180, 210, 75, col)
-    draw_text(c, val, x + 105, PAGE_H - 128, size=24, color=col, bold=True, align="center")
-    draw_text(c, label, x + 105, PAGE_H - 150, size=11, color=LIGHT_GRAY, align="center")
+    x = 40 + 208 * i
+    draw_card(c, x, PAGE_H - 180, 196, 75, col)
+    draw_text(c, val, x + 98, PAGE_H - 128, size=24, color=col, bold=True, align="center")
+    draw_text(c, label, x + 98, PAGE_H - 150, size=11, color=LIGHT_GRAY, align="center")
 
 draw_text(c, "CORE MODULES", 40, PAGE_H - 205, size=13, color=ACCENT_CYAN, bold=True)
 modules = [
@@ -1334,7 +1166,7 @@ for i, (phase, title, desc, col, status) in enumerate(phases):
     draw_card(c, 40, y - 45, 420, 55, col)
     draw_text(c, f"{phase}: {title}", 55, y - 5, size=13, color=col, bold=True)
     draw_text(c, desc, 55, y - 22, size=10, color=LIGHT_GRAY)
-    draw_text(c, status, 420, y - 10, size=10, color=GREEN, bold=True)
+    draw_text(c, status, 448, y - 10, size=10, color=GREEN, bold=True, align="right")
 
 future_data = [
     ["Phase", "Focus", "Technology", "Status"],
@@ -1400,10 +1232,10 @@ stat_cards = [
     ("Quantum", "Security [13][15]", ACCENT_PURPLE),
 ]
 for i, (val, label, col) in enumerate(stat_cards):
-    x = 40 + 210 * i
-    draw_card(c, x, PAGE_H - 400, 200, 80, col)
-    draw_text(c, val, x + 100, PAGE_H - 340, size=20, color=col, bold=True, align="center")
-    draw_text(c, label, x + 100, PAGE_H - 362, size=12, color=WHITE, bold=True, align="center")
+    x = 40 + 208 * i
+    draw_card(c, x, PAGE_H - 400, 196, 80, col)
+    draw_text(c, val, x + 98, PAGE_H - 340, size=20, color=col, bold=True, align="center")
+    draw_text(c, label, x + 98, PAGE_H - 362, size=12, color=WHITE, bold=True, align="center")
 
 draw_text(c, "NOVEL CONTRIBUTIONS", 40, PAGE_H - 430, size=13, color=ACCENT_CYAN, bold=True)
 contrib = "RL autonomous routing (auditable Q-table) [A1] | 5-tier DTN (241 nodes) [A2] | Optical/RF hybrid (10-100x capability) [A4] | Quantum links (future-proof) [A5] | Full simulation (480 tests)"
@@ -1501,10 +1333,12 @@ c.showPage()
 # ================================================================
 print("Creating Page 25: Thank You...")
 draw_bg(c)
+draw_starfield(c, seed=104)
+draw_orbit_arc(c)
 draw_top_bar(c)
 draw_bottom_bar(c)
 
-draw_text(c, "THANK YOU", PAGE_W / 2, PAGE_H - 120, size=44, color=WHITE, bold=True, align="center")
+draw_text(c, "THANK YOU", PAGE_W / 2, PAGE_H - 120, size=46, color=WHITE, bold=True, align="center")
 draw_accent_line(c, PAGE_W / 2 - 80, PAGE_H - 140, 160, ACCENT_CYAN, 4)
 draw_text(c, "Questions?", PAGE_W / 2, PAGE_H - 175, size=28, color=ACCENT_CYAN, align="center")
 
@@ -1515,10 +1349,10 @@ stat_cards = [
     ("480", "Tests", ACCENT_PURPLE),
 ]
 for i, (val, label, col) in enumerate(stat_cards):
-    x = PAGE_W / 2 - 440 + 220 * i
-    draw_card(c, x, PAGE_H - 290, 210, 60, col)
-    draw_text(c, val, x + 105, PAGE_H - 248, size=18, color=col, bold=True, align="center")
-    draw_text(c, label, x + 105, PAGE_H - 268, size=10, color=LIGHT_GRAY, align="center")
+    x = PAGE_W / 2 - 410 + 208 * i
+    draw_card(c, x, PAGE_H - 290, 196, 60, col)
+    draw_text(c, val, x + 98, PAGE_H - 248, size=18, color=col, bold=True, align="center")
+    draw_text(c, label, x + 98, PAGE_H - 268, size=10, color=LIGHT_GRAY, align="center")
 
 draw_text(c, "Muhammad Abdullah Tariq", PAGE_W / 2, PAGE_H - 340, size=18, color=WHITE, bold=True, align="center")
 draw_text(c, "muhammad.atx@gmail.com", PAGE_W / 2, PAGE_H - 365, size=12, color=ACCENT_BLUE, align="center")
