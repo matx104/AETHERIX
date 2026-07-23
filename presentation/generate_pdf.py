@@ -55,11 +55,11 @@ _SPEAKER_NOTES = {
     35: "Walk through the 7-hop journey. 500MB from Perseverance to JPL. Total transit ~13 min vs 12.5 min light-time - near speed of light! DTN overhead under 5%. Key point: if link drops at hop 5, the bundle stays stored at hop 4 and retries. No data loss. RUN LIVE DEMO if time permits. (2 minutes)",
     36: "End-to-end bundle journey through all protocol layers.",
     37: "Visual data flow through the protocol stack.",
-    38: "Hit these numbers with confidence. 10-100x faster. >95% availability vs 60-75%. Quantum-secure. 241 nodes vs 5-10 assets. The conjunction improvement is thanks to Lagrange relays. All metrics are backed by our simulation engine. (1 minute)",
-    41: "This is real, working code. 27 Python modules, 480 tests, 12 interactive demos. All the physics is real - no mocked data. The showcase site has live calculators you can use right now. Standards compliance is complete - CCSDS, IETF, and NIST. (1.5 minutes)",
+    38: "Be honest. Left column is simulated: 241-node topology, RL routing converges in 140 episodes, autonomous conjunction reroute, BB84 detection, 200x radiation reduction. Right column is design targets: 2-200 Mbps data rate from our link model, >95% availability and cost are goals not yet measured. Link budget shows negative margins at current parameters. (1 minute)",
+    41: "This is real, working code. 25 Python modules, 480 tests, 12 interactive demos. All the physics is real - no mocked data. The showcase site has live calculators you can use right now. Standards compliance is complete - CCSDS, IETF, and NIST. (1.5 minutes)",
     42: "Phases 1-4 are done - this is what you see today. Phase 5: ns-3 simulation for realistic network modeling. Phase 6: Upgrade to DQN and integrate with NASA's ION-DTN implementation. Phase 7: Hardware prototypes with SDRs and optical links. (1.5 minutes)",
     45: "Summarize the problem and solution clearly. Re-read the exam topic verbatim. Point to the numbers. Offer to show live demos or answer questions. Thank the examiners. (1 minute)",
-    46: "Summarize the four key numbers: 10-100x faster, >95% availability, AI-powered routing, quantum-secure. Invite questions confidently. Make eye contact. Point to the live demo link. Thank the audience. (30 seconds)",
+    46: "Summarize: simulated achievements are 241-node topology, RL routing, QKD security, 200x radiation reduction. Design targets are 10-100x data rate and >95% availability. Invite questions confidently. Make eye contact. Point to the live demo link. Thank the audience. (30 seconds)",
 }
 
 
@@ -174,7 +174,7 @@ draw_card(c, 40, PAGE_H - 380, 820, 80, ACCENT_CYAN)
 draw_text(c, "AETHERIX delivers a complete interplanetary networking solution", 55, PAGE_H - 325, size=12, color=ACCENT_CYAN, bold=True)
 draw_text(c, "combining DTN protocols, AI-driven routing, quantum-secure keys, and hybrid optical/RF links for Mars mission support.", 55, PAGE_H - 345, size=10, color=LIGHT_GRAY)
 
-stats = [("10-100\u00d7", "Faster", ACCENT_BLUE), (">95%", "Availability (target)", GREEN), ("241", "Nodes [A2]", ACCENT_ORANGE), ("480", "Tests", ACCENT_PURPLE)]
+stats = [("10-100\u00d7", "Target \u2666", ACCENT_BLUE), (">95%", "Availability (target)", GREEN), ("241", "Nodes [A2]", ACCENT_ORANGE), ("480", "Tests", ACCENT_PURPLE)]
 for i, (val, label, color) in enumerate(stats):
     x = 40 + 210 * i
     draw_card(c, x, 96, 190, 55, color)
@@ -534,7 +534,7 @@ c.showPage()
 print("Creating Page 13: Optical Communications...")
 draw_bg(c)
 draw_text(c, "OPTICAL COMMUNICATIONS", 40, PAGE_H - 50, size=28, color=WHITE, bold=True)
-draw_text(c, "1550 nm Laser \u2014 10\u2013100\u00d7 Faster Than RF", 40, PAGE_H - 75, size=14, color=ACCENT_ORANGE)
+draw_text(c, "1550 nm Laser \u2014 10\u2013100\u00d7 Capability Over RF", 40, PAGE_H - 75, size=14, color=ACCENT_ORANGE)
 draw_accent_line(c, 40, PAGE_H - 85, 180, ACCENT_ORANGE)
 
 stat_cards = [
@@ -572,7 +572,7 @@ draw_footer(c, 13, citations="[5] CCSDS 141.0-B-1 (optical link)  \u00b7  [A4] A
 c.showPage()
 
 print("Creating Chart Page: Data Rate vs Distance...")
-draw_chart_page(c, "data_rate_vs_distance.png", "DATA RATE VS DISTANCE", "1550 nm Optical Link Performance", "200 Mbps at closest approach to 2 Mbps at maximum distance \u00b7 10\u2013100\u00d7 improvement over RF", ACCENT_ORANGE,
+draw_chart_page(c, "data_rate_vs_distance.png", "DATA RATE VS DISTANCE", "1550 nm Optical Link Performance", "200 Mbps at closest approach to 2 Mbps at maximum distance \u00b7 10\u2013100\u00d7 capability over RF [A4]", ACCENT_ORANGE,
     "Data rate degrades from 200 Mbps at closest approach to 2 Mbps at maximum distance — but even minimum is competitive with current RF systems.",
     citations="[5] CCSDS 141.0-B-1 (optical link)  \u00b7  [A4] AETHERIX link_budget.py  \u00b7  [1] NASA MRO (6 Mbps RF baseline)")
 
@@ -621,8 +621,8 @@ draw_footer(c, 14, citations="[A2] topology.py (7-hop path)  \u00b7  [3] JPL Hor
 c.showPage()
 
 print("Creating Chart Page: Latency Comparison...")
-draw_chart_page(c, "latency_comparison.png", "LATENCY: TCP vs DTN vs AETHERIX", "Protocol Overhead Comparison", "DTN adds <5% overhead beyond physical light-time \u00b7 TCP fails catastrophically at interplanetary distances", ACCENT_BLUE,
-    "Latency comparison showing TCP failing catastrophically, while DTN adds under 5% overhead beyond the physical light-time limit.",
+draw_chart_page(c, "latency_comparison.png", "LATENCY: TCP vs DTN vs AETHERIX", "Protocol Overhead Comparison", "DTN adds <5% overhead (target) beyond physical light-time \u00b7 TCP fails catastrophically at interplanetary distances", ACCENT_BLUE,
+    "Latency comparison showing TCP failing catastrophically, while DTN targets under 5% overhead beyond the physical light-time limit.",
     citations="[A2] topology.py (7-hop path)  \u00b7  [3] JPL Horizons (light-time)  \u00b7  delivery/throughput are design targets")
 
 print("Creating Chart Page: Data Volume...")
@@ -665,9 +665,9 @@ for i, line in enumerate(rl_lines):
     draw_text(c, line, 445, PAGE_H - 138 - 16 * i, size=9, color=LIGHT_GRAY)
 
 result_cards = [
-    ("97%", "Delivery Ratio", "+5% vs CGR", GREEN),
-    ("-20%", "Delivery Time", "1.2\u00d7 light-time", ACCENT_CYAN),
-    ("seconds", "Recovery vs hours", "Auto vs manual [A1]", ACCENT_ORANGE),
+    ("~140 ep", "Training Convergence", "\u03b5\u21920.018 \u2713", GREEN),
+    ("seconds", "Recovery vs hours", "Auto vs manual [A1]", ACCENT_CYAN),
+    ("Federated", "Multi-agent Q-tables", "Aggregated \u2713", ACCENT_ORANGE),
 ]
 for i, (val, title, desc, col) in enumerate(result_cards):
     x = 40 + 280 * i
@@ -863,8 +863,8 @@ comp = [
 draw_table(c, comp, 480, PAGE_H - 95, [110, 100, 60], ACCENT_PURPLE)
 
 pri_stats = [
-    ("100%", "Link utilization (no wasted bandwidth)", ACCENT_CYAN),
-    ("5 / 6", "Items fully delivered by priority", GREEN),
+    ("100%", "Link utilization (target)", ACCENT_CYAN),
+    ("5 / 6", "Items delivered (scenario)", GREEN),
     ("BPv7", "Fragmentation defers bulk remainder", ACCENT_BLUE),
     ("Preempt", "Emergency uses direct-to-Earth backup", ACCENT_RED),
 ]
@@ -1003,8 +1003,8 @@ draw_footer(c, 21, citations="[1] NASA MRO (0.5\u20136 Mbps)  \u00b7  [A4] link_
 c.showPage()
 
 print("Creating Chart Page: Performance Comparison...")
-draw_chart_page(c, "performance_comparison.png", "AETHERIX vs CURRENT SYSTEMS", "Head-to-Head Performance Metrics", "10\u2013100\u00d7 improvement across all metrics", GREEN,
-    "Head-to-head comparison showing AETHERIX outperforming current systems across every metric.",
+draw_chart_page(c, "performance_comparison.png", "AETHERIX vs CURRENT SYSTEMS", "Head-to-Head Performance Metrics", "Model-based targets vs current MRO baseline", GREEN,
+    "Verified: 241-node topology, RL routing, QKD security, 200\u00d7 radiation protection. Targets: 10\u2013100\u00d7 data rate, >95% availability.",
     citations="[1] NASA MRO (0.5\u20136 Mbps)  \u00b7  [A4] link_budget.py (2\u2013200 Mbps capability)  \u00b7  [A2] topology.py  \u00b7  [A8] Module 4 conjunction")
 
 print("Creating Chart Page: Optical vs RF Radar...")
@@ -1098,11 +1098,11 @@ c.showPage()
 print("Creating Page 22: Implementation...")
 draw_bg(c)
 draw_text(c, "IMPLEMENTATION", 40, PAGE_H - 50, size=28, color=WHITE, bold=True)
-draw_text(c, "27 Modules, 480 Tests, Full Python Stack", 40, PAGE_H - 75, size=14, color=ACCENT_BLUE)
+draw_text(c, "25 Modules, 480 Tests, Full Python Stack", 40, PAGE_H - 75, size=14, color=ACCENT_BLUE)
 draw_accent_line(c, 40, PAGE_H - 85, 180, ACCENT_BLUE)
 
 impl_cards = [
-    ("27", "Source Modules", ACCENT_BLUE),
+    ("25", "Source Modules", ACCENT_BLUE),
     ("480", "Unit Tests", GREEN),
     ("241", "Network Nodes", ACCENT_ORANGE),
     ("12", "Interactive Demos", ACCENT_PURPLE),
@@ -1226,7 +1226,7 @@ for i, line in enumerate(solution_lines):
     draw_text(c, line, 475, PAGE_H - 140 - 17 * i, size=10, color=LIGHT_GRAY)
 
 stat_cards = [
-    ("10\u2013100\u00d7", "Faster Rates [A4]", ACCENT_BLUE),
+    ("10\u2013100\u00d7", "Target Speedup \u2666", ACCENT_BLUE),
     (">95%", "Availability (target)", GREEN),
     ("AI-Driven", "Routing [A1]", ACCENT_CYAN),
     ("Quantum", "Security [13][15]", ACCENT_PURPLE),

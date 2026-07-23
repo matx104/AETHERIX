@@ -140,7 +140,7 @@ draw_card(c, 40, PAGE_H - 380, 820, 80, ACCENT_CYAN)
 draw_text(c, "AETHERIX delivers a complete interplanetary networking solution", 55, PAGE_H - 325, size=12, color=ACCENT_CYAN, bold=True)
 draw_text(c, "combining DTN protocols, AI-driven routing, quantum-secure keys, and hybrid optical/RF links for Mars mission support.", 55, PAGE_H - 345, size=10, color=LIGHT_GRAY)
 
-stats = [("10-100\u00d7", "Faster", ACCENT_BLUE), (">95%", "Availability (target)", GREEN), ("241", "Nodes [A2]", ACCENT_ORANGE), ("480", "Tests", ACCENT_PURPLE)]
+stats = [("10-100\u00d7", "Target \u2666", ACCENT_BLUE), (">95%", "Availability (target)", GREEN), ("241", "Nodes [A2]", ACCENT_ORANGE), ("480", "Tests", ACCENT_PURPLE)]
 for i, (val, label, color) in enumerate(stats):
     x = 40 + 210 * i
     draw_card(c, x, 60, 195, 55, color)
@@ -393,7 +393,7 @@ c.showPage()
 print("Creating Page 11: Optical Communications...")
 draw_bg(c)
 draw_text(c, "OPTICAL COMMUNICATIONS", 40, PAGE_H - 50, size=28, color=WHITE, bold=True)
-draw_text(c, "1550 nm Laser \u2014 10\u2013100\u00d7 Faster Than RF", 40, PAGE_H - 75, size=14, color=ACCENT_ORANGE)
+draw_text(c, "1550 nm Laser \u2014 10\u2013100\u00d7 Capability Over RF", 40, PAGE_H - 75, size=14, color=ACCENT_ORANGE)
 draw_accent_line(c, 40, PAGE_H - 85, 180, ACCENT_ORANGE)
 
 stat_cards = [
@@ -700,7 +700,7 @@ for i, line in enumerate(lever_lines):
 draw_text(c, "DEMONSTRATED SCENARIO (src/routing/prioritization.py [A7])", 40, PAGE_H - 280, size=12, color=GREEN, bold=True)
 prio_cards = [
     ("5/6", "Items delivered (strict priority)", GREEN),
-    ("100%", "Link utilisation", ACCENT_CYAN),
+    ("100%", "Link utilisation (target)", ACCENT_CYAN),
     ("41%", "SW update fragmented (remainder deferred)", ACCENT_ORANGE),
     ("P0", "Emergency preempts to direct-to-Earth backup", ACCENT_RED),
 ]
@@ -849,11 +849,11 @@ c.showPage()
 print("Creating Page 22: Implementation...")
 draw_bg(c)
 draw_text(c, "IMPLEMENTATION", 40, PAGE_H - 50, size=28, color=WHITE, bold=True)
-draw_text(c, "27 Modules, 480 Tests, Full Python Stack", 40, PAGE_H - 75, size=14, color=ACCENT_BLUE)
+draw_text(c, "25 Modules, 480 Tests, Full Python Stack", 40, PAGE_H - 75, size=14, color=ACCENT_BLUE)
 draw_accent_line(c, 40, PAGE_H - 85, 180, ACCENT_BLUE)
 
 impl_cards = [
-    ("27", "Source Modules", ACCENT_BLUE),
+    ("25", "Source Modules", ACCENT_BLUE),
     ("480", "Unit Tests", GREEN),
     ("241", "Network Nodes", ACCENT_ORANGE),
     ("12", "Interactive Demos", ACCENT_PURPLE),
@@ -967,8 +967,8 @@ for i, line in enumerate(solution_lines):
     draw_text(c, line, 475, PAGE_H - 140 - 17 * i, size=10, color=LIGHT_GRAY)
 
 stat_cards = [
-    ("10\u2013100\u00d7", "Faster Rates", ACCENT_BLUE),
-    (">95%", "Availability", GREEN),
+    ("10\u2013100\u00d7", "Target Speedup \u2666", ACCENT_BLUE),
+    (">95%", "Availability (target)", GREEN),
     ("AI-Driven", "Routing", ACCENT_CYAN),
     ("Quantum", "Security", ACCENT_PURPLE),
 ]

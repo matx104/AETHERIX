@@ -305,7 +305,7 @@ _SPEAKER_NOTES = {
     35: "Walk through the 7-hop journey. 500MB from Perseverance to JPL. Total transit ~13 min vs 12.5 min light-time - near speed of light! DTN overhead under 5%. Key point: if link drops at hop 5, the bundle stays stored at hop 4 and retries. No data loss. RUN LIVE DEMO if time permits. (2 minutes)",
     36: "End-to-end bundle journey through all protocol layers.",
     37: "Visual data flow through the protocol stack.",
-    38: "Hit these numbers with confidence. 10-100x faster. >95% availability vs 60-75%. Quantum-secure. 241 nodes vs 5-10 assets. The conjunction improvement is thanks to Lagrange relays. All metrics are backed by our simulation engine. (1 minute)",
+    38: "Be honest. Left column is simulated: 241-node topology, RL routing converges in 140 episodes, autonomous conjunction reroute, BB84 detection, 200x radiation reduction. Right column is design targets: 2-200 Mbps from link model, >95% availability and cost are goals not yet measured. (1 minute)",
     39: "Side-by-side performance comparison chart. (15 seconds)",
     40: "Optical versus RF link capability radar chart. (15 seconds)",
     41: "This is real, working code. 27 Python modules, 480 tests, 12 interactive demos. All the physics is real - no mocked data. The showcase site has live calculators you can use right now. Standards compliance is complete - CCSDS, IETF, and NIST. (1.5 minutes)",
@@ -313,7 +313,7 @@ _SPEAKER_NOTES = {
     43: "Mission timeline deployment phases. (15 seconds)",
     44: "Phases 1-4 are done - this is what you see today. Phase 5: ns-3 simulation for realistic network modeling. Phase 6: Upgrade to DQN and integrate with NASA's ION-DTN implementation. Phase 7: Hardware prototypes with SDRs and optical links. (1.5 minutes)",
     45: "Summarize the problem and solution clearly. Re-read the exam topic verbatim. Point to the numbers. Offer to show live demos or answer questions. Thank the examiners. (1 minute)",
-    46: "Summarize the four key numbers: 10-100x faster, >95% availability, AI-powered routing, quantum-secure. Invite questions confidently. Make eye contact. Point to the live demo link. Thank the audience. (30 seconds)",
+    46: "Summarize: simulated achievements are 241-node topology, RL routing, QKD security, 200x radiation reduction. Design targets are 10-100x data rate and >95% availability. Invite questions confidently. Thank the audience. (30 seconds)",
 }
 
 # ============================================================
@@ -897,7 +897,7 @@ p.alignment = PP_ALIGN.LEFT
 
 txBox2 = add_textbox(slide, Inches(0.6), Inches(0.9), Inches(9), Inches(0.4))
 p2 = txBox2.text_frame.paragraphs[0]
-p2.text = "10\u2013100x Faster Than RF"
+p2.text = "10\u2013100x Capability Over RF"
 p2.font.size = Pt(16)
 p2.font.color.rgb = ACCENT_CYAN
 p2.alignment = PP_ALIGN.LEFT
@@ -1315,7 +1315,7 @@ add_table(slide, Inches(7.6), Inches(1.6), Inches(5.4), Inches(2.0),
           len(comp_data), len(comp_data[0]), comp_data, header_color=ACCENT_PURPLE)
 
 add_stat_card(slide, Inches(0.3), Inches(4.4), Inches(3.0), Inches(1.2),
-              "100%", "Link utilization (no wasted bandwidth)", value_color=ACCENT_CYAN)
+              "100%", "Link utilization (target)", value_color=ACCENT_CYAN)
 add_stat_card(slide, Inches(3.5), Inches(4.4), Inches(3.0), Inches(1.2),
               "5 / 6", "Items fully delivered by priority", value_color=GREEN)
 add_stat_card(slide, Inches(6.7), Inches(4.4), Inches(3.0), Inches(1.2),
@@ -1604,13 +1604,13 @@ p2.font.size, p2.font.color.rgb, p2.alignment = Pt(14), ACCENT_CYAN, PP_ALIGN.LE
 
 perf_data = [
     ["Metric", "Current (MRO)", "AETHERIX", "Improvement"],
-    ["Downlink Rate", "0.5-6 Mbps", "2-200 Mbps", "10-100\u00d7"],
-    ["Daily Volume", "5-10 GB", "50-100 GB", "10-20\u00d7"],
+    ["Downlink Rate", "0.5-6 Mbps", "2-200 Mbps", "10-100\u00d7 capability"],
+    ["Daily Volume", "5-10 GB", "50-100 GB", "10-20\u00d7 (target)"],
     ["Availability", "60-75%", ">95% (tgt)", "+20-35%"],
     ["Routing", "Static (CGR)", "RL-adaptive", "Autonomous"],
     ["Security", "AES-256", "QKD + PQC", "Quantum-proof"],
     ["Scalability", "5-10 assets", "241 nodes", "24-48\u00d7"],
-    ["Conjunction", "Blackout", "50-70% via L4/L5", "+50-70%"],
+    ["Conjunction", "Blackout", "L4/L5 relay (target)", "+50-70% (target)"],
 ]
 add_table(
     slide, Inches(0.4), Inches(1.25), Inches(9.2), Inches(3.4), len(perf_data), len(perf_data[0]) if perf_data else 0, perf_data,
@@ -1624,7 +1624,7 @@ print("Creating Slide 39: Chart \u2014 Performance Comparison...")
 add_chart_slide(
     os.path.join(CHARTS_DIR, "performance_comparison.png"),
     "PERFORMANCE COMPARISON", "AETHERIX vs Current Systems",
-    "AETHERIX achieves 10-100x improvement across all key metrics", GREEN, citations="[1] NASA MRO  ·  [A4] link_budget.py  ·  [A2] topology.py  ·  design targets"
+    "Model-based targets vs current MRO baseline", GREEN, citations="[1] NASA MRO  ·  [A4] link_budget.py  ·  [A2] topology.py  ·  design targets"
 )
 
 # --- SLIDE 40 — Chart: Optical vs RF Radar ---
@@ -1652,7 +1652,7 @@ p2.text = "What We Built"
 p2.font.size, p2.font.color.rgb, p2.alignment = Pt(14), ACCENT_CYAN, PP_ALIGN.LEFT
 
 impl_stats = [
-    ("27", "Modules", GREEN),
+    ("25", "Modules", GREEN),
     ("189", "Tests", ACCENT_BLUE),
     ("12", "Demos", ACCENT_PURPLE),
     ("5", "Policies", ACCENT_ORANGE),
@@ -1810,10 +1810,10 @@ p_built_b.text = "BPv7 \u2022 RL Routing \u2022 QKD \u2022 Optical/RF Hybrid"
 p_built_b.font.size, p_built_b.font.color.rgb = Pt(12), WHITE
 
 conc_stats = [
-    ("10-100\u00d7", "Data Rate", GREEN),
-    (">95%", "Availability (tgt)", ACCENT_BLUE),
-    ("RL", "Adaptive Routing", ACCENT_PURPLE),
-    ("QKD", "Quantum Security", ACCENT_ORANGE),
+    ("10-100\u00d7", "Target Speedup \u2666", ACCENT_BLUE),
+    (">95%", "Availability (target)", GREEN),
+    ("RL", "Adaptive Routing \u2713", ACCENT_PURPLE),
+    ("QKD", "Quantum Security \u2713", ACCENT_ORANGE),
 ]
 stat_w_c = Inches(2.1)
 stat_h_c = Inches(1.1)
@@ -1858,10 +1858,10 @@ p_q.font.size, p_q.font.bold, p_q.font.color.rgb, p_q.alignment = (
 )
 
 ty_stats = [
-    ("10-100\u00d7", "Data Rate", GREEN),
-    (">95%", "Availability (tgt)", ACCENT_BLUE),
-    ("RL", "Adaptive Routing", ACCENT_PURPLE),
-    ("QKD", "Quantum Security", ACCENT_ORANGE),
+    ("10-100\u00d7", "Target Speedup \u2666", ACCENT_BLUE),
+    (">95%", "Availability (target)", GREEN),
+    ("RL", "Adaptive Routing \u2713", ACCENT_PURPLE),
+    ("QKD", "Quantum Security \u2713", ACCENT_ORANGE),
 ]
 stat_w_ty = Inches(2.1)
 stat_h_ty = Inches(0.95)

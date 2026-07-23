@@ -282,12 +282,12 @@ _SPEAKER_NOTES = {
     17: "QKD security analysis with QBER threshold. (15 seconds)",
     18: "Mars and Earth dance around the Sun with a 26-month synodic period. Everything changes - distance, delay, bandwidth. (1.5 minutes)",
     19: "Visual data flow through the protocol stack.",
-    20: "Hit these numbers with confidence. 10-100x faster. >95% availability vs 60-75%. Quantum-secure. (1 minute)",
+    20: "Be honest. Simulated: 241-node topology, RL routing, QKD security, 200x radiation reduction. Targets: 10-100x data rate, >95% availability. (1 minute)",
     21: "Side-by-side performance comparison chart. (15 seconds)",
-    22: "This is real, working code. 27 Python modules, 480 tests, 12 interactive demos. All the physics is real. (1.5 minutes)",
+    22: "This is real, working code. 25 Python modules, 480 tests, 12 interactive demos. All the physics is real. (1.5 minutes)",
     23: "Phases 1-4 are done. Phase 5: ns-3 simulation. Phase 6: Upgrade to DQN and integrate with ION-DTN. (1.5 minutes)",
     24: "Summarize the problem and solution clearly. Point to the numbers. Offer to show live demos. (1 minute)",
-    25: "Summarize the four key numbers: 10-100x faster, >95% availability, AI-powered routing, quantum-secure. Invite questions. (30 seconds)",
+    25: "Summarize: simulated achievements are 241-node topology, RL routing, QKD security, 200x radiation reduction. Design targets are 10-100x data rate and >95% availability. Invite questions. (30 seconds)",
 }
 
 
@@ -720,7 +720,7 @@ p.alignment = PP_ALIGN.LEFT
 
 txBox2 = add_textbox(slide, Inches(0.6), Inches(0.9), Inches(9), Inches(0.4))
 p2 = txBox2.text_frame.paragraphs[0]
-p2.text = "10\u2013100x Faster Than RF"
+p2.text = "10\u2013100x Capability Over RF"
 p2.font.size = Pt(16)
 p2.font.color.rgb = ACCENT_CYAN
 p2.alignment = PP_ALIGN.LEFT
@@ -1074,7 +1074,7 @@ perf_data = [
     ["Routing", "Static (CGR)", "RL-adaptive", "Adaptive [A1]"],
     ["Security", "AES-256", "QKD + PQC", "Future-proof [16][17]"],
     ["Scalability", "5-10 assets", "241 nodes", "10-100\u00d7 [A2]"],
-    ["Conjunction", "Blackout", "50-70% via L4/L5", "+50-70% [A8]"],
+    ["Conjunction", "Blackout", "L4/L5 relay (target)", "+50-70% (target) [A8]"],
 ]
 add_table(
     slide, Inches(0.4), Inches(1.25), Inches(9.2), Inches(3.4), len(perf_data), len(perf_data[0]) if perf_data else 0, perf_data,
@@ -1115,7 +1115,7 @@ p2.text = "What We Built"
 p2.font.size, p2.font.color.rgb, p2.alignment = Pt(14), ACCENT_CYAN, PP_ALIGN.LEFT
 
 impl_stats = [
-    ("27", "Modules", GREEN),
+    ("25", "Modules", GREEN),
     ("480", "Tests", ACCENT_BLUE),
     ("12", "Demos", ACCENT_PURPLE),
     ("5", "Policies", ACCENT_ORANGE),
@@ -1263,7 +1263,7 @@ p_built_b.text = "BPv7 \u2022 RL Routing \u2022 QKD \u2022 Optical/RF Hybrid"
 p_built_b.font.size, p_built_b.font.color.rgb = Pt(12), WHITE
 
 conc_stats = [
-    ("10-100\u00d7", "Data Rate [A4]", GREEN),
+    ("10-100\u00d7", "Target Speedup \u2666", ACCENT_BLUE),
     (">95%", "Availability (target)", ACCENT_BLUE),
     ("RL", "Adaptive Routing [A1]", ACCENT_PURPLE),
     ("QKD", "Quantum Security [13][15]", ACCENT_ORANGE),
@@ -1353,7 +1353,7 @@ lever_bullets = [
 add_card(slide, Inches(8.0), Inches(1.6), Inches(5.0), Inches(2.4), "Three Levers", lever_bullets, title_color=ACCENT_ORANGE, border=ACCENT_ORANGE, body_size=10)
 
 add_textbox(slide, Inches(0.7), Inches(4.2), Inches(12.0), Inches(0.4), "DEMONSTRATED SCENARIO \u2014 src/routing/prioritization.py [A7]", font_size=14, color=GREEN, bold=True)
-prio_stats = [("5/6", "Items delivered", GREEN), ("100%", "Link utilisation", ACCENT_CYAN), ("41%", "SW update fragmented", ACCENT_ORANGE), ("P0", "Emergency preempts", ACCENT_RED)]
+prio_stats = [("5/6", "Items delivered", GREEN), ("100%", "Link utilisation (target)", ACCENT_CYAN), ("41%", "SW update fragmented", ACCENT_ORANGE), ("P0", "Emergency preempts", ACCENT_RED)]
 for idx, (val, label, col) in enumerate(prio_stats):
     sx = Inches(0.3) + Inches(3.25) * idx
     add_stat_card(slide, sx, Inches(4.65), Inches(3.0), Inches(1.1), val, label, col, val_size=26)
@@ -1538,7 +1538,7 @@ p_q.font.size, p_q.font.bold, p_q.font.color.rgb, p_q.alignment = (
 )
 
 ty_stats = [
-    ("10-100\u00d7", "Data Rate [A4]", GREEN),
+    ("10-100\u00d7", "Target Speedup \u2666", ACCENT_BLUE),
     (">95%", "Availability (target)", ACCENT_BLUE),
     ("RL", "Adaptive Routing [A1]", ACCENT_PURPLE),
     ("QKD", "Quantum Security [13][15]", ACCENT_ORANGE),
